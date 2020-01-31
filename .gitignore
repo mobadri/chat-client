@@ -22,3 +22,15 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 .idea
+/controller-client/target/
+/controller-client/controller-client.iml
+/network-client/target/
+/network-client/network-client.iml
+/repository-client/target/
+/repository-client/repository-client.iml
+/service-client/target/
+/service-client/service-client.iml
+/view-client/target/
+/view-client/view-client.iml
+chat-client.iml
+*.iml
