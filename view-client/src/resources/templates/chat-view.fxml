@@ -15,7 +15,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="464.0" prefWidth="605.0"
             xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:id="com.chat.client.view.client.ChatViewController">
+            fx:controller="com.chat.client.view.client.ChatViewController">
     <opaqueInsets>
         <Insets />
     </opaqueInsets>
@@ -24,7 +24,7 @@
             <children>
                 <ImageView fitHeight="90.0" fitWidth="76.0" layoutX="48.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="/src/resources/static/images/profile-picture.png" />
+                        <Image url="@../static/images/profile-picture.png" />
                     </image>
                 </ImageView>
                 <Label layoutX="20.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0">
@@ -39,17 +39,17 @@
                 </Label>
                 <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="448.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                     <image>
-                        <Image url="/src/resources/static/images/call.png" />
+                        <Image url="@../static/images/call.png" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="41.0" fitWidth="45.0" layoutX="490.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                     <image>
-                        <Image url="/src/resources/static/images/Facebook.png" />
+                        <Image url="@../static/images/Facebook.png" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="548.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                     <image>
-                        <Image url="/src/resources/static/images/details.png" />
+                        <Image url="@../static/images/details.png" />
                     </image>
                 </ImageView>
                 <Line endX="328.0" endY="-1.52587890625E-5" layoutX="277.0" layoutY="93.0" opacity="0.35" startX="-277.0" startY="-1.52587890625E-5" stroke="#a3a8aa" />
@@ -59,7 +59,7 @@
             <children>
                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="/src/resources/static/images/Change.png"/>
+                        <Image url="@../static/images/Change.png"/>
                     </image>
                 </ImageView>
                 <VBox alignment="CENTER_LEFT">
@@ -118,7 +118,7 @@
             <children>
                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="/src/resources/static/images/Change.png" />
+                        <Image url="@../static/images/Change.png" />
                     </image>
                 </ImageView>
                 <VBox alignment="CENTER_LEFT">
@@ -179,31 +179,31 @@
                 </TextField>
                 <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="513.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                     <image>
-                        <Image url="/src/resources/static/images/Named.png" />
+                        <Image url="@../static/images/Named.png" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="543.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                     <image>
-                        <Image url="/src/resources/static/images/Music.png" />
+                        <Image url="@../static/images/Music.png" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="572.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                     <image>
-                        <Image url="/src/resources/static/images/Smile.png" />
+                        <Image url="@../static/images/Smile.png" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="440.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                     <image>
-                        <Image url="/src/resources/static/images/NewIm.png" />
+                        <Image url="@../static/images/NewIm.png" />
                     </image>
                 </ImageView>
                 <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="477.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" smooth="false">
                     <image>
-                        <Image url="/src/resources/static/images/DownloadA.png" />
+                        <Image url="@../static/images/DownloadA.png" />
                     </image>
                 </ImageView>
             </children>
         </Pane>
-        <Line endX="474.5999755859375" layoutX="131.0" layoutY="345.0" opacity="0.35" startX="-131.0" stroke="#a3a8aa" />
+        <Line endX="474.6" layoutX="131.0" layoutY="345.0" opacity="0.35" startX="-131.0" stroke="#a3a8aa" />
     </children>
 </AnchorPane>
