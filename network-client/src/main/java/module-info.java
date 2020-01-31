@@ -1,0 +1,2 @@
+module network.client {
+}
