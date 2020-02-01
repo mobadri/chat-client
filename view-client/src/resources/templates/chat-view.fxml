@@ -1,209 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="464.0" prefWidth="605.0"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.chat.client.view.client.ChatViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="650.0" style="-fx-background-color: #0D3043;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.ChatViewController">
     <opaqueInsets>
         <Insets />
     </opaqueInsets>
-    <children>
-        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="93.0" prefWidth="605.0" style="-fx-background-color: FFFFFF;" AnchorPane.bottomAnchor="371.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <ImageView fitHeight="90.0" fitWidth="76.0" layoutX="48.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../static/images/profile-picture.png" />
-                    </image>
-                </ImageView>
-                <Label layoutX="20.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="10.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0">
-                    <padding>
-                        <Insets left="10.0" />
-                    </padding>
-                </Label>
-                <Label layoutX="124.0" layoutY="24.0" text="My Name">
-                    <font>
-                        <Font name="Ebrima" size="18.0" />
-                    </font>
-                </Label>
-                <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="448.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                    <image>
-                        <Image url="@../static/images/call.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="41.0" fitWidth="45.0" layoutX="490.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                    <image>
-                        <Image url="@../static/images/Facebook.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="548.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                    <image>
-                        <Image url="@../static/images/details.png" />
-                    </image>
-                </ImageView>
-                <Line endX="328.0" endY="-1.52587890625E-5" layoutX="277.0" layoutY="93.0" opacity="0.35" startX="-277.0" startY="-1.52587890625E-5" stroke="#a3a8aa" />
-            </children>
-        </Pane>
-        <HBox alignment="CENTER_LEFT" layoutY="93.0" prefHeight="70.0" prefWidth="606.0" style="-fx-background-color: FFFFFF;">
-            <children>
-                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../static/images/Change.png"/>
-                    </image>
-                </ImageView>
-                <VBox alignment="CENTER_LEFT">
-                    <children>
-                        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="211.0" text="hello there is i am our chat">
-                            <padding>
-                                <Insets left="5.0" />
-                            </padding>
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                    </children>
-                    <padding>
-                        <Insets left="5.0" />
-                    </padding>
-                </VBox>
-            </children>
-            <padding>
-                <Insets left="10.0" />
-            </padding>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-        </HBox>
-        <HBox alignment="CENTER_RIGHT" layoutY="156.0" prefHeight="62.0" prefWidth="606.0" style="-fx-background-color: FFFFFF;">
-            <children>
-                <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="243.0" text="hello there is i am our chat">
-                    <padding>
-                        <Insets left="5.0" />
-                    </padding>
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                    <HBox.margin>
-                        <Insets />
-                    </HBox.margin>
-                </Label>
-                <VBox alignment="CENTER_LEFT" prefHeight="62.0" prefWidth="0.0">
-                    <padding>
-                        <Insets left="5.0" />
-                    </padding>
-                    <HBox.margin>
-                        <Insets right="10.0" />
-                    </HBox.margin>
-                </VBox>
-            </children>
-            <padding>
-                <Insets left="10.0" />
-            </padding>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-        </HBox>
-        <HBox alignment="CENTER_LEFT" layoutX="-1.0" layoutY="223.0" prefHeight="70.0" prefWidth="606.0" style="-fx-background-color: FFFFFF;">
-            <children>
-                <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@../static/images/Change.png" />
-                    </image>
-                </ImageView>
-                <VBox alignment="CENTER_LEFT">
-                    <children>
-                        <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="193.0" text="hello there is i am our chat">
-                            <padding>
-                                <Insets left="5.0" />
-                            </padding>
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                    </children>
-                    <padding>
-                        <Insets left="5.0" />
-                    </padding>
-                </VBox>
-            </children>
-            <padding>
-                <Insets left="10.0" />
-            </padding>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-        </HBox>
-        <HBox alignment="CENTER_RIGHT" layoutY="276.0" prefHeight="80.0" prefWidth="606.0" style="-fx-background-color: FFFFFF;">
-            <children>
-                <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="242.0" text="hello there is i am our chat">
-                    <padding>
-                        <Insets left="5.0" right="5.0" />
-                    </padding>
-                    <font>
-                        <Font size="14.0" />
-                    </font>
-                </Label>
-                <VBox alignment="CENTER_LEFT">
-                    <padding>
-                        <Insets left="5.0" />
-                    </padding>
-                    <HBox.margin>
-                        <Insets right="10.0" />
-                    </HBox.margin>
-                </VBox>
-            </children>
-            <padding>
-                <Insets left="10.0" />
-            </padding>
-            <opaqueInsets>
-                <Insets />
-            </opaqueInsets>
-        </HBox>
-        <Pane layoutY="356.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="606.0" style="-fx-background-color: FFFFFF;">
-            <children>
-                <TextField layoutX="14.0" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="300.0" promptText="Type your message here!" style="-fx-background-color: transparent;">
-                    <font>
+   <children>
+      <AnchorPane layoutX="26.0" layoutY="25.0" prefHeight="549.0" prefWidth="599.0" style="-fx-background-color: #FFFFFF;" styleClass="parent" stylesheets="@../static/css/style.css" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="135.0" prefWidth="600.0" styleClass="parent" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <ImageView fx:id="ProfilePic" fitHeight="89.0" fitWidth="97.0" layoutX="55.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="19.0">
+                     <image>
+                        <Image url="@../static/images/DefaultProfile.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="MyNameText" layoutX="153.0" layoutY="26.0" prefHeight="30.0" prefWidth="78.0" text="My Name" AnchorPane.leftAnchor="153.0" AnchorPane.topAnchor="26.0">
+                     <font>
+                        <Font name="Berlin Sans FB" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="224.0" layoutY="34.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 100;" styleClass="parent" />
+                  <ImageView fitHeight="30.0" fitWidth="23.0" layoutX="25.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="22.0">
+                     <image>
+                        <Image url="@../static/images/backimage.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="CallPic" fitHeight="40.0" fitWidth="40.0" layoutX="418.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="142.0" AnchorPane.topAnchor="36.0">
+                     <image>
+                        <Image url="@../static/images/Call.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="GroupPic" fitHeight="40.0" fitWidth="40.0" layoutX="477.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="83.0" AnchorPane.topAnchor="36.0">
+                     <image>
+                        <Image url="@../static/images/Group.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="SettingPic" fitHeight="40.0" fitWidth="40.0" layoutX="536.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="36.0">
+                     <image>
+                        <Image url="@../static/images/downloadpsdfile-com-blue-information-icon-jpg-18.png" />
+                     </image>
+                  </ImageView>
+                  <Line endX="322.4928894042969" endY="1.565218008181546E-5" layoutX="250.0" layoutY="121.0" startX="-223.8000030517578" startY="6.17861733189784E-5" stroke="#afa3a3" strokeWidth="0.5" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+               </children>
+               <stylesheets>
+                  <URL value="@../static/css/style.css" />
+                  <URL value="@../static/css/style.css" />
+               </stylesheets>
+            </AnchorPane>
+            <AnchorPane layoutY="424.0" prefHeight="126.0" prefWidth="599.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <ImageView fx:id="SendPic" fitHeight="30.0" fitWidth="30.0" layoutX="378.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="36.0" AnchorPane.rightAnchor="192.0">
+                     <image>
+                        <Image url="@../static/images/Send.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="SendFile" fitHeight="30.0" fitWidth="30.0" layoutX="421.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="36.0" AnchorPane.rightAnchor="149.0">
+                     <image>
+                        <Image url="@../static/images/DownloadFile.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="SendImg" fitHeight="30.0" fitWidth="30.0" layoutX="467.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="36.0" AnchorPane.rightAnchor="103.0">
+                     <image>
+                        <Image url="@../static/images/AddPic.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="AudioImag" fitHeight="30.0" fitWidth="30.0" layoutX="507.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="36.0" AnchorPane.rightAnchor="63.0">
+                     <image>
+                        <Image url="@../static/images/Audio.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="548.0" layoutY="62.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="36.0" AnchorPane.rightAnchor="22.0">
+                     <image>
+                        <Image url="@../static/images/Audio.png" />
+                     </image>
+                  </ImageView>
+                  <TextField fx:id="MyTextField" layoutX="14.0" layoutY="55.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="339.0" style="-fx-background-color: transparent;" text="Type Youe message here!" AnchorPane.bottomAnchor="31.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="247.0">
+                     <font>
                         <Font name="Calibri Light" size="14.0" />
-                    </font>
-                </TextField>
-                <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="513.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                    <image>
-                        <Image url="@../static/images/Named.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="543.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                    <image>
-                        <Image url="@../static/images/Music.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="572.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                    <image>
-                        <Image url="@../static/images/Smile.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="440.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                    <image>
-                        <Image url="@../static/images/NewIm.png" />
-                    </image>
-                </ImageView>
-                <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="477.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" smooth="false">
-                    <image>
-                        <Image url="@../static/images/DownloadA.png" />
-                    </image>
-                </ImageView>
-            </children>
-        </Pane>
-        <Line endX="474.6" layoutX="131.0" layoutY="345.0" opacity="0.35" startX="-131.0" stroke="#a3a8aa" />
-    </children>
+                     </font>
+                  </TextField>
+                  <Line endX="322.4928894042969" endY="1.565218008181546E-5" layoutX="245.0" layoutY="24.0" startX="-223.8000030517578" startY="6.17861733189784E-5" stroke="#afa3a3" strokeWidth="0.5" AnchorPane.bottomAnchor="101.69283148050309" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="24.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="127.0" prefHeight="314.0" prefWidth="600.0" AnchorPane.bottomAnchor="108.60000000000002" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="127.0">
+               <children>
+                  <ScrollPane prefHeight="314.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                    </content>
+                  </ScrollPane>
+                  <VBox fx:id="MyVBox" alignment="TOP_RIGHT" prefHeight="314.0" prefWidth="587.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children></AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>
