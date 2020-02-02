@@ -1,14 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.chat.client.view.client.LoginViewController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="493.0" prefWidth="901.0" style="-fx-background-color: rgba(0, 100, 100, 0);" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.LoginViewController">
+   <children>
+      <AnchorPane layoutY="27.0" prefHeight="421.0" prefWidth="901.0" style="-fx-background-color: #ebebeb; -fx-background-radius: 5em;">
+         <children>
+            <AnchorPane layoutX="-1.0" prefHeight="440.0" prefWidth="153.0" style="-fx-background-color: #EBF4FA; -fx-background-radius: 5em;">
+               <children>
+                  <JFXButton fx:id="btnSignUp" layoutY="118.0" mnemonicParsing="false" onAction="#signUpView" prefHeight="41.0" prefWidth="145.0" ripplerFill="#6677e3" text="Sign Up" textFill="#900c3f">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton fx:id="btnSignIn" layoutY="159.0" mnemonicParsing="false" onAction="#signInView" prefHeight="41.0" prefWidth="145.0" ripplerFill="#6677e3" text="Sign In" textFill="#900c3f">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXButton>
+               </children></AnchorPane>
+            <AnchorPane fx:id="signInView" layoutX="523.0" prefHeight="440.0" prefWidth="378.0" style="-fx-background-color: #EBF4FA; -fx-background-radius: 5em;">
+               <children>
+                  <JFXTextField layoutX="68.0" layoutY="129.0" prefHeight="32.0" prefWidth="243.0" promptText="phone number" />
+                  <JFXPasswordField layoutX="68.0" layoutY="203.0" prefHeight="32.0" prefWidth="243.0" promptText="password" />
+                  <FontAwesomeIcon fill="#0b0b3b" glyphName="ARROW_CIRCLE_RIGHT" layoutX="161.0" layoutY="323.0" selectionEnd="0" selectionFill="#754b68" selectionStart="0" size="45" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="45.85714340209961" />
+                  <Label layoutX="150.0" layoutY="48.0" text="Sign In" textFill="#900c3f">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+                  <Hyperlink layoutX="128.0" layoutY="386.0" text="Forget Password ?">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Hyperlink>
+                  <CheckBox layoutX="125.0" layoutY="359.0" mnemonicParsing="false" text="Remember Me" textFill="#900c3f">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </CheckBox>
+                  <Label fx:id="closeBtn" layoutX="348.0" layoutY="10.0" onMouseClicked="#closeApp" text="X" textFill="#0b0b3b">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="signUpView" layoutX="523.0" prefHeight="440.0" prefWidth="378.0" style="-fx-background-color: #EBF4FA; -fx-background-radius: 5em;">
+               <children>
+                  <Label layoutX="154.0" layoutY="72.0" text="Sign Up" textFill="#900c3f">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="348.0" layoutY="10.0" onMouseClicked="#closeApp" text="X" textFill="#0b0b3b">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="145.0" prefHeight="493.0" prefWidth="378.0" style="-fx-background-color: #0B0B3B;">
+         <children>
+            <Label layoutX="50.0" layoutY="109.0" prefHeight="58.0" prefWidth="243.0" style="-fx-font-weight: bold; -fx-font-style: italic;" text="Welcome To OurApp" textFill="#fdfdfd">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="125.0" layoutY="179.0" mnemonicParsing="false" text="Button" />
+            <ImageView fitHeight="146.0" fitWidth="145.0" layoutX="113.0" layoutY="192.0">
+               <Image url="@../static/images/chat.png" />
+            </ImageView>
+         </children></AnchorPane>
+   </children>
 </AnchorPane>
