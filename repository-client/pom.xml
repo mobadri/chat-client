@@ -11,7 +11,7 @@
     <dependencies>
         <dependency>
             <groupId>com.chat.server</groupId>
-            <artifactId>model</artifactId>
+            <artifactId>model-server</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
