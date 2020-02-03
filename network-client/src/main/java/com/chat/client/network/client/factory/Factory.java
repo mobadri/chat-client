@@ -1,7 +1,7 @@
 package com.chat.client.network.client.factory;
 
 import com.chat.client.network.client.chat.ChatGroupHandler;
-import com.chat.client.network.client.chat.impl.ChatGroupHandlerImpl;
+import com.chat.client.network.client.chat.impl.ChatGroupHandlerDummyImpl;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerDummyImpl;
 
@@ -33,7 +33,7 @@ public class Factory {
      * @return ChatGroupHandler implantation
      */
     public static synchronized ChatGroupHandler createChatGroupHandler() {
-        chatGroupHandler = Objects.requireNonNullElseGet(chatGroupHandler, () -> new ChatGroupHandlerImpl());
+        chatGroupHandler = Objects.requireNonNullElseGet(chatGroupHandler, () -> new ChatGroupHandlerDummyImpl());
         return chatGroupHandler;
     }
 }

@@ -1,7 +1,7 @@
-package notification.impl;
+package com.chat.client.repository.client.notification.impl;
 
+import com.chat.client.repository.client.notification.NotificationRepository;
 import com.chat.server.model.chat.Notification;
-import notification.NotificationRepository;
 
 public class NotificationRepositoryImpl implements NotificationRepository {
     @Override

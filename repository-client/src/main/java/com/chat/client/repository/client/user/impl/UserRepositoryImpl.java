@@ -6,7 +6,9 @@ import com.chat.server.model.user.User;
 import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
-
+    //@mariam
+    //todo impl this class
+    // use network layer factory object to do impl
     @Override
     public List<User> findMyFrinds(User user) {
         return null;
