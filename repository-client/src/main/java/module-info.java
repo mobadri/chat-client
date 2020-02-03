@@ -1,4 +1,3 @@
 module repository.client {
-    requires model;
-
+    requires model.server;
 }
