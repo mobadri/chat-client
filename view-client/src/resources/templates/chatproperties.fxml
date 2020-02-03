@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<AnchorPane id="AnchorPane" prefHeight="422.0" prefWidth="253.0" style="-fx-background-color: #F0F4F8;"
+            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.chat.client.view.client.ChatpropertiesController">
+    <children>
+        <AnchorPane layoutY="143.0" prefHeight="137.0" prefWidth="253.0" style="-fx-background-color: #F0F4F8;"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <AnchorPane prefHeight="44.0" prefWidth="273.0" style="-fx-background-color: #F0F4F8;"
+                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <VBox fx:id="vBoxNotifications" alignment="TOP_RIGHT" layoutX="216.0" layoutY="10.0"
+                              AnchorPane.rightAnchor="8.0">
+                            <children>
+                                <ImageView fx:id="notificationsIcon" fitHeight="29.0" fitWidth="37.0"
+                                           pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/static/images/bell.png"/>
+                                    </image>
+                                    <VBox.margin>
+                                        <Insets left="16.0" right="16.0"/>
+                                    </VBox.margin>
+                                </ImageView>
+                                <Label fx:id="notificationText" text="Notifications"/>
+                            </children>
+                        </VBox>
+                        <VBox fx:id="vBoxChats" layoutX="8.0" layoutY="9.0" prefHeight="46.0" prefWidth="86.0"
+                              AnchorPane.leftAnchor="8.0">
+                            <children>
+                                <ImageView fx:id="chatIcon" fitHeight="29.0" fitWidth="56.0" pickOnBounds="true"
+                                           preserveRatio="true">
+                                    <image>
+                                        <Image url="@../static/images/chat2.png"/>
+                                    </image>
+                                </ImageView>
+                                <Label fx:id="chatText" text="Chats"/>
+                            </children>
+                        </VBox>
+                        <VBox fx:id="vBoxContacts" alignment="TOP_CENTER" layoutX="103.0" layoutY="9.0">
+                            <children>
+                                <ImageView fx:id="contactIcon" fitHeight="29.0" fitWidth="57.0" pickOnBounds="true"
+                                           preserveRatio="true">
+                                    <image>
+                                        <Image url="@/static/images/contacts.png"/>
+                                    </image>
+                                    <viewport>
+                                        <Rectangle2D/>
+                                    </viewport>
+                                    <VBox.margin>
+                                        <Insets left="8.0" right="8.0"/>
+                                    </VBox.margin>
+                                </ImageView>
+                                <Label fx:id="contactText" text="Contacts"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="addNewContactPane" layoutY="56.0" prefHeight="69.0" prefWidth="273.0"
+                            style="-fx-background-color: #F0F4F8;" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <Button fx:id="newContactButton" layoutX="14.0" layoutY="22.0" mnemonicParsing="false"
+                                prefHeight="26.0" prefWidth="233.0"
+                                style="-fx-background-color: #FFFFFF; -fx-border-radius: 10 10 10 10; -fx-border-color: #E5E4E8; -fx-border-width: 1px; -fx-padding: 3px; -fx-background-radius: 10 10 10 10;"
+                                text="New Contact" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0">
+                            <padding>
+                                <Insets left="16.0" right="16.0"/>
+                            </padding>
+                        </Button>
+                        <ImageView fitHeight="26.0" fitWidth="14.0" layoutX="26.0" layoutY="28.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@../static/images/contacts.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+                <AnchorPane fx:id="newChatPane" layoutY="56.0" prefHeight="69.0" prefWidth="273.0"
+                            style="-fx-background-color: #F0F4F8;" visible="false" AnchorPane.leftAnchor="0.0"
+                            AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <Button fx:id="newChatButton" layoutX="13.0" layoutY="22.0" mnemonicParsing="false"
+                                prefHeight="26.0" prefWidth="233.0"
+                                style="-fx-background-color: #FFFFFF; -fx-border-radius: 10 10 10 10; -fx-border-color: #E5E4E8; -fx-border-width: 1px; -fx-padding: 3px; -fx-background-radius: 10 10 10 10;"
+                                text="New Chat" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0">
+                            <padding>
+                                <Insets left="16.0" right="16.0"/>
+                            </padding>
+                        </Button>
+                        <ImageView fitHeight="17.0" fitWidth="23.0" layoutX="27.0" layoutY="26.0" pickOnBounds="true"
+                                   preserveRatio="true">
+                            <image>
+                                <Image url="@/static/images/chat2.png"/>
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="-1.0" prefHeight="143.0" prefWidth="310.0" style="-fx-background-color: #F0F4F8;"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <Circle fx:id="circleImageView" fill="WHITE" layoutX="36.0" layoutY="36.0" radius="22.0"
+                        stroke="#30303000" strokeType="INSIDE"/>
+                <Label fx:id="namePerson" layoutX="87.0" layoutY="19.0" text="Yasmeen Abdelazeem"/>
+                <TextField fx:id="peopleSearch" layoutX="14.0" layoutY="99.0" prefHeight="29.0" prefWidth="279.0"
+                           promptText="search for people"
+                           style="-fx-border-: 2px #FEFEFE; -fx-border-radius: 25px; -fx-border-width: 1px; -fx-background-color: #FFFFF;"
+                           AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+                    <padding>
+                        <Insets left="32.0" right="32.0"/>
+                    </padding>
+                </TextField>
+                <ImageView fitHeight="25.0" fitWidth="14.0" layoutX="29.0" layoutY="107.0" pickOnBounds="true"
+                           preserveRatio="true" AnchorPane.leftAnchor="29.0">
+                    <image>
+                        <Image url="@/static/images/search.png"/>
+                    </image>
+                </ImageView>
+                <ImageView fitHeight="19.0" fitWidth="36.0" layoutX="272.0" layoutY="18.0" pickOnBounds="true"
+                           preserveRatio="true" AnchorPane.rightAnchor="16.0">
+                    <image>
+                        <Image url="@../static/images/more.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="-2.0" layoutY="283.0" prefHeight="152.0" prefWidth="253.0" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0">
+            <children>
+                <ListView prefHeight="176.0" prefWidth="253.0" visible="false"/>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>
