@@ -5,7 +5,7 @@ import com.chat.server.model.chat.Message;
 
 import java.util.List;
 
-public class ChatGroupReposotistoryImpl implements MessageGroupRepository {
+public class MessageGroupRepositoryImpl implements MessageGroupRepository {
     @Override
     public void sendMessage(Message message) {
 

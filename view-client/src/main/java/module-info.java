@@ -1,5 +1,5 @@
 module view.client {
-
+    requires model.server;
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.base;
