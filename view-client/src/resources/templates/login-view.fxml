@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="493.0" prefWidth="901.0" style="-fx-background-color: rgba(0, 100, 100, 0);" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.LoginViewController">
+<AnchorPane fx:id="parentPane" prefHeight="493.0" prefWidth="901.0" style="-fx-background-color: rgba(0, 100, 100, 0);" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.LoginViewController">
    <children>
       <AnchorPane layoutY="27.0" prefHeight="421.0" prefWidth="901.0" style="-fx-background-color: #ebebeb; -fx-background-radius: 5em;">
          <children>

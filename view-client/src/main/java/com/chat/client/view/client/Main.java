@@ -23,6 +23,15 @@ public class Main extends Application {
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
 
+        primaryStage.setMinHeight(900);
+        primaryStage.setMinWidth(450);
+        primaryStage.show();
+
+        movingStage(root,primaryStage);
+    }
+
+    private void movingStage(Parent root, Stage primaryStage){
+
         root.setOnMousePressed((e) -> {
 
             xOffset = primaryStage.getX() - e.getScreenX();
@@ -34,10 +43,6 @@ public class Main extends Application {
             primaryStage.setX(xOffset + e.getScreenX());
             primaryStage.setY(yOffset + e.getScreenY());
         });
-
-        primaryStage.setMinHeight(900);
-        primaryStage.setMinWidth(450);
-        primaryStage.show();
     }
 
     public static void main(String[] args) {
