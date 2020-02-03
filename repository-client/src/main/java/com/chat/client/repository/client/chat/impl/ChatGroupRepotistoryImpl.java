@@ -1,6 +1,7 @@
 package com.chat.client.repository.client.chat.impl;
 
 import com.chat.client.repository.client.chat.ChatGroupRepository;
+import com.chat.client.repository.client.factory.Factory;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
 import com.chat.server.model.user.User;
@@ -25,11 +26,13 @@ public class ChatGroupRepotistoryImpl implements ChatGroupRepository {
 
     @Override
     public List<ChatGroup> searchByName(String groupName, User user) {
+
         return null;
     }
 
     @Override
     public ChatGroup updateChatGroup(ChatGroup chatGroup) {
+
         return null;
     }
 
