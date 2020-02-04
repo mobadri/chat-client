@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -14,7 +15,7 @@
         <AnchorPane layoutY="27.0" prefHeight="421.0" prefWidth="901.0"
                     style="-fx-background-color: #ebebeb; -fx-background-radius: 5em;">
             <children>
-                <AnchorPane fx:id="signInView" layoutX="523.0" prefHeight="440.0" prefWidth="378.0"
+                <AnchorPane fx:id="signInView" layoutX="523.0" prefHeight="467.0" prefWidth="600.0"
                             style="-fx-background-color: #EBF4FA; -fx-background-radius: 5em;">
                     <children>
                         <JFXTextField layoutX="68.0" layoutY="129.0" prefHeight="32.0" prefWidth="243.0"
@@ -48,43 +49,89 @@
                         </Label>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="signUpView" layoutX="523.0" prefHeight="440.0" prefWidth="378.0"
+                <AnchorPane fx:id="signUpView" layoutX="523.0" layoutY="1.0" prefHeight="440.0" prefWidth="378.0"
                             style="-fx-background-color: #EBF4FA; -fx-background-radius: 5em;">
-                    <children>
-                        <Label layoutX="94.0" layoutY="18.0" text="Create An Account" textFill="#0078d4">
-                            <font>
-                                <Font name="System Bold" size="20.0"/>
-                            </font>
-                        </Label>
-                        <Label layoutX="348.0" layoutY="10.0" onMouseClicked="#closeApp" text="X" textFill="#0b0b3b">
-                            <font>
-                                <Font size="26.0"/>
-                            </font>
-                            <graphic>
-                                <ImageView fitHeight="20.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true"/>
-                            </graphic>
-                        </Label>
-                        <TextField layoutX="87.0" layoutY="139.0" prefHeight="25.0" prefWidth="256.0"
-                                   promptText="Name"/>
-                        <ImageView fitHeight="20.0" fitWidth="16.0" layoutX="94.0" layoutY="191.0" pickOnBounds="true"
-                                   preserveRatio="true"/>
-                    </children>
+                    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                                prefHeight="467.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1"
+                                xmlns:fx="http://javafx.com/fxml/1">
+                        <children>
+                            <Label layoutX="180.0" layoutY="14.0" prefHeight="35.0" prefWidth="216.0"
+                                   text="Create an Account" textFill="#0078d4">
+                                <font>
+                                    <Font name="System Bold" size="24.0"/>
+                                </font>
+                            </Label>
+                            <TextField layoutX="149.0" layoutY="86.0" prefHeight="25.0" prefWidth="302.0"
+                                       promptText="FirstName">
+                                <padding>
+                                    <Insets left="32.0" right="8.0"/>
+                                </padding>
+                            </TextField>
+                            <TextField layoutX="149.0" layoutY="123.0" prefHeight="25.0" prefWidth="302.0"
+                                       promptText="LastName">
+                                <padding>
+                                    <Insets left="32.0" right="8.0"/>
+                                </padding>
+                            </TextField>
+                            <TextField layoutX="149.0" layoutY="159.0" prefHeight="25.0" prefWidth="302.0"
+                                       promptText="Phone Number">
+                                <padding>
+                                    <Insets left="32.0" right="8.0"/>
+                                </padding>
+                            </TextField>
+                            <TextField layoutX="149.0" layoutY="263.0" prefHeight="25.0" prefWidth="302.0"
+                                       promptText="Email">
+                                <padding>
+                                    <Insets left="32.0" right="8.0"/>
+                                </padding>
+                            </TextField>
+                            <TextField layoutX="147.0" layoutY="300.0" prefHeight="25.0" prefWidth="302.0"
+                                       promptText="Country">
+                                <padding>
+                                    <Insets left="32.0" right="8.0"/>
+                                </padding>
+                            </TextField>
+                            <PasswordField layoutX="150.0" layoutY="190.0" prefHeight="25.0" prefWidth="296.0"
+                                           promptText="Password">
+                                <padding>
+                                    <Insets left="32.0"/>
+                                </padding>
+                            </PasswordField>
+                            <PasswordField layoutX="150.0" layoutY="227.0" prefHeight="25.0" prefWidth="296.0"
+                                           promptText="Confirm Password">
+                                <padding>
+                                    <Insets left="32.0"/>
+                                </padding>
+                            </PasswordField>
+                            <Button layoutX="180.0" layoutY="408.0" mnemonicParsing="false" prefHeight="25.0"
+                                    prefWidth="170.0" style="-fx-background-color: #0078d4;" text="Next"
+                                    textFill="WHITE"/>
+                            <DatePicker layoutX="149.0" layoutY="372.0" prefHeight="25.0" prefWidth="296.0"
+                                        promptText="Date of Birth"/>
+                            <TextField layoutX="149.0" layoutY="336.0" prefHeight="25.0" prefWidth="302.0"
+                                       promptText="Bio">
+                                <padding>
+                                    <Insets left="32.0" right="8.0"/>
+                                </padding>
+                            </TextField>
+                        </children>
+                    </AnchorPane>
                 </AnchorPane>
                 <AnchorPane layoutX="-1.0" prefHeight="440.0" prefWidth="153.0"
                             style="-fx-background-color: #EBF4FA; -fx-background-radius: 5em;">
                     <children>
                         <JFXButton fx:id="btnSignUp" layoutY="118.0" mnemonicParsing="false" onAction="#signUpView"
-                                   prefHeight="41.0" prefWidth="145.0" ripplerFill="#6677e3" text="Sign Up"
-                                   textFill="#900c3f">
+                                   prefHeight="41.0" prefWidth="145.0" ripplerFill="#f0f4f8" text="Sign up"
+                                   textFill="#0078d4">
                             <font>
-                                <Font size="16.0"/>
+                                <Font name="System Bold" size="16.0"/>
                             </font>
                         </JFXButton>
                         <JFXButton fx:id="btnSignIn" layoutY="159.0" mnemonicParsing="false" onAction="#signInView"
-                                   prefHeight="41.0" prefWidth="145.0" ripplerFill="#6677e3" text="Sign In"
-                                   textFill="#900c3f">
+                                   prefHeight="41.0" prefWidth="145.0" ripplerFill="#6677e3" text="Sign in"
+                                   textFill="#0078d4">
                             <font>
-                                <Font size="16.0"/>
+                                <Font name="System Bold" size="16.0"/>
                             </font>
                         </JFXButton>
                     </children>
