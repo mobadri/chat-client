@@ -8,6 +8,12 @@
     </parent>
     <artifactId>controller-client</artifactId>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>com.chat.client</groupId>
+            <artifactId>service-client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency></dependencies>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
