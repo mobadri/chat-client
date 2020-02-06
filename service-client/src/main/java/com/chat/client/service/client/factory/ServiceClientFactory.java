@@ -1,18 +1,18 @@
 package com.chat.client.service.client.factory;
 
-import com.chat.client.service.client.user.UserService;
-import com.chat.client.service.client.user.impl.UserServiceImpl;
+import com.chat.client.service.client.user.ClientUserService;
+import com.chat.client.service.client.user.impl.ClientUserServiceImpl;
 
 public class ServiceClientFactory {
-    private static UserService userService = null;
+    private static ClientUserService userService = null;
 
     private ServiceClientFactory() {
 
     }
 
-    public static synchronized UserService createUserService() {
+    public static synchronized ClientUserService createUserService() {
         if (userService == null) {
-            return new UserServiceImpl();
+            return new ClientUserServiceImpl();
         }
         return userService;
     }

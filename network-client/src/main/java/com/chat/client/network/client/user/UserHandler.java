@@ -2,6 +2,8 @@ package com.chat.client.network.client.user;
 
 import com.chat.server.model.user.User;
 
+import java.util.List;
+
 public interface UserHandler {
     /**
      * search for user by phone
@@ -38,5 +40,6 @@ public interface UserHandler {
      */
     User login(String phone, String password);
 
+    List<User> getAllUsers();
 
 }

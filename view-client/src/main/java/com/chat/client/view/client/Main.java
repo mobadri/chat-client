@@ -14,9 +14,9 @@ public class Main extends Application {
     private double yOffset;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/templates/login-view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/templates/login/login-view.fxml"));
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene(root);
 
@@ -27,10 +27,10 @@ public class Main extends Application {
         primaryStage.setMinWidth(450);
         primaryStage.show();
 
-        movingStage(root,primaryStage);
+        movingStage(root, primaryStage);
     }
 
-    private void movingStage(Parent root, Stage primaryStage){
+    private void movingStage(Parent root, Stage primaryStage) {
 
         root.setOnMousePressed((e) -> {
 

@@ -3,8 +3,6 @@ package com.chat.client.repository.client.message.impl;
 import com.chat.client.repository.client.message.MessageGroupRepository;
 import com.chat.server.model.chat.Message;
 
-import java.util.List;
-
 public class MessageGroupRepositoryImpl implements MessageGroupRepository {
     @Override
     public void sendMessage(Message message) {
@@ -12,7 +10,7 @@ public class MessageGroupRepositoryImpl implements MessageGroupRepository {
     }
 
     @Override
-    public List<Message> receiveMessage() {
+    public Message receiveMessage() {
         return null;
     }
 }

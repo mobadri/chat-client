@@ -6,4 +6,5 @@ module network.client {
     exports com.chat.client.network.client.factory;
     exports com.chat.client.network.client.chat;
     exports com.chat.client.network.client.user;
+    exports com.chat.client.network.client.user.impl;
 }

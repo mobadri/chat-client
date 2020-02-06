@@ -10,7 +10,7 @@
 <?import javafx.scene.text.*?>
 <AnchorPane fx:id="parentPane" prefHeight="493.0" prefWidth="901.0" style="-fx-background-color: rgba(0, 100, 100, 0);"
             xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.chat.client.view.client.LoginViewController">
+            fx:controller="com.chat.client.view.client.login.LoginViewController">
     <children>
         <AnchorPane layoutY="27.0" prefHeight="421.0" prefWidth="901.0"
                     style="-fx-background-color: #ebebeb; -fx-background-radius: 5em;">
@@ -150,7 +150,7 @@
                 <JFXButton contentDisplay="GRAPHIC_ONLY" layoutX="125.0" layoutY="179.0" mnemonicParsing="false"
                            text="Button"/>
                 <ImageView fitHeight="146.0" fitWidth="145.0" layoutX="113.0" layoutY="192.0">
-                    <Image url="@../static/images/chat.png"/>
+                    <Image url="@../../static/images/chat.png"/>
                 </ImageView>
             </children>
         </AnchorPane>

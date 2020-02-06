@@ -88,10 +88,15 @@ public class UserHandlerDummyImpl implements UserHandler {
             currentUser = users.parallelStream()
                     .filter(user -> user.getPhone().equals(phone) && user.getPassword().equals(password))
                     .findFirst().get();
+
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             System.out.println("user not founded");
         }
         return currentUser;
+    }
+
+    public List<User> getAllUsers() {
+        return users;
     }
 }

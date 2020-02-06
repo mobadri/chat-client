@@ -2,8 +2,6 @@ package com.chat.client.repository.client.message;
 
 import com.chat.server.model.chat.Message;
 
-import java.util.List;
-
 public interface MessageGroupRepository {
     /**
      * send message to group
@@ -17,7 +15,7 @@ public interface MessageGroupRepository {
      *
      * @return message that from group
      */
-    List<Message> receiveMessage();
+    Message receiveMessage();
 
 
 }

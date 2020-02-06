@@ -10,11 +10,11 @@ import java.util.Objects;
 /**
  * factory class to create object for that layer
  */
-public class Factory {
+public class NetworkFactory {
     private static UserHandler userHandler;
     private static ChatGroupHandler chatGroupHandler;
 
-    private Factory() {
+    private NetworkFactory() {
     }
 
     /**
@@ -24,7 +24,7 @@ public class Factory {
      */
     public static synchronized UserHandler createUserHandler() {
         userHandler = Objects.requireNonNullElseGet(userHandler, () -> new UserHandlerDummyImpl());
-        return Factory.userHandler;
+        return NetworkFactory.userHandler;
     }
 
     /**

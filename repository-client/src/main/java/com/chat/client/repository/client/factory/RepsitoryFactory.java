@@ -9,13 +9,13 @@ import com.chat.client.repository.client.notification.impl.NotificationRepositor
 import com.chat.client.repository.client.user.UserRepository;
 import com.chat.client.repository.client.user.impl.UserRepositoryImpl;
 
-public class Factory {
+public class RepsitoryFactory {
     private static ChatGroupRepository chatGroupRepository = null;
     private static MessageGroupRepository messageGroupRepository = null;
     private static NotificationRepository notificationRepository = null;
     private static UserRepository userRepository = null;
 
-    private Factory() {
+    private RepsitoryFactory() {
     }
 
     /**

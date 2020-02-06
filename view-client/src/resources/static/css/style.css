@@ -1,1 +1,93 @@
+#chatIcon {
+    -fx-effect: innershadow(gaussian, #000, 7, 1, 1, 1);
+}
+
+#chatIcon:hover {
+    -fx-cursor: hand;
+    -fx-effect: innershadow(gaussian, #0078D4, 7, 1, 1, 1);
+}
+
+.button {
+    -fx-background-color: #FFF;
+    -fx-background-radius: 0;
+    -fx-border-radius-radius: 0;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #C0D5F7;
+}
+
+.button:pressed {
+    -fx-cursor: hand;
+    -fx-background-color: #73A3EF;
+}
+
+#newContact {
+    -fx-background-radius: 10;
+
+}
+
+#userImage {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+#userImage:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #C0D5F7;
+}
+
+#userImage:pressed {
+    -fx-cursor: hand;
+    -fx-background-color: #73A3EF;
+}
+
+#tab-buttons {
+    -fx-background-color: #FFF;
+}
+
+#options {
+    -fx-cursor: hand;
+}
+
+/*#tab-pane:top *.tab-header-area {*/
+/*    -fx-background-insets: 0, 0 0 1 0;*/
+/*    !* -fx-padding: 0.416667em 0.166667em 0.0em 0.833em; !* 5 2 0 10 *!*/
+/*    !*-fx-padding: 0.416667em 0.166667em 0.0em 0.0em; !* overridden as 5 2 0 0 *!*!*/
+/*    !*-fx-tab-min-height: 100;*!*/
+/*    !*-fx-tab-max-height: 100;*!*/
+
+
+/*}*/
+
+/*
+    The tab bar
+*/
+
+.jfx-tab-pane .headers-region {
+    -fx-background-color: #1b75bc;
+}
+
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #1b75bc;
+}
+
+.jfx-tab-pane .tab-selected-line {
+    -fx-stroke: #75bc1b;
+    -fx-stroke-width: 3pt;
+}
+
+
+.tab-button {
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-content-display: graphic-only;
+}
+
+.tab-button:hover {
+    -fx-background-color: white;
+}
+
 

@@ -3,6 +3,8 @@ package com.chat.client.network.client.user.impl;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.server.model.user.User;
 
+import java.util.List;
+
 public class UserHandlerImpl implements UserHandler {
 
     public UserHandlerImpl() {
@@ -25,6 +27,11 @@ public class UserHandlerImpl implements UserHandler {
 
     @Override
     public User login(String phone, String password) {
+        return null;
+    }
+
+    @Override
+    public List<User> getAllUsers() {
         return null;
     }
 }

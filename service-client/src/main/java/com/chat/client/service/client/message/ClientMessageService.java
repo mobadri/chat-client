@@ -20,5 +20,5 @@ public interface ClientMessageService {
      *
      * @return message that from group
      */
-    List<Message> receiveMessage();
+    Message receiveMessage();
 }
