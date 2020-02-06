@@ -4,7 +4,7 @@ import com.chat.server.model.chat.Message;
 
 import java.util.List;
 
-public interface MessageService {
+public interface ClientMessageService {
     //@yassmin
     //todo add methods signature for this class
 

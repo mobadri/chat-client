@@ -6,7 +6,7 @@ import com.chat.server.model.user.User;
 
 import java.util.List;
 
-public interface NotificationService {
+public interface ClientNotificationService {
     /**
      * get user notifications which seen or not seen
      *

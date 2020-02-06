@@ -1,13 +1,13 @@
 package com.chat.client.service.client.notification.impl;
 
-import com.chat.client.service.client.notification.NotificationService;
+import com.chat.client.service.client.notification.ClientNotificationService;
 import com.chat.server.model.chat.Notification;
 import com.chat.server.model.chat.NotificationType;
 import com.chat.server.model.user.User;
 
 import java.util.List;
 
-public class NotificationServiceImpl implements NotificationService {
+public class ClientNotificationServiceImpl implements ClientNotificationService {
     @Override
     public List<Notification> getUserNotification(User user, boolean seen) {
         return null;

@@ -1,11 +1,11 @@
 package com.chat.client.service.client.message.impl;
 
-import com.chat.client.service.client.message.MessageService;
+import com.chat.client.service.client.message.ClientMessageService;
 import com.chat.server.model.chat.Message;
 
 import java.util.List;
 
-public class MessageServiceImpl implements MessageService {
+public class ClientMessageServiceImpl implements ClientMessageService {
 
     //@yassmin
     //todo impl this class
