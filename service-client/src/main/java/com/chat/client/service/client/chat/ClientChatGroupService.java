@@ -6,7 +6,7 @@ import com.chat.server.model.user.User;
 
 import java.util.List;
 
-public interface ChatGroupService {
+public interface ClientChatGroupService {
     //@badri
     //todo add methods signature for this class
 

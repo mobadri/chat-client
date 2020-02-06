@@ -1,13 +1,13 @@
 package com.chat.client.service.client.chat.impl;
 
-import com.chat.client.service.client.chat.ChatGroupService;
+import com.chat.client.service.client.chat.ClientChatGroupService;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
 import com.chat.server.model.user.User;
 
 import java.util.List;
 
-public class ChatGroupServiceImpl implements ChatGroupService {
+public class ClientChatGroupServiceImpl implements ClientChatGroupService {
     @Override
     public ChatGroup createGroup(ChatGroup chatGroup) {
         return null;
