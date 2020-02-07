@@ -1,14 +1,10 @@
 package com.chat.client.repository.client.user.impl;
-
-import com.chat.client.network.client.factory.NetworkFactory;
-import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.repository.client.user.UserRepository;
 import com.chat.server.model.user.User;
 
 import java.util.List;
 
 public class UserRepositoryImpl implements UserRepository {
-    UserHandler userHandler = NetworkFactory.createUserHandler();
 
     //@mariam
     //todo impl this class
@@ -42,7 +38,8 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User login(String phone, String password) {
-        return userHandler.login(phone, password);
+        //return userHandler.login(phone, password);
+        return null;
     }
 
     @Override
