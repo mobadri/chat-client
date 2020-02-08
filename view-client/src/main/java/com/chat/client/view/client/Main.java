@@ -12,13 +12,19 @@ public class Main extends Application {
 
     private double xOffset;
     private double yOffset;
+    //Stage stage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/templates/login/login-view.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/templates/user/startPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
+        Parent root = loader.load();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene(root);
+        startpageController startpageController = loader.getController();
+        System.out.println(primaryStage);
+        startpageController.setStage(primaryStage);
 
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
@@ -27,23 +33,8 @@ public class Main extends Application {
         primaryStage.setMinWidth(450);
         primaryStage.show();
 
-        movingStage(root, primaryStage);
     }
 
-    private void movingStage(Parent root, Stage primaryStage) {
-
-        root.setOnMousePressed((e) -> {
-
-            xOffset = primaryStage.getX() - e.getScreenX();
-            yOffset = primaryStage.getX() - e.getScreenY();
-        });
-
-        root.setOnMouseDragged((e) -> {
-
-            primaryStage.setX(xOffset + e.getScreenX());
-            primaryStage.setY(yOffset + e.getScreenY());
-        });
-    }
 
     public static void main(String[] args) {
         launch(args);

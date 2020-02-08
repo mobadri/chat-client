@@ -13,9 +13,11 @@ public class ChatViewTest extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(this.getClass().getResource("/templates/login/login.fxml"));
+        Parent root = FXMLLoader.load(this.getClass().getResource("/templates/user/startPage.fxml"));
         stage.setTitle("Chat Room");
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+
 }
