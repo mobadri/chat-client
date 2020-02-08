@@ -16,7 +16,7 @@ public interface ClientMessageService {
     void sendMessage(Message message);
 
     /**
-     * this method used to recievethemessage from group
+     * this method used to receive the message from group
      *
      * @return message that from group
      */
