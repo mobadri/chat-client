@@ -27,7 +27,7 @@ public class UserValidation {
 
     public boolean validPhone(String phone) {
 
-        return phone.matches("^(?:\\+?2)?01[0-9]\\d{9}$");
+        return phone.matches("^(?:\\+?2)?01[0-9]{9}$");
     }
 
     public boolean gender(Gender gender) {
