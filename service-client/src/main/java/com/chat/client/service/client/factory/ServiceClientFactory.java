@@ -9,6 +9,8 @@ import com.chat.client.service.client.notification.impl.ClientNotificationServic
 import com.chat.client.service.client.user.ClientUserService;
 import com.chat.client.service.client.user.impl.ClientUserServiceImpl;
 
+import java.rmi.RemoteException;
+
 public class ServiceClientFactory {
     private static ClientUserService userService = null;
     private static ClientNotificationService notificationService = null;
@@ -21,7 +23,12 @@ public class ServiceClientFactory {
 
     public static synchronized ClientUserService createUserService() {
         if (userService == null) {
-            return new ClientUserServiceImpl();
+            try {
+                return new ClientUserServiceImpl();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+
         }
         return userService;
     }

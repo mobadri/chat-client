@@ -6,6 +6,7 @@ module service.client {
     exports com.chat.client.service.client.chat;
     requires repository.client;
     requires model.server;
+    requires java.rmi;
     requires network.client;
     opens com.chat.client.service.client.factory;
     opens com.chat.client.service.client.user;

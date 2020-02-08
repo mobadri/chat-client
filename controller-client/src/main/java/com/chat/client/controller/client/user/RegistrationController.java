@@ -3,6 +3,8 @@ package com.chat.client.controller.client.user;
 import com.chat.client.service.client.user.ClientUserService;
 import com.chat.server.model.user.User;
 
+import java.rmi.RemoteException;
+
 public class RegistrationController implements SignUpAndRegistration {
     private ClientUserService clientUserService;
 
@@ -11,12 +13,23 @@ public class RegistrationController implements SignUpAndRegistration {
     }
 
     public User login(String phone, String password) {
-        return clientUserService.login(phone, password);
+        try {
+            return clientUserService.login(phone, password);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public User signUp(User user) {
-        return clientUserService.signup(user);
+        try {
+            return clientUserService.signup(user);
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

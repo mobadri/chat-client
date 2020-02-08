@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 public class FirstSignUpController implements Initializable {
     Stage stage;
 
+
     public void setStageSignUp(Stage myStage) {
         this.stage = myStage;
     }

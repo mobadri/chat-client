@@ -1,5 +1,4 @@
 module network.client {
-//    requires service.client;
     requires java.rmi;
     requires model.server;
     requires service.server;
