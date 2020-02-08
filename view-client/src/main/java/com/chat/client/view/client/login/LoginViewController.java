@@ -45,6 +45,7 @@ public class LoginViewController {
     @FXML
     private void onLogin(MouseEvent mouseEvent) {
         User user = signUpAndRegistration.login(phone.getText(), password.getText());
+        System.out.println(user);
         if (user != null) {
             System.out.println(user);
         } else {

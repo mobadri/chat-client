@@ -1,5 +1,8 @@
 package com.chat.client.view.client;
 
+import com.chat.client.controller.client.user.RegistrationController;
+import com.chat.client.controller.client.user.SignUpAndRegistration;
+import com.chat.client.service.client.factory.ServiceClientFactory;
 import com.chat.client.view.client.login.FirstSignUpController;
 import com.chat.client.view.client.login.LoginController;
 import javafx.event.ActionEvent;
@@ -53,9 +56,14 @@ public class startpageController implements Initializable {
             System.out.println(getClass().toString());
             System.out.println(getClass().getResource("/templates/login/login.fxml").getPath());
             System.out.println(stage);
+
             LoginController loginController = loader.getController();
             loginController.setStageLogin(stage);
 
+
+            SignUpAndRegistration registrationController =
+                    new RegistrationController(ServiceClientFactory.createUserService());
+            loginController.setSignUpAndRegistration(registrationController);
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
