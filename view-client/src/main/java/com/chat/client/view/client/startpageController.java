@@ -4,7 +4,7 @@ import com.chat.client.controller.client.user.RegistrationController;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.client.service.client.factory.ServiceClientFactory;
 import com.chat.client.view.client.login.FirstSignUpController;
-import com.chat.client.view.client.login.LoginController;
+import com.chat.client.view.client.login.LoginViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,14 +23,11 @@ public class startpageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        System.out.println("My stage is = " + stage);
     }
 
     @FXML
     public void gotosignuppage(ActionEvent actionEvent) {
         Parent root;
-        //;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/firstsignup.fxml"));
             root = loader.load();
@@ -48,22 +45,14 @@ public class startpageController implements Initializable {
 
     @FXML
     public void gotosigninpage(ActionEvent actionEvent) {
-        Parent root;
-        //;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/login.fxml"));
-            root = loader.load();
-            System.out.println(getClass().toString());
-            System.out.println(getClass().getResource("/templates/login/login.fxml").getPath());
-            System.out.println(stage);
-
-            LoginController loginController = loader.getController();
-            loginController.setStageLogin(stage);
-
-
+            Parent root = loader.load();
+            LoginViewController loginView = loader.getController();
+            loginView.setStageLogin(stage);
             SignUpAndRegistration registrationController =
                     new RegistrationController(ServiceClientFactory.createUserService());
-            loginController.setSignUpAndRegistration(registrationController);
+            loginView.setSignUpAndRegistration(registrationController);
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,8 +63,6 @@ public class startpageController implements Initializable {
 
     public void setStage(Stage stage) {
         this.stage = stage;
-        System.out.println("My Stage in Start Page Controller" + this.stage);
-        System.out.println("Hey From setStage");
     }
 
 }

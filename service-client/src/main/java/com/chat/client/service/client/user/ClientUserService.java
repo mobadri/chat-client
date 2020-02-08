@@ -4,6 +4,7 @@ import com.chat.server.model.user.User;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Map;
 
 public interface ClientUserService extends Remote {
     //@mariam
@@ -15,6 +16,7 @@ public interface ClientUserService extends Remote {
 
     boolean addFriend(User currentUser, User friend) throws RemoteException;
 
+    public Map<String, Boolean> validation(User user) throws RemoteException;
 
     User signup(User user) throws RemoteException;
 }

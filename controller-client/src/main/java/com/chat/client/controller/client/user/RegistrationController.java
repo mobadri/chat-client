@@ -5,6 +5,7 @@ import com.chat.client.service.client.user.ClientUserService;
 import com.chat.server.model.user.User;
 
 import java.rmi.RemoteException;
+import java.util.Map;
 
 public class RegistrationController implements SignUpAndRegistration {
     private ClientUserService clientUserService;
@@ -31,6 +32,11 @@ public class RegistrationController implements SignUpAndRegistration {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public Map<String, Boolean> validate(User user) throws RemoteException {
+        return clientUserService.validation(user);
     }
 
 }

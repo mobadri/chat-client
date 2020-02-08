@@ -10,14 +10,8 @@ import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
-    private double xOffset;
-    private double yOffset;
-    //Stage stage;
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        //Parent root = FXMLLoader.load(getClass().getResource("/templates/user/startPage.fxml"));
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
         Parent root = loader.load();
         primaryStage.initStyle(StageStyle.TRANSPARENT);
@@ -37,6 +31,7 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+
         launch(args);
     }
 }

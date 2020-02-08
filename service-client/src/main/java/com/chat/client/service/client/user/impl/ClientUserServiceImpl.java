@@ -37,7 +37,8 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
         return false;
     }
 
-    public Map<String, Boolean> validation(User user) {
+    @Override
+    public Map<String, Boolean> validation(User user) throws RemoteException {
         UserValidation userValidation = new UserValidation(user);
         return userValidation.validUser(user);
     }
