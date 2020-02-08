@@ -2,12 +2,29 @@ package com.chat.client.network.client.user.impl;
 
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.server.model.user.User;
+import com.chat.server.service.server.user.ServerUserService;
 
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.List;
 
 public class UserHandlerImpl implements UserHandler {
+    private final int PORT_NUMBER = 11223;
+    ServerUserService serverUserService;
 
     public UserHandlerImpl() {
+        try {
+            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
+            serverUserService = (ServerUserService) registry.lookup("userService");
+//            clientChatGroupService = ServiceClientFactory.createChatGroupService();
+//            serverChatGroupService.register(clientChatGroupService);
+
+        } catch (RemoteException | NotBoundException e) {
+            e.printStackTrace();
+            System.out.println("something incorrect happened!!");
+        }
     }
 
     @Override
@@ -27,11 +44,21 @@ public class UserHandlerImpl implements UserHandler {
 
     @Override
     public User login(String phone, String password) {
+        try {
+            return serverUserService.getByPhoneAndPassword(phone, password);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
     public List<User> getAllUsers() {
+        return null;
+    }
+
+    @Override
+    public User signUp(User user) {
         return null;
     }
 }

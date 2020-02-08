@@ -1,11 +1,11 @@
 package com.chat.client.network.client.factory;
 
 import com.chat.client.network.client.chat.ChatGroupHandler;
-import com.chat.client.network.client.chat.impl.ChatGroupHandlerDummyImpl;
+import com.chat.client.network.client.chat.impl.ChatGroupHandlerImpl;
 import com.chat.client.network.client.notifocation.NotificationHandler;
 import com.chat.client.network.client.notifocation.impl.NotificationHandlerImpl;
 import com.chat.client.network.client.user.UserHandler;
-import com.chat.client.network.client.user.impl.UserHandlerDummyImpl;
+import com.chat.client.network.client.user.impl.UserHandlerImpl;
 
 import java.util.Objects;
 
@@ -26,7 +26,7 @@ public class NetworkFactory {
      * @return UserHandler implantation
      */
     public static synchronized UserHandler createUserHandler() {
-        userHandler = Objects.requireNonNullElseGet(userHandler, () -> new UserHandlerDummyImpl());
+        userHandler = Objects.requireNonNullElseGet(userHandler, () -> new UserHandlerImpl());
         return NetworkFactory.userHandler;
     }
 
@@ -36,7 +36,7 @@ public class NetworkFactory {
      * @return ChatGroupHandler implantation
      */
     public static synchronized ChatGroupHandler createChatGroupHandler() {
-        chatGroupHandler = Objects.requireNonNullElseGet(chatGroupHandler, () -> new ChatGroupHandlerDummyImpl());
+        chatGroupHandler = Objects.requireNonNullElseGet(chatGroupHandler, () -> new ChatGroupHandlerImpl());
         return chatGroupHandler;
     }
 
@@ -45,9 +45,9 @@ public class NetworkFactory {
      *
      * @return NotificationHandlerImplantation
      */
-    public static synchronized NotificationHandler createNotificationHandler(){
+    public static synchronized NotificationHandler createNotificationHandler() {
 
-        if(notificationHandler == null)
+        if (notificationHandler == null)
             notificationHandler = new NotificationHandlerImpl();
         return notificationHandler;
     }

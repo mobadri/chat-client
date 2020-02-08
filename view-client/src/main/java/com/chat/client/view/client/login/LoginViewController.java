@@ -1,6 +1,6 @@
 package com.chat.client.view.client.login;
 
-import com.chat.client.controller.client.user.UserController;
+import com.chat.client.controller.client.user.SignUpAndRegistration;
 import com.chat.server.model.user.User;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class LoginViewController {
-    UserController userController = new UserController();
+    SignUpAndRegistration signUpAndRegistration;
     @FXML
     AnchorPane signInView;
 
@@ -26,6 +26,10 @@ public class LoginViewController {
     @FXML
     JFXPasswordField password;
 
+    public LoginViewController(SignUpAndRegistration signUpAndRegistration) {
+        this.signUpAndRegistration = signUpAndRegistration;
+    }
+
     public void signUpView(ActionEvent actionEvent) {
         signUpView.toFront();
     }
@@ -40,7 +44,7 @@ public class LoginViewController {
 
     @FXML
     private void onLogin(MouseEvent mouseEvent) {
-        User user = userController.login(phone.getText(), password.getText());
+        User user = signUpAndRegistration.login(phone.getText(), password.getText());
         if (user != null) {
             System.out.println(user);
         } else {

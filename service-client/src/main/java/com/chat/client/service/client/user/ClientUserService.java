@@ -7,4 +7,5 @@ public interface ClientUserService {
     //todo add methods signature for this class
     User login(String phone, String password);
 
+    User signup(User user);
 }

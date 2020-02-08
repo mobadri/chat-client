@@ -4,6 +4,5 @@ module repository.client {
     exports com.chat.client.repository.client.chat;
     exports com.chat.client.repository.client.notification;
     exports com.chat.client.repository.client.user;
-    //requires network.client;
     requires model.server;
 }

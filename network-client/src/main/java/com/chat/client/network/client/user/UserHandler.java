@@ -42,4 +42,6 @@ public interface UserHandler {
 
     List<User> getAllUsers();
 
+    User signUp(User user);
+
 }

@@ -1,8 +1,6 @@
 package com.chat.client.network.client.chat.impl;
 
 import com.chat.client.network.client.chat.ChatGroupHandler;
-import com.chat.client.service.client.chat.ClientChatGroupService;
-import com.chat.client.service.client.factory.ServiceClientFactory;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.chatgroup.ServerChatGroupService;
@@ -13,21 +11,25 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.List;
 
+//import com.chat.client.service.client.chat.ClientChatGroupService;
+//import com.chat.client.service.client.factory.ServiceClientFactory;
+
 public class ChatGroupHandlerImpl implements ChatGroupHandler {
 
-    private final static int PORT_NUMBER = 11223;
+    private final int PORT_NUMBER = 11223;
     ServerChatGroupService serverChatGroupService;
-    ClientChatGroupService clientChatGroupService;
+//    ClientChatGroupService clientChatGroupService;
 
     public ChatGroupHandlerImpl() {
 
         try {
             Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
             serverChatGroupService = (ServerChatGroupService) registry.lookup("chatGroupService");
-            clientChatGroupService = ServiceClientFactory.createChatGroupService();
-            serverChatGroupService.register(clientChatGroupService);
+//            clientChatGroupService = ServiceClientFactory.createChatGroupService();
+//            serverChatGroupService.register(clientChatGroupService);
 
         } catch (RemoteException | NotBoundException e) {
+            e.printStackTrace();
             System.out.println("something incorrect happened!!");
         }
     }
@@ -63,24 +65,24 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
     }
 
     @Override
-    public int createGroup(ChatGroup chatGroup) {
+    public ChatGroup createGroup(ChatGroup chatGroup) {
 
         try {
             return serverChatGroupService.insertChatGroup(chatGroup);
         } catch (RemoteException e) {
             System.out.println("something incorrect happened!! " + e);
         }
-        return 0;
+        return chatGroup;
     }
 
     @Override
-    public int updateChatGroup(ChatGroup chatGroup) {
+    public ChatGroup updateChatGroup(ChatGroup chatGroup) {
 
         try {
             return serverChatGroupService.updateChatGroup(chatGroup);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return 0;
+        return chatGroup;
     }
 }

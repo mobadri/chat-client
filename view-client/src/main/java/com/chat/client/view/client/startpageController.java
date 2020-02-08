@@ -3,6 +3,7 @@ package com.chat.client.view.client;
 import com.chat.client.view.client.login.FirstSignUpController;
 import com.chat.client.view.client.login.LoginController;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -16,12 +17,14 @@ import java.util.ResourceBundle;
 public class startpageController implements Initializable {
     Stage stage;
 
-    void setStage(Stage stage2) {
-        this.stage = stage2;
-        System.out.println("My Stage in Start Page Controller" + this.stage);
-        System.out.println("Hey From setStage");
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        System.out.println("My stage is = " + stage);
     }
 
+    @FXML
     public void gotosignuppage(ActionEvent actionEvent) {
         Parent root;
         //;
@@ -40,6 +43,7 @@ public class startpageController implements Initializable {
 
     }
 
+    @FXML
     public void gotosigninpage(ActionEvent actionEvent) {
         Parent root;
         //;
@@ -60,10 +64,10 @@ public class startpageController implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("My stage is = " + stage);
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        System.out.println("My Stage in Start Page Controller" + this.stage);
+        System.out.println("Hey From setStage");
     }
-
 
 }
