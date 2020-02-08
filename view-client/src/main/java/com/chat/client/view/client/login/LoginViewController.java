@@ -1,6 +1,6 @@
 package com.chat.client.view.client.login;
 
-import com.chat.client.controller.client.user.SignUpAndRegistration;
+import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.server.model.user.User;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;

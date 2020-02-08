@@ -1,4 +1,4 @@
-package com.chat.client.controller.client.user;
+package com.chat.client.controller.client.user.login;
 
 import com.chat.server.model.user.User;
 
