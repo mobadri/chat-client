@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
@@ -17,18 +17,17 @@
                 <AnchorPane layoutY="14.0" prefHeight="111.0" prefWidth="480.0" style="-fx-background-color: #F0F4F8;"
                             AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <JFXTabPane prefHeight="630.0" prefWidth="575.0" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                        <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="630.0" prefWidth="575.0"
+                                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                             <tabs>
                                 <Tab text="Chat">
                                     <AnchorPane prefWidth="511.0">
                                         <children>
                                             <AnchorPane layoutX="51.0" prefHeight="589.0" prefWidth="418.0">
                                                 <children>
-                                                    <VBox layoutX="-18.0" layoutY="69.0"
-                                                          maxHeight="1" prefHeight="520.0"
-                                                          prefWidth="497.0" AnchorPane.bottomAnchor="0.0"
-                                                          AnchorPane.topAnchor="69.0">
+                                                    <VBox layoutX="-18.0" layoutY="69.0" maxHeight="1"
+                                                          prefHeight="520.0" prefWidth="497.0"
+                                                          AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="69.0">
                                                         <children>
                                                             <HBox fx:id="onlineUsersHbox" minHeight="-Infinity"
                                                                   minWidth="-Infinity" prefHeight="57.0"
@@ -60,8 +59,7 @@
                                                                 </children>
                                                             </HBox>
                                                             <ListView fx:id="userList" focusTraversable="false"
-                                                                      maxHeight="2"
-                                                                      prefHeight="473.0" prefWidth="433.0"
+                                                                      maxHeight="2" prefHeight="473.0" prefWidth="433.0"
                                                                       style="-fx-border-image-width: 0;"
                                                                       stylesheets="@../../static/css/ListViewStyle.css">
                                                             </ListView>
@@ -145,7 +143,13 @@
                                     <!--                                    </graphic>-->
                                 </Tab>
                             </tabs>
-                        </JFXTabPane>
+                            <opaqueInsets>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                            </opaqueInsets>
+                            <cursor>
+                                <Cursor fx:constant="OPEN_HAND"/>
+                            </cursor>
+                        </TabPane>
                     </children>
                 </AnchorPane>
             </children>
@@ -168,7 +172,7 @@
                 </Label>
                 <TextField fx:id="peopleSearch" layoutX="16.0" layoutY="100.0" onAction="#searchForFriend"
                            prefHeight="29.0" prefWidth="279.0" promptText="search for people"
-                           style="-fx-border-: 2px #FEFEFE; -fx-border-radius: 25px; -fx-border-width: 1px; -fx-background-color: #FFFFF;"
+                           style="-fx-border: 2px #FEFEFE; -fx-border-radius: 25px; -fx-border-width: 1px; -fx-background-color: #FFFFF;"
                            AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
                     <padding>
                         <Insets left="32.0" right="32.0"/>

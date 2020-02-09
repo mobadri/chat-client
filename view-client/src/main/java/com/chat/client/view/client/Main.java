@@ -6,25 +6,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/user-home.fxml"));
         Parent root = loader.load();
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
         Scene scene = new Scene(root);
-        startpageController startpageController = loader.getController();
-        System.out.println(primaryStage);
-        startpageController.setStage(primaryStage);
-
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
-
-        primaryStage.setMinHeight(900);
-        primaryStage.setMinWidth(450);
         primaryStage.show();
 
     }

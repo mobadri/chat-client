@@ -1,6 +1,5 @@
-package com.chat.client.controller.client.user;
+package com.chat.client.controller.client.user.login;
 
-import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.client.service.client.user.ClientUserService;
 import com.chat.server.model.user.User;
 
