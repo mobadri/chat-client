@@ -141,13 +141,10 @@
                         </AnchorPane>
                     </children>
                 </HBox>
-                <JFXTextField AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
-                              AnchorPane.topAnchor="55"
-
-                ></JFXTextField>
-                <AnchorPane layoutX="6.0" layoutY="54.0" prefHeight="547.0" prefWidth="275.0"
-                            AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
-                            AnchorPane.topAnchor="55.0">
+                <JFXTextField AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55"/>
+                <AnchorPane layoutX="6.0" layoutY="54.0" prefHeight="685.0" prefWidth="282.0"
+                            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
+                            AnchorPane.topAnchor="85.0">
                     <children>
                         <JFXListView fx:id="userList" focusTraversable="false" prefHeight="658.0" prefWidth="278.0"
                                      style="-fx-border-image-width: 0;"
