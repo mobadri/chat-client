@@ -5,6 +5,8 @@ import com.chat.server.model.user.User;
 import java.util.List;
 
 public interface UserHandler {
+
+
     /**
      * search for user by phone
      *

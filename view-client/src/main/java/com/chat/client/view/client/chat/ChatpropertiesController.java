@@ -76,7 +76,7 @@ public class ChatpropertiesController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        setListView();
+        //setListView();
 
 //        Image image = new Image(getClass().getResource("/static/images/followers.png").toExternalForm());
 //

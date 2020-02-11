@@ -18,7 +18,7 @@
 
 #userList {
     -fx-box-border: transparent;
-    -fx-font-size: 18;
+    -fx-font-size: 16.0;
 }
 
 #listHbox {

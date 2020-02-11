@@ -1,55 +1,102 @@
 package com.chat.client.view.client.login;
 
-import com.chat.client.controller.client.user.SignUpAndRegistration;
+import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.server.model.user.User;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
-public class LoginViewController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class LoginViewController implements Initializable {
+    Stage stage;
+    @FXML
+    Label lblloginSignuphere;
+    @FXML
+    TextField txtFieldLoginPhone;
+
+    @FXML
+    PasswordField txtFieldloginPassword;
+
     SignUpAndRegistration signUpAndRegistration;
-    @FXML
-    AnchorPane signInView;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+
+    public void setStageLogin(Stage stage) {
+        this.stage = stage;
+
+    }
 
     @FXML
-    AnchorPane signUpView;
+    private void onLogin(ActionEvent actionEvent) {
+        User user = signUpAndRegistration.login(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
+        if (user != null && user.getId() > 0) {
+            System.out.println("login successfully");
+            goToHomePage();
+        } else {
+            System.out.println("user not found");
+        }
 
-    @FXML
-    AnchorPane parentPane;
+    }
 
-    @FXML
-    JFXTextField phone;
 
-    @FXML
-    JFXPasswordField password;
+    public void goToHomePage() {
 
-    public LoginViewController(SignUpAndRegistration signUpAndRegistration) {
+        Parent root;
+        //;
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/templates/user/user-friends.fxml"));
+            root = loader.load();
+            System.out.println(stage);
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+            e.getMessage();
+        }
+    }
+
+    public void setSignUpAndRegistration(SignUpAndRegistration signUpAndRegistration) {
         this.signUpAndRegistration = signUpAndRegistration;
     }
 
-    public void signUpView(ActionEvent actionEvent) {
-        signUpView.toFront();
-    }
-
-    public void signInView(ActionEvent actionEvent) {
-        signInView.toFront();
-    }
-
-    public void closeApp(MouseEvent mouseEvent) {
-        System.exit(0);
-    }
-
     @FXML
-    private void onLogin(MouseEvent mouseEvent) {
-        User user = signUpAndRegistration.login(phone.getText(), password.getText());
-        System.out.println(user);
-        if (user != null) {
-            System.out.println(user);
-        } else {
-            System.out.println("notfound");
+    public void onSignUp(MouseEvent mouseEvent) {
+        System.out.println("Label pressed");
+        Parent root;
+        //;
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/templates/login/firstsignup.fxml"));
+            root = loader.load();
+
+//            ClientUserService clientUserService = ServiceClientFactory.createUserService();
+            FirstSignUpController firstSignUpController = loader.getController();
+//            SignUpAndRegistration signUpAndRegistration = new RegistrationController(clientUserService);
+//            System.out.println("set controller and stage");
+            firstSignUpController.setStageSignUp(stage);
+            firstSignUpController.setSignUpAndRegistration(signUpAndRegistration);
+
+            stage.setScene(new Scene(root));
+            //firstSignUpController
+        } catch (IOException e) {
+            e.printStackTrace();
+            e.getMessage();
         }
     }
 }

@@ -52,6 +52,11 @@ public class UserHandlerImpl implements UserHandler {
 
     @Override
     public List<User> getAllUsers() {
+        try {
+            return serverUserService.getAllUsers();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

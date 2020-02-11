@@ -4,9 +4,13 @@ module service.client {
     exports com.chat.client.service.client.notification;
     exports com.chat.client.service.client.message;
     exports com.chat.client.service.client.chat;
+    exports com.chat.client.service.client.user.validation;
     requires repository.client;
     requires model.server;
+    requires javafx.controls;
+    requires java.rmi;
     requires network.client;
+    requires service.server;
     opens com.chat.client.service.client.factory;
     opens com.chat.client.service.client.user;
     opens com.chat.client.service.client.user.impl;

@@ -10,6 +10,8 @@ module view.client {
     requires fontawesomefx;
     requires org.controlsfx.controls;
     requires service.client;
+    requires java.rmi;
+    requires network.client;
 //    requires network.client;
     opens com.chat.client.view.client;
     opens com.chat.client.view.client.login;
