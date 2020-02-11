@@ -2,6 +2,7 @@ package com.chat.client.service.client.user.validation;
 
 import com.chat.server.model.user.Gender;
 import com.chat.server.model.user.User;
+import javafx.scene.control.TextField;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,28 +38,29 @@ public class UserValidation {
 
     public boolean validCountry(String country) {
 
-        return country != null;
+        return !country.equals("");
     }
 
     public boolean validPassword(String password) {
 
 
-        return password.matches("a-zA-Z@#$%&?!0-9{8,40}");
+        return password.matches("^[a-zA-Z!@#$%-^&?_0-9]{8,40}$");
 
     }
 
     public Map<String, Boolean> validUser(User user) {
         Map<String, Boolean> validUser = new HashMap<>();
 
-        validUser.put("FIRST_NAME", validName(user.getFirstName()));
-        validUser.put("LAST_NAME", validName(user.getLastName()));
-        validUser.put("PHONE", validPhone(user.getPhone()));
-        validUser.put("PASSWORD", validPassword(user.getPassword()));
-        validUser.put("EMAIL", validMail(user.getEmail()));
-        validUser.put("COUNTRY", validCountry(user.getCountry()));
-        validUser.put("GENDER", gender(user.getGender()));
+        validUser.put("InvalidFirstName", validName(user.getFirstName()));
+        validUser.put("InvalidLastName", validName(user.getLastName()));
+        validUser.put("InvalidPhone", validPhone(user.getPhone()));
+        validUser.put("InvalidPassword", validPassword(user.getPassword()));
+        validUser.put("InvalidEmail", validMail(user.getEmail()));
+        validUser.put("InvalidCountry", validCountry(user.getCountry()));
+        validUser.put("InvalidGender", gender(user.getGender()));
 
-        return validUser;
+        return validUser
+                ;
     }
 
 

@@ -24,7 +24,7 @@ public class UserHome implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setListView();
+        //setListView();
     }
 
     public void nav(MouseEvent mouseEvent) {

@@ -10,6 +10,9 @@ and open the template in the editor.
 .button {
     -fx-cursor: hand;
 }
+.TextFeild{
+    -fx-border-color:white;
+}
 
 #buttons-blue {
     -fx-background-color: #0078D4;
