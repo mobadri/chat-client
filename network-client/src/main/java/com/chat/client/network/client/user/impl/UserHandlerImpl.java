@@ -18,8 +18,6 @@ public class UserHandlerImpl implements UserHandler {
         try {
             Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
             serverUserService = (ServerUserService) registry.lookup("userService");
-//            clientChatGroupService = ServiceClientFactory.createChatGroupService();
-//            serverChatGroupService.register(clientChatGroupService);
 
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
