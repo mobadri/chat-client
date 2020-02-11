@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
+
     Stage stage;
     @FXML
     Label lblloginSignuphere;

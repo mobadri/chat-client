@@ -11,22 +11,16 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.List;
 
-//import com.chat.client.service.client.chat.ClientChatGroupService;
-//import com.chat.client.service.client.factory.ServiceClientFactory;
-
 public class ChatGroupHandlerImpl implements ChatGroupHandler {
 
     private final int PORT_NUMBER = 11223;
     ServerChatGroupService serverChatGroupService;
-//    ClientChatGroupService clientChatGroupService;
 
     public ChatGroupHandlerImpl() {
 
         try {
             Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
             serverChatGroupService = (ServerChatGroupService) registry.lookup("chatGroupService");
-//            clientChatGroupService = ServiceClientFactory.createChatGroupService();
-//            serverChatGroupService.register(clientChatGroupService);
 
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
