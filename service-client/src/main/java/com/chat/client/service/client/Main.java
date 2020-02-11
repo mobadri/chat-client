@@ -33,6 +33,8 @@ public class Main {
         }
 
         System.out.println(userValidation.validPhone("+2010083199"));
+        System.out.println(userValidation.validPassword("!@#$%-^&?Y"));
+
     }
 
 }
