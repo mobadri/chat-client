@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -141,31 +141,22 @@
                         </AnchorPane>
                     </children>
                 </HBox>
+                <JFXTextField AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
+                              AnchorPane.topAnchor="55"
+
+                ></JFXTextField>
                 <AnchorPane layoutX="6.0" layoutY="54.0" prefHeight="547.0" prefWidth="275.0"
                             AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
                             AnchorPane.topAnchor="55.0">
                     <children>
                         <JFXListView fx:id="userList" focusTraversable="false" prefHeight="658.0" prefWidth="278.0"
                                      style="-fx-border-image-width: 0;"
-                                     stylesheets="@../../static/css/ListViewStyle.css"
-                                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-                                     AnchorPane.bottomAnchor="0.0">
+                                     stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="0.0"
+                                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                     AnchorPane.topAnchor="0.0">
                         </JFXListView>
                     </children>
                 </AnchorPane>
-                <ImageView fitHeight="21.0" fitWidth="25.0" opacity="0.61" pickOnBounds="true" preserveRatio="true"
-                           AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0">
-                    <image>
-                        <Image url="@../../static/images/user-home/icons8_add_24px.png"/>
-                    </image>
-                </ImageView>
-                <Label text="Add lIST" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="40.0">
-                    <font>
-                        <Font size="16.0"/>
-                    </font>
-                </Label>
-                <JFXButton fx:id="nEWLIST1" focusTraversable="false" onMouseClicked="#nav1" prefHeight="44.0"
-                           prefWidth="292.0" ripplerFill="#3b8ef4" text=" " AnchorPane.bottomAnchor="0.0"/>
             </children>
         </AnchorPane>
 
