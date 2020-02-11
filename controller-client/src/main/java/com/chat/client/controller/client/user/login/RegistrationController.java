@@ -1,5 +1,6 @@
 package com.chat.client.controller.client.user.login;
 
+import com.chat.client.service.client.factory.ServiceClientFactory;
 import com.chat.client.service.client.user.ClientUserService;
 import com.chat.server.model.user.User;
 
@@ -7,10 +8,10 @@ import java.rmi.RemoteException;
 import java.util.Map;
 
 public class RegistrationController implements SignUpAndRegistration {
-    private ClientUserService clientUserService;
+    private ClientUserService clientUserService = ServiceClientFactory.createUserService();
 
-    public RegistrationController(ClientUserService clientUserService) {
-        this.clientUserService = clientUserService;
+    public RegistrationController() {
+
     }
 
     public User login(String phone, String password) {

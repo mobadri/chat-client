@@ -3,16 +3,15 @@ package com.chat.client.view.client.login;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.server.model.user.Gender;
 import com.chat.server.model.user.User;
+import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.Border;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -58,6 +57,25 @@ public class FirstSignUpController implements Initializable {
     RadioButton female;
 
 
+    @FXML
+    private Label InvalidLastName;
+
+    @FXML
+    private Label InvalidFirstName;
+
+    @FXML
+    private Label InvalidPhone;
+
+    @FXML
+    private Label InvalidPassword;
+
+    @FXML
+    private Label InvalidEmail;
+
+    @FXML
+    private Label InvalidCountry;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -68,10 +86,9 @@ public class FirstSignUpController implements Initializable {
 
     @FXML
     void onNextAction(ActionEvent event) {
+        clearValidation();
 
 
-        if (txtFieldSignUpPassword.getText().trim()
-                .equals(txtFieldSignUpConfirmPassword.getText().trim())) {
             Map<String, Boolean> validationMap = new HashMap<>();
             User user = mapUserFromFields();
             try {
@@ -83,7 +100,7 @@ public class FirstSignUpController implements Initializable {
                 });
                 if (validationMap.size() > 0) {
                     validationMap.forEach((key, value) -> {
-                        System.out.println(key + " " + value);
+                        setError(key, value);
                     });
                 } else {
                     loadNextView();
@@ -92,10 +109,49 @@ public class FirstSignUpController implements Initializable {
                 e.printStackTrace();
             }
 
-        } else {
-
         }
 
+
+
+
+    private void clearValidation() {
+        InvalidFirstName.setText("");
+        InvalidLastName.setText("");
+        InvalidPhone.setText("");
+        InvalidPassword.setText("");
+        InvalidEmail.setText("");
+        InvalidCountry.setText("");
+    }
+
+    private void setError(String key, Boolean value) {
+        switch (key) {
+            case "InvalidFirstName":
+                InvalidFirstName.setText("* Invalid First Name");
+                txtFieldSignUpFirstName.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                break;
+            case "InvalidLastName":
+                InvalidLastName.setText("* Invalid Last Name");
+                txtFieldSignUpLastName.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                break;
+            case "InvalidPhone":
+                InvalidPhone.setText("*Invalid Phone");
+                txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                break;
+            case "InvalidPassword":
+                InvalidPassword.setText("* Invalid Password");
+                txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                break;
+            case "InvalidEmail":
+                InvalidEmail.setText("* Invalid Email");
+                txtFieldSignUpEmail.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+
+                break;
+            case "InvalidCountry":
+                InvalidCountry.setText("*Invalid Country");
+                txtFieldSignUpCountry.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                break;
+
+        }
 
     }
 

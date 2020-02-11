@@ -2,7 +2,6 @@ package com.chat.client.view.client;
 
 import com.chat.client.controller.client.user.login.RegistrationController;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
-import com.chat.client.service.client.factory.ServiceClientFactory;
 import com.chat.client.view.client.login.FirstSignUpController;
 import com.chat.client.view.client.login.LoginViewController;
 import javafx.event.ActionEvent;
@@ -31,10 +30,11 @@ public class startpageController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/firstsignup.fxml"));
             root = loader.load();
+            System.out.println(stage);
             stage.setScene(new Scene(root));
             FirstSignUpController firstSignUpController = loader.getController();
             firstSignUpController.setStageSignUp(stage);
-
+            firstSignUpController.setSignUpAndRegistration(new RegistrationController());
             //firstSignUpController
         } catch (IOException e) {
             e.printStackTrace();
@@ -51,7 +51,7 @@ public class startpageController implements Initializable {
             LoginViewController loginView = loader.getController();
             loginView.setStageLogin(stage);
             SignUpAndRegistration registrationController =
-                    new RegistrationController(ServiceClientFactory.createUserService());
+                    new RegistrationController();
             loginView.setSignUpAndRegistration(registrationController);
             stage.setScene(new Scene(root));
         } catch (IOException e) {
