@@ -25,12 +25,15 @@ public class UserHome implements Initializable {
     @FXML
     private ListView userList;
     @FXML
-    private AnchorPane containerPane ;
+    private AnchorPane containerPane;
     ListProperty<User> myFriendsListProperty = new SimpleListProperty<>();
     private ObservableList<User> myFriendsList = FXCollections.observableArrayList();
 
+    private User currrentUser;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         setListView();
     }
 
@@ -49,7 +52,7 @@ public class UserHome implements Initializable {
         //all user for testing the list view
         UserHandler userHandler = new UserHandlerImpl();
         List<User> users = userHandler.getAllUsers();
-        myFriendsList =FXCollections.observableList(users);
+        myFriendsList = FXCollections.observableList(users);
         System.out.println(users.size());
         userList.setItems(myFriendsList);
         userList.setCellFactory(new CellRenderer());
@@ -58,14 +61,22 @@ public class UserHome implements Initializable {
     @FXML
     private void onFriendsListClicked(MouseEvent mouseEvent) {
         User user = (User) userList.getSelectionModel().getSelectedItem();
-         if(user !=null){
+        if (user != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/chat/chat-view.fxml"));
                 Parent root = loader.load();
-                ChatViewController chatViewController = (ChatViewController)loader.getController();
+                ChatViewController chatViewController = (ChatViewController) loader.getController();
                 chatViewController.setUser(user);
 
-                containerPane.getChildren().setAll(root);
+//                containerPane.getChildren().add(root);
+
+                AnchorPane child = new AnchorPane(root);
+                AnchorPane.setTopAnchor(child, 10.0);
+                AnchorPane.setBottomAnchor(child, 10.0);
+                AnchorPane.setLeftAnchor(child, 10.0);
+                AnchorPane.setRightAnchor(child, 10.0);
+                containerPane.getChildren().setAll((AnchorPane) child);
+
 
 //                containerPane = new AnchorPane(root);
 //                content = (AnchorPane) FXMLLoader.load("vista2.fxml");
@@ -74,6 +85,10 @@ public class UserHome implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-         }
+        }
+    }
+
+    public void setCurrrentUser(User currrentUser) {
+        this.currrentUser = currrentUser;
     }
 }

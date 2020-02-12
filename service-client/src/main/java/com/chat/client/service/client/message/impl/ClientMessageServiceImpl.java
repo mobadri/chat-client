@@ -2,8 +2,6 @@ package com.chat.client.service.client.message.impl;
 
 import com.chat.client.network.client.chat.ChatGroupHandler;
 import com.chat.client.network.client.factory.NetworkFactory;
-import com.chat.client.repository.client.factory.RepsitoryFactory;
-import com.chat.client.repository.client.message.MessageGroupRepository;
 import com.chat.client.service.client.message.ClientMessageService;
 import com.chat.server.model.chat.Message;
 
@@ -17,13 +15,13 @@ public class ClientMessageServiceImpl implements ClientMessageService {
 
     @Override
     public void sendMessage(Message message) {
-        chatGroupHandler.sendMessage(message);
+//        chatGroupHandler.sendMessage(message);
     }
 
     @Override
-    public Message receiveMessage()
-    {
+    public Message receiveMessage() {
 //        return messageGroupRepository.receiveMessage();
+        return null;
     }
 
 
