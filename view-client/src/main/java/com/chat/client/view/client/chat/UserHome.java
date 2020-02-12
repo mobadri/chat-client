@@ -1,5 +1,6 @@
 package com.chat.client.view.client.chat;
 
+import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
 import com.chat.server.model.user.User;
@@ -67,6 +68,12 @@ public class UserHome implements Initializable {
                 Parent root = loader.load();
                 ChatViewController chatViewController = (ChatViewController) loader.getController();
                 chatViewController.setUser(user);
+                //@yasmine
+                //todo don't forget to add groupchat to chatviewcontroller
+                //---------
+                ChatGroupController chatGroupController = new ChatGroupController();
+                chatGroupController.setChatGroupInterface(chatViewController);
+                chatViewController.setChatGroupInterface(chatGroupController);
 
 //                containerPane.getChildren().add(root);
 

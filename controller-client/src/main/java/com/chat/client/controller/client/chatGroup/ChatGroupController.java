@@ -6,9 +6,20 @@ import com.chat.server.model.chat.Message;
 
 public class ChatGroupController implements ChatGroupInterface {
     ClientMessageService messageService = ServiceClientFactory.createMessageService();
-    public ChatGroupController(){}
+    ChatGroupInterface chatGroupInterface;
+
+
+    public ChatGroupController() {
+    }
+
     @Override
     public void sendMessage(Message message) {
+
         messageService.sendMessage(message);
+    }
+
+
+    public void setChatGroupInterface(ChatGroupInterface chatGroupInterface) {
+        this.chatGroupInterface = chatGroupInterface;
     }
 }
