@@ -99,4 +99,13 @@ public class LoginViewController implements Initializable {
             e.getMessage();
         }
     }
+
+    public void closeApp(MouseEvent mouseEvent) {
+    }
+
+    public void signUpView(ActionEvent actionEvent) {
+    }
+
+    public void signInView(ActionEvent actionEvent) {
+    }
 }

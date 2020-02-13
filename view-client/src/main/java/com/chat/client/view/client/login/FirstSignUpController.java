@@ -3,7 +3,6 @@ package com.chat.client.view.client.login;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.server.model.user.Gender;
 import com.chat.server.model.user.User;
-import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.Border;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -103,7 +101,7 @@ public class FirstSignUpController implements Initializable {
                         setError(key, value);
                     });
                 } else {
-                    loadNextView();
+                    loadNextView(user);
                 }
             } catch (RemoteException e) {
                 e.printStackTrace();
@@ -167,7 +165,7 @@ public class FirstSignUpController implements Initializable {
         return user;
     }
 
-    private void loadNextView() {
+    private void loadNextView(User user) {
         Parent root;
         try {
 
@@ -175,6 +173,12 @@ public class FirstSignUpController implements Initializable {
                     new FXMLLoader(getClass().getResource("/templates/login/secondpagesignup.fxml"));
             root = loader.load();
             System.out.println(stage);
+            SecondPageSignUpController secondpagesignupController = loader.getController();
+            System.out.println(user);
+            System.out.println(secondpagesignupController);
+            secondpagesignupController.setUserFromFirstPage(user);
+            secondpagesignupController.setStage(stage);
+
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();

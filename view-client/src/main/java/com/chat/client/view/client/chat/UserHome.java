@@ -15,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +32,8 @@ public class UserHome implements Initializable {
     private ObservableList<User> myFriendsList = FXCollections.observableArrayList();
 
     private User currrentUser;
+
+    private Stage stage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -97,5 +100,9 @@ public class UserHome implements Initializable {
 
     public void setCurrrentUser(User currrentUser) {
         this.currrentUser = currrentUser;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

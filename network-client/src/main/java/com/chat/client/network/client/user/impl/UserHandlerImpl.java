@@ -62,6 +62,14 @@ public class UserHandlerImpl implements UserHandler {
 
     @Override
     public User signUp(User user) {
-        return null;
+        try {
+            //todo remove int i and retrun user after update service
+            int i = serverUserService.insertUser(user);
+            user.setId(i);
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 }
