@@ -1,8 +1,13 @@
 package com.chat.client.view.client.chat;
 
 import com.chat.client.controller.client.chatGroup.ChatGroupController;
+import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
+import com.chat.client.controller.client.pushNotifications.PushNotificationController;
+import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
+import com.chat.client.view.client.notification.NotificationViewController;
+import com.chat.server.model.chat.Notification;
 import com.chat.server.model.user.User;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -19,10 +24,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UserHome implements Initializable {
+public class UserHome implements Initializable ,PushNotificationInterface{
 
     @FXML
     private ListView userList;
@@ -30,7 +36,9 @@ public class UserHome implements Initializable {
     private AnchorPane containerPane;
     ListProperty<User> myFriendsListProperty = new SimpleListProperty<>();
     private ObservableList<User> myFriendsList = FXCollections.observableArrayList();
-
+    //app controller
+    private ChatGroupController chatGroupInterface;
+    private PushNotificationController pushNotificationInterface;
     private User currrentUser;
 
     private Stage stage;
@@ -40,7 +48,15 @@ public class UserHome implements Initializable {
 
         setListView();
     }
-
+    public UserHome(){
+         try{
+             chatGroupInterface= new ChatGroupController();
+             pushNotificationInterface = new PushNotificationController();
+             pushNotificationInterface.setPushNotificationInterface(this);
+         } catch (RemoteException e) {
+               e.printStackTrace();
+         }
+    }
     public void nav(MouseEvent mouseEvent) {
     }
 
@@ -75,11 +91,10 @@ public class UserHome implements Initializable {
                 //@yasmine
                 //todo don't forget to add groupchat to chatviewcontroller
                 //---------
-                //app controller
-                ChatGroupController chatGroupController = new ChatGroupController();
+
                 //add ref to each other
-                chatGroupController.setChatGroupInterface(chatViewController);
-                chatViewController.setChatGroupInterface(chatGroupController);
+                chatGroupInterface.setChatGroupInterface(chatViewController);
+                chatViewController.setChatGroupInterface(chatGroupInterface);
 
 //                containerPane.getChildren().add(root);
 
@@ -107,5 +122,10 @@ public class UserHome implements Initializable {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    @Override
+    public void receiveNotification(Notification notification) {
+        System.out.println(notification);
     }
 }

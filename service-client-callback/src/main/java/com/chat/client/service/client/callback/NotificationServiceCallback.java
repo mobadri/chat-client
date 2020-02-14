@@ -2,10 +2,13 @@ package com.chat.client.service.client.callback;
 
 import com.chat.server.model.chat.Notification;
 
-public interface NotificationServiceCallback {
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface NotificationServiceCallback extends Remote {
     /**
      * receive notification from my fiends
      * @param notification notification be received
      */
-    void receiveNotification(Notification notification);
+    void receiveNotification(Notification notification)throws RemoteException;
 }

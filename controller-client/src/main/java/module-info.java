@@ -6,5 +6,5 @@ module controller.client {
     exports com.chat.client.controller.client.user;
     exports com.chat.client.controller.client.user.login;
     exports com.chat.client.controller.client.chatGroup;
-    exports com.chat.client.controller.client.user.message;
+    exports com.chat.client.controller.client.pushNotifications;
 }
