@@ -1,9 +1,11 @@
 package com.chat.client.controller.client.chatGroup;
 
 import com.chat.client.service.client.callback.MessageServiceCallBack;
+import com.chat.client.service.client.callback.NotificationServiceCallback;
 import com.chat.client.service.client.factory.ServiceClientFactory;
 import com.chat.client.service.client.message.ClientMessageService;
 import com.chat.server.model.chat.Message;
+import com.chat.server.model.chat.Notification;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -35,4 +37,6 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
     public void receiveMessage(Message message) {
             chatGroupInterface.receiveMessage(message);
     }
+
+
 }

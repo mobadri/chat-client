@@ -31,7 +31,7 @@
                                 <Image url="@../../static/images/DefaultProfile.png"/>
                             </image>
                         </ImageView>
-                        <Label fx:id="MyNameText" layoutX="153.0" layoutY="26.0" prefHeight="30.0" prefWidth="78.0"
+                        <Label fx:id="userName" layoutX="153.0" layoutY="26.0" prefHeight="30.0" prefWidth="78.0"
                                text="My Name" AnchorPane.leftAnchor="153.0" AnchorPane.topAnchor="26.0">
                             <font>
                                 <Font name="Berlin Sans FB" size="16.0"/>
@@ -118,7 +118,7 @@
                                 </ImageView>
                             </children>
                         </HBox>
-                        <HTMLEditor fx:id="htmlEditor"
+                        <HTMLEditor fx:id="htmleditor"
                                     htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;"
                                     prefHeight="200.0" prefWidth="506.0"/>
                     </children>

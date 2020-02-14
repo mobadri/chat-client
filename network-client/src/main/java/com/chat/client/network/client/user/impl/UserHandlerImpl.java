@@ -73,6 +73,6 @@ public class UserHandlerImpl implements UserHandler {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return null;
+        return user;
     }
 }

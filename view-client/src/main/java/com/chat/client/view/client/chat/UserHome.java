@@ -1,8 +1,11 @@
 package com.chat.client.view.client.chat;
 
 import com.chat.client.controller.client.chatGroup.ChatGroupController;
+import com.chat.client.controller.client.pushNotifications.PushNotificationController;
+import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
+import com.chat.server.model.chat.Notification;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
@@ -24,7 +27,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UserHome implements Initializable {
+public class UserHome implements Initializable, PushNotificationInterface {
 
     @FXML
     private ListView userList;
@@ -32,7 +35,9 @@ public class UserHome implements Initializable {
     private AnchorPane containerPane;
     ListProperty<User> myFriendsListProperty = new SimpleListProperty<>();
     private ObservableList<User> myFriendsList = FXCollections.observableArrayList();
-
+    //app controller
+    private ChatGroupController chatGroupInterface;
+    private PushNotificationController pushNotificationController;
     private User currrentUser;
 
     private Stage stage;
@@ -43,10 +48,17 @@ public class UserHome implements Initializable {
         setListView();
     }
 
-    @FXML
-    public void onProfileclicked(MouseEvent mouseEvent) {
-        loadFriendProfile(currrentUser);
+    public UserHome() {
+        try {
+            chatGroupInterface = new ChatGroupController();
+            pushNotificationController = new PushNotificationController();
+            pushNotificationController.setPushNotifications(this);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void nav(MouseEvent mouseEvent) {
     }
 
     public void logOut(MouseEvent mouseEvent) {
@@ -116,20 +128,34 @@ public class UserHome implements Initializable {
 
 //                containerPane.getChildren().add(root);
 
-            AnchorPane child = new AnchorPane(root);
-            AnchorPane.setTopAnchor(child, 10.0);
-            AnchorPane.setBottomAnchor(child, 10.0);
-            AnchorPane.setLeftAnchor(child, 10.0);
-            AnchorPane.setRightAnchor(child, 10.0);
-            containerPane.getChildren().setAll((AnchorPane) child);
+                AnchorPane child = new AnchorPane(root);
+                AnchorPane.setTopAnchor(child, 10.0);
+                AnchorPane.setBottomAnchor(child, 10.0);
+                AnchorPane.setLeftAnchor(child, 10.0);
+                AnchorPane.setRightAnchor(child, 10.0);
+                containerPane.getChildren().setAll((AnchorPane) child);
 
 
 //                containerPane = new AnchorPane(root);
 //                content = (AnchorPane) FXMLLoader.load("vista2.fxml");
 
-//            System.out.println(user);
-        } catch (IOException e) {
-            e.printStackTrace();
+                System.out.println(user);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    public void setCurrrentUser(User currrentUser) {
+        this.currrentUser = currrentUser;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    @Override
+    public void receiveNotification(Notification notification) {
+        System.out.println(notification);
     }
 }
