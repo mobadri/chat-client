@@ -1,0 +1,4 @@
+--patch-module
+serviceclientcallback=_
+--add-reads
+serviceclientcallback=ALL-UNNAMED

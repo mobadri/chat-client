@@ -1,5 +1,6 @@
 package com.chat.client.service.client.message;
 
+import com.chat.client.service.client.callback.MessageServiceCallBack;
 import com.chat.server.model.chat.Message;
 
 import java.util.List;
@@ -14,11 +15,16 @@ public interface ClientMessageService {
      * @param message is sent to users
      */
     void sendMessage(Message message);
+    /**
+     * to register client
+     * @param messageServiceCallBack client service to register it
+     */
+    void register(MessageServiceCallBack messageServiceCallBack  );
 
     /**
-     * this method used to receive the message from group
-     *
-     * @return message that from group
+     * to unRegister client
+     * @param  messageServiceCallBack client service to register it
      */
-    Message receiveMessage();
+    public void unRegister(MessageServiceCallBack messageServiceCallBack);
+
 }

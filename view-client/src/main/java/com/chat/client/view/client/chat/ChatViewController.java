@@ -15,6 +15,7 @@ import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 public class ChatViewController implements Initializable, ChatGroupInterface {
@@ -71,10 +72,15 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     @Override
     public void sendMessage(Message message) {
         chatGroupInterface.sendMessage(message);
-
     }
 
     public void setCurrentChatGroup(ChatGroup currentChatGroup) {
         this.currentChatGroup = currentChatGroup;
+    }
+
+    @Override
+    public void receiveMessage(Message message) {
+        System.err.println("received message");
+        System.out.println(message);
     }
 }
