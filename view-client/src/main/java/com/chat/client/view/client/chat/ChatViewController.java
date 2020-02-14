@@ -2,7 +2,6 @@ package com.chat.client.view.client.chat;
 
 
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
-import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
 import com.chat.server.model.chat.Notification;
@@ -18,7 +17,6 @@ import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
 
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
 public class ChatViewController implements Initializable, ChatGroupInterface {

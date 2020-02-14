@@ -1,12 +1,10 @@
 package com.chat.client.view.client.chat;
 
 import com.chat.client.controller.client.chatGroup.ChatGroupController;
-import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
-import com.chat.client.view.client.notification.NotificationViewController;
 import com.chat.server.model.chat.Notification;
 import com.chat.server.model.user.User;
 import javafx.beans.property.ListProperty;
@@ -28,7 +26,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UserHome implements Initializable ,PushNotificationInterface{
+public class UserHome implements Initializable, PushNotificationInterface {
 
     @FXML
     private ListView userList;
@@ -38,7 +36,7 @@ public class UserHome implements Initializable ,PushNotificationInterface{
     private ObservableList<User> myFriendsList = FXCollections.observableArrayList();
     //app controller
     private ChatGroupController chatGroupInterface;
-    private PushNotificationController pushNotificationInterface;
+    private PushNotificationController pushNotificationController;
     private User currrentUser;
 
     private Stage stage;
@@ -48,15 +46,17 @@ public class UserHome implements Initializable ,PushNotificationInterface{
 
         setListView();
     }
-    public UserHome(){
-         try{
-             chatGroupInterface= new ChatGroupController();
-             pushNotificationInterface = new PushNotificationController();
-             pushNotificationInterface.setPushNotificationInterface(this);
-         } catch (RemoteException e) {
-               e.printStackTrace();
-         }
+
+    public UserHome() {
+        try {
+            chatGroupInterface = new ChatGroupController();
+            pushNotificationController = new PushNotificationController();
+            pushNotificationController.setPushNotifications(this);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
+
     public void nav(MouseEvent mouseEvent) {
     }
 
