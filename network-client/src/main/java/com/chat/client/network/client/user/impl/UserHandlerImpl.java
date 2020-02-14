@@ -64,8 +64,7 @@ public class UserHandlerImpl implements UserHandler {
     public User signUp(User user) {
         try {
             //todo remove int i and retrun user after update service
-            int i = serverUserService.insertUser(user);
-            user.setId(i);
+            return serverUserService.insertUser(user);
 
         } catch (RemoteException e) {
             e.printStackTrace();
