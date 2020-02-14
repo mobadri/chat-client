@@ -9,6 +9,7 @@ import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
 import com.chat.server.model.user.User;
+import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
@@ -21,6 +22,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
@@ -84,7 +86,8 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private void onFriendsListClicked(MouseEvent mouseEvent) {
         User user = (User) userList.getSelectionModel().getSelectedItem();
         if (user != null) {
-            loadFriendProfile(user);
+//            loadFriendProfile(user);
+            loadChatGroup(new ChatGroup());
         }
     }
 
@@ -114,20 +117,18 @@ public class UserHome implements Initializable, PushNotificationInterface {
             //@yasmine
             //todo don't forget to add groupchat to chatviewcontroller
             //---------
-            //app controller
-            ChatGroupController chatGroupController = new ChatGroupController();
             //add ref to each other
-            chatGroupController.setChatGroupInterface(chatViewController);
-            chatViewController.setChatGroupInterface(chatGroupController);
+            chatGroupInterface.setChatGroupInterface(chatViewController);
+            chatViewController.setChatGroupInterface(chatGroupInterface);
 
 //                containerPane.getChildren().add(root);
 
-                AnchorPane child = new AnchorPane(root);
-                AnchorPane.setTopAnchor(child, 10.0);
-                AnchorPane.setBottomAnchor(child, 10.0);
-                AnchorPane.setLeftAnchor(child, 10.0);
-                AnchorPane.setRightAnchor(child, 10.0);
-                containerPane.getChildren().setAll((AnchorPane) child);
+            AnchorPane child = new AnchorPane(root);
+            AnchorPane.setTopAnchor(child, 10.0);
+            AnchorPane.setBottomAnchor(child, 10.0);
+            AnchorPane.setLeftAnchor(child, 10.0);
+            AnchorPane.setRightAnchor(child, 10.0);
+            containerPane.getChildren().setAll((AnchorPane) child);
 
 
 //                containerPane = new AnchorPane(root);
@@ -135,9 +136,9 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
 
         } catch (IOException e) {
-                e.printStackTrace();
-            }
+            e.printStackTrace();
         }
+    }
 
 
     public void setCurrrentUser(User currrentUser) {
@@ -150,6 +151,17 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     @Override
     public void receiveNotification(Notification notification) {
+        Platform.runLater(() -> {
+            Notifications.create()
+                    .text(notification.getNotificationMessage())
+                    .title(notification.getNotificationType().toString())
+                    .showInformation();
+        });
         System.out.println(notification);
+    }
+
+    public void onProfileclicked(MouseEvent mouseEvent) {
+
+
     }
 }

@@ -12,7 +12,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class NotificationViewController implements Initializable , PushNotificationInterface {
+public class NotificationViewController implements Initializable, PushNotificationInterface {
     @FXML
     private Rectangle notificationRoot;
 
@@ -30,6 +30,7 @@ public class NotificationViewController implements Initializable , PushNotificat
 
     @FXML
     private Label dismissNotification;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -37,6 +38,8 @@ public class NotificationViewController implements Initializable , PushNotificat
 
     @Override
     public void receiveNotification(Notification notification) {
+
+
         System.out.println(notification);
     }
 }
