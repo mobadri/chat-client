@@ -62,11 +62,11 @@ public class NotificationHandlerImpl implements NotificationHandler {
 
     @Override
     public void register(NotificationServiceCallback notificationServiceCallback) {
-        try {
-            notificationService.register(notificationServiceCallback);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+      try {
+          notificationService.register(notificationServiceCallback);
+      } catch (RemoteException e) {
+          e.printStackTrace();
+      }
     }
 
     @Override
