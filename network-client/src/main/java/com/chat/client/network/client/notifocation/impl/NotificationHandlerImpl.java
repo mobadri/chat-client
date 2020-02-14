@@ -1,6 +1,7 @@
 package com.chat.client.network.client.notifocation.impl;
 
 import com.chat.client.network.client.notifocation.NotificationHandler;
+import com.chat.client.service.client.callback.NotificationServiceCallback;
 import com.chat.server.model.chat.Notification;
 import com.chat.server.model.chat.NotificationType;
 import com.chat.server.model.user.User;
@@ -20,7 +21,6 @@ public class NotificationHandlerImpl implements NotificationHandler {
 
     private final static int PORT_NUMBER = 11223;
     ServerNotificationService notificationService;
-//    ClientNotificationService clientNotificationService;
 
     public NotificationHandlerImpl() {
 
@@ -58,5 +58,23 @@ public class NotificationHandlerImpl implements NotificationHandler {
             e.printStackTrace();
         }
         return notifications;
+    }
+
+    @Override
+    public void register(NotificationServiceCallback notificationServiceCallback) {
+        try {
+            notificationService.register(notificationServiceCallback);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void unregister(NotificationServiceCallback notificationServiceCallback) {
+        try {
+            notificationService.unregister(notificationServiceCallback);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

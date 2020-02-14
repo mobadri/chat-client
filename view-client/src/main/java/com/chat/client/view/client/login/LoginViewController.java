@@ -61,7 +61,7 @@ public class LoginViewController implements Initializable {
         //;
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/templates/user/user-friends.fxml"));
+                    getClass().getResource("/templates/user/user-home.fxml"));
             root = loader.load();
             System.out.println(stage);
             stage.setScene(new Scene(root));

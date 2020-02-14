@@ -2,8 +2,11 @@ package com.chat.client.view.client.chat;
 
 
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
+import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
+import com.chat.server.model.chat.Notification;
+import com.chat.server.model.chat.NotificationType;
 import com.chat.server.model.user.User;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -20,7 +23,6 @@ import java.util.ResourceBundle;
 
 public class ChatViewController implements Initializable, ChatGroupInterface {
     ChatGroupInterface chatGroupInterface;
-
 
     @FXML
     private Label userName;
@@ -47,12 +49,15 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         hBox.getChildren().add(webView);
         Message message = new Message();
         message.setMessage(htmlText);
-
+        Notification notification = new Notification();
+        notification.setNotificationType(NotificationType.MESSAGE_RECEIVED);
         message.setUserFrom(currentUser);
         message.setChatGroup(currentChatGroup);
-        // دي بسبب ان اساسا مفيش group فرمي null pointer تمام
         System.out.println(message);
         sendMessage(message);
+
+
+        receiveMessage(message);
 //        messageBox.getChildren().add(hBox);
     }
 
@@ -83,4 +88,5 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         System.err.println("received message");
         System.out.println(message);
     }
+
 }
