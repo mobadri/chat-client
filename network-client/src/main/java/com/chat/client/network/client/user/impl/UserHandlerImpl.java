@@ -27,6 +27,12 @@ public class UserHandlerImpl implements UserHandler {
 
     @Override
     public User searchByPhone(String phone) {
+
+        try {
+            return serverUserService.getByPhone(phone);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -63,12 +69,10 @@ public class UserHandlerImpl implements UserHandler {
     @Override
     public User signUp(User user) {
         try {
-            //todo remove int i and retrun user after update service
             return serverUserService.insertUser(user);
-
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return user;
+        return null;
     }
 }

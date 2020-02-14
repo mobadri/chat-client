@@ -6,9 +6,6 @@ import com.chat.server.model.user.User;
 import java.util.List;
 
 public interface ChatGroupHandler {
-    //@noura
-    //todo add methods signature for this handler
-    //and impl this methods on class ChatGroupHandlerDummyImpl
 
     /**
      * get chat group with id
@@ -40,7 +37,7 @@ public interface ChatGroupHandler {
      * @param chatGroup created chat group for current user
      * @return inserted chat group
      */
-    ChatGroup createGroup(ChatGroup chatGroup);
+    public ChatGroup createGroup(ChatGroup chatGroup);
 
     /**
      * update chat group
@@ -48,5 +45,29 @@ public interface ChatGroupHandler {
      * @param chatGroup chat group to be updated
      * @return updated chat group
      */
-    ChatGroup updateChatGroup(ChatGroup chatGroup);
+    public ChatGroup updateChatGroup(ChatGroup chatGroup);
+
+    /**
+     * add user to group
+     * @param chatGroup chat group to add user to it
+     * @param user user to added
+     * @return updated chat group
+     */
+    public ChatGroup addUser(ChatGroup chatGroup, User user);
+
+    /**
+     * add user to group
+     * @param chatGroup chat group to remove user from it
+     * @param user user to added
+     * @return updated chat group
+     */
+    public ChatGroup removeUser(ChatGroup chatGroup, User user);
+
+    /**
+     * get all chat groups by name
+     * @param groupName group name
+     * @param user user to search in his groups
+     * @return chat groups
+     */
+    public List<ChatGroup> searchByName(String groupName, User user);
 }
