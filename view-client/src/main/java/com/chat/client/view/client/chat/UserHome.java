@@ -69,12 +69,15 @@ public class UserHome implements Initializable {
             try {
                 FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/chat/chat-view.fxml"));
                 Parent root = loader.load();
+                //view controller
                 ChatViewController chatViewController = (ChatViewController) loader.getController();
                 chatViewController.setUser(user);
                 //@yasmine
                 //todo don't forget to add groupchat to chatviewcontroller
                 //---------
+                //app controller
                 ChatGroupController chatGroupController = new ChatGroupController();
+                //add ref to each other
                 chatGroupController.setChatGroupInterface(chatViewController);
                 chatViewController.setChatGroupInterface(chatGroupController);
 

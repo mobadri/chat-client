@@ -1,6 +1,7 @@
 package com.chat.client.network.client.chat.impl;
 
 import com.chat.client.network.client.chat.MessageHandler;
+import com.chat.client.service.client.callback.MessageServiceCallBack;
 import com.chat.server.model.chat.Message;
 import com.chat.server.service.server.message.ServerMessageService;
 
@@ -29,6 +30,25 @@ public class MessageHandlerImpl implements MessageHandler {
     public void sendMessage(Message message) {
         try {
             serverMessageService.sendMessage(message);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void register(MessageServiceCallBack messageServiceCallBack) {
+        try {
+            serverMessageService.register(messageServiceCallBack);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void unRegister(MessageServiceCallBack messageServiceCallBack) {
+        try {
+            serverMessageService.unRegister(messageServiceCallBack);
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }

@@ -4,8 +4,6 @@ import com.chat.client.network.client.chat.ChatGroupHandler;
 import com.chat.client.network.client.chat.MessageHandler;
 import com.chat.client.network.client.chat.impl.ChatGroupHandlerImpl;
 import com.chat.client.network.client.chat.impl.MessageHandlerImpl;
-import com.chat.client.network.client.notifocation.NotificationHandler;
-import com.chat.client.network.client.notifocation.impl.NotificationHandlerImpl;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
 
@@ -16,9 +14,8 @@ import java.util.Objects;
  */
 public class NetworkFactory {
     private static UserHandler userHandler;
-    private static MessageHandler messageHandler;
     private static ChatGroupHandler chatGroupHandler;
-    private static NotificationHandler notificationHandler;
+    private static MessageHandler messageHandler;
 
     private NetworkFactory() {
     }
@@ -47,21 +44,24 @@ public class NetworkFactory {
      * create NotificationHandler Object for user over application
      *
      * @return NotificationHandlerImplantation
-     */
+     *//*
     public static synchronized NotificationHandler createNotificationHandler() {
 
         if (notificationHandler == null)
             notificationHandler = new NotificationHandlerImpl();
         return notificationHandler;
-    }
+    }*/
 
     /**
      * create MessageHandler Object for user over application
      *
-     * @return MessageHandlerImplementation
+     * @return MessageHandlerImplantation
      */
+
     public static synchronized MessageHandler createMessageHandler() {
-        messageHandler = Objects.requireNonNullElseGet(messageHandler, () -> new MessageHandlerImpl());
+
+        if (messageHandler == null)
+            messageHandler = new MessageHandlerImpl();
         return messageHandler;
     }
 }
