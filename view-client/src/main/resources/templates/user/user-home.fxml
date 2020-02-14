@@ -8,9 +8,9 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="564.0" prefWidth="1024.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity"
             stylesheets="@../../static/css/user-home.css" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.chat.UserHome">
+            fx:controller="com.chat.client.view.client.chat.UserHome">
     <children>
         <AnchorPane fx:id="PROFILEPANE" prefHeight="768.0" prefWidth="260.0"
                     style="-fx-border-radius: 5; -fx-background-color: #fefefe;" AnchorPane.bottomAnchor="0.0"
@@ -50,12 +50,12 @@
                         <Image url="@../../static/images/user-home/icons8_exit_32px.png"/>
                     </image>
                 </ImageView>
-                <Label layoutX="64.0" layoutY="233.0" onMouseClicked="#nav" text="Requests">
+                <Label layoutX="64.0" layoutY="233.0" onMouseClicked="#onProfileclicked" text="Requests">
                     <font>
                         <Font size="16.0"/>
                     </font>
                 </Label>
-                <Label layoutX="64.0" layoutY="271.0" onMouseClicked="#nav" text="Profile">
+                <Label layoutX="64.0" layoutY="271.0" onMouseClicked="#onProfileclicked" text="Profile">
                     <font>
                         <Font size="16.0"/>
                     </font>
@@ -75,25 +75,25 @@
                         <Image url="@../../static/images/user-home/icons8_bar_chart_filled_50px.png"/>
                     </image>
                 </ImageView>
-                <Label layoutX="63.0" layoutY="307.0" onMouseClicked="#nav" text="Home">
+                <Label layoutX="63.0" layoutY="307.0" onMouseClicked="#onProfileclicked" text="Home">
                     <font>
                         <Font size="16.0"/>
                     </font>
                 </Label>
-                <JFXButton fx:id="TODAY" layoutX="29.0" layoutY="265.0" onMouseClicked="#nav" prefHeight="25.0"
-                           prefWidth="183.0" ripplerFill="#3b8ef4" text=" ">
+                <JFXButton fx:id="TODAY" layoutX="29.0" layoutY="265.0" onMouseClicked="#onProfileclicked"
+                           prefHeight="25.0" prefWidth="183.0" ripplerFill="#3b8ef4" text=" ">
                     <font>
                         <Font size="16.0"/>
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="STATUS" layoutX="29.0" layoutY="301.0" onMouseClicked="#nav" prefHeight="25.0"
-                           prefWidth="183.0" ripplerFill="#3b8ef4" text=" ">
+                <JFXButton fx:id="STATUS" layoutX="29.0" layoutY="301.0" onMouseClicked="#onProfileclicked"
+                           prefHeight="25.0" prefWidth="183.0" ripplerFill="#3b8ef4" text=" ">
                     <font>
                         <Font size="16.0"/>
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="REQUESTS" layoutX="29.0" layoutY="227.0" onMouseClicked="#nav" prefHeight="25.0"
-                           prefWidth="183.0" ripplerFill="#3b8ef4" text=" ">
+                <JFXButton fx:id="REQUESTS" layoutX="29.0" layoutY="227.0" prefHeight="25.0" prefWidth="183.0"
+                           ripplerFill="#3b8ef4" text=" ">
                     <font>
                         <Font size="16.0"/>
                     </font>
@@ -114,25 +114,24 @@
                 <HBox prefHeight="44.0" prefWidth="292.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
                       AnchorPane.topAnchor="10.0">
                     <children>
-                        <AnchorPane onMouseClicked="#nav" prefHeight="44.0" prefWidth="100.0">
+                        <AnchorPane prefHeight="44.0" prefWidth="100.0">
                             <children>
                                 <Line fx:id="linelists1" endX="50.0" endY="7.0" layoutX="54.0" layoutY="32.0" startX="0"
                                       startY="7.0" stroke="#d7d0d0"/>
-                                <JFXButton fx:id="LISTS1" layoutX="3.0" layoutY="-2.0" onMouseClicked="#nav"
-                                           prefHeight="44.0" prefWidth="101.0" ripplerFill="#3b8ef4" text="Chat">
+                                <JFXButton fx:id="LISTS1" layoutX="3.0" layoutY="-2.0" prefHeight="44.0"
+                                           prefWidth="101.0" ripplerFill="#3b8ef4" text="Chat">
                                     <font>
                                         <Font name="System Bold" size="15.0"/>
                                     </font>
                                 </JFXButton>
                             </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="10.0" layoutY="10.0" onMouseClicked="#nav" prefHeight="44.0"
-                                    prefWidth="100.0">
+                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="44.0" prefWidth="100.0">
                             <children>
                                 <Line fx:id="linefriends1" endX="46.0" endY="7.0" layoutX="54.0" layoutY="32.0"
                                       startX="0" startY="7.0" stroke="#d7d0d0"/>
-                                <JFXButton fx:id="FRIENDS1" layoutY="-1.0" onMouseClicked="#nav" prefHeight="44.0"
-                                           prefWidth="101.0" ripplerFill="#3b8ef4" text="Friends">
+                                <JFXButton fx:id="FRIENDS1" layoutY="-1.0" prefHeight="44.0" prefWidth="101.0"
+                                           ripplerFill="#3b8ef4" text="Friends">
                                     <font>
                                         <Font name="System Bold" size="15.0"/>
                                     </font>
@@ -147,21 +146,17 @@
                               AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55"/>
                 <AnchorPane layoutX="6.0" layoutY="54.0" prefHeight="685.0" prefWidth="282.0"
                             AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
-                            AnchorPane.topAnchor="85.0">
-                    <children>
-                        <JFXListView fx:id="userList" focusTraversable="false" onMouseClicked="#onFriendsListClicked"
-                                     prefHeight="658.0" prefWidth="278.0" style="-fx-border-image-width: 0;"
-                                     stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="0.0"
-                                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                     AnchorPane.topAnchor="0.0">
+                            AnchorPane.topAnchor="85.0"/>
+                <JFXListView fx:id="userList" focusTraversable="false" onMouseClicked="#onFriendsListClicked"
+                             prefHeight="775.0" prefWidth="278.0" style="-fx-border-image-width: 0;"
+                             stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="-44.0"
+                             AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="-40.0" AnchorPane.topAnchor="37.0">
                         </JFXListView>
-                    </children>
-                </AnchorPane>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="containerPane" layoutX="260.0" style="-fx-background-color: green;"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="290.0"
-                    AnchorPane.topAnchor="0.0"/>
+        <AnchorPane fx:id="containerPane" layoutX="260.0" onMouseClicked="#onProfileclicked"
+                    style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="260.0"
+                    AnchorPane.rightAnchor="290.0" AnchorPane.topAnchor="0.0"/>
 
     </children>
 </AnchorPane>

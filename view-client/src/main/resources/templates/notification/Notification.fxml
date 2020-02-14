@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="152.0" prefWidth="444.0"
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="templates.notification.Notification">
+    <children>
+        <ButtonBar layoutX="33.0" layoutY="98.0" prefHeight="40.0" prefWidth="379.0">
+            <buttons>
+                <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="236.0" style="-fx-background-radius: 10;"
+                        text="Accept"/>
+                <Button mnemonicParsing="false" prefHeight="35.0" style="-fx-background-radius: 10;" text="Canel"/>
+            </buttons>
+        </ButtonBar>
+        <HBox prefHeight="50.0" prefWidth="449.0" style="-fx-border-color: gray;"/>
+        <HBox layoutY="51.0" prefHeight="50.0" prefWidth="449.0"/>
+    </children>
+</AnchorPane>

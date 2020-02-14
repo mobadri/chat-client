@@ -12,10 +12,13 @@ module view.client {
     requires service.client;
     requires java.rmi;
     requires network.client;
+    requires org.kordamp.ikonli.octicons;
+    requires org.kordamp.ikonli.javafx;
 //    requires network.client;
     opens com.chat.client.view.client;
     opens com.chat.client.view.client.login;
     opens com.chat.client.view.client.chat;
+    opens com.chat.client.view.client.user;
 
 
 }

@@ -19,7 +19,15 @@ public class Main extends Application {
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.show();
+/*
 
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/User_profile.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+*/
     }
 
 

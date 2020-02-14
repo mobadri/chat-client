@@ -3,6 +3,8 @@ package com.chat.client.view.client.chat;
 import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
+import com.chat.client.view.client.user.UserProfileController;
+import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -41,7 +43,10 @@ public class UserHome implements Initializable {
         setListView();
     }
 
-    public void nav(MouseEvent mouseEvent) {
+    @FXML
+    public void onProfileclicked(MouseEvent mouseEvent) {
+        loadFriendProfile(currrentUser);
+
     }
 
     public void logOut(MouseEvent mouseEvent) {
@@ -66,38 +71,21 @@ public class UserHome implements Initializable {
     private void onFriendsListClicked(MouseEvent mouseEvent) {
         User user = (User) userList.getSelectionModel().getSelectedItem();
         if (user != null) {
-            try {
-                FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/chat/chat-view.fxml"));
-                Parent root = loader.load();
-                //view controller
-                ChatViewController chatViewController = (ChatViewController) loader.getController();
-                chatViewController.setUser(user);
-                //@yasmine
-                //todo don't forget to add groupchat to chatviewcontroller
-                //---------
-                //app controller
-                ChatGroupController chatGroupController = new ChatGroupController();
-                //add ref to each other
-                chatGroupController.setChatGroupInterface(chatViewController);
-                chatViewController.setChatGroupInterface(chatGroupController);
+            loadFriendProfile(user);
+        }
+    }
 
-//                containerPane.getChildren().add(root);
+    private void loadFriendProfile(User user) {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/User_profile.fxml"));
+            Parent root = loader.load();
+            UserProfileController userProfileController = loader.getController();
+            userProfileController.setUser(user);
+            System.out.println("my Profile is loaded ............");
+            containerPane.getChildren().setAll(root);
 
-                AnchorPane child = new AnchorPane(root);
-                AnchorPane.setTopAnchor(child, 10.0);
-                AnchorPane.setBottomAnchor(child, 10.0);
-                AnchorPane.setLeftAnchor(child, 10.0);
-                AnchorPane.setRightAnchor(child, 10.0);
-                containerPane.getChildren().setAll((AnchorPane) child);
-
-
-//                containerPane = new AnchorPane(root);
-//                content = (AnchorPane) FXMLLoader.load("vista2.fxml");
-
-                System.out.println(user);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -107,5 +95,41 @@ public class UserHome implements Initializable {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    private void loadChatGroup(ChatGroup chatGroup) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/chat/chat-view.fxml"));
+            Parent root = loader.load();
+            //view controller
+            ChatViewController chatViewController = (ChatViewController) loader.getController();
+            chatViewController.setUser(currrentUser);
+            //@yasmine
+            //todo don't forget to add groupchat to chatviewcontroller
+            //---------
+            //app controller
+            ChatGroupController chatGroupController = new ChatGroupController();
+            //add ref to each other
+            chatGroupController.setChatGroupInterface(chatViewController);
+            chatViewController.setChatGroupInterface(chatGroupController);
+
+//                containerPane.getChildren().add(root);
+
+            AnchorPane child = new AnchorPane(root);
+            AnchorPane.setTopAnchor(child, 10.0);
+            AnchorPane.setBottomAnchor(child, 10.0);
+            AnchorPane.setLeftAnchor(child, 10.0);
+            AnchorPane.setRightAnchor(child, 10.0);
+            containerPane.getChildren().setAll((AnchorPane) child);
+
+
+//                containerPane = new AnchorPane(root);
+//                content = (AnchorPane) FXMLLoader.load("vista2.fxml");
+
+//            System.out.println(user);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

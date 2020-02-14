@@ -1,6 +1,7 @@
 package com.chat.client.view.client.login;
 
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
+import com.chat.client.view.client.chat.UserHome;
 import com.chat.server.model.user.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +30,7 @@ public class LoginViewController implements Initializable {
     PasswordField txtFieldloginPassword;
 
     SignUpAndRegistration signUpAndRegistration;
-
+    private User user;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,7 +45,7 @@ public class LoginViewController implements Initializable {
 
     @FXML
     private void onLogin(ActionEvent actionEvent) {
-        User user = signUpAndRegistration.login(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
+        user = signUpAndRegistration.login(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
         if (user != null && user.getId() > 0) {
             System.out.println("login successfully");
             goToHomePage();
@@ -61,8 +62,10 @@ public class LoginViewController implements Initializable {
         //;
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/templates/user/user-friends.fxml"));
+                    getClass().getResource("/templates/user/user-home.fxml"));
             root = loader.load();
+            UserHome userHome = loader.getController();
+            userHome.setCurrrentUser(user);
             System.out.println(stage);
             stage.setScene(new Scene(root));
         } catch (IOException e) {
