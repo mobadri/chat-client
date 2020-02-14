@@ -5,9 +5,9 @@ import com.chat.client.controller.client.pushNotifications.PushNotificationContr
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
-import com.chat.server.model.chat.Notification;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
+import com.chat.server.model.chat.Notification;
 import com.chat.server.model.user.User;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -101,13 +102,6 @@ public class UserHome implements Initializable, PushNotificationInterface {
         }
     }
 
-    public void setCurrrentUser(User currrentUser) {
-        this.currrentUser = currrentUser;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
 
     private void loadChatGroup(ChatGroup chatGroup) {
 
@@ -139,12 +133,12 @@ public class UserHome implements Initializable, PushNotificationInterface {
 //                containerPane = new AnchorPane(root);
 //                content = (AnchorPane) FXMLLoader.load("vista2.fxml");
 
-                System.out.println(user);
-            } catch (IOException e) {
+
+        } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-    }
+
 
     public void setCurrrentUser(User currrentUser) {
         this.currrentUser = currrentUser;
