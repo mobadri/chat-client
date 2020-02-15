@@ -3,6 +3,7 @@ package com.chat.client.view.client.chat;
 import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
+import com.chat.client.controller.client.user.HomeController;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
 import com.chat.client.view.client.user.UserProfileController;
@@ -31,7 +32,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserHome implements Initializable, PushNotificationInterface {
-
+    private HomeController homeController;
     @FXML
     private ListView userList;
     @FXML
@@ -56,6 +57,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
             chatGroupInterface = new ChatGroupController();
             pushNotificationController = new PushNotificationController();
             pushNotificationController.setPushNotifications(this);
+            homeController = new HomeController();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -86,8 +88,9 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private void onFriendsListClicked(MouseEvent mouseEvent) {
         User user = (User) userList.getSelectionModel().getSelectedItem();
         if (user != null) {
-//            loadFriendProfile(user);
-            loadChatGroup(new ChatGroup());
+            addFriend(user);
+            loadFriendProfile(user);
+//            loadChatGroup(new ChatGroup());
         }
     }
 
@@ -163,5 +166,9 @@ public class UserHome implements Initializable, PushNotificationInterface {
     public void onProfileclicked(MouseEvent mouseEvent) {
 
 
+    }
+
+    private void addFriend(User friend) {
+        homeController.addFriend(currrentUser, friend);
     }
 }
