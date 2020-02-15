@@ -14,11 +14,14 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -31,13 +34,17 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserHome implements Initializable, PushNotificationInterface {
-
+    @FXML
+    private TextField searchforfriends;
     @FXML
     private ListView userList;
     @FXML
     private AnchorPane containerPane;
     ListProperty<User> myFriendsListProperty = new SimpleListProperty<>();
     private ObservableList<User> myFriendsList = FXCollections.observableArrayList();
+
+
+
     //app controller
     private ChatGroupController chatGroupInterface;
     private PushNotificationController pushNotificationController;
@@ -49,8 +56,15 @@ public class UserHome implements Initializable, PushNotificationInterface {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         setListView();
+        setSearchforfriends();
     }
-
+    void setSearchforfriends()
+    {
+        FilteredList<User> filteredData = new FilteredList<>(myFriendsList, p -> true);
+        searchTextListner(filteredData);
+        SortedList<User> sortedData = new SortedList<>(filteredData);
+        userList.setItems(sortedData);
+    }
     public UserHome() {
         try {
             chatGroupInterface = new ChatGroupController();
@@ -135,6 +149,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
 //                content = (AnchorPane) FXMLLoader.load("vista2.fxml");
 
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -162,6 +177,28 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     public void onProfileclicked(MouseEvent mouseEvent) {
 
+
+    }
+    private void searchTextListner(FilteredList<User> filteredData) {
+        searchforfriends.textProperty().addListener((observable, oldValue, newValue) ->
+                filteredData.setPredicate(friend -> {
+                    if (newValue == null || newValue.isEmpty()) {
+
+                        return true;
+                    }
+
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (friend.getFirstName().toLowerCase().contains(lowerCaseFilter)
+                            || friend.getPhone().contains(lowerCaseFilter)
+                            || (friend.getCountry() != null
+                            && friend.getCountry().toLowerCase().contains(lowerCaseFilter))
+                            || (friend.getLastName() != null
+                            && friend.getLastName().toLowerCase().contains(lowerCaseFilter))) {
+                        System.out.println("Search is here");
+                        return true;
+                    }
+                    return false;
+                }));
 
     }
 }
