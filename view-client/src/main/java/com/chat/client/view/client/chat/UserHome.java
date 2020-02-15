@@ -6,8 +6,6 @@ import com.chat.client.controller.client.pushNotifications.PushNotificationInter
 import com.chat.client.controller.client.user.HomeController;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
-import com.chat.client.view.client.friend.AddFriend;
-import com.chat.client.view.client.login.SecondPageSignUpController;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
@@ -26,6 +24,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -66,13 +65,13 @@ public class UserHome implements Initializable, PushNotificationInterface {
         setSearchforfriends();
     }
 
-    void setSearchforfriends()
-    {
+    void setSearchforfriends() {
         FilteredList<User> filteredData = new FilteredList<>(myFriendsList, p -> true);
         searchTextListner(filteredData);
         SortedList<User> sortedData = new SortedList<>(filteredData);
         userList.setItems(sortedData);
     }
+
     public UserHome() {
         try {
             chatGroupInterface = new ChatGroupController();
@@ -159,7 +158,6 @@ public class UserHome implements Initializable, PushNotificationInterface {
 //                content = (AnchorPane) FXMLLoader.load("vista2.fxml");
 
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -193,6 +191,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private void addFriend(User friend) {
         homeController.addFriend(currrentUser, friend);
     }
+
     @FXML
     public void addFriend(MouseEvent mouseEvent) {
         System.out.println("Hello i'm here Add new Friend");
@@ -205,19 +204,18 @@ public class UserHome implements Initializable, PushNotificationInterface {
             root = loader.load();
 
 
-                    friendStage = new Stage();
+            friendStage = new Stage();
 
-                    friendStage.setScene(new Scene(root));
-                       friendStage.show();
-
-
+            friendStage.setScene(new Scene(root));
+            friendStage.show();
 
 
-    } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        }
-        private void searchTextListner(FilteredList<User> filteredData) {
+    }
+
+    private void searchTextListner(FilteredList<User> filteredData) {
         searchforfriends.textProperty().addListener((observable, oldValue, newValue) ->
                 filteredData.setPredicate(friend -> {
                     if (newValue == null || newValue.isEmpty()) {
