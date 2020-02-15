@@ -31,7 +31,7 @@ public class AddFriend  implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
+    Search();
         //setListView(phoneNumberSearch.getText());
          // setSearchToAddNewFriends();
 
@@ -49,36 +49,27 @@ public class AddFriend  implements Initializable {
         usersListView.setItems(allUsers);
         usersListView.setCellFactory(new CellRenderer());
     }
-    void setSearchToAddNewFriends()
+
+    private void Search()
     {
-        setListView(phoneNumberSearch.getText());
-        FilteredList<User> filteredData = new FilteredList<>(allUsers, p -> true);
-        searchTextListner(filteredData);
-        SortedList<User> sortedData = new SortedList<>(filteredData);
-        usersListView.setItems(sortedData);
+        phoneNumberSearch.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
+            if((newValue.isEmpty() || newValue == null))
+            {
+                usersListView.setItems(null);
+            }
 
-
+            else {
+                setListView(newValue);
+            }
+            }
+        });
 
     }
 
-    private void searchTextListner(FilteredList<User> filteredData) {
-        phoneNumberSearch.textProperty().addListener((observable, oldValue, newValue) ->
-                filteredData.setPredicate(friendrequest -> {
-                    if (newValue == null || newValue.isEmpty()) {
 
-                        return true;
-                    }
-                    String lowerCaseFilter = newValue.toLowerCase();
-                    if (friendrequest.getFirstName().toLowerCase().contains(lowerCaseFilter)
-                            || friendrequest.getPhone().contains(lowerCaseFilter)
-                            ) {
 
-                        return true;
-                    }
-                    return false;
-                }));
-        setListView(phoneNumberSearch.getText());
-    }
 
 
 
