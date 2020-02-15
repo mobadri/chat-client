@@ -43,7 +43,7 @@ public class UserProfileController implements Initializable {
         image = new Image(getClass().getResource("/static/images/user-home/myProfilePicture.png").toString());
     }
 
-    @FXML
+
     private Image imageChooser(MouseEvent event) throws IOException {
 
         FileChooser fileChooser = new FileChooser();

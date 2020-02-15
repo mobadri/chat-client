@@ -11,7 +11,7 @@ import java.rmi.registry.Registry;
 import java.util.List;
 
 public class UserHandlerImpl implements UserHandler {
-    private final int PORT_NUMBER = 11223;
+    private final int PORT_NUMBER = 44444;
     ServerUserService serverUserService;
 
     public UserHandlerImpl() {

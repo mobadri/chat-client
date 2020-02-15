@@ -10,12 +10,17 @@ import com.chat.server.model.user.User;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -87,4 +92,30 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         System.out.println(message);
     }
 
+    @FXML
+    public void handleSendingFile(MouseEvent mouseEvent) {
+        ((Node) (mouseEvent.getSource())).getScene().getWindow();
+
+        // call file chooser
+    }
+
+    private void chooseFileFromHardDisk(Window parent) {
+        //open file chooser
+        // if file returned !=null
+        //call method on controller and pass file , current  chatgroup
+        //
+
+
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(parent);
+
+        //   FileInputStream fileInputStream = new FileInputStream(file);
+        //  int letter = fileInputStream.read();
+           /* while (letter != -1) {
+                System.out.println((char) letter);
+                letter = fileInputStream.read();
+            }*/
+
+
+    }
 }

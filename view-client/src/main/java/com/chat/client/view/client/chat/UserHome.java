@@ -161,7 +161,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
     }
 
     public void onProfileclicked(MouseEvent mouseEvent) {
-
+        loadFriendProfile(currrentUser);
 
     }
 }
