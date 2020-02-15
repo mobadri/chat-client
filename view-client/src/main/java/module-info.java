@@ -18,6 +18,7 @@ module view.client {
     opens com.chat.client.view.client.login;
     opens com.chat.client.view.client.chat;
     opens com.chat.client.view.client.user;
+    opens com.chat.client.view.client.friend;
 
 
 }

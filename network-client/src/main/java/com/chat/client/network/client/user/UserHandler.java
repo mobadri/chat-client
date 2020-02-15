@@ -13,7 +13,7 @@ public interface UserHandler {
      * @param phone user phone
      * @return user if founded Or null if not founded
      */
-    User searchByPhone(String phone);
+   List <User> searchByPhone(String phone);
 
     /**
      * add to friend list

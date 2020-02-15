@@ -66,6 +66,8 @@ public class LoginViewController implements Initializable {
             root = loader.load();
             UserHome userHome = loader.getController();
             userHome.setCurrrentUser(user);
+            userHome.setStage(stage);
+            System.out.println("Stage is = ");
             System.out.println(stage);
             stage.setScene(new Scene(root));
         } catch (IOException e) {

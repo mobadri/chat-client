@@ -13,7 +13,7 @@ import javafx.util.Callback;
 /**
  * A Class for Rendering users images / name on the userlist.
  */
-class CellRenderer implements Callback<ListView<User>, ListCell<User>> {
+public class CellRenderer implements Callback<ListView<User>, ListCell<User>> {
     @Override
     public ListCell<User> call(ListView<User> p) {
 

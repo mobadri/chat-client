@@ -6,6 +6,8 @@ import com.chat.client.controller.client.pushNotifications.PushNotificationInter
 import com.chat.client.controller.client.user.HomeController;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
+import com.chat.client.view.client.friend.AddFriend;
+import com.chat.client.view.client.login.SecondPageSignUpController;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
@@ -15,10 +17,14 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -32,6 +38,10 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserHome implements Initializable, PushNotificationInterface {
+    @FXML
+    private TextField searchforfriends;
+    @FXML
+    private Button addFriend;
     private HomeController homeController;
     @FXML
     private ListView userList;
@@ -39,6 +49,9 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private AnchorPane containerPane;
     ListProperty<User> myFriendsListProperty = new SimpleListProperty<>();
     private ObservableList<User> myFriendsList = FXCollections.observableArrayList();
+    Stage friendStage;
+
+
     //app controller
     private ChatGroupController chatGroupInterface;
     private PushNotificationController pushNotificationController;
@@ -50,8 +63,16 @@ public class UserHome implements Initializable, PushNotificationInterface {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         setListView();
+        setSearchforfriends();
     }
 
+    void setSearchforfriends()
+    {
+        FilteredList<User> filteredData = new FilteredList<>(myFriendsList, p -> true);
+        searchTextListner(filteredData);
+        SortedList<User> sortedData = new SortedList<>(filteredData);
+        userList.setItems(sortedData);
+    }
     public UserHome() {
         try {
             chatGroupInterface = new ChatGroupController();
@@ -138,6 +159,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
 //                content = (AnchorPane) FXMLLoader.load("vista2.fxml");
 
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -170,5 +192,51 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     private void addFriend(User friend) {
         homeController.addFriend(currrentUser, friend);
+    }
+    @FXML
+    public void addFriend(MouseEvent mouseEvent) {
+        System.out.println("Hello i'm here Add new Friend");
+        Parent root;
+        try {
+            System.out.println("I'm Here to add friend");
+            FXMLLoader loader =
+                    new FXMLLoader(getClass().getResource("/templates/friend/addFriend.fxml"));
+            System.out.println(getClass().getResource("/templates/friend/addFriend.fxml").getPath());
+            root = loader.load();
+
+
+                    friendStage = new Stage();
+
+                    friendStage.setScene(new Scene(root));
+                       friendStage.show();
+
+
+
+
+    } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }
+        private void searchTextListner(FilteredList<User> filteredData) {
+        searchforfriends.textProperty().addListener((observable, oldValue, newValue) ->
+                filteredData.setPredicate(friend -> {
+                    if (newValue == null || newValue.isEmpty()) {
+
+                        return true;
+                    }
+
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (friend.getFirstName().toLowerCase().contains(lowerCaseFilter)
+                            || friend.getPhone().contains(lowerCaseFilter)
+                            || (friend.getCountry() != null
+                            && friend.getCountry().toLowerCase().contains(lowerCaseFilter))
+                            || (friend.getLastName() != null
+                            && friend.getLastName().toLowerCase().contains(lowerCaseFilter))) {
+                        System.out.println("Search is here");
+                        return true;
+                    }
+                    return false;
+                }));
+
     }
 }
