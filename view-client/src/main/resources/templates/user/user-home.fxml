@@ -84,6 +84,7 @@
                 </JFXButton>
                 <JFXButton fx:id="SHOWNOTIFICATIONS" layoutX="172.0" layoutY="149.0" onMouseClicked="#nav1" prefHeight="25.0" prefWidth="25.0" text=" " />
                 <JFXButton fx:id="lOGOUT" layoutX="206.0" layoutY="149.0" onMouseClicked="#logOut" prefHeight="25.0" prefWidth="25.0" text=" " />
+
             </children>
         </AnchorPane>
         <AnchorPane fx:id="PROFILEPANE1" layoutX="833.0" layoutY="5.0" prefHeight="768.0" prefWidth="292.0" style="-fx-border-radius: 5; -fx-background-color: #fefefe;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -117,13 +118,15 @@
                 </HBox>
                 <ImageView fitHeight="32.0" fitWidth="36.0" layoutX="-78.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="55.0" />
                 <JFXTextField fx:id="searchforfriends" layoutX="48.0" prefHeight="26.0" prefWidth="239.0" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55" />
-                <AnchorPane layoutX="6.0" layoutY="54.0" prefHeight="685.0" prefWidth="282.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="85.0">
+                <AnchorPane layoutX="5.0" layoutY="108.0" prefHeight="669.0" prefWidth="282.0" AnchorPane.bottomAnchor="108.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="108.0">
                     <children>
-                        <JFXListView fx:id="userList" focusTraversable="false" onMouseClicked="#onFriendsListClicked" prefHeight="775.0" prefWidth="282.0" style="-fx-border-image-width: 0;" stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55.0">
+                        <JFXListView fx:id="userList" focusTraversable="false" onMouseClicked="#onFriendsListClicked" prefHeight="495.0" prefWidth="272.0" style="-fx-border-image-width: 0;" stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="133.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55.0">
                         </JFXListView>
+                  <Button fx:id="addFriend" layoutX="14.0" layoutY="513.0" mnemonicParsing="false" onMouseClicked="#addFriend" prefHeight="25.0" prefWidth="260.0" text="Add new Friend" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="513.0" />
                     </children>
                 </AnchorPane>
             </children>
+
         </AnchorPane>
         <AnchorPane fx:id="containerPane" layoutX="260.0" onMouseClicked="#onProfileclicked" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="290.0" AnchorPane.topAnchor="0.0" />
 

@@ -26,7 +26,7 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public User searchByPhone(String phone) {
+    public List<User> searchByPhone(String phone) {
 
         try {
             return serverUserService.getByPhone(phone);

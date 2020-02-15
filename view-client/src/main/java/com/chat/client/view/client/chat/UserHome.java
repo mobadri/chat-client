@@ -5,6 +5,8 @@ import com.chat.client.controller.client.pushNotifications.PushNotificationContr
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
+import com.chat.client.view.client.friend.AddFriend;
+import com.chat.client.view.client.login.SecondPageSignUpController;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
@@ -20,6 +22,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -37,12 +41,14 @@ public class UserHome implements Initializable, PushNotificationInterface {
     @FXML
     private TextField searchforfriends;
     @FXML
+    private Button addFriend;
+    @FXML
     private ListView userList;
     @FXML
     private AnchorPane containerPane;
     ListProperty<User> myFriendsListProperty = new SimpleListProperty<>();
     private ObservableList<User> myFriendsList = FXCollections.observableArrayList();
-
+    Stage friendStage;
 
 
     //app controller
@@ -58,6 +64,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
         setListView();
         setSearchforfriends();
     }
+
     void setSearchforfriends()
     {
         FilteredList<User> filteredData = new FilteredList<>(myFriendsList, p -> true);
@@ -179,7 +186,31 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
 
     }
-    private void searchTextListner(FilteredList<User> filteredData) {
+    @FXML
+    public void addFriend(MouseEvent mouseEvent) {
+        System.out.println("Hello i'm here Add new Friend");
+        Parent root;
+        try {
+            System.out.println("I'm Here to add friend");
+            FXMLLoader loader =
+                    new FXMLLoader(getClass().getResource("/templates/friend/addFriend.fxml"));
+            System.out.println(getClass().getResource("/templates/friend/addFriend.fxml").getPath());
+            root = loader.load();
+
+
+                    friendStage = new Stage();
+
+                    friendStage.setScene(new Scene(root));
+                       friendStage.show();
+
+
+
+
+    } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }
+        private void searchTextListner(FilteredList<User> filteredData) {
         searchforfriends.textProperty().addListener((observable, oldValue, newValue) ->
                 filteredData.setPredicate(friend -> {
                     if (newValue == null || newValue.isEmpty()) {
