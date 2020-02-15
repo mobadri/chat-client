@@ -20,9 +20,9 @@ public interface UserHandler {
      *
      * @param currentUser login user
      * @param friend      fried will add to friend list
-     * @return true if succeed to add , false if failed
+     * @return 1 if succeed to add , 0 if failed
      */
-    boolean addFriend(User currentUser, User friend);
+    int addFriend(User currentUser, User friend);
 
     /**
      * remove friend from my friend list

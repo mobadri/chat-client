@@ -3,10 +3,9 @@ package com.chat.client.view.client.chat;
 import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
+import com.chat.client.controller.client.user.HomeController;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
-import com.chat.client.view.client.friend.AddFriend;
-import com.chat.client.view.client.login.SecondPageSignUpController;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
@@ -42,6 +41,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private TextField searchforfriends;
     @FXML
     private Button addFriend;
+    private HomeController homeController;
     @FXML
     private ListView userList;
     @FXML
@@ -65,18 +65,19 @@ public class UserHome implements Initializable, PushNotificationInterface {
         setSearchforfriends();
     }
 
-    void setSearchforfriends()
-    {
+    void setSearchforfriends() {
         FilteredList<User> filteredData = new FilteredList<>(myFriendsList, p -> true);
         searchTextListner(filteredData);
         SortedList<User> sortedData = new SortedList<>(filteredData);
         userList.setItems(sortedData);
     }
+
     public UserHome() {
         try {
             chatGroupInterface = new ChatGroupController();
             pushNotificationController = new PushNotificationController();
             pushNotificationController.setPushNotifications(this);
+            homeController = new HomeController();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -107,8 +108,9 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private void onFriendsListClicked(MouseEvent mouseEvent) {
         User user = (User) userList.getSelectionModel().getSelectedItem();
         if (user != null) {
-//            loadFriendProfile(user);
-            loadChatGroup(new ChatGroup());
+            addFriend(user);
+            loadFriendProfile(user);
+//            loadChatGroup(new ChatGroup());
         }
     }
 
@@ -156,7 +158,6 @@ public class UserHome implements Initializable, PushNotificationInterface {
 //                content = (AnchorPane) FXMLLoader.load("vista2.fxml");
 
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -186,6 +187,11 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
 
     }
+
+    private void addFriend(User friend) {
+        homeController.addFriend(currrentUser, friend);
+    }
+
     @FXML
     public void addFriend(MouseEvent mouseEvent) {
         System.out.println("Hello i'm here Add new Friend");
@@ -198,19 +204,18 @@ public class UserHome implements Initializable, PushNotificationInterface {
             root = loader.load();
 
 
-                    friendStage = new Stage();
+            friendStage = new Stage();
 
-                    friendStage.setScene(new Scene(root));
-                       friendStage.show();
-
-
+            friendStage.setScene(new Scene(root));
+            friendStage.show();
 
 
-    } catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        }
-        private void searchTextListner(FilteredList<User> filteredData) {
+    }
+
+    private void searchTextListner(FilteredList<User> filteredData) {
         searchforfriends.textProperty().addListener((observable, oldValue, newValue) ->
                 filteredData.setPredicate(friend -> {
                     if (newValue == null || newValue.isEmpty()) {
