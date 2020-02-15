@@ -15,11 +15,11 @@ public interface ChatGroupRepository {
     ChatGroup createGroup(ChatGroup chatGroup);
 
     /**
-     * remove chat group for user
+     * remove user from chat group
      * @param chatGroup user chat group
-     * @param user current user
+     * @param user user will be remove
      */
-    void removeChatGroup(ChatGroup chatGroup , User user);
+    void removeUserFromChatGroup(ChatGroup chatGroup , User user);
 
     /**
      * search for my groups

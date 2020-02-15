@@ -14,6 +14,7 @@ public class UserHandlerImpl implements UserHandler {
     private final int PORT_NUMBER = 44444;
     ServerUserService serverUserService;
 
+
     public UserHandlerImpl() {
         try {
             Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
@@ -26,7 +27,7 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public User searchByPhone(String phone) {
+    public List<User> searchByPhone(String phone) {
 
         try {
             return serverUserService.getByPhone(phone);
@@ -37,8 +38,14 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public boolean addFriend(User currentUser, User friend) {
-        return false;
+    public int addFriend(User currentUser, User friend) {
+        try {
+            return serverUserService.addFriend(currentUser, friend);
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override

@@ -18,8 +18,10 @@ public class ChatGroupRepotistoryImpl implements ChatGroupRepository {
         return null;
     }
 
+
+
     @Override
-    public void removeChatGroup(ChatGroup chatGroup, User user) {
+    public void removeUserFromChatGroup(ChatGroup chatGroup, User user) {
 
     }
 

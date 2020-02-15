@@ -13,16 +13,16 @@ public interface UserHandler {
      * @param phone user phone
      * @return user if founded Or null if not founded
      */
-    User searchByPhone(String phone);
+   List <User> searchByPhone(String phone);
 
     /**
      * add to friend list
      *
      * @param currentUser login user
      * @param friend      fried will add to friend list
-     * @return true if succeed to add , false if failed
+     * @return 1 if succeed to add , 0 if failed
      */
-    boolean addFriend(User currentUser, User friend);
+    int addFriend(User currentUser, User friend);
 
     /**
      * remove friend from my friend list

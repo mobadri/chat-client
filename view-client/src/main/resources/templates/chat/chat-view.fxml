@@ -8,6 +8,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.control.ColorPicker?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="721.0"
+            prefWidth="805.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.chat.ChatViewController">
 <?import javafx.scene.web.HTMLEditor?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="721.0" prefWidth="805.0" style="-fx-background-color: #0D3043;"
@@ -70,6 +75,12 @@
                         <Line endX="322.4928894042969" endY="1.565218008181546E-5" layoutX="250.0" layoutY="121.0"
                               startX="-223.8000030517578" startY="6.17861733189784E-5" stroke="#afa3a3"
                               strokeWidth="0.5" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"/>
+                        <ImageView fx:id="SendFile" fitHeight="30.0" fitWidth="30.0" layoutX="661.0" layoutY="49.0"
+                                   pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../static/images/DownloadFile.png"/>
+                            </image>
+                        </ImageView>
                     </children>
                 </AnchorPane>
                 <AnchorPane layoutY="424.0" prefHeight="215.0" prefWidth="755.0" AnchorPane.bottomAnchor="0.0"
@@ -118,9 +129,18 @@
                                 </ImageView>
                             </children>
                         </HBox>
-                        <HTMLEditor fx:id="htmleditor"
-                                    htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;"
-                                    prefHeight="200.0" prefWidth="506.0"/>
+                        <AnchorPane layoutX="14.0" layoutY="28.0" prefHeight="186.0" prefWidth="526.0">
+                            <children>
+                                <JFXTextArea fx:id="messageContent" layoutX="9.0" layoutY="44.0" prefHeight="128.0"
+                                             prefWidth="499.0"/>
+                                <ColorPicker fx:id="colorChooser" layoutX="363.0" layoutY="14.0"
+                                             onAction="#changeTextColor"/>
+                                <Button fx:id="chooseFontButton" layoutX="240.0" layoutY="14.0" mnemonicParsing="false"
+                                        onAction="#onFontChooser" prefHeight="26.0" prefWidth="114.0"
+                                        text="choose font"/>
+                            </children>
+                        </AnchorPane>
+
                     </children>
                 </AnchorPane>
                 <AnchorPane layoutY="127.0" prefHeight="324.0" prefWidth="755.0" AnchorPane.bottomAnchor="220.0"
