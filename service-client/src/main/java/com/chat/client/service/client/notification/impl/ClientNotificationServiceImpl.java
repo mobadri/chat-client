@@ -13,7 +13,9 @@ import java.util.List;
 
 public class ClientNotificationServiceImpl implements ClientNotificationService {
     NotificationHandler notificationHandler;
-    public ClientNotificationServiceImpl(
+    private static ClientNotificationServiceImpl instance;
+
+    private ClientNotificationServiceImpl(
     ){
         notificationHandler =  NetworkFactory.createNotificationHandler();
     }
@@ -32,4 +34,12 @@ public class ClientNotificationServiceImpl implements ClientNotificationService 
         notificationHandler.register(notificationServiceCallback);
     }
 
+    public synchronized static ClientNotificationServiceImpl createNotificationGroupServiceInstance(){
+        if(instance==null){
+
+            instance= new ClientNotificationServiceImpl();
+
+        }
+        return instance;
+    }
 }

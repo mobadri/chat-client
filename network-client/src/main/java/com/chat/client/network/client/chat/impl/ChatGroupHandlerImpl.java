@@ -18,7 +18,7 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
     public ChatGroupHandlerImpl() {
 
         try {
-            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
+            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
             serverChatGroupService = (ServerChatGroupService) registry.lookup("chatGroupService");
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();

@@ -1,24 +1,24 @@
 package com.chat.client.controller.client.chatGroup;
 
 import com.chat.client.service.client.callback.MessageServiceCallBack;
-import com.chat.client.service.client.callback.NotificationServiceCallback;
 import com.chat.client.service.client.factory.ServiceClientFactory;
 import com.chat.client.service.client.message.ClientMessageService;
+import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
-import com.chat.server.model.chat.Notification;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class ChatGroupController extends UnicastRemoteObject implements ChatGroupInterface
-        ,  MessageServiceCallBack {
+        , MessageServiceCallBack {
 
     private ClientMessageService messageService = ServiceClientFactory.createMessageService();
     private ChatGroupInterface chatGroupInterface;
 
+    private ChatGroup chatGroup;
+
     public ChatGroupController() throws RemoteException {
-            messageService.register(this);
+        messageService.register(this);
     }
 
 
@@ -35,7 +35,16 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
 
     @Override
     public void receiveMessage(Message message) {
-            chatGroupInterface.receiveMessage(message);
+        chatGroupInterface.receiveMessage(message);
+    }
+
+    public void setChatGroup(ChatGroup chatGroup) {
+        this.chatGroup = chatGroup;
+    }
+
+    @Override
+    public int getChatGroupId() {
+        return chatGroup.getId();
     }
 
 

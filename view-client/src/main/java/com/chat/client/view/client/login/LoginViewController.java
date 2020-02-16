@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,13 +47,15 @@ public class LoginViewController implements Initializable {
     @FXML
     private void onLogin(ActionEvent actionEvent) {
         user = signUpAndRegistration.login(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
+        System.out.println(user);
         if (user != null && user.getId() > 0) {
             System.out.println("login successfully");
             goToHomePage();
         } else {
             System.out.println("user not found");
         }
-
+        String title = "sign in";
+       // TrayNotification tray = new TrayNotification()
     }
 
 
@@ -65,10 +68,7 @@ public class LoginViewController implements Initializable {
                     getClass().getResource("/templates/user/user-home.fxml"));
             root = loader.load();
             UserHome userHome = loader.getController();
-            userHome.setCurrrentUser(user);
-            userHome.setStage(stage);
-            System.out.println("Stage is = ");
-            System.out.println(stage);
+            userHome.setCurrentUser(user);
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
@@ -89,16 +89,10 @@ public class LoginViewController implements Initializable {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/templates/login/firstsignup.fxml"));
             root = loader.load();
-
-//            ClientUserService clientUserService = ServiceClientFactory.createUserService();
             FirstSignUpController firstSignUpController = loader.getController();
-//            SignUpAndRegistration signUpAndRegistration = new RegistrationController(clientUserService);
-//            System.out.println("set controller and stage");
             firstSignUpController.setStageSignUp(stage);
             firstSignUpController.setSignUpAndRegistration(signUpAndRegistration);
-
             stage.setScene(new Scene(root));
-            //firstSignUpController
         } catch (IOException e) {
             e.printStackTrace();
             e.getMessage();

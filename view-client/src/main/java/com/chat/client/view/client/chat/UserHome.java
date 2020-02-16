@@ -45,18 +45,24 @@ public class UserHome implements Initializable, PushNotificationInterface {
     @FXML
     private ListView userList;
     @FXML
+    private ListView chatGroupList;
+    @FXML
     private AnchorPane containerPane;
+
     ListProperty<User> myFriendsListProperty = new SimpleListProperty<>();
     private ObservableList<User> myFriendsList = FXCollections.observableArrayList();
+
+    private ObservableList<ChatGroup> myChatGroupsList = FXCollections.observableArrayList();
+
+    private ObservableList<Notification> myNotificationList = FXCollections.observableArrayList();
+
     Stage friendStage;
 
 
     //app controller
     private ChatGroupController chatGroupInterface;
     private PushNotificationController pushNotificationController;
-    private User currrentUser;
-
-    private Stage stage;
+    private User currentUser;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -77,6 +83,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
             chatGroupInterface = new ChatGroupController();
             pushNotificationController = new PushNotificationController();
             pushNotificationController.setPushNotifications(this);
+            pushNotificationController.setCurrentUser(currentUser);
             homeController = new HomeController();
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -92,16 +99,17 @@ public class UserHome implements Initializable, PushNotificationInterface {
     public void nav1(MouseEvent mouseEvent) {
     }
 
-    private void setListView() {
-        //@shaheen
-        //todo change the list user friends
-        //all user for testing the list view
-        UserHandler userHandler = new UserHandlerImpl();
-        List<User> users = userHandler.getAllUsers();
+    private void setFriendsListView(List<User> users) {
         myFriendsList = FXCollections.observableList(users);
         System.out.println(users.size());
         userList.setItems(myFriendsList);
-        userList.setCellFactory(new CellRenderer());
+        userList.setCellFactory(new com.chat.client.view.client.chat.CellRenderer());
+    }
+
+    private void setChatGroupListView(List<ChatGroup> chatGroups) {
+        myChatGroupsList = FXCollections.observableList(chatGroups);
+        chatGroupList.setItems(myChatGroupsList);
+        chatGroupList.setCellFactory(new ChatGroupCellRenderer());
     }
 
     @FXML
@@ -111,6 +119,14 @@ public class UserHome implements Initializable, PushNotificationInterface {
             addFriend(user);
             loadFriendProfile(user);
 //            loadChatGroup(new ChatGroup());
+        }
+    }
+
+    @FXML
+    public void onchatGroupListClicked(MouseEvent mouseEvent) {
+        ChatGroup chatGroup = (ChatGroup) chatGroupList.getSelectionModel().getSelectedItem();
+        if (chatGroup != null) {
+            loadChatGroup(chatGroup);
         }
     }
 
@@ -136,7 +152,8 @@ public class UserHome implements Initializable, PushNotificationInterface {
             Parent root = loader.load();
             //view controller
             ChatViewController chatViewController = (ChatViewController) loader.getController();
-            chatViewController.setUser(currrentUser);
+            chatViewController.setUser(currentUser);
+            chatViewController.setChatGroup(chatGroup);
             //@yasmine
             //todo don't forget to add groupchat to chatviewcontroller
             //---------
@@ -144,19 +161,12 @@ public class UserHome implements Initializable, PushNotificationInterface {
             chatGroupInterface.setChatGroupInterface(chatViewController);
             chatViewController.setChatGroupInterface(chatGroupInterface);
 
-//                containerPane.getChildren().add(root);
-
-            AnchorPane child = new AnchorPane(root);
-            AnchorPane.setTopAnchor(child, 10.0);
-            AnchorPane.setBottomAnchor(child, 10.0);
-            AnchorPane.setLeftAnchor(child, 10.0);
-            AnchorPane.setRightAnchor(child, 10.0);
-            containerPane.getChildren().setAll((AnchorPane) child);
-
-
-//                containerPane = new AnchorPane(root);
-//                content = (AnchorPane) FXMLLoader.load("vista2.fxml");
-
+//            AnchorPane child = new AnchorPane(root);
+//            AnchorPane.setTopAnchor(child, 10.0);
+//            AnchorPane.setBottomAnchor(child, 10.0);
+//            AnchorPane.setLeftAnchor(child, 10.0);
+//            AnchorPane.setRightAnchor(child, 10.0);
+            containerPane.getChildren().setAll(root);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -164,12 +174,11 @@ public class UserHome implements Initializable, PushNotificationInterface {
     }
 
 
-    public void setCurrrentUser(User currrentUser) {
-        this.currrentUser = currrentUser;
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+        setFriendsListView(currentUser.getFriends());
+        setChatGroupListView(currentUser.getChatGroups());
+        setSearchforfriends();
     }
 
     @Override
@@ -184,32 +193,26 @@ public class UserHome implements Initializable, PushNotificationInterface {
     }
 
     public void onProfileclicked(MouseEvent mouseEvent) {
-        loadFriendProfile(currrentUser);
 
     }
 
     private void addFriend(User friend) {
-        homeController.addFriend(currrentUser, friend);
+        homeController.addFriend(currentUser, friend);
     }
 
+    //------------------------------------------
+    //@yassmin
+    //------------------------------------------
     @FXML
     public void addFriend(MouseEvent mouseEvent) {
-        System.out.println("Hello i'm here Add new Friend");
         Parent root;
         try {
-            System.out.println("I'm Here to add friend");
             FXMLLoader loader =
                     new FXMLLoader(getClass().getResource("/templates/friend/addFriend.fxml"));
-            System.out.println(getClass().getResource("/templates/friend/addFriend.fxml").getPath());
             root = loader.load();
-
-
             friendStage = new Stage();
-
             friendStage.setScene(new Scene(root));
             friendStage.show();
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -235,6 +238,12 @@ public class UserHome implements Initializable, PushNotificationInterface {
                     }
                     return false;
                 }));
+    }
 
+    void setSearchforfriends() {
+        FilteredList<User> filteredData = new FilteredList<>(myFriendsList, p -> true);
+        searchTextListner(filteredData);
+        SortedList<User> sortedData = new SortedList<>(filteredData);
+        userList.setItems(sortedData);
     }
 }

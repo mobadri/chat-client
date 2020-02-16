@@ -13,21 +13,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
         Parent root = loader.load();
-        startpageController controller = loader.getController();
+        com.chat.client.view.client.startpageController controller = loader.getController();
         controller.setStage(primaryStage);
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.show();
-/*
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/User_profile.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        scene.setFill(Color.TRANSPARENT);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-*/
     }
 
 
