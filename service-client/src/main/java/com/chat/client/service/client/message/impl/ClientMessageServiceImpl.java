@@ -13,10 +13,12 @@ public class ClientMessageServiceImpl implements ClientMessageService {
     // using the factory object from Repository layer
 //    MessageGroupRepository messageGroupRepository = RepsitoryFactory.creatMessageGroupRepository();
     //ChatGroupHandler chatGroupHandler = NetworkFactory.createChatGroupHandler();
-    MessageHandler messageHandler;
+    MessageHandler messageHandler = NetworkFactory.createMessageHandler();
 
-    public ClientMessageServiceImpl() {
-        messageHandler = NetworkFactory.createMessageHandler();
+    private static ClientMessageServiceImpl instance;
+
+    private ClientMessageServiceImpl() {
+
     }
 
     @Override
@@ -34,6 +36,13 @@ public class ClientMessageServiceImpl implements ClientMessageService {
     @Override
     public void unRegister(MessageServiceCallBack messageServiceCallBack) {
         messageHandler.unRegister(messageServiceCallBack);
+    }
+
+    public static synchronized ClientMessageServiceImpl createMessageGroupServiceInstance() {
+        if (instance == null) {
+            instance= new ClientMessageServiceImpl();
+        }
+        return instance;
     }
 
 }
