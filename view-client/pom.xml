@@ -73,9 +73,27 @@
         </dependency>
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-octicons-pack</artifactId>
+            <version>11.3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-elusive-pack</artifactId>
+            <version>11.3.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-icomoon-pack</artifactId>
+            <version>11.3.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
             <artifactId>ikonli-javafx</artifactId>
             <version>11.3.5</version>
         </dependency>
+
+
         <dependency>
             <groupId>com.chat.client</groupId>
             <artifactId>network-client</artifactId>

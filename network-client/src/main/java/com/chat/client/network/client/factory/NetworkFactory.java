@@ -16,8 +16,8 @@ import java.util.Objects;
  */
 public class NetworkFactory {
     private static UserHandler userHandler;
-    private static MessageHandler messageHandler;
     private static ChatGroupHandler chatGroupHandler;
+    private static MessageHandler messageHandler;
     private static NotificationHandler notificationHandler;
 
     private NetworkFactory() {
@@ -58,10 +58,13 @@ public class NetworkFactory {
     /**
      * create MessageHandler Object for user over application
      *
-     * @return MessageHandlerImplementation
+     * @return MessageHandlerImplantation
      */
+
     public static synchronized MessageHandler createMessageHandler() {
-        messageHandler = Objects.requireNonNullElseGet(messageHandler, () -> new MessageHandlerImpl());
+
+        if (messageHandler == null)
+            messageHandler = new MessageHandlerImpl();
         return messageHandler;
     }
 }

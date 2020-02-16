@@ -2,8 +2,6 @@ package com.chat.client.service.client.user.validation;
 
 import com.chat.server.model.user.Gender;
 import com.chat.server.model.user.User;
-import javafx.scene.control.TextField;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,8 +58,7 @@ public class UserValidation {
         validUser.put("InvalidCountry", validCountry(user.getCountry()));
         validUser.put("InvalidGender", gender(user.getGender()));
 
-        return validUser
-                ;
+        return validUser;
     }
 
 

@@ -35,8 +35,8 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     }
 
     @Override
-    public boolean addFriend(User currentUser, User friend) throws RemoteException {
-        return false;
+    public int addFriend(User currentUser, User friend) throws RemoteException {
+        return userHandler.addFriend(currentUser, friend);
     }
 
     @Override

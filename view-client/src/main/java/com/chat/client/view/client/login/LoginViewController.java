@@ -1,6 +1,7 @@
 package com.chat.client.view.client.login;
 
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
+import com.chat.client.view.client.chat.UserHome;
 import com.chat.server.model.user.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +30,7 @@ public class LoginViewController implements Initializable {
     PasswordField txtFieldloginPassword;
 
     SignUpAndRegistration signUpAndRegistration;
-
+    private User user;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -44,7 +45,8 @@ public class LoginViewController implements Initializable {
 
     @FXML
     private void onLogin(ActionEvent actionEvent) {
-        User user = signUpAndRegistration.login(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
+        user = signUpAndRegistration.login(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
+        System.out.println(user);
         if (user != null && user.getId() > 0) {
             System.out.println("login successfully");
             goToHomePage();
@@ -61,9 +63,10 @@ public class LoginViewController implements Initializable {
         //;
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/templates/user/user-friends.fxml"));
+                    getClass().getResource("/templates/user/user-home.fxml"));
             root = loader.load();
-            System.out.println(stage);
+            UserHome userHome = loader.getController();
+            userHome.setCurrentUser(user);
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,16 +87,10 @@ public class LoginViewController implements Initializable {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/templates/login/firstsignup.fxml"));
             root = loader.load();
-
-//            ClientUserService clientUserService = ServiceClientFactory.createUserService();
             FirstSignUpController firstSignUpController = loader.getController();
-//            SignUpAndRegistration signUpAndRegistration = new RegistrationController(clientUserService);
-//            System.out.println("set controller and stage");
             firstSignUpController.setStageSignUp(stage);
             firstSignUpController.setSignUpAndRegistration(signUpAndRegistration);
-
             stage.setScene(new Scene(root));
-            //firstSignUpController
         } catch (IOException e) {
             e.printStackTrace();
             e.getMessage();

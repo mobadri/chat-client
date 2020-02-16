@@ -4,7 +4,6 @@ import com.chat.client.network.client.chat.ChatGroupHandler;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.chatgroup.ServerChatGroupService;
-
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -19,9 +18,8 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
     public ChatGroupHandlerImpl() {
 
         try {
-            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
+            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
             serverChatGroupService = (ServerChatGroupService) registry.lookup("chatGroupService");
-
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
             System.out.println("something incorrect happened!!");
@@ -41,7 +39,7 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
     @Override
     public List<ChatGroup> getAllChatGroupsForUser(User user) {
         try {
-            serverChatGroupService.getAllChatGroupsForUser(user);
+            return serverChatGroupService.getAllChatGroupsForUser(user);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -78,5 +76,35 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
             e.printStackTrace();
         }
         return chatGroup;
+    }
+
+    @Override
+    public ChatGroup addUser(ChatGroup chatGroup, User user) {
+        try {
+            return serverChatGroupService.addFriend(chatGroup, user);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ChatGroup removeUser(ChatGroup chatGroup, User user) {
+        try {
+            return serverChatGroupService.removeFriend(chatGroup, user);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<ChatGroup> searchByName(String groupName, User user) {
+        try {
+            return serverChatGroupService.searchByName(groupName, user);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

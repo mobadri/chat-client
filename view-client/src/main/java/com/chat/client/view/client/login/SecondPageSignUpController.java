@@ -79,14 +79,11 @@ public class SecondPageSignUpController implements Initializable {
     private void loadNextPage(User user) {
         Parent root;
         try {
-
             FXMLLoader loader =
                     new FXMLLoader(getClass().getResource("/templates/user/user-home.fxml"));
             root = loader.load();
             UserHome userHomeController = loader.getController();
-            userHomeController.setCurrrentUser(user);
-            userHomeController.setStage(stage);
-
+            userHomeController.setCurrentUser(user);
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();

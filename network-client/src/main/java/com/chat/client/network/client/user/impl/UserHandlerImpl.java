@@ -16,8 +16,9 @@ public class UserHandlerImpl implements UserHandler {
 
     public UserHandlerImpl() {
         try {
-            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
+            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
             serverUserService = (ServerUserService) registry.lookup("userService");
+            System.out.println(serverUserService);
 
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
@@ -26,14 +27,27 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public User searchByPhone(String phone) {
+    public List<User> searchByPhone(String phone) {
+
+        try {
+            return serverUserService.getByPhone(phone);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
-    public boolean addFriend(User currentUser, User friend) {
-        return false;
-    }
+    public int addFriend(User currentUser, User friend) {
+        try {
+            return serverUserService.addFriend(currentUser, friend);
+        }
+        catch (RemoteException  e)
+        {
+            e.printStackTrace();
+        }
+        return 0;
+        }
 
     @Override
     public boolean removeFriend(User currentUser, User friend) {
@@ -63,9 +77,7 @@ public class UserHandlerImpl implements UserHandler {
     @Override
     public User signUp(User user) {
         try {
-            //todo remove int i and retrun user after update service
             return serverUserService.insertUser(user);
-
         } catch (RemoteException e) {
             e.printStackTrace();
         }
