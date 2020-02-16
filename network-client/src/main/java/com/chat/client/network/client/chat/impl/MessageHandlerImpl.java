@@ -17,7 +17,7 @@ public class MessageHandlerImpl implements MessageHandler {
 
     public MessageHandlerImpl() {
         try {
-            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
+            Registry registry = LocateRegistry.getRegistry("10.145.7.174" , 11223);
             serverMessageService = (ServerMessageService) registry.lookup("messageService");
 
         } catch (RemoteException | NotBoundException e) {

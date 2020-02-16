@@ -26,7 +26,7 @@ public class NotificationHandlerImpl implements NotificationHandler {
 
         try {
 
-            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
+            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
             notificationService = (ServerNotificationService) registry.lookup("notificationService");
 //            clientNotificationService = ServiceClientFactory.createNotificationService();
 //            notificationService.register(clientNotificationService);
