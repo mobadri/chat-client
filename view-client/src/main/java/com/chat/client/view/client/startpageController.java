@@ -26,6 +26,7 @@ public class startpageController implements Initializable {
 
     @FXML
     public void gotosignuppage(ActionEvent actionEvent) {
+        System.out.println("cliecked");
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/firstsignup.fxml"));
@@ -45,9 +46,11 @@ public class startpageController implements Initializable {
 
     @FXML
     public void gotosigninpage(ActionEvent actionEvent) {
+        System.out.println("cliecked");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/login.fxml"));
             Parent root = loader.load();
+            System.out.println("loaded");
             LoginViewController loginView = loader.getController();
             loginView.setStageLogin(stage);
             SignUpAndRegistration registrationController =

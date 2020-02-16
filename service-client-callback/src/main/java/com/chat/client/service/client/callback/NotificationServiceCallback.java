@@ -8,7 +8,10 @@ import java.rmi.RemoteException;
 public interface NotificationServiceCallback extends Remote {
     /**
      * receive notification from my fiends
+     *
      * @param notification notification be received
      */
-    void receiveNotification(Notification notification)throws RemoteException;
+    void receiveNotification(Notification notification) throws RemoteException;
+
+    int getUserId() throws RemoteException;
 }
