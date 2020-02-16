@@ -3,6 +3,7 @@ package com.chat.client.view.client.friend;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
 import com.chat.client.view.client.chat.CellRenderer;
+import com.chat.client.view.client.chat.ChatRendererwithbuttons;
 import com.chat.server.model.user.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -47,7 +48,7 @@ public class AddFriend  implements Initializable {
         allUsers = FXCollections.observableList(users);
         System.out.println(users.size());
         usersListView.setItems(allUsers);
-        usersListView.setCellFactory(new CellRenderer());
+        usersListView.setCellFactory(new ChatRendererwithbuttons());
     }
 
     private void Search()
