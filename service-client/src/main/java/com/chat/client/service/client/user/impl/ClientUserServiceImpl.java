@@ -12,7 +12,9 @@ import java.util.Map;
 
 public class ClientUserServiceImpl extends UnicastRemoteObject implements ClientUserService {
 
-    public ClientUserServiceImpl() throws RemoteException {
+    private static ClientUserServiceImpl instance;
+
+    private ClientUserServiceImpl() throws RemoteException {
     }
 
     UserHandler userHandler = NetworkFactory.createUserHandler();
@@ -47,4 +49,25 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     public User signup(User user) {
         return userHandler.signUp(user);
     }
+
+//    public synchronized static ClientUserServiceImpl createClientUSerServiceInstance(){
+//        if(instance==null){
+//            instance = new ClientUserServiceImpl;
+//        }
+//
+//        return instance;
+//    }
+
+    public static synchronized ClientUserServiceImpl createUserServiceInstance() {
+        if (instance == null) {
+            try {
+                instance= new ClientUserServiceImpl();
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return instance;
+    }
 }
+
+

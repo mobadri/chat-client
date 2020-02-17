@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -53,7 +54,8 @@ public class LoginViewController implements Initializable {
         } else {
             System.out.println("user not found");
         }
-
+        String title = "sign in";
+       // TrayNotification tray = new TrayNotification()
     }
 
 

@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class UserValidation {
 
+
     User user = null;
 
     public UserValidation(User user) {

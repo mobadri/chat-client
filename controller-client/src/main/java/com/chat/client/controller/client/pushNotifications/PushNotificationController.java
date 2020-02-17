@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 public class PushNotificationController extends UnicastRemoteObject implements NotificationServiceCallback {
+
     private ClientNotificationService clientNotificationService = ServiceClientFactory.createNotificationService();
     private PushNotificationInterface pushNotifications;
 

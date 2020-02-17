@@ -8,6 +8,13 @@ import com.chat.server.model.user.User;
 import java.util.List;
 
 public class ClientChatGroupServiceImpl implements ClientChatGroupService {
+
+    private static  ClientChatGroupServiceImpl instance;
+
+    private ClientChatGroupServiceImpl (){
+
+    }
+
     @Override
     public ChatGroup createGroup(ChatGroup chatGroup) {
         return null;
@@ -35,4 +42,11 @@ public class ClientChatGroupServiceImpl implements ClientChatGroupService {
     //@badri
     //todo impl methods
     // hint : use a repo object from repo layer
+
+    public static synchronized ClientChatGroupServiceImpl createChatGroupServiceInstance() {
+        if (instance == null) {
+            instance= new ClientChatGroupServiceImpl();
+        }
+        return instance;
+    }
 }

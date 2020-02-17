@@ -45,7 +45,6 @@ public class CellRenderer implements Callback<ListView<User>, ListCell<User>> {
 
                     hBox.getChildren().addAll(statusImageView, pictureImageView, name);
                     hBox.setAlignment(Pos.CENTER_LEFT);
-
                     setGraphic(hBox);
                 }
             }
