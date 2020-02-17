@@ -10,7 +10,8 @@ public class XmlValueTag {
         this.weight = weight;
     }
 
-    public XmlValueTag() {
+    public XmlValueTag(String value) {
+        this.value = value;
     }
 
     public String getValue() {

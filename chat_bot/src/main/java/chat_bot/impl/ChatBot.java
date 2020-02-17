@@ -31,7 +31,7 @@ public class ChatBot implements ChatBotInterface {
 
     public static ChatBot getInstance() throws IOException, SAXException, ParserConfigurationException {
 
-        if(chatBotInstance == null)
+        if (chatBotInstance == null)
             chatBotInstance = new ChatBot();
         return chatBotInstance;
     }
@@ -44,9 +44,7 @@ public class ChatBot implements ChatBotInterface {
 
     public void readXml(File xmlFile) throws IOException, SAXException, ParserConfigurationException {
 
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder dBuilder = factory.newDocumentBuilder();
-        document = dBuilder.parse(xmlFile);
+        getDocument(xmlFile);
 
         NodeList keys = document.getElementsByTagName("key");
         List<XmlValueTag> xmlValueTagList;
@@ -62,19 +60,31 @@ public class ChatBot implements ChatBotInterface {
                 NodeList values = elem.getElementsByTagName("value");
                 xmlValueTagList = new ArrayList<>();
 
-                for (int j = 0; j < values.getLength(); j++) {
-
-                    Node value = values.item(j);
-                    if (value.getNodeType() == Node.ELEMENT_NODE) {
-
-                        Element element = (Element) value;
-                        xmlValueTagList.add(new XmlValueTag(element.getTextContent(),
-                                Integer.parseInt(element.getAttribute("weight"))));
-                    }
-                }
+                getChildNodes(xmlValueTagList, values);
                 chatBot.put(name, xmlValueTagList);
             }
         }
+    }
+
+    private void getChildNodes(List<XmlValueTag> xmlValueTagList, NodeList values) {
+
+        for (int j = 0; j < values.getLength(); j++) {
+
+            Node value = values.item(j);
+            if (value.getNodeType() == Node.ELEMENT_NODE) {
+
+                Element element = (Element) value;
+                xmlValueTagList.add(new XmlValueTag(element.getTextContent(),
+                        Integer.parseInt(element.getAttribute("weight"))));
+            }
+        }
+    }
+
+    private void getDocument(File xmlFile) throws ParserConfigurationException, SAXException, IOException {
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = factory.newDocumentBuilder();
+        document = dBuilder.parse(xmlFile);
     }
 
     public List<XmlValueTag> search(String key) {
@@ -86,7 +96,7 @@ public class ChatBot implements ChatBotInterface {
     }
 
     public void enableChatBotToLearn(String keyName, XmlValueTag valueTag) throws
-            ParserConfigurationException, IOException, SAXException, XPathExpressionException, TransformerException {
+            XPathExpressionException, TransformerException {
 
         XPathFactory factory = XPathFactory.newInstance();
         XPath path = factory.newXPath();
@@ -96,27 +106,34 @@ public class ChatBot implements ChatBotInterface {
         Node keyValue = (Node) expression.evaluate(document, XPathConstants.NODE);
 
         if (keyValue != null) {
-
-            chatBot.get(keyName).parallelStream().filter((value) -> value.getValue().trim().equalsIgnoreCase(valueTag.getValue()))
-                    .forEach(XmlValueTag::incrementWeight);
-            Node weight = keyValue.getAttributes().getNamedItem("weight");
-            weight.setNodeValue(String.valueOf(Integer.parseInt(weight.getNodeValue()) + 1));
+            updateValueWeight(keyName, valueTag, keyValue);
         } else {
 
             String expr = "/keys/key[contains(@name,'" + keyName + "')]/values";
             expression = path.compile(expr);
-
             Node keyValues = (Node) expression.evaluate(document, XPathConstants.NODE);
             if (keyValues != null) {
-
-                chatBot.get(keyName).add(valueTag);
-                Element newValue = getElement(valueTag, document);
-                keyValues.appendChild(newValue);
+                addNewValueTag(keyName, valueTag, keyValues);
             } else {
                 addNewKey(keyName, valueTag);
             }
         }
         writeToXmlFile(document);
+    }
+
+    private void addNewValueTag(String keyName, XmlValueTag valueTag, Node keyValues) {
+
+        chatBot.get(keyName).add(valueTag);
+        Element newValue = getElement(valueTag, document);
+        keyValues.appendChild(newValue);
+    }
+
+    private void updateValueWeight(String keyName, XmlValueTag valueTag, Node keyValue) {
+
+        chatBot.get(keyName).parallelStream().filter((value) -> value.getValue().trim().equalsIgnoreCase(valueTag.getValue()))
+                .forEach(XmlValueTag::incrementWeight);
+        Node weight = keyValue.getAttributes().getNamedItem("weight");
+        weight.setNodeValue(String.valueOf(Integer.parseInt(weight.getNodeValue()) + 1));
     }
 
     private void writeToXmlFile(Document doc) throws TransformerException {
@@ -129,8 +146,7 @@ public class ChatBot implements ChatBotInterface {
         transformer.transform(source, result);
     }
 
-    public void addNewKey(String keyName, XmlValueTag valueTag)
-            throws ParserConfigurationException, IOException, SAXException, TransformerException {
+    public void addNewKey(String keyName, XmlValueTag valueTag) throws TransformerException {
 
         List<XmlValueTag> valueTags = new ArrayList<>();
         valueTags.add(valueTag);
@@ -168,7 +184,7 @@ public class ChatBot implements ChatBotInterface {
     public String getMessage(String message) {
 
         String respond = "sorry !! what do you mean ?";
-        message = message.toLowerCase();
+        message = message.toLowerCase().trim();
         List<XmlValueTag> valueTags = search(message);
         System.out.println(valueTags);
         if (!valueTags.isEmpty()) {
@@ -181,10 +197,12 @@ public class ChatBot implements ChatBotInterface {
     @Override
     public void learn(String message, String respond) {
 
-        XmlValueTag valueTag = new XmlValueTag(respond, 1);
+        message = message.toLowerCase().trim();
+        respond = respond.toLowerCase().trim();
+        XmlValueTag valueTag = new XmlValueTag(respond);
         try {
             enableChatBotToLearn(message, valueTag);
-        } catch (ParserConfigurationException | IOException | SAXException | XPathExpressionException | TransformerException e) {
+        } catch (XPathExpressionException | TransformerException e) {
             e.printStackTrace();
         }
     }

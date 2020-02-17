@@ -3,6 +3,7 @@ module network.client {
     requires model.server;
     requires service.server;
     requires serviceclientcallback;
+    requires chat.bot;
     opens com.chat.client.network.client.factory;
     opens com.chat.client.network.client.chat;
     opens com.chat.client.network.client.user;
