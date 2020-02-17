@@ -52,7 +52,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     private ObservableList<ChatGroup> myChatGroupsList = FXCollections.observableArrayList();
 
-    private ObservableList<Notification> myNotificationList = FXCollections.observableArrayList();
+
 
     Stage friendStage;
 
