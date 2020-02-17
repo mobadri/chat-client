@@ -12,24 +12,14 @@
     <dependencies>
         <dependency>
             <groupId>com.chat.client</groupId>
-            <artifactId>repository-client</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.chat.server</groupId>
-            <artifactId>model-server</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.chat.client</groupId>
             <artifactId>network-client</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>11.0.2</version>
+            <groupId>com.chat.client</groupId>
+            <artifactId>chat-bot</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <properties>

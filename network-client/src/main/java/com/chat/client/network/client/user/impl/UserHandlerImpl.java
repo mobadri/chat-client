@@ -16,7 +16,8 @@ public class UserHandlerImpl implements UserHandler {
 
     public UserHandlerImpl() {
         try {
-            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
+//            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
+            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
             serverUserService = (ServerUserService) registry.lookup("userService");
             System.out.println(serverUserService);
 
@@ -41,13 +42,11 @@ public class UserHandlerImpl implements UserHandler {
     public int addFriend(User currentUser, User friend) {
         try {
             return serverUserService.addFriend(currentUser, friend);
-        }
-        catch (RemoteException  e)
-        {
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
         return 0;
-        }
+    }
 
     @Override
     public boolean removeFriend(User currentUser, User friend) {

@@ -8,12 +8,11 @@
     <packaging>pom</packaging>
     <modules>
         <module>network-client</module>
-        <module>repository-client</module>
         <module>service-client</module>
         <module>controller-client</module>
         <module>view-client</module>
         <module>service-client-callback</module>
-        <module>chat_bot</module>
+        <module>chat-bot</module>
     </modules>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>

@@ -9,29 +9,24 @@ import com.chat.client.service.client.notification.impl.ClientNotificationServic
 import com.chat.client.service.client.user.ClientUserService;
 import com.chat.client.service.client.user.impl.ClientUserServiceImpl;
 
-import java.rmi.RemoteException;
-
 public class ServiceClientFactory {
-    private static ClientUserService userService = null;
-
     private ServiceClientFactory() {
     }
 
 
-    public static synchronized ClientUserService createUserService() {
+    public static ClientUserService createUserService() {
         return ClientUserServiceImpl.createUserServiceInstance();
-
     }
 
-    public static synchronized ClientNotificationService createNotificationService() {
-  return ClientNotificationServiceImpl.createNotificationGroupServiceInstance();
+    public static ClientNotificationService createNotificationService() {
+        return ClientNotificationServiceImpl.createNotificationGroupServiceInstance();
     }
 
-    public static synchronized ClientMessageService createMessageService() {
+    public static ClientMessageService createMessageService() {
         return ClientMessageServiceImpl.createMessageGroupServiceInstance();
     }
 
-    public static synchronized ClientChatGroupService createClientChatGroupService(){
+    public static ClientChatGroupService createClientChatGroupService() {
         return ClientChatGroupServiceImpl.createChatGroupServiceInstance();
     }
 

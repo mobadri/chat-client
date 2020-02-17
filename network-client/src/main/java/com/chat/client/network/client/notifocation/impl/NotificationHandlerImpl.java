@@ -26,7 +26,8 @@ public class NotificationHandlerImpl implements NotificationHandler {
 
         try {
 
-            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
+//            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
+            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
             notificationService = (ServerNotificationService) registry.lookup("notificationService");
 //            clientNotificationService = ServiceClientFactory.createNotificationService();
 //            notificationService.register(clientNotificationService);
@@ -62,11 +63,11 @@ public class NotificationHandlerImpl implements NotificationHandler {
 
     @Override
     public void register(NotificationServiceCallback notificationServiceCallback) {
-      try {
-          notificationService.register(notificationServiceCallback);
-      } catch (RemoteException e) {
-          e.printStackTrace();
-      }
+        try {
+            notificationService.register(notificationServiceCallback);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

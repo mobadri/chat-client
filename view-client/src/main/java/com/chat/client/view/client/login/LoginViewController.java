@@ -15,7 +15,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -55,7 +54,7 @@ public class LoginViewController implements Initializable {
             System.out.println("user not found");
         }
         String title = "sign in";
-       // TrayNotification tray = new TrayNotification()
+        // TrayNotification tray = new TrayNotification()
     }
 
 
@@ -69,6 +68,8 @@ public class LoginViewController implements Initializable {
             root = loader.load();
             UserHome userHome = loader.getController();
             userHome.setCurrentUser(user);
+            stage.setMaximized(true);
+            stage.setFullScreen(true);
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
