@@ -1,5 +1,6 @@
 package com.chat.client.view.client.login;
 
+import com.chat.client.controller.client.user.login.RememberMeController;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.client.view.client.chat.UserHome;
 import com.chat.server.model.user.User;
@@ -9,18 +10,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginViewController implements Initializable {
     Stage stage;
+
+    @FXML
+    CheckBox rememberMe;
     @FXML
     Label lblloginSignuphere;
     @FXML
@@ -57,6 +63,9 @@ public class LoginViewController implements Initializable {
         // TrayNotification tray = new TrayNotification()
     }
 
+    void setPbone(String name) {
+
+    }
 
     public void goToHomePage() {
 
@@ -67,7 +76,7 @@ public class LoginViewController implements Initializable {
                     getClass().getResource("/templates/user/user-home.fxml"));
             root = loader.load();
             UserHome userHome = loader.getController();
-            userHome.setCurrentUser(user);
+            //userHome.setCurrentUser(user);
             stage.setMaximized(true);
             stage.setFullScreen(true);
             stage.setScene(new Scene(root));
@@ -108,4 +117,17 @@ public class LoginViewController implements Initializable {
 
     public void signInView(ActionEvent actionEvent) {
     }
+
+    public void onClickRememberMe(MouseEvent mouseEvent) {
+        if (rememberMe.isSelected()) {
+            RememberMeController rememberMeController = new RememberMeController();
+            rememberMeController.CreateIntoXML(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
+            System.out.println(true);
+        } else {
+            new File("E:\\Project\\Client\\chat-client\\controller-client\\src\\main\\resources\\templates\\userInfo.xml").delete();
+            System.out.println(false);
+        }
+    }
+
+
 }

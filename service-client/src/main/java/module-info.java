@@ -5,11 +5,14 @@ module service.client {
     exports com.chat.client.service.client.message;
     exports com.chat.client.service.client.chat;
     exports com.chat.client.service.client.user.validation;
+    exports com.chat.client.service.client.fileTransfer;
     requires model.server;
     requires java.rmi;
     requires network.client;
     requires service.server;
+    requires serviceclientcallback;
     requires chat.bot;
+    requires repository.server;
     requires serviceclientcallback;
     opens com.chat.client.service.client.factory;
     opens com.chat.client.service.client.user;
@@ -20,4 +23,5 @@ module service.client {
     opens com.chat.client.service.client.chat.impl;
     opens com.chat.client.service.client.notification;
     opens com.chat.client.service.client.notification.impl;
+    opens com.chat.client.service.client.fileTransfer;
 }

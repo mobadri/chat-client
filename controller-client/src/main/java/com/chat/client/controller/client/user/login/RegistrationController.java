@@ -39,4 +39,13 @@ public class RegistrationController implements SignUpAndRegistration {
         return clientUserService.validation(user);
     }
 
+    public User isRemembered() {
+        // read file xml (userinfo)
+        // if found
+        //
+
+        return null;
+    }
+
+
 }

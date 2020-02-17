@@ -10,6 +10,7 @@ public interface ClientUserService extends Remote {
     //@mariam
     //todo add methods signature for this class
 
+
     User login(String phone, String password) throws RemoteException;
 
     int addFriend(User currentUser, User friend) throws RemoteException;

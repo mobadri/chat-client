@@ -4,8 +4,6 @@ import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
-import com.chat.client.network.client.user.UserHandler;
-import com.chat.client.network.client.user.impl.UserHandlerImpl;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
@@ -64,6 +62,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     Stage friendStage;
 
+
     //app controller
     private ChatGroupController chatGroupInterface;
     private PushNotificationController pushNotificationController;
@@ -71,6 +70,9 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        //setListView();
+        setSearchforfriends();
     }
 
     void setSearchforfriends() {
@@ -103,6 +105,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     private void setFriendsListView(List<User> users) {
         myFriendsList = FXCollections.observableList(users);
+        System.out.println(users.size());
         userList.setItems(myFriendsList);
         userList.setCellFactory(new CellRenderer());
 
@@ -122,13 +125,14 @@ public class UserHome implements Initializable, PushNotificationInterface {
 ////                });
 //            }).start();
         chatGroupList.setItems(myChatGroupsList);
-        chatGroupList.setCellFactory(new com.chat.client.view.client.chat.ChatGroupCellRenderer());
+        chatGroupList.setCellFactory(new ChatGroupCellRenderer());
     }
 
     @FXML
     private void onFriendsListClicked(MouseEvent mouseEvent) {
         User user = (User) userList.getSelectionModel().getSelectedItem();
         if (user != null) {
+            addFriend(user);
             loadFriendProfile(user);
 //            loadChatGroup(new ChatGroup());
         }
@@ -150,6 +154,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
             userProfileController.setUser(user);
             System.out.println("my Profile is loaded ............");
             containerPane.getChildren().setAll(root);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -240,8 +245,10 @@ public class UserHome implements Initializable, PushNotificationInterface {
         searchforfriends.textProperty().addListener((observable, oldValue, newValue) ->
                 filteredData.setPredicate(friend -> {
                     if (newValue == null || newValue.isEmpty()) {
+
                         return true;
                     }
+
                     String lowerCaseFilter = newValue.toLowerCase();
                     if (friend.getFirstName().toLowerCase().contains(lowerCaseFilter)
                             || friend.getPhone().contains(lowerCaseFilter)
@@ -264,4 +271,10 @@ public class UserHome implements Initializable, PushNotificationInterface {
         ChatGroupAnchorPane.setVisible(!showList);
         showList = !showList;
     }
+    /*void setSearchforfriends() {
+        FilteredList<User> filteredData = new FilteredList<>(myFriendsList, p -> true);
+        searchTextListner(filteredData);
+        SortedList<User> sortedData = new SortedList<>(filteredData);
+        userList.setItems(sortedData);
+    }*/
 }

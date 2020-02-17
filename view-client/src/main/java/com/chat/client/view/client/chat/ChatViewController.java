@@ -4,8 +4,6 @@ package com.chat.client.view.client.chat;
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
-import com.chat.server.model.chat.Notification;
-import com.chat.server.model.chat.NotificationType;
 import com.chat.server.model.user.User;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Platform;
@@ -14,22 +12,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import org.controlsfx.dialog.FontSelectorDialog;
-import javafx.scene.web.HTMLEditor;
-import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import org.controlsfx.dialog.FontSelectorDialog;
 
 import java.io.File;
 import java.net.URL;
@@ -62,23 +57,28 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     @FXML
     private void sendMessage() {
         String messageContentText = messageContent.getText();
+//        System.out.println(messageContentText);
+//        System.out.println(messageContent.getStyle());
         Message message = new Message();
         message.setMessage(messageContentText);
         message.setStyle(messageContent.getStyle());
         System.out.println("" + messageContent.getFont());
+//        new Font("" + messageContent.getFont(), 20);
+//        getFont("" + messageContent.getFont());
         message.setStyle(getFont("" + messageContent.getFont(), currentColor));
         message.setUserFrom(currentUser);
-
-
-        Notification notification = new Notification();
-        notification.setNotificationType(NotificationType.MESSAGE_RECEIVED);
-        message.setUserFrom(currentUser);
-        System.out.println(currentChatGroup);
-        System.out.println(currentChatGroup.getUsers().size());
-
-        message.setChatGroup(currentChatGroup);
-        System.out.println(message);
-        sendMessage(message);
+        showReceivedMessage(message);
+//
+//        HBox hBox = new HBox();
+//        hBox.getChildren().add(webView);
+//        Message message = new Message();
+//        message.setMessage(messageContentText);
+//        Notification notification = new Notification();
+//        notification.setNotificationType(NotificationType.MESSAGE_RECEIVED);
+//        message.setUserFrom(currentUser);
+//        message.setChatGroup(currentChatGroup);
+//        System.out.println(message);
+//        sendMessage(message);
 
 
 //        receiveMessage(message);
@@ -95,12 +95,15 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     public void setChatGroupInterface(ChatGroupInterface chatGroupInterface) {
         this.chatGroupInterface = chatGroupInterface;
-        this.chatGroupInterface.setChatGroup(currentChatGroup);
     }
 
     @Override
     public void sendMessage(Message message) {
         chatGroupInterface.sendMessage(message);
+    }
+
+    public void setCurrentChatGroup(ChatGroup currentChatGroup) {
+        this.currentChatGroup = currentChatGroup;
     }
 
     @Override
