@@ -44,7 +44,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     @FXML
     private VBox messageBox;
 
-    private Color currentColor;
+    private Color currentColor = Color.BLACK;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

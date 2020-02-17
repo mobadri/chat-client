@@ -1,4 +1,4 @@
-package chat_bot;
+package chatbot;
 
 
 public interface ChatBotInterface {

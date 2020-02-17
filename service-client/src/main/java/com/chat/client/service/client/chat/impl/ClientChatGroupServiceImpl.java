@@ -1,5 +1,7 @@
 package com.chat.client.service.client.chat.impl;
 
+import com.chat.client.network.client.chat.ChatGroupHandler;
+import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.service.client.chat.ClientChatGroupService;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
@@ -9,15 +11,18 @@ import java.util.List;
 
 public class ClientChatGroupServiceImpl implements ClientChatGroupService {
 
-    private static  ClientChatGroupServiceImpl instance;
+    private static ClientChatGroupServiceImpl instance;
+    private ChatGroupHandler chatGroupHandler = NetworkFactory.createChatGroupHandler();
 
-    private ClientChatGroupServiceImpl (){
+    private ClientChatGroupServiceImpl() {
 
     }
 
-    @Override
-    public ChatGroup createGroup(ChatGroup chatGroup) {
-        return null;
+    public static synchronized ClientChatGroupServiceImpl createChatGroupServiceInstance() {
+        if (instance == null) {
+            instance = new ClientChatGroupServiceImpl();
+        }
+        return instance;
     }
 
     @Override
@@ -36,6 +41,11 @@ public class ClientChatGroupServiceImpl implements ClientChatGroupService {
     }
 
     @Override
+    public ChatGroup createGroup(ChatGroup chatGroup) {
+        return chatGroupHandler.createGroup(chatGroup);
+    }
+
+    @Override
     public void appendMessage(Message message) {
 
     }
@@ -43,10 +53,8 @@ public class ClientChatGroupServiceImpl implements ClientChatGroupService {
     //todo impl methods
     // hint : use a repo object from repo layer
 
-    public static synchronized ClientChatGroupServiceImpl createChatGroupServiceInstance() {
-        if (instance == null) {
-            instance= new ClientChatGroupServiceImpl();
-        }
-        return instance;
+    @Override
+    public ChatGroup findById(int id) {
+        return chatGroupHandler.getChatGroupByID(id);
     }
 }

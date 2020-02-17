@@ -1,6 +1,5 @@
 package com.chat.client.service.client.notification.impl;
 
-import com.chat.client.network.client.chat.MessageHandler;
 import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.network.client.notifocation.NotificationHandler;
 import com.chat.client.service.client.callback.NotificationServiceCallback;
@@ -16,9 +15,10 @@ public class ClientNotificationServiceImpl implements ClientNotificationService 
     private static ClientNotificationServiceImpl instance;
 
     private ClientNotificationServiceImpl(
-    ){
-        notificationHandler =  NetworkFactory.createNotificationHandler();
+    ) {
+        notificationHandler = NetworkFactory.createNotificationHandler();
     }
+
     @Override
     public List<Notification> getUserNotification(User user, boolean seen) {
         return null;
@@ -34,11 +34,9 @@ public class ClientNotificationServiceImpl implements ClientNotificationService 
         notificationHandler.register(notificationServiceCallback);
     }
 
-    public synchronized static ClientNotificationServiceImpl createNotificationGroupServiceInstance(){
-        if(instance==null){
-
-            instance= new ClientNotificationServiceImpl();
-
+    public synchronized static ClientNotificationServiceImpl createNotificationGroupServiceInstance() {
+        if (instance == null) {
+            instance = new ClientNotificationServiceImpl();
         }
         return instance;
     }

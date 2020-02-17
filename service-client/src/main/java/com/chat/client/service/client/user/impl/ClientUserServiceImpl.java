@@ -29,12 +29,6 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     }
 
     @Override
-    public User registration(User user) {
-        return null;
-
-    }
-
-    @Override
     public int addFriend(User currentUser, User friend) throws RemoteException {
         return userHandler.addFriend(currentUser, friend);
     }
@@ -50,18 +44,10 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
         return userHandler.signUp(user);
     }
 
-//    public synchronized static ClientUserServiceImpl createClientUSerServiceInstance(){
-//        if(instance==null){
-//            instance = new ClientUserServiceImpl;
-//        }
-//
-//        return instance;
-//    }
-
     public static synchronized ClientUserServiceImpl createUserServiceInstance() {
         if (instance == null) {
             try {
-                instance= new ClientUserServiceImpl();
+                instance = new ClientUserServiceImpl();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }

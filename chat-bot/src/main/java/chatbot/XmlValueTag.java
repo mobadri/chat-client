@@ -1,4 +1,4 @@
-package chat_bot;
+package chatbot;
 
 public class XmlValueTag {
 
@@ -30,7 +30,7 @@ public class XmlValueTag {
         this.weight = weight;
     }
 
-    public void incrementWeight(){
+    public void incrementWeight() {
         weight++;
     }
 

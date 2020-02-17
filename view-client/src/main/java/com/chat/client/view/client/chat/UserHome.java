@@ -15,6 +15,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -46,12 +47,16 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private ListView chatGroupList;
     @FXML
     private AnchorPane containerPane;
+    @FXML
+    private AnchorPane friendsAnchorPane;
+    @FXML
+    private AnchorPane ChatGroupAnchorPane;
 
+    private boolean showList = true;
     ListProperty<User> myFriendsListProperty = new SimpleListProperty<>();
     private ObservableList<User> myFriendsList = FXCollections.observableArrayList();
 
     private ObservableList<ChatGroup> myChatGroupsList = FXCollections.observableArrayList();
-
 
 
     Stage friendStage;
@@ -88,13 +93,26 @@ public class UserHome implements Initializable, PushNotificationInterface {
     }
 
     private void setFriendsListView(List<User> users) {
+
         myFriendsList = FXCollections.observableList(users);
         userList.setItems(myFriendsList);
         userList.setCellFactory(new CellRenderer());
+
     }
 
     private void setChatGroupListView(List<ChatGroup> chatGroups) {
+
         myChatGroupsList = FXCollections.observableList(chatGroups);
+//            new Thread(() -> {
+//                List<ChatGroup> groups = new ArrayList<>();
+//                for (ChatGroup chatGroup : chatGroups) {
+//                    groups.add(homeController.getById(chatGroup.getId()));
+//                }
+////                Platform.runLater(() -> {
+//                myChatGroupsList = FXCollections.observableList(groups);
+//                chatGroupList.setItems(myChatGroupsList);
+////                });
+//            }).start();
         chatGroupList.setItems(myChatGroupsList);
         chatGroupList.setCellFactory(new ChatGroupCellRenderer());
     }
@@ -104,7 +122,6 @@ public class UserHome implements Initializable, PushNotificationInterface {
         User user = (User) userList.getSelectionModel().getSelectedItem();
         if (user != null) {
             loadFriendProfile(user);
-//            loadChatGroup(new ChatGroup());
         }
     }
 
@@ -145,11 +162,6 @@ public class UserHome implements Initializable, PushNotificationInterface {
             chatGroupInterface.setChatGroupInterface(chatViewController);
             chatViewController.setChatGroupInterface(chatGroupInterface);
 
-//            AnchorPane child = new AnchorPane(root);
-//            AnchorPane.setTopAnchor(child, 10.0);
-//            AnchorPane.setBottomAnchor(child, 10.0);
-//            AnchorPane.setLeftAnchor(child, 10.0);
-//            AnchorPane.setRightAnchor(child, 10.0);
             containerPane.getChildren().setAll(root);
 
         } catch (IOException e) {
@@ -160,8 +172,15 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
-        setFriendsListView(currentUser.getFriends());
-        setChatGroupListView(currentUser.getChatGroups());
+
+        new Thread(() -> {
+            setFriendsListView(currentUser.getFriends());
+        }).start();
+        new Thread(() -> {
+            setChatGroupListView(currentUser.getChatGroups());
+        }).start();
+
+
         setSearchforfriends();
     }
 
@@ -229,5 +248,10 @@ public class UserHome implements Initializable, PushNotificationInterface {
         userList.setItems(sortedData);
     }
 
-
+    @FXML
+    private void navFriendList(ActionEvent actionEvent) {
+        friendsAnchorPane.setVisible(showList);
+        ChatGroupAnchorPane.setVisible(!showList);
+        showList = !showList;
+    }
 }

@@ -119,8 +119,8 @@
                             <children>
                                 <Line fx:id="linelists1" endX="50.0" endY="7.0" layoutX="54.0" layoutY="32.0" startX="0"
                                       startY="7.0" stroke="#d7d0d0"/>
-                                <JFXButton fx:id="LISTS1" layoutX="3.0" layoutY="-2.0" prefHeight="44.0"
-                                           prefWidth="101.0" ripplerFill="#3b8ef4" text="Chat">
+                                <JFXButton fx:id="LISTS1" layoutX="3.0" layoutY="-2.0" onAction="#navFriendList"
+                                           prefHeight="44.0" prefWidth="101.0" ripplerFill="#3b8ef4" text="Chat">
                                     <font>
                                         <Font name="System Bold" size="15.0"/>
                                     </font>
@@ -131,8 +131,8 @@
                             <children>
                                 <Line fx:id="linefriends1" endX="46.0" endY="7.0" layoutX="54.0" layoutY="32.0"
                                       startX="0" startY="7.0" stroke="#d7d0d0"/>
-                                <JFXButton fx:id="FRIENDS1" layoutY="-1.0" prefHeight="44.0" prefWidth="101.0"
-                                           ripplerFill="#3b8ef4" text="Friends">
+                                <JFXButton fx:id="FRIENDS1" layoutY="-1.0" onAction="#navFriendList" prefHeight="44.0"
+                                           prefWidth="101.0" ripplerFill="#3b8ef4" text="Friends">
                                     <font>
                                         <Font name="System Bold" size="15.0"/>
                                     </font>
@@ -146,32 +146,42 @@
                 <JFXTextField fx:id="searchforfriends" layoutX="48.0" prefHeight="26.0" prefWidth="239.0"
                               AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55"/>
                 <AnchorPane fx:id="friendsAnchorPane" layoutX="5.0" layoutY="108.0" prefHeight="669.0" prefWidth="282.0"
-                            visible="false" AnchorPane.bottomAnchor="108.0" AnchorPane.leftAnchor="5.0"
+                            visible="false" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="5.0"
                             AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="108.0">
                     <children>
                         <JFXListView fx:id="userList" focusTraversable="false" onMouseClicked="#onFriendsListClicked"
                                      prefHeight="495.0" prefWidth="272.0" style="-fx-border-image-width: 0;"
-                                     stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="133.0"
-                                     AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
-                                     AnchorPane.topAnchor="55.0">
+                                     stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="55"
+                                     AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0">
                         </JFXListView>
                         <Button fx:id="addFriend" layoutX="14.0" layoutY="513.0" mnemonicParsing="false"
                                 onMouseClicked="#addFriend" prefHeight="25.0" prefWidth="260.0" text="Add new Friend"
-                                AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="513.0"/>
+                                AnchorPane.bottomAnchor="5" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="8.0"/>
                     </children>
                 </AnchorPane>
-                <AnchorPane fx:id="ChatGroupAnchorPane" layoutX="15.0" layoutY="118.0" prefHeight="669.0"
-                            prefWidth="282.0">
+                <AnchorPane fx:id="ChatGroupAnchorPane" layoutX="5.0" layoutY="108.0" prefHeight="669.0"
+                            prefWidth="282.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="5.0"
+                            AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="108.0">
                     <children>
                         <JFXListView fx:id="chatGroupList" focusTraversable="false"
                                      onMouseClicked="#onchatGroupListClicked" prefHeight="495.0" prefWidth="272.0"
                                      style="-fx-border-image-width: 0;"
-                                     stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="133.0"
-                                     AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"
-                                     AnchorPane.topAnchor="55.0"/>
-                        <Button fx:id="addFriend1" layoutX="14.0" layoutY="513.0" mnemonicParsing="false"
-                                onMouseClicked="#addFriend" prefHeight="25.0" prefWidth="260.0" text="Add new Friend"
-                                AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="513.0"/>
+                                     stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="55"
+                                     AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0"/>
+                        <ImageView fitHeight="25.0" fitWidth="17.0" layoutX="38.0" layoutY="623.0" opacity="0.56"
+                                   pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../static/images/user-home/icons8_bar_chart_filled_50px.png"/>
+                            </image>
+                        </ImageView>
+                        <Label layoutX="71.0" layoutY="623.0" text="Home"/>
+                        <JFXButton fx:id="newGroup" layoutX="29.0" layoutY="265.0" prefHeight="25.0" prefWidth="183.0"
+                                   ripplerFill="#3b8ef4" text=" " AnchorPane.bottomAnchor="5"
+                                   AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="8.0">
+                            <font>
+                                <Font size="16.0"/>
+                            </font>
+                        </JFXButton>
                     </children>
                 </AnchorPane>
             </children>

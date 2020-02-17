@@ -6,7 +6,6 @@ module view.client {
     requires javafx.base;
     requires javafx.graphics;
     requires javafx.web;
-
     requires com.jfoenix;
     requires fontawesomefx;
     requires org.controlsfx.controls;

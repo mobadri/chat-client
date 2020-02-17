@@ -1,14 +1,15 @@
-package com.chat.client.network.client.chat.impl;
+package com.chat.client.service.client.chat.impl;
 
-import chat_bot.ChatBotInterface;
-import chat_bot.factory.ChatBotFactory;
-import com.chat.client.network.client.chat.ChatBotHandler;
 
-public class ChatBotHandlerImpl implements ChatBotHandler {
+import chatbot.ChatBotInterface;
+import chatbot.factory.ChatBotFactory;
+import com.chat.client.service.client.chat.ChatBotService;
+
+public class ChatBotServiceImpl implements ChatBotService {
 
     private ChatBotInterface chatBot;
 
-    public ChatBotHandlerImpl() {
+    public ChatBotServiceImpl() {
         chatBot = ChatBotFactory.createChatBotInstance();
     }
 

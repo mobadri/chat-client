@@ -4,6 +4,7 @@ import com.chat.client.network.client.chat.ChatGroupHandler;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.chatgroup.ServerChatGroupService;
+
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -18,7 +19,8 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
     public ChatGroupHandlerImpl() {
 
         try {
-            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
+//            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
+            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
             serverChatGroupService = (ServerChatGroupService) registry.lookup("chatGroupService");
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();

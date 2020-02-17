@@ -1,6 +1,6 @@
-package com.chat.client.network.client.chat;
+package com.chat.client.service.client.chat;
 
-public interface ChatBotHandler {
+public interface ChatBotService {
 
     public String getMessage(String message);
 

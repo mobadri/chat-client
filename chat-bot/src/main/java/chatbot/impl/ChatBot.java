@@ -1,7 +1,7 @@
-package chat_bot.impl;
+package chatbot.impl;
 
-import chat_bot.ChatBotInterface;
-import chat_bot.XmlValueTag;
+import chatbot.ChatBotInterface;
+import chatbot.XmlValueTag;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -188,7 +188,7 @@ public class ChatBot implements ChatBotInterface {
         List<XmlValueTag> valueTags = search(message);
         System.out.println(valueTags);
         if (!valueTags.isEmpty()) {
-            valueTags.sort(Comparator.comparing(chat_bot.XmlValueTag::getWeight).reversed());
+            valueTags.sort(Comparator.comparing(chatbot.XmlValueTag::getWeight).reversed());
             respond = valueTags.get(0).getValue();
         }
         return respond;

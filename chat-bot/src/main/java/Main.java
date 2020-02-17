@@ -1,5 +1,5 @@
-import chat_bot.ChatBotInterface;
-import chat_bot.factory.ChatBotFactory;
+import chatbot.ChatBotInterface;
+import chatbot.factory.ChatBotFactory;
 
 import java.util.Scanner;
 
@@ -10,7 +10,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         ChatBotInterface chatBotInterface = ChatBotFactory.createChatBotInstance();
 
-        while (true){
+        while (true) {
 
             System.out.println("message");
             String message = scanner.nextLine();

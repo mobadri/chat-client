@@ -40,13 +40,15 @@ public class ChatGroupCellRenderer implements Callback<ListView<ChatGroup>, List
 
                     hBox.getChildren().addAll(pictureImageView, name);
                     hBox.setAlignment(Pos.CENTER_LEFT);
+                    hBox.setSpacing(5);
 
                     hBoxOnline.getChildren().addAll(onlineLabel);
                     hBoxOnline.setAlignment(Pos.CENTER_LEFT);
+                    hBoxOnline.setSpacing(5);
                     vBox.getChildren().addAll(hBox, hBoxOnline);
                     vBox.setAlignment(Pos.CENTER_LEFT);
                     vBox.setFillWidth(true);
-                    vBox.setMinHeight(90);
+                    setPrefHeight(80);
                     setGraphic(vBox);
                 }
             }

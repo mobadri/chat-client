@@ -11,8 +11,6 @@ public class ClientMessageServiceImpl implements ClientMessageService {
     //@yassmin
     //todo impl this class
     // using the factory object from Repository layer
-//    MessageGroupRepository messageGroupRepository = RepsitoryFactory.creatMessageGroupRepository();
-    //ChatGroupHandler chatGroupHandler = NetworkFactory.createChatGroupHandler();
     MessageHandler messageHandler = NetworkFactory.createMessageHandler();
 
     private static ClientMessageServiceImpl instance;
@@ -24,7 +22,6 @@ public class ClientMessageServiceImpl implements ClientMessageService {
     @Override
 
     public void sendMessage(Message message) {
-//        chatGroupHandler.sendMessage(message);
         messageHandler.sendMessage(message);
     }
 
@@ -40,7 +37,7 @@ public class ClientMessageServiceImpl implements ClientMessageService {
 
     public static synchronized ClientMessageServiceImpl createMessageGroupServiceInstance() {
         if (instance == null) {
-            instance= new ClientMessageServiceImpl();
+            instance = new ClientMessageServiceImpl();
         }
         return instance;
     }
