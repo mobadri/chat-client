@@ -15,11 +15,12 @@ public class ChatViewTest extends Application {
 
     @Override
    public void start(Stage stage) throws Exception {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/chat/chat-view.fxml"));
+      //FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/chat/chat-view.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/notification/notification-list.fxml"));
         Parent root = loader.load();
-       stage.setTitle("Chat Room");
-       stage.setScene(new Scene(root));
-       stage.show();
+        stage.setTitle("Chat Room");
+        stage.setScene(new Scene(root));
+        stage.show();
 
     }
 }
