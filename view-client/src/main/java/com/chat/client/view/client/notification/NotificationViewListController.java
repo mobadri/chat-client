@@ -28,6 +28,9 @@ public class NotificationViewListController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addNotification();
         setNotificationView(notifications);
+        NotificationCellRenderer cellRenderer = new NotificationCellRenderer();
+        cellRenderer.handleViewButton();
+        cellRenderer.handleRemoveButton();
     }
 
     private void setNotificationView(List<Notification> notifications) {
