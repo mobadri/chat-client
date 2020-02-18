@@ -29,8 +29,6 @@ public class NotificationViewListController implements Initializable {
         addNotification();
         setNotificationView(notifications);
         NotificationCellRenderer cellRenderer = new NotificationCellRenderer();
-        cellRenderer.handleViewButton();
-        cellRenderer.handleRemoveButton();
     }
 
     private void setNotificationView(List<Notification> notifications) {
@@ -48,10 +46,18 @@ public class NotificationViewListController implements Initializable {
         notification.setId(13);
         notification.setNotificationMessage("sent you a friend requist");
         notification.setUserFrom(user);
+
+        User user1 = new User();
+        user1.setFirstName("mohamed");
+        user1.setLastName("ali");
+        Notification notification1 = new Notification();
+        notification1.setNotificationType(NotificationType.MESSAGE_RECEIVED);
+        notification1.setId(14);
+        notification1.setNotificationMessage("sent you a friend requist");
+        notification1.setUserFrom(user1);
         notifications.add(notification);
-        notifications.add(notification);
-        notifications.add(notification);
-        notifications.add(notification);
+        notifications.add(notification1);
+
     }
 
 }

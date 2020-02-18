@@ -2,6 +2,7 @@ package com.chat.client.view.client.notification;
 
 import com.chat.server.model.chat.Notification;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,11 +21,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
-public class NotificationCellRenderer implements Callback<ListView<Notification>, ListCell<Notification>> {
+public class NotificationCellRenderer implements Callback<ListView<Notification>, ListCell<Notification>>,EventHandler {
 
-    Button view = new Button();
-    Button remove = new Button();
-    Circle circle = new Circle();
+
+
 
     @Override
     public ListCell<Notification> call(ListView<Notification> p) {
@@ -35,6 +35,9 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                 super.updateItem(notification, b);
                 setGraphic(null);
                 setText(null);
+                Button view = new Button();
+                Button remove = new Button();
+                Circle circle = new Circle();
                 if (notification != null) {
                     VBox vBox = new VBox();
                     HBox hBox = new HBox();
@@ -60,13 +63,16 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                     view.setStyle("-fx-background-color: green;" +
                             "  -fx-text-fill: white;" +
                             "  -fx-background-radius: 16px;");
+                    handleViewButton(notification,view);
                     remove = new Button();
 //                    remove.setPadding(new Insets(5,5,5,15));
                     remove.setText("Remove");
+
                     remove.setTextAlignment(TextAlignment.CENTER);
                     remove.setStyle("-fx-background-color: gray;" +
                             "  -fx-text-fill: white;" +
                             "  -fx-background-radius: 16px;");
+                    handleRemoveButton(notification,remove);
                     hBox1.getChildren().addAll(view,remove);
                     vBox.getChildren().addAll(notificationFrom,notificationContent,hBox1);
                     vBox.setPadding(new Insets(0,0,0,15));
@@ -83,8 +89,8 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                     Image image = new Image(getClass().getResource("/static/images/baby.png").toString(), 50, 50, true, true);
                     circle.setFill(new ImagePattern(image));
                     pictureImageView.setImage(image);
-                    //hBox.getChildren().addAll(pictureImageView,vBox);
                     hBox.getChildren().addAll(circle,vBox);
+                    //hBox.getChildren().addAll(pictureImageView,vBox);
                     hBox.setAlignment(Pos.CENTER_LEFT);
                     setGraphic(hBox);
                 }
@@ -93,21 +99,28 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
         return cell;
     }
 
-    public void handleViewButton(){
-        view.setOnAction(new EventHandler<ActionEvent>() {
+    public void handleViewButton(Notification notification,Button button){
+        button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("view button");
+
+                System.out.println(notification.getUserFrom());
             }
         });
     }
 
-    public void handleRemoveButton(){
-        remove.setOnAction(new EventHandler<ActionEvent>() {
+    public void handleRemoveButton(Notification notification,Button button){
+        button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+
                 System.out.println("remove button");
             }
         });
+    }
+
+    @Override
+    public void handle(Event event) {
+        System.out.println("cliced");
     }
 }
