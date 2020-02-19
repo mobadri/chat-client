@@ -4,6 +4,7 @@ import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
+import com.chat.client.view.client.notification.NotificationViewListController;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
@@ -53,6 +54,8 @@ public class UserHome implements Initializable, PushNotificationInterface {
     @FXML
     private AnchorPane ChatGroupAnchorPane;
 
+    @FXML
+    private AnchorPane anchorPaneNotification;
     private boolean showList = true;
     ListProperty<User> myFriendsListProperty = new SimpleListProperty<>();
     private ObservableList<User> myFriendsList = FXCollections.observableArrayList();
@@ -212,8 +215,23 @@ public class UserHome implements Initializable, PushNotificationInterface {
                     .text(notification.getNotificationMessage())
                     .title(notification.getNotificationType().toString())
                     .showInformation();
+            setNotificationListView(notification);
         });
         System.out.println(notification);
+    }
+
+    private void setNotificationListView(Notification notification) {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/notification-list.fxml"));
+            Parent load = loader.load();
+            NotificationViewListController controller = loader.getController();
+            controller.getNotifications().add(notification);
+            anchorPaneNotification.getChildren().setAll(load);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void onProfileclicked(MouseEvent mouseEvent) {
@@ -285,5 +303,12 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     private void removeOfflineFriends(User user){
         pushNotificationController.removeOfflineFriends(user);
+    }
+
+    public void handleRequestsButton(ActionEvent actionEvent) {
+    }
+
+    public void showNotification(ActionEvent actionEvent) {
+        setNotificationListView(null);
     }
 }
