@@ -3,6 +3,9 @@ package com.chat.client.view.client.login;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.server.model.user.Gender;
 import com.chat.server.model.user.User;
+import com.jfoenix.controls.JFXComboBox;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +18,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FirstSignUpController implements Initializable {
     private SignUpAndRegistration signUpAndRegistration;
@@ -43,7 +45,7 @@ public class FirstSignUpController implements Initializable {
     private TextField txtFieldSignUpEmail;
 
     @FXML
-    private TextField txtFieldSignUpCountry;
+    private JFXComboBox<String> comboBoxSignUpCountry;
 
     @FXML
     private Button btnSignUpNext;
@@ -76,6 +78,20 @@ public class FirstSignUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                loadCountries();
+            });
+        }).start();
+    }
+
+    private void loadCountries() {
+        List<String> collect = Arrays.asList(Locale.getAvailableLocales())
+                .parallelStream().map(Locale::getDisplayCountry)
+                .filter(s -> !s.isEmpty())
+                .sorted()
+                .collect(Collectors.toList());
+        comboBoxSignUpCountry.setItems(FXCollections.observableList(collect));
     }
 
     public void setStageSignUp(Stage myStage) {
@@ -87,29 +103,27 @@ public class FirstSignUpController implements Initializable {
         clearValidation();
 
 
-            Map<String, Boolean> validationMap = new HashMap<>();
-            User user = mapUserFromFields();
-            try {
-                Map<String, Boolean> validateMap = signUpAndRegistration.validate(user);
-                validateMap.forEach((key, valid) -> {
-                    if (!valid) {
-                        validationMap.put(key, valid);
-                    }
-                });
-                if (validationMap.size() > 0) {
-                    validationMap.forEach((key, value) -> {
-                        setError(key, value);
-                    });
-                } else {
-                    loadNextView(user);
+        Map<String, Boolean> validationMap = new HashMap<>();
+        User user = mapUserFromFields();
+        try {
+            Map<String, Boolean> validateMap = signUpAndRegistration.validate(user);
+            validateMap.forEach((key, valid) -> {
+                if (!valid) {
+                    validationMap.put(key, valid);
                 }
-            } catch (RemoteException e) {
-                e.printStackTrace();
+            });
+            if (validationMap.size() > 0) {
+                validationMap.forEach((key, value) -> {
+                    setError(key, value);
+                });
+            } else {
+                loadNextView(user);
             }
-
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
 
-
+    }
 
 
     private void clearValidation() {
@@ -146,7 +160,7 @@ public class FirstSignUpController implements Initializable {
                 break;
             case "InvalidCountry":
                 InvalidCountry.setText("*Invalid Country");
-                txtFieldSignUpCountry.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                comboBoxSignUpCountry.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
                 break;
 
         }
@@ -160,7 +174,7 @@ public class FirstSignUpController implements Initializable {
         user.setLastName(txtFieldSignUpLastName.getText().trim());
         user.setPhone(txtFieldSignUpPhoneNumber.getText().trim());
         user.setEmail(txtFieldSignUpEmail.getText());
-        user.setCountry(txtFieldSignUpCountry.getText());
+        user.setCountry(comboBoxSignUpCountry.getSelectionModel().getSelectedItem());
         user.setGender(gender);
         return user;
     }

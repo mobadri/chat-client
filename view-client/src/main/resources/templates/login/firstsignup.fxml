@@ -1,134 +1,171 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.net.*?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="443.0" style="-fx-background-color: #F0F4F8;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.login.FirstSignUpController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="576.0" prefWidth="443.0" style="-fx-background-color: #F0F4F8;"
+            xmlns="http://javafx.com/javafx/10.0.2-internal"
+            fx:controller="com.chat.client.view.client.login.FirstSignUpController">
     <children>
-        <Label id="textbackground-black-bold" layoutY="30.0" text="Sign up" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <Label id="textbackground-black-bold" layoutY="30.0" text="Sign up" AnchorPane.leftAnchor="0.0"
+               AnchorPane.rightAnchor="0.0">
             <font>
-                <Font name="System Bold" size="18.0" />
+                <Font name="System Bold" size="18.0"/>
             </font>
             <stylesheets>
-                <URL value="@../../static/css/loginandsignup.css" />
+                <URL value="@../../static/css/loginandsignup.css"/>
             </stylesheets>
         </Label>
-        <TextField id="txtFieldSignUpFirstName" fx:id="txtFieldSignUpFirstName" layoutX="16.0" layoutY="80.0" prefHeight="25.0" prefWidth="243.0" promptText="First Name" stylesheets="@../../static/css/loginandsignup.css" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+        <TextField id="txtFieldSignUpFirstName" fx:id="txtFieldSignUpFirstName" layoutX="16.0" layoutY="80.0"
+                   prefHeight="25.0" prefWidth="243.0" promptText="First Name"
+                   stylesheets="@../../static/css/loginandsignup.css" AnchorPane.leftAnchor="16.0"
+                   AnchorPane.rightAnchor="16.0">
             <padding>
-                <Insets left="32.0" right="8.0" />
+                <Insets left="32.0" right="8.0"/>
             </padding>
         </TextField>
-        <TextField id="txtFieldSignUpLastName" fx:id="txtFieldSignUpLastName" layoutX="16.0" layoutY="135.0" prefHeight="25.0" prefWidth="243.0" promptText="Last Name" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+        <TextField id="txtFieldSignUpLastName" fx:id="txtFieldSignUpLastName" layoutX="16.0" layoutY="135.0"
+                   prefHeight="25.0" prefWidth="243.0" promptText="Last Name" AnchorPane.leftAnchor="16.0"
+                   AnchorPane.rightAnchor="16.0">
             <padding>
-                <Insets left="32.0" right="8.0" />
+                <Insets left="32.0" right="8.0"/>
             </padding>
         </TextField>
-        <TextField id="txtFieldSignUpPhoneNumber" fx:id="txtFieldSignUpPhoneNumber" layoutX="16.0" layoutY="189.0" prefHeight="25.0" prefWidth="243.0" promptText="Phone Number" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+        <TextField id="txtFieldSignUpPhoneNumber" fx:id="txtFieldSignUpPhoneNumber" layoutX="16.0" layoutY="189.0"
+                   prefHeight="25.0" prefWidth="243.0" promptText="Phone Number" AnchorPane.leftAnchor="16.0"
+                   AnchorPane.rightAnchor="16.0">
             <padding>
-                <Insets left="32.0" right="8.0" />
+                <Insets left="32.0" right="8.0"/>
             </padding>
         </TextField>
-        <PasswordField id="txtFieldSignUpPassword" fx:id="txtFieldSignUpPassword" layoutX="17.0" layoutY="250.0" prefHeight="25.0" prefWidth="243.0" promptText="Password" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="15.0">
+        <PasswordField id="txtFieldSignUpPassword" fx:id="txtFieldSignUpPassword" layoutX="17.0" layoutY="250.0"
+                       prefHeight="25.0" prefWidth="243.0" promptText="Password" AnchorPane.leftAnchor="17.0"
+                       AnchorPane.rightAnchor="15.0">
             <padding>
-                <Insets left="32.0" />
+                <Insets left="32.0"/>
             </padding>
         </PasswordField>
-        <PasswordField id="txtFieldSignUpConfirmPassword" fx:id="txtFieldSignUpConfirmPassword" layoutX="16.0" layoutY="301.0" prefHeight="25.0" prefWidth="243.0" promptText="Confirm Password" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+        <PasswordField id="txtFieldSignUpConfirmPassword" fx:id="txtFieldSignUpConfirmPassword" layoutX="16.0"
+                       layoutY="301.0" prefHeight="25.0" prefWidth="243.0" promptText="Confirm Password"
+                       AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
             <padding>
-                <Insets left="32.0" />
+                <Insets left="32.0"/>
             </padding>
         </PasswordField>
-        <TextField id="txtFieldSignUpEmail" fx:id="txtFieldSignUpEmail" layoutX="16.0" layoutY="353.0" prefHeight="25.0" prefWidth="132.0" promptText="Email" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
+        <TextField id="txtFieldSignUpEmail" fx:id="txtFieldSignUpEmail" layoutX="16.0" layoutY="353.0" prefHeight="25.0"
+                   prefWidth="132.0" promptText="Email" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
             <padding>
-                <Insets left="32.0" right="8.0" />
+                <Insets left="32.0" right="8.0"/>
             </padding>
         </TextField>
-        <TextField id="txtFieldSignUpCountry" fx:id="txtFieldSignUpCountry" layoutX="17.0" layoutY="413.0" prefHeight="25.0" prefWidth="100.0" promptText="Country" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="15.0">
+        <JFXComboBox id="txtFieldSignUpCountry" fx:id="comboBoxSignUpCountry" layoutX="17.0" layoutY="413.0"
+                     prefHeight="25.0" prefWidth="100.0" promptText="Country" AnchorPane.leftAnchor="17.0"
+                     AnchorPane.rightAnchor="15.0">
             <padding>
-                <Insets left="32.0" right="8.0" />
+                <Insets left="32.0" right="8.0"/>
             </padding>
-        </TextField>
-        <Button id="buttons-blue" fx:id="btnSignUpNext" layoutX="65.0" layoutY="520.0" mnemonicParsing="false" onAction="#onNextAction" prefHeight="25.0" prefWidth="158.0" text="Next" textFill="WHITE" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="520.0">
+        </JFXComboBox>
+        <Button id="buttons-blue" fx:id="btnSignUpNext" layoutX="65.0" layoutY="520.0" mnemonicParsing="false"
+                onAction="#onNextAction" prefHeight="25.0" prefWidth="158.0" text="Next" textFill="WHITE"
+                AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="63.0" AnchorPane.topAnchor="520.0">
             <stylesheets>
 
-                <URL value="@../../static/css/loginandsignup.css" />
+                <URL value="@../../static/css/loginandsignup.css"/>
             </stylesheets>
         </Button>
-        <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="22.0" layoutY="191.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="22.0" layoutY="191.0" pickOnBounds="true"
+                   preserveRatio="true">
             <image>
-                <Image url="@../../static/images/phone.png" />
+                <Image url="@../../static/images/phone.png"/>
             </image>
         </ImageView>
-        <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="22.0" layoutY="82.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="22.0" layoutY="82.0" pickOnBounds="true"
+                   preserveRatio="true">
             <image>
-                <Image url="@../../static/images/name.png" />
+                <Image url="@../../static/images/name.png"/>
             </image>
         </ImageView>
-        <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="22.0" layoutY="137.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="22.0" layoutY="137.0" pickOnBounds="true"
+                   preserveRatio="true">
             <image>
-                <Image url="@../../static/images/name.png" />
+                <Image url="@../../static/images/name.png"/>
             </image>
         </ImageView>
-        <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="22.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="22.0" layoutY="252.0" pickOnBounds="true"
+                   preserveRatio="true">
             <image>
-                <Image url="@../../static/images/password.png" />
+                <Image url="@../../static/images/password.png"/>
             </image>
         </ImageView>
-        <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="22.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="22.0" layoutY="303.0" pickOnBounds="true"
+                   preserveRatio="true">
             <image>
-                <Image url="@../../static/images/password.png" />
+                <Image url="@../../static/images/password.png"/>
             </image>
         </ImageView>
-        <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="22.0" layoutY="355.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="22.0" layoutY="355.0" pickOnBounds="true"
+                   preserveRatio="true">
             <image>
-                <Image url="@../../static/images/mail.png" />
+                <Image url="@../../static/images/mail.png"/>
             </image>
         </ImageView>
-        <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="22.0" layoutY="415.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fitHeight="21.0" fitWidth="21.0" layoutX="22.0" layoutY="415.0" pickOnBounds="true"
+                   preserveRatio="true">
             <image>
-                <Image url="@../../static/images/flags.png" />
+                <Image url="@../../static/images/flags.png"/>
             </image>
         </ImageView>
-        <RadioButton fx:id="male" layoutX="41.0" layoutY="478.0" mnemonicParsing="false" onAction="#setGender" selected="true" text="Male">
+        <RadioButton fx:id="male" layoutX="41.0" layoutY="478.0" mnemonicParsing="false" onAction="#setGender"
+                     selected="true" text="Male">
             <toggleGroup>
                 <ToggleGroup fx:id="genderGroup">
 
                 </ToggleGroup>
             </toggleGroup>
         </RadioButton>
-        <RadioButton fx:id="Female" layoutX="176.0" layoutY="478.0" mnemonicParsing="false" onAction="#setGender" text="Female" toggleGroup="$genderGroup">
+        <RadioButton fx:id="Female" layoutX="176.0" layoutY="478.0" mnemonicParsing="false" onAction="#setGender"
+                     text="Female" toggleGroup="$genderGroup">
         </RadioButton>
-        <Label fx:id="InvalidLastName" alignment="CENTER_RIGHT" layoutX="16.0" layoutY="160.0" prefHeight="27.0" prefWidth="411.0" textAlignment="RIGHT" textFill="#fa0505">
+        <Label fx:id="InvalidLastName" alignment="CENTER_RIGHT" layoutX="16.0" layoutY="160.0" prefHeight="27.0"
+               prefWidth="411.0" textAlignment="RIGHT" textFill="#fa0505">
             <stylesheets>
-                <URL value="@../../static/css/loginandsignup.css" />
+                <URL value="@../../static/css/loginandsignup.css"/>
             </stylesheets>
         </Label>
-        <Label fx:id="InvalidFirstName" alignment="CENTER_RIGHT" layoutX="16.0" layoutY="105.0" prefHeight="27.0" prefWidth="411.0" textAlignment="RIGHT" textFill="#fa0505">
+        <Label fx:id="InvalidFirstName" alignment="CENTER_RIGHT" layoutX="16.0" layoutY="105.0" prefHeight="27.0"
+               prefWidth="411.0" textAlignment="RIGHT" textFill="#fa0505">
             <stylesheets>
-                <URL value="@../../static/css/loginandsignup.css" />
+                <URL value="@../../static/css/loginandsignup.css"/>
             </stylesheets>
         </Label>
-        <Label fx:id="InvalidPhone" alignment="CENTER_RIGHT" layoutX="16.0" layoutY="212.0" prefHeight="27.0" prefWidth="411.0" textAlignment="RIGHT" textFill="#fa0505">
+        <Label fx:id="InvalidPhone" alignment="CENTER_RIGHT" layoutX="16.0" layoutY="212.0" prefHeight="27.0"
+               prefWidth="411.0" textAlignment="RIGHT" textFill="#fa0505">
             <stylesheets>
-                <URL value="@../../static/css/loginandsignup.css" />
+                <URL value="@../../static/css/loginandsignup.css"/>
             </stylesheets>
         </Label>
-        <Label fx:id="InvalidPassword" alignment="CENTER_RIGHT" layoutX="16.0" layoutY="275.0" prefHeight="27.0" prefWidth="411.0" textAlignment="RIGHT" textFill="#fa0505">
+        <Label fx:id="InvalidPassword" alignment="CENTER_RIGHT" layoutX="16.0" layoutY="275.0" prefHeight="27.0"
+               prefWidth="411.0" textAlignment="RIGHT" textFill="#fa0505">
             <stylesheets>
-                <URL value="@../../static/css/loginandsignup.css" />
+                <URL value="@../../static/css/loginandsignup.css"/>
             </stylesheets>
         </Label>
-        <Label fx:id="InvalidEmail" alignment="CENTER_RIGHT" layoutX="16.0" layoutY="378.0" prefHeight="27.0" prefWidth="411.0" textAlignment="RIGHT" textFill="#fa0505">
+        <Label fx:id="InvalidEmail" alignment="CENTER_RIGHT" layoutX="16.0" layoutY="378.0" prefHeight="27.0"
+               prefWidth="411.0" textAlignment="RIGHT" textFill="#fa0505">
             <stylesheets>
-                <URL value="@../../static/css/loginandsignup.css" />
+                <URL value="@../../static/css/loginandsignup.css"/>
             </stylesheets>
         </Label>
-        <Label fx:id="InvalidCountry" alignment="CENTER_RIGHT" layoutX="16.0" layoutY="438.0" prefHeight="27.0" prefWidth="411.0" textAlignment="RIGHT" textFill="#fa0505">
+        <Label fx:id="InvalidCountry" alignment="CENTER_RIGHT" layoutX="16.0" layoutY="438.0" prefHeight="27.0"
+               prefWidth="411.0" textAlignment="RIGHT" textFill="#fa0505">
             <stylesheets>
-                <URL value="@../../static/css/loginandsignup.css" />
+                <URL value="@../../static/css/loginandsignup.css"/>
             </stylesheets>
         </Label>
     </children>

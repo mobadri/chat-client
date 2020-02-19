@@ -4,9 +4,12 @@ import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
+import com.chat.client.view.client.notification.traynotifications.animations.AnimationType;
+import com.chat.client.view.client.notification.traynotifications.notification.TrayNotification;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
+import com.chat.server.model.chat.NotificationType;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import javafx.application.Platform;
@@ -25,13 +28,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import org.controlsfx.control.Notifications;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -225,23 +227,15 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
         {
 
-            Stage owner = new Stage(StageStyle.TRANSPARENT);
-            StackPane root = new StackPane();
-            root.setStyle("-fx-background-color: TRANSPARENT");
-            Scene scene = new Scene(root, 1, 1);
-            scene.setFill(Color.TRANSPARENT);
-            owner.setScene(scene);
-            owner.setWidth(1);
-            owner.setHeight(1);
-            owner.toBack();
-            owner.show();
-            Notifications.create().title(notification.getNotificationType().toString()).text(notification.getNotificationMessage())
-                    .owner(owner).showInformation();
-            System.err.println("res notification" + notification.getUserFrom());
-//        Notifications.create()
-//                .text(notification.getNotificationMessage())
-//                .title(notification.getNotificationType().toString())
-//                .showInformation();
+            Image profileImg = new Image(getClass().getResource("/static/images/AddPic.png").toString(), 50, 50, false, false);
+            TrayNotification tray = new TrayNotification();
+            tray.setTitle(notification.getNotificationType().toString());
+            tray.setMessage(notification.getNotificationMessage());
+            tray.setRectangleFill(Paint.valueOf("#2C3E50"));
+            tray.setAnimationType(AnimationType.SLIDE);
+            tray.setImage(profileImg);
+            tray.showAndDismiss(Duration.seconds(5));
+            tray.setNotificationType(NotificationType.MESSAGE_RECEIVED);
         });
         System.out.println(notification);
     }
@@ -312,18 +306,18 @@ public class UserHome implements Initializable, PushNotificationInterface {
         userList.setItems(sortedData);
     }*/
 
-    private void changeFriendsStatus(User user){
-        for(User user1 : myFriendsList ){
-            if(user1.getId() == user.getId()){
+    private void changeFriendsStatus(User user) {
+        for (User user1 : myFriendsList) {
+            if (user1.getId() == user.getId()) {
                 user1.setMode(user.getMode());
             }
         }
     }
 
-    private void removeOfflineFriends(User user){
-        if(user.getMode() == Mode.AWAY){
-            for(User user1 : myFriendsList ){
-                if(user1.getId() == user.getId()){
+    private void removeOfflineFriends(User user) {
+        if (user.getMode() == Mode.AWAY) {
+            for (User user1 : myFriendsList) {
+                if (user1.getId() == user.getId()) {
                     myFriendsList.remove(user1);
                 }
             }

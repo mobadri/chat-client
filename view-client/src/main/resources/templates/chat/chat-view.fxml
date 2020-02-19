@@ -31,7 +31,7 @@
                                 <Image url="@../../static/images/DefaultProfile.png"/>
                             </image>
                         </ImageView>
-                        <Label fx:id="userName" layoutX="153.0" layoutY="26.0" prefHeight="30.0" prefWidth="78.0"
+                        <Label fx:id="userName" layoutX="153.0" layoutY="26.0" prefHeight="30.0" prefWidth="215.0"
                                text="My Name" AnchorPane.leftAnchor="153.0" AnchorPane.topAnchor="26.0">
                             <font>
                                 <Font name="Berlin Sans FB" size="16.0"/>
@@ -40,12 +40,6 @@
                         <Label layoutX="224.0" layoutY="34.0" maxHeight="-Infinity" maxWidth="-Infinity"
                                minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="15.0"
                                style="-fx-background-radius: 100;" styleClass="parent"/>
-                        <ImageView fitHeight="30.0" fitWidth="23.0" layoutX="25.0" layoutY="22.0" pickOnBounds="true"
-                                   preserveRatio="true" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="22.0">
-                            <image>
-                                <Image url="@../../static/images/backimage.png"/>
-                            </image>
-                        </ImageView>
                         <ImageView fx:id="CallPic" fitHeight="40.0" fitWidth="40.0" layoutX="418.0" layoutY="36.0"
                                    pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="142.0"
                                    AnchorPane.topAnchor="36.0">
@@ -70,12 +64,6 @@
                         <Line endX="322.4928894042969" endY="1.565218008181546E-5" layoutX="250.0" layoutY="121.0"
                               startX="-223.8000030517578" startY="6.17861733189784E-5" stroke="#afa3a3"
                               strokeWidth="0.5" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"/>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="661.0" layoutY="49.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <image>
-                                <Image url="@../../static/images/DownloadFile.png"/>
-                            </image>
-                        </ImageView>
                     </children>
                 </AnchorPane>
                 <AnchorPane layoutY="424.0" prefHeight="215.0" prefWidth="755.0" AnchorPane.bottomAnchor="0.0"
@@ -109,11 +97,6 @@
                                            onMouseClicked="#handleSendingFile" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@../../static/images/DownloadFile.png"/>
-                                    </image>
-                                </ImageView>
-                                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../static/images/Audio.png"/>
                                     </image>
                                 </ImageView>
                                 <ImageView fx:id="AudioImag" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true"
