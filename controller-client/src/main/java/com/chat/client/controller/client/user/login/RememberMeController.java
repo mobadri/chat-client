@@ -74,7 +74,7 @@ public class RememberMeController {
             System.out.println(document);
             DOMSource domSource = new DOMSource(document);
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            File file = new File("E:\\Project\\Client\\chat-client\\controller-client\\src\\main\\resources\\templates\\userInfo.xml");
+            File file = new File("userInfo.xml");
             StreamResult streamResult = new StreamResult(file);
             System.out.println(streamResult);
             transformer.transform(domSource, streamResult);

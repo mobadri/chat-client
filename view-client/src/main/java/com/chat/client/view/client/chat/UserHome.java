@@ -6,6 +6,7 @@ import com.chat.client.controller.client.pushNotifications.PushNotificationInter
 import com.chat.client.controller.client.user.HomeController;
 import com.chat.client.view.client.notification.traynotifications.animations.AnimationType;
 import com.chat.client.view.client.notification.traynotifications.notification.TrayNotification;
+import com.chat.client.view.client.login.LoginViewController;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
@@ -35,6 +36,7 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -106,6 +108,17 @@ public class UserHome implements Initializable, PushNotificationInterface {
     }
 
     public void logOut(MouseEvent mouseEvent) {
+        File file = new File("userInfo.xml");
+        if (file.exists()) file.delete();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/login.fxml"));
+        try {
+            Parent root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("loaded");
+        LoginViewController loginView = loader.getController();
+        loginView.setStageLogin(friendStage);
     }
 
     public void nav1(MouseEvent mouseEvent) {

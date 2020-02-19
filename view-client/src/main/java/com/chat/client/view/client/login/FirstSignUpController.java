@@ -104,27 +104,32 @@ public class FirstSignUpController implements Initializable {
 
 
         Map<String, Boolean> validationMap = new HashMap<>();
-        User user = mapUserFromFields();
-        try {
-            Map<String, Boolean> validateMap = signUpAndRegistration.validate(user);
-            validateMap.forEach((key, valid) -> {
-                if (!valid) {
-                    validationMap.put(key, valid);
-                }
-            });
-            if (validationMap.size() > 0) {
-                validationMap.forEach((key, value) -> {
-                    setError(key, value);
+        if (txtFieldSignUpPassword.getText().equals(txtFieldSignUpConfirmPassword.getText())) {
+            txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+            User user = mapUserFromFields();
+            try {
+                Map<String, Boolean> validateMap = signUpAndRegistration.validate(user);
+                validateMap.forEach((key, valid) -> {
+                    if (!valid) {
+                        validationMap.put(key, valid);
+                    }
                 });
-            } else {
-                loadNextView(user);
+                if (validationMap.size() > 0) {
+                    validationMap.forEach((key, value) -> {
+                        setError(key, value);
+                    });
+                } else {
+                    loadNextView(user);
+                }
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
-        } catch (RemoteException e) {
-            e.printStackTrace();
+
+        } else {
+            InvalidPassword.setText("* Invalid Password");
+            txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
         }
-
     }
-
 
     private void clearValidation() {
         InvalidFirstName.setText("");
@@ -133,34 +138,40 @@ public class FirstSignUpController implements Initializable {
         InvalidPassword.setText("");
         InvalidEmail.setText("");
         InvalidCountry.setText("");
+        txtFieldSignUpFirstName.setStyle("-fx-border-color: gray; -fx-border-width: 1px ;");
+        txtFieldSignUpLastName.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpEmail.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        comboBoxSignUpCountry.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
     }
 
     private void setError(String key, Boolean value) {
         switch (key) {
             case "InvalidFirstName":
                 InvalidFirstName.setText("* Invalid First Name");
-                txtFieldSignUpFirstName.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpFirstName.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidLastName":
                 InvalidLastName.setText("* Invalid Last Name");
-                txtFieldSignUpLastName.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpLastName.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidPhone":
                 InvalidPhone.setText("*Invalid Phone");
-                txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidPassword":
                 InvalidPassword.setText("* Invalid Password");
-                txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidEmail":
                 InvalidEmail.setText("* Invalid Email");
-                txtFieldSignUpEmail.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpEmail.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
 
                 break;
             case "InvalidCountry":
                 InvalidCountry.setText("*Invalid Country");
-                comboBoxSignUpCountry.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                comboBoxSignUpCountry.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
 
         }

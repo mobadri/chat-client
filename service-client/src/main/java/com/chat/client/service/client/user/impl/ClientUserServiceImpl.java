@@ -44,6 +44,19 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
         return userHandler.signUp(user);
     }
 
+    @Override
+    public User exsitedPhone(String phone) {
+        return userHandler.exsitedPhone(phone);
+    }
+
+
+    @Override
+    public boolean validatePhone(String phone) throws RemoteException {
+        UserValidation userValidation = new UserValidation();
+        return userValidation.validPhone(phone);
+    }
+
+
     public static synchronized ClientUserServiceImpl createUserServiceInstance() {
         if (instance == null) {
             try {

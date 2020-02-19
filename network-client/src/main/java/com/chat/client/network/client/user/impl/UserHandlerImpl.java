@@ -11,7 +11,7 @@ import java.rmi.registry.Registry;
 import java.util.List;
 
 public class UserHandlerImpl implements UserHandler {
-    private final int PORT_NUMBER = 11223;
+    private final int PORT_NUMBER = 44444;
     ServerUserService serverUserService;
 
     public UserHandlerImpl() {
@@ -73,6 +73,17 @@ public class UserHandlerImpl implements UserHandler {
         return null;
     }
 
+
+    @Override
+    public User exsitedPhone(String phone) {
+        try {
+            return serverUserService.getUserByPhone(phone);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     @Override
     public User signUp(User user) {
         try {
@@ -82,4 +93,5 @@ public class UserHandlerImpl implements UserHandler {
         }
         return user;
     }
+
 }
