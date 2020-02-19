@@ -27,20 +27,20 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        File file = new File("E:\\Project\\Client\\chat-client\\controller-client\\src\\main\\resources\\templates\\userInfo.xml");
-        if (file.exists()) {
-            rememberMeHomePage(file, primaryStage);
-        } else {
+//        File file = new File("userInfo.xml");
+//        if (file.exists()) {
+//            rememberMeHomePage(file, primaryStage);
+//        } else {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
-            Parent root = loader.load();
-            com.chat.client.view.client.startpageController controller = loader.getController();
-            controller.setStage(primaryStage);
-            Scene scene = new Scene(root);
-            scene.setFill(Color.TRANSPARENT);
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
+        Parent root = loader.load();
+        com.chat.client.view.client.startpageController controller = loader.getController();
+        controller.setStage(primaryStage);
+        Scene scene = new Scene(root);
+        scene.setFill(Color.TRANSPARENT);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+//        }
 
     }
 

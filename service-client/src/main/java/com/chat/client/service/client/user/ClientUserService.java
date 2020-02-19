@@ -15,7 +15,8 @@ public interface ClientUserService extends Remote {
 
     int addFriend(User currentUser, User friend) throws RemoteException;
 
-    public Map<String, Boolean> validation(User user) throws RemoteException;
+    Map<String, Boolean> validation(User user) throws RemoteException;
 
     User signup(User user) throws RemoteException;
+
 }

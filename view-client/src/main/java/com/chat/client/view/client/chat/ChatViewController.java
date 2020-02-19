@@ -4,6 +4,7 @@ package com.chat.client.view.client.chat;
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
+import com.chat.server.model.chat.Style;
 import com.chat.server.model.user.User;
 import com.jfoenix.controls.JFXTextArea;
 import javafx.application.Platform;
@@ -28,6 +29,7 @@ import org.controlsfx.dialog.FontSelectorDialog;
 
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
@@ -44,6 +46,8 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private Button chooseFontButton;
     private User currentUser;
     private ChatGroup currentChatGroup;
+    private Style style;
+
     @FXML
     private VBox messageBox;
 
@@ -54,34 +58,34 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     }
 
+    public ChatViewController() {
+        style = new Style();
+        style.setFontName("Arial");
+        style.setFontFamily("Arial");
+        style.setBackground("white");
+        style.setFontColor("black");
+        style.setFontSize(14);
+        style.setBold(false);
+        style.setItalic(false);
+        style.setUnderline(false);
+
+    }
+
     @FXML
-    private void sendMessage() {
+    private void sendMessageAction(ActionEvent actionEvent) {
+        Message message = createMessage();
+        sendMessage(message);
+    }
+
+    private Message createMessage() {
         String messageContentText = messageContent.getText();
-//        System.out.println(messageContentText);
-//        System.out.println(messageContent.getStyle());
         Message message = new Message();
         message.setMessage(messageContentText);
-        message.setStyle(messageContent.getStyle());
-        System.out.println("" + messageContent.getFont());
-//        new Font("" + messageContent.getFont(), 20);
-//        getFont("" + messageContent.getFont());
-        message.setStyle(getFont("" + messageContent.getFont(), currentColor));
+        message.setStyle(style);
+        message.setChatGroup(currentChatGroup);
+        message.setTimestamp(LocalDate.now());
         message.setUserFrom(currentUser);
-        showReceivedMessage(message);
-//
-//        HBox hBox = new HBox();
-//        hBox.getChildren().add(webView);
-//        Message message = new Message();
-//        message.setMessage(messageContentText);
-//        Notification notification = new Notification();
-//        notification.setNotificationType(NotificationType.MESSAGE_RECEIVED);
-//        message.setUserFrom(currentUser);
-//        message.setChatGroup(currentChatGroup);
-//        System.out.println(message);
-//        sendMessage(message);
-
-
-//        receiveMessage(message);
+        return message;
     }
 
     public void setUser(User user) {
@@ -102,14 +106,8 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         chatGroupInterface.sendMessage(message);
     }
 
-    public void setCurrentChatGroup(ChatGroup currentChatGroup) {
-        this.currentChatGroup = currentChatGroup;
-    }
-
     @Override
     public void receiveMessage(Message message) {
-        System.err.println("received message");
-        System.out.println(message);
         showReceivedMessage(message);
     }
 
@@ -197,7 +195,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         Text text = new Text(message.getMessage());
         text.setTextAlignment(TextAlignment.JUSTIFY);
 //        text.setStyle("-fx-fill: black; -fx-font-size: 15;");
-        text.setStyle(message.getStyle());
+        text.setStyle(message.getStyle().toString());
         System.out.println(message.getStyle());
 
 //        ImageView imageView = getImageView(message.get);
@@ -214,7 +212,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         pane.setAlignment(Pos.BASELINE_LEFT);
         pane.setHgap(15);
         pane.setPrefHeight(45);
-        pane.setStyle(" -fx-background-radius: 10px; -fx-background-color: #F0A9DB;");
+        pane.setStyle(" -fx-background-radius: 10px;" + message.getStyle().toString());
 
         hBox.getChildren().addAll(label, pane);
         hBox.setAlignment(Pos.BASELINE_LEFT);

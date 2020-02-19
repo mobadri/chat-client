@@ -20,4 +20,12 @@ public interface MessageServiceCallBack extends Remote {
      * @throws RemoteException
      */
     int getChatGroupId() throws RemoteException;
+
+    /**
+     * get register user id
+     *
+     * @return int of user id
+     * @throws RemoteException
+     */
+    int getCurrentUserId() throws RemoteException;
 }

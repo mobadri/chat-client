@@ -76,7 +76,7 @@ public class LoginViewController implements Initializable {
                     getClass().getResource("/templates/user/user-home.fxml"));
             root = loader.load();
             UserHome userHome = loader.getController();
-            //userHome.setCurrentUser(user);
+            userHome.setCurrentUser(user);
             stage.setMaximized(true);
             stage.setFullScreen(true);
             stage.setScene(new Scene(root));

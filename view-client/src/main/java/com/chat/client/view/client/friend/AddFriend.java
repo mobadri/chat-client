@@ -13,8 +13,8 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AddFriend  implements Initializable {
-    private ObservableList<User> allUsers= FXCollections.observableArrayList();
+public class AddFriend implements Initializable {
+    private ObservableList<User> allUsers = FXCollections.observableArrayList();
     @FXML
     private TextField phoneNumberSearch;
     @FXML
@@ -24,12 +24,13 @@ public class AddFriend  implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-    Search();
+        Search();
         //setListView(phoneNumberSearch.getText());
-         // setSearchToAddNewFriends();
+        // setSearchToAddNewFriends();
 
 
     }
+
     private void setListView(String phone) {
 
         //all user for testing the list view
@@ -40,33 +41,26 @@ public class AddFriend  implements Initializable {
         allUsers = FXCollections.observableList(users);
         System.out.println(users.size());
         usersListView.setItems(allUsers);
-        usersListView.setCellFactory(new ChatRendererwithbuttons());*/
+        usersListView.setCellFactory(new ChatRendererwithbuttons());
+        */
     }
 
-    private void Search()
-    {
+    private void Search() {
         phoneNumberSearch.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-            if((newValue.isEmpty() || newValue == null))
-            {
-                usersListView.setItems(null);
-            }
-
-            else {
-                setListView(newValue);
-            }
+                if ((newValue.isEmpty() || newValue == null)) {
+                    usersListView.setItems(null);
+                } else {
+                    setListView(newValue);
+                }
             }
         });
 
     }
 
 
-
-
-
-
-    }
+}
 
 
 

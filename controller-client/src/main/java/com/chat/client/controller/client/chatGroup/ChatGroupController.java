@@ -5,6 +5,7 @@ import com.chat.client.service.client.factory.ServiceClientFactory;
 import com.chat.client.service.client.message.ClientMessageService;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
+import com.chat.server.model.user.User;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -16,6 +17,7 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
     private ChatGroupInterface chatGroupInterface;
 
     private ChatGroup chatGroup;
+    private User currentUser;
 
     public ChatGroupController() throws RemoteException {
         messageService.register(this);
@@ -42,9 +44,18 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
         this.chatGroup = chatGroup;
     }
 
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
     @Override
     public int getChatGroupId() {
         return chatGroup.getId();
+    }
+
+    @Override
+    public int getCurrentUserId() throws RemoteException {
+        return this.currentUser.getId();
     }
 
 

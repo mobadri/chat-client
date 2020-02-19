@@ -22,5 +22,6 @@ module view.client {
     opens com.chat.client.view.client.friend;
     opens com.chat.client.view.client.notification;
 
-
+    requires java.desktop;
+    requires java.logging;
 }
