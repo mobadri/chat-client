@@ -4,13 +4,9 @@ import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
-import com.chat.client.view.client.notification.traynotifications.animations.AnimationType;
-import com.chat.client.view.client.notification.traynotifications.notification.TrayNotification;
-import com.chat.client.view.client.login.LoginViewController;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
-import com.chat.server.model.chat.NotificationType;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import javafx.application.Platform;
@@ -29,18 +25,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -68,113 +60,90 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private ObservableList<ChatGroup> myChatGroupsList = FXCollections.observableArrayList();
 
     private ObservableList<Notification> myNotificationList = FXCollections.observableArrayList();
-    private List<ChatGroupController> chatGroupControllerList = new ArrayList<>();
-    private List<Parent> chatViewList = new ArrayList<>();
-
 
     Stage friendStage;
 
 
+    //app controller
+    private ChatGroupController chatGroupInterface;
     private PushNotificationController pushNotificationController;
     private User currentUser;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        //setListView();
+        setSearchforfriends();
+    }
+
+    void setSearchforfriends() {
+        FilteredList<User> filteredData = new FilteredList<>(myFriendsList, p -> true);
+        searchTextListner(filteredData);
+        SortedList<User> sortedData = new SortedList<>(filteredData);
+        userList.setItems(sortedData);
+    }
+
     public UserHome() {
         try {
-
+            chatGroupInterface = new ChatGroupController();
             pushNotificationController = new PushNotificationController();
             pushNotificationController.setPushNotifications(this);
-
+            pushNotificationController.setCurrentUser(currentUser);
             homeController = new HomeController();
         } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
 
-//    void setSearchforfriends() {
-//        FilteredList<User> filteredData = new FilteredList<>(myFriendsList, p -> true);
-//        searchTextListner(filteredData);
-//        SortedList<User> sortedData = new SortedList<>(filteredData);
-//        userList.setItems(sortedData);
-//    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        //setListView();
-//        setSearchforfriends();
-    }
-
     public void nav(MouseEvent mouseEvent) {
     }
 
     public void logOut(MouseEvent mouseEvent) {
-        File file = new File("userInfo.xml");
-        if (file.exists()) file.delete();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/login.fxml"));
-        try {
-            Parent root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        System.out.println("loaded");
-        LoginViewController loginView = loader.getController();
-        loginView.setStageLogin(friendStage);
     }
 
     public void nav1(MouseEvent mouseEvent) {
     }
 
     private void setFriendsListView(List<User> users) {
-        System.out.println(users.size());
         myFriendsList = FXCollections.observableList(users);
         System.out.println(users.size());
         userList.setItems(myFriendsList);
         userList.setCellFactory(new CellRenderer());
 
+        userList.setCellFactory(new com.chat.client.view.client.chat.CellRenderer());
     }
 
     private void setChatGroupListView(List<ChatGroup> chatGroups) {
         myChatGroupsList = FXCollections.observableList(chatGroups);
-        new Thread(() -> {
-            List<ChatGroup> groups = new ArrayList<>();
-            for (ChatGroup chatGroup : chatGroups) {
-                groups.add(homeController.getById(chatGroup.getId()));
-            }
-
-            Platform.runLater(() -> {
-                myChatGroupsList = FXCollections.observableList(groups);
-                chatGroupList.setItems(myChatGroupsList);
-                loadAllChatGroupViewOnMemory(myChatGroupsList);
-            });
-        }).start();
+//            new Thread(() -> {
+//                List<ChatGroup> groups = new ArrayList<>();
+//                for (ChatGroup chatGroup : chatGroups) {
+//                    groups.add(homeController.getById(chatGroup.getId()));
+//                }
+////                Platform.runLater(() -> {
+//                myChatGroupsList = FXCollections.observableList(groups);
+//                chatGroupList.setItems(myChatGroupsList);
+////                });
+//            }).start();
         chatGroupList.setItems(myChatGroupsList);
         chatGroupList.setCellFactory(new ChatGroupCellRenderer());
-    }
-
-    private void loadAllChatGroupViewOnMemory(ObservableList<ChatGroup> myChatGroupsList) {
-        for (ChatGroup chatGroup : myChatGroupsList) {
-            System.out.println(chatGroup.getId());
-            loadChatGroup(chatGroup);
-        }
     }
 
     @FXML
     private void onFriendsListClicked(MouseEvent mouseEvent) {
         User user = (User) userList.getSelectionModel().getSelectedItem();
         if (user != null) {
+            addFriend(user);
             loadFriendProfile(user);
+//            loadChatGroup(new ChatGroup());
         }
     }
 
     @FXML
     public void onchatGroupListClicked(MouseEvent mouseEvent) {
         ChatGroup chatGroup = (ChatGroup) chatGroupList.getSelectionModel().getSelectedItem();
-        if (chatGroup != null && chatViewList.size() > 0) {
-            int selectedIndex = chatGroupList.getSelectionModel().getSelectedIndex();
-            System.out.println("selectedIndex =" + selectedIndex);
-            System.out.println("chatViewList.size =" + chatViewList.size()
-            );
-            containerPane.getChildren().setAll(chatViewList.get(chatGroupList.getSelectionModel().getSelectedIndex()));
+        if (chatGroup != null) {
+            loadChatGroup(chatGroup);
         }
     }
 
@@ -184,7 +153,9 @@ public class UserHome implements Initializable, PushNotificationInterface {
             Parent root = loader.load();
             UserProfileController userProfileController = loader.getController();
             userProfileController.setUser(user);
+            System.out.println("my Profile is loaded ............");
             containerPane.getChildren().setAll(root);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -200,18 +171,20 @@ public class UserHome implements Initializable, PushNotificationInterface {
             ChatViewController chatViewController = (ChatViewController) loader.getController();
             chatViewController.setUser(currentUser);
             chatViewController.setChatGroup(chatGroup);
+            //@yasmine
+            //todo don't forget to add groupchat to chatviewcontroller
             //---------
             //add ref to each other
-            //app controller
-            ChatGroupController chatGroupInterface = new ChatGroupController();
             chatGroupInterface.setChatGroupInterface(chatViewController);
             chatViewController.setChatGroupInterface(chatGroupInterface);
 
-            chatGroupInterface.setChatGroup(chatGroup);
-            chatGroupInterface.setCurrentUser(currentUser);
+//            AnchorPane child = new AnchorPane(root);
+//            AnchorPane.setTopAnchor(child, 10.0);
+//            AnchorPane.setBottomAnchor(child, 10.0);
+//            AnchorPane.setLeftAnchor(child, 10.0);
+//            AnchorPane.setRightAnchor(child, 10.0);
+            containerPane.getChildren().setAll(root);
 
-            chatGroupControllerList.add(chatGroupInterface);
-            chatViewList.add(root);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -220,7 +193,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
-        pushNotificationController.setCurrentUser(currentUser);
+
         new Thread(() -> {
             setFriendsListView(currentUser.getFriends());
         }).start();
@@ -234,21 +207,11 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     @Override
     public void receiveNotification(Notification notification) {
-
-
-        Platform.runLater(() ->
-
-        {
-
-            Image profileImg = new Image(getClass().getResource("/static/images/AddPic.png").toString(), 50, 50, false, false);
-            TrayNotification tray = new TrayNotification();
-            tray.setTitle(notification.getNotificationType().toString());
-            tray.setMessage(notification.getNotificationMessage());
-            tray.setRectangleFill(Paint.valueOf("#2C3E50"));
-            tray.setAnimationType(AnimationType.SLIDE);
-            tray.setImage(profileImg);
-            tray.showAndDismiss(Duration.seconds(5));
-            tray.setNotificationType(NotificationType.MESSAGE_RECEIVED);
+        Platform.runLater(() -> {
+            Notifications.create()
+                    .text(notification.getNotificationMessage())
+                    .title(notification.getNotificationType().toString())
+                    .showInformation();
         });
         System.out.println(notification);
     }
@@ -283,8 +246,10 @@ public class UserHome implements Initializable, PushNotificationInterface {
         searchforfriends.textProperty().addListener((observable, oldValue, newValue) ->
                 filteredData.setPredicate(friend -> {
                     if (newValue == null || newValue.isEmpty()) {
+
                         return true;
                     }
+
                     String lowerCaseFilter = newValue.toLowerCase();
                     if (friend.getFirstName().toLowerCase().contains(lowerCaseFilter)
                             || friend.getPhone().contains(lowerCaseFilter)
@@ -299,12 +264,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
                 }));
     }
 
-    void setSearchforfriends() {
-        FilteredList<User> filteredData = new FilteredList<>(myFriendsList, p -> true);
-        searchTextListner(filteredData);
-        SortedList<User> sortedData = new SortedList<>(filteredData);
-        userList.setItems(sortedData);
-    }
+
 
     @FXML
     private void navFriendList(ActionEvent actionEvent) {
@@ -319,21 +279,11 @@ public class UserHome implements Initializable, PushNotificationInterface {
         userList.setItems(sortedData);
     }*/
 
-    private void changeFriendsStatus(User user) {
-        for (User user1 : myFriendsList) {
-            if (user1.getId() == user.getId()) {
-                user1.setMode(user.getMode());
-            }
-        }
+    private void changeFriendsStatus(User user){
+        pushNotificationController.changeFriendsStatus(user);
     }
 
-    private void removeOfflineFriends(User user) {
-        if (user.getMode() == Mode.AWAY) {
-            for (User user1 : myFriendsList) {
-                if (user1.getId() == user.getId()) {
-                    myFriendsList.remove(user1);
-                }
-            }
-        }
+    private void removeOfflineFriends(User user){
+        pushNotificationController.removeOfflineFriends(user);
     }
 }

@@ -3,10 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="288.0" prefWidth="189.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.chat.client.view.client.notification.NotificationViewListController">
+<AnchorPane maxWidth="244.0" minWidth="208.0" prefHeight="372.0" prefWidth="244.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.notification.NotificationViewListController">
    <children>
-      <ListView fx:id="notificatioList" layoutX="-5.0" prefHeight="288.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <ListView fx:id="notificatioListView" layoutX="-5.0" maxWidth="240.0" minWidth="240.0" prefHeight="288.0" prefWidth="218.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

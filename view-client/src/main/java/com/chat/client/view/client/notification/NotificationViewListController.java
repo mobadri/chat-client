@@ -3,6 +3,9 @@ package com.chat.client.view.client.notification;
 import com.chat.server.model.chat.Notification;
 import com.chat.server.model.chat.NotificationType;
 import com.chat.server.model.user.User;
+import javafx.application.Platform;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,24 +20,33 @@ import java.util.ResourceBundle;
 public class NotificationViewListController implements Initializable {
 
     @FXML
-    private ListView notificatioList;
+    private ListView notificatioListView;
+
+    public NotificationViewListController() {
+
+//        NotificationCellRenderer cellRenderer = new NotificationCellRenderer();
+    }
 
     List<Notification> notifications = new ArrayList<>();
-    Notification notification = new Notification();
 
     private ObservableList<Notification> myNotificationList = FXCollections.observableArrayList();
-
+    ListProperty<Notification> memberListProperty = new SimpleListProperty<>();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         addNotification();
+        System.out.println(notifications.size());
         setNotificationView(notifications);
-        NotificationCellRenderer cellRenderer = new NotificationCellRenderer();
     }
+
 
     private void setNotificationView(List<Notification> notifications) {
         myNotificationList = FXCollections.observableList(notifications);
-        notificatioList.setItems(myNotificationList);
-        notificatioList.setCellFactory(new NotificationCellRenderer());
+
+        //memberListProperty.set(myNotificationList);
+        //notificatioList.itemsProperty().bindBidirectional(memberListProperty);
+        notificatioListView.setItems(myNotificationList);
+        notificatioListView.setCellFactory(new NotificationCellRenderer());
+
     }
 
     void addNotification(){
@@ -55,9 +67,34 @@ public class NotificationViewListController implements Initializable {
         notification1.setId(14);
         notification1.setNotificationMessage("sent you a friend requist");
         notification1.setUserFrom(user1);
+
+        User user2 = new User();
+        user2.setFirstName("khaled");
+        user2.setLastName("hussin");
+        Notification notification2 = new Notification();
+        notification2.setNotificationType(NotificationType.MESSAGE_RECEIVED);
+        notification2.setId(9);
+        notification2.setNotificationMessage("sent you a friend requist");
+        notification2.setUserFrom(user2);
+
         notifications.add(notification);
         notifications.add(notification1);
+        notifications.add(notification2);
+        notifications.add(notification2);
+        notifications.add(notification2);
 
     }
 
+    public void removeNotificationFromUI(Notification notification){
+        System.out.println("Notification: " + notification);
+        myNotificationList.remove(notification);
+        System.out.println(myNotificationList);
+        notificatioListView.setItems(myNotificationList);
+
+        //notificatioList.getItems().setAll(myNotificationList);
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
 }
