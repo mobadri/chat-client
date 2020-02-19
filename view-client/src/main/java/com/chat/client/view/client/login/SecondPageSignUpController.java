@@ -49,14 +49,18 @@ public class SecondPageSignUpController implements Initializable {
 
     private void appendUserInfoFromSecondPage() {
 
-        user.setBIO(bio.getText());
-
+        if (bio.getText() != null) user.setBIO(bio.getText());
+        else user.setBIO("");
         LocalDate localDate = dateOfBirth.getValue();
-        Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        if (localDate != null) {
+            Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            System.out.println(localDate);
+            System.out.println(date);
+            user.setDateOfBirth(date);
+        } else {
 
-        System.out.println(localDate);
-        System.out.println(date);
-        user.setDateOfBirth(date);
+            user.setDateOfBirth(new Date(1996, 7, 30));
+        }
         System.out.println(user.getDateOfBirth());
         user.setMode(Mode.AVAILABLE);
         System.out.println(user);

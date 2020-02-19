@@ -1,6 +1,9 @@
 package com.chat.client.view.client;
 
+import com.chat.client.controller.client.user.login.RegistrationController;
+import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.client.view.client.login.LoginViewController;
+import com.chat.server.model.user.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -27,10 +30,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-//        File file = new File("userInfo.xml");
-//        if (file.exists()) {
-//            rememberMeHomePage(file, primaryStage);
-//        } else {
+     File file = new File("userInfo.xml");
+       if (file.exists()) {
+       rememberMeHomePage(file, primaryStage);
+     } else {
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
         Parent root = loader.load();
@@ -40,7 +43,7 @@ public class Main extends Application {
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setScene(scene);
         primaryStage.show();
-//        }
+       }
 
     }
 
@@ -58,10 +61,16 @@ public class Main extends Application {
             String data = userInfo.item(0).getTextContent();
             System.out.println(data);
 
+            String phone = data.trim().substring(0, 12);
+            String password = data.trim().substring(13).trim();
+            SignUpAndRegistration signUpAndRegistration = new RegistrationController();
+            User user = signUpAndRegistration.login(phone, password);
+            System.out.println("PHONE : "+phone);
+            System.out.println("PASSWORD "+password);
+
             loginViewController.setStageLogin(primaryStage);
             primaryStage.show();
-
-            loginViewController.goToHomePage();
+            loginViewController.goToHomePage(user);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {

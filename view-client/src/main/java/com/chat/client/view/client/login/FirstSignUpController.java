@@ -87,7 +87,9 @@ public class FirstSignUpController implements Initializable {
         clearValidation();
 
 
-            Map<String, Boolean> validationMap = new HashMap<>();
+        Map<String, Boolean> validationMap = new HashMap<>();
+        if (txtFieldSignUpPassword.getText().equals(txtFieldSignUpConfirmPassword.getText())) {
+            txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
             User user = mapUserFromFields();
             try {
                 Map<String, Boolean> validateMap = signUpAndRegistration.validate(user);
@@ -107,10 +109,11 @@ public class FirstSignUpController implements Initializable {
                 e.printStackTrace();
             }
 
+        } else {
+            InvalidPassword.setText("* Invalid Password");
+            txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
         }
-
-
-
+    }
 
     private void clearValidation() {
         InvalidFirstName.setText("");
@@ -119,34 +122,40 @@ public class FirstSignUpController implements Initializable {
         InvalidPassword.setText("");
         InvalidEmail.setText("");
         InvalidCountry.setText("");
+        txtFieldSignUpFirstName.setStyle("-fx-border-color: gray; -fx-border-width: 1px ;");
+        txtFieldSignUpLastName.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpEmail.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpCountry.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
     }
 
     private void setError(String key, Boolean value) {
         switch (key) {
             case "InvalidFirstName":
                 InvalidFirstName.setText("* Invalid First Name");
-                txtFieldSignUpFirstName.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpFirstName.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidLastName":
                 InvalidLastName.setText("* Invalid Last Name");
-                txtFieldSignUpLastName.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpLastName.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidPhone":
                 InvalidPhone.setText("*Invalid Phone");
-                txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidPassword":
                 InvalidPassword.setText("* Invalid Password");
-                txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidEmail":
                 InvalidEmail.setText("* Invalid Email");
-                txtFieldSignUpEmail.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpEmail.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
 
                 break;
             case "InvalidCountry":
                 InvalidCountry.setText("*Invalid Country");
-                txtFieldSignUpCountry.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpCountry.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
 
         }

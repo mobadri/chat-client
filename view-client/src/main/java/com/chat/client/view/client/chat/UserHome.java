@@ -4,6 +4,7 @@ import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
+import com.chat.client.view.client.login.LoginViewController;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
@@ -33,6 +34,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.controlsfx.control.Notifications;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -104,6 +106,17 @@ public class UserHome implements Initializable, PushNotificationInterface {
     }
 
     public void logOut(MouseEvent mouseEvent) {
+        File file = new File("userInfo.xml");
+        if (file.exists()) file.delete();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/login.fxml"));
+        try {
+            Parent root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println("loaded");
+        LoginViewController loginView = loader.getController();
+        loginView.setStageLogin(friendStage);
     }
 
     public void nav1(MouseEvent mouseEvent) {
@@ -312,18 +325,18 @@ public class UserHome implements Initializable, PushNotificationInterface {
         userList.setItems(sortedData);
     }*/
 
-    private void changeFriendsStatus(User user){
-        for(User user1 : myFriendsList ){
-            if(user1.getId() == user.getId()){
+    private void changeFriendsStatus(User user) {
+        for (User user1 : myFriendsList) {
+            if (user1.getId() == user.getId()) {
                 user1.setMode(user.getMode());
             }
         }
     }
 
-    private void removeOfflineFriends(User user){
-        if(user.getMode() == Mode.AWAY){
-            for(User user1 : myFriendsList ){
-                if(user1.getId() == user.getId()){
+    private void removeOfflineFriends(User user) {
+        if (user.getMode() == Mode.AWAY) {
+            for (User user1 : myFriendsList) {
+                if (user1.getId() == user.getId()) {
                     myFriendsList.remove(user1);
                 }
             }

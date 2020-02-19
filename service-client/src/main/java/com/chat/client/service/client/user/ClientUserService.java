@@ -19,4 +19,9 @@ public interface ClientUserService extends Remote {
 
     User signup(User user) throws RemoteException;
 
+    User exsitedPhone(String phone) throws RemoteException;
+
+    boolean validatePhone(String phone) throws RemoteException;
+
+
 }
