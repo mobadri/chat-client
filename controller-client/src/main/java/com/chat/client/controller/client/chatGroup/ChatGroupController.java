@@ -25,7 +25,8 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
 
 
     @Override
-    public void sendMessage(Message message) {
+    public void sendMessage(Message message)
+    {
         messageService.sendMessage(message);
     }
 
@@ -36,7 +37,8 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
 
 
     @Override
-    public void receiveMessage(Message message) {
+    public void receiveMessage(Message message)
+    {
         chatGroupInterface.receiveMessage(message);
     }
 
@@ -50,6 +52,7 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
 
     @Override
     public int getChatGroupId() {
+
         return chatGroup.getId();
     }
 
