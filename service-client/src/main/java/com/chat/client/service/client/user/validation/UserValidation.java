@@ -1,8 +1,12 @@
 package com.chat.client.service.client.user.validation;
 
+import com.chat.client.service.client.factory.ServiceClientFactory;
+import com.chat.client.service.client.user.ClientUserService;
+import com.chat.client.service.client.user.impl.ClientUserServiceImpl;
 import com.chat.server.model.user.Gender;
 import com.chat.server.model.user.User;
 
+import java.rmi.RemoteException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +19,9 @@ public class UserValidation {
     public UserValidation(User user) {
 
         this.user = user;
+    }
+
+    public UserValidation() {
     }
 
     public boolean validName(String name) {
@@ -73,11 +80,17 @@ public class UserValidation {
 
 
     public Map<String, Boolean> validUser(User user) {
+        User userPhone = null;
+        try {
+            userPhone = ServiceClientFactory.createUserService().exsitedPhone(user.getPhone());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
         Map<String, Boolean> validUser = new HashMap<>();
 
         validUser.put("InvalidFirstName", validName(user.getFirstName()));
         validUser.put("InvalidLastName", validName(user.getLastName()));
-        validUser.put("InvalidPhone", validPhone(user.getPhone()));
+        validUser.put("InvalidPhone", validPhone(user.getPhone()) && userPhone == null);
         validUser.put("InvalidPassword", validPassword(user.getPassword()));
         validUser.put("InvalidEmail", validMail(user.getEmail()));
         validUser.put("InvalidCountry", validCountry(user.getCountry()));

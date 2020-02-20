@@ -19,7 +19,7 @@ import java.util.List;
 
 public class NotificationHandlerImpl implements NotificationHandler {
 
-    private final static int PORT_NUMBER = 11223;
+    private final static int PORT_NUMBER = 44444;
     ServerNotificationService notificationService;
 
     public NotificationHandlerImpl() {

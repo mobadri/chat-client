@@ -39,6 +39,28 @@ public class RegistrationController implements SignUpAndRegistration {
         return clientUserService.validation(user);
     }
 
+    @Override
+    public boolean validatePhone(String phone) {
+        try {
+            return clientUserService.validatePhone(phone);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public User existedPhone(String phone) {
+        try {
+            return clientUserService.exsitedPhone(phone);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
     public User isRemembered() {
         // read file xml (userinfo)
         // if found

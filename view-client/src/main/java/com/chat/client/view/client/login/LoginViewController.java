@@ -17,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -36,7 +37,13 @@ public class LoginViewController implements Initializable {
     PasswordField txtFieldloginPassword;
 
     SignUpAndRegistration signUpAndRegistration;
-    private User user;
+
+
+    @FXML
+    private Label invalidPhone;
+
+    @FXML
+    private Label invalidPassword;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,15 +56,52 @@ public class LoginViewController implements Initializable {
 
     }
 
+    public void login(){
+        clearAffectOfValidation();
+        if (validatePhone(txtFieldLoginPhone.getText()) && existedPhone(txtFieldLoginPhone.getText()) != null) {
+
+            User user = signUpAndRegistration.login(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
+            System.out.println(user);
+            if (user != null && user.getId() > 0) {
+                System.out.println("login successfully");
+                if(rememberMe.isSelected()){
+                    isRememberMe();
+                }
+                goToHomePage(user);
+
+            } else {
+                System.out.println("user not found");
+                affectInvalidPassword();
+
+            }
+        } else {
+
+            affectInvalidPhone();
+        }
+        String title = "sign in";
+    }
     @FXML
     private void onLogin(ActionEvent actionEvent) {
-        user = signUpAndRegistration.login(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
-        System.out.println(user);
-        if (user != null && user.getId() > 0) {
-            System.out.println("login successfully");
-            goToHomePage();
+        clearAffectOfValidation();
+        if (validatePhone(txtFieldLoginPhone.getText()) && existedPhone(txtFieldLoginPhone.getText()) != null) {
+
+            User user = signUpAndRegistration.login(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
+            System.out.println(user);
+            if (user != null && user.getId() > 0) {
+                System.out.println("login successfully");
+               if(rememberMe.isSelected()){
+                   isRememberMe();
+                }
+                goToHomePage(user);
+
+            } else {
+                System.out.println("user not found");
+                affectInvalidPassword();
+
+            }
         } else {
-            System.out.println("user not found");
+
+            affectInvalidPhone();
         }
         String title = "sign in";
         // TrayNotification tray = new TrayNotification()
@@ -67,7 +111,7 @@ public class LoginViewController implements Initializable {
 
     }
 
-    public void goToHomePage() {
+    public void goToHomePage(User user) {
 
         Parent root;
         //;
@@ -118,15 +162,41 @@ public class LoginViewController implements Initializable {
     public void signInView(ActionEvent actionEvent) {
     }
 
-    public void onClickRememberMe(MouseEvent mouseEvent) {
-        if (rememberMe.isSelected()) {
+
+    public void isRememberMe(){
             RememberMeController rememberMeController = new RememberMeController();
             rememberMeController.CreateIntoXML(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
             System.out.println(true);
-        } else {
-            new File("E:\\Project\\Client\\chat-client\\controller-client\\src\\main\\resources\\templates\\userInfo.xml").delete();
-            System.out.println(false);
-        }
+    }
+
+
+    private void affectInvalidPhone() {
+        invalidPhone.setText("* Invalid phone Number");
+        txtFieldLoginPhone.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+    }
+
+    private void affectInvalidPassword() {
+        invalidPassword.setText("* Invalid password");
+        txtFieldloginPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+    }
+
+
+    public User existedPhone(String phone) {
+        return signUpAndRegistration.existedPhone(phone);
+    }
+
+    public boolean validatePhone(String phone) {
+        return signUpAndRegistration.validatePhone(phone);
+    }
+
+    private void clearAffectOfValidation() {
+        invalidPhone.setText("");
+        txtFieldLoginPhone.setStyle("-fx-border-color:gray  ; -fx-border-width: 1px ;");
+
+        invalidPassword.setText("");
+        txtFieldloginPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+
+
     }
 
 

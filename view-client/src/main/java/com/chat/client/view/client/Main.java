@@ -1,7 +1,11 @@
 package com.chat.client.view.client;
 
+import com.chat.client.controller.client.user.login.RegistrationController;
+import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.client.view.client.login.LoginViewController;
+import com.chat.server.model.user.User;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,20 +31,20 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-//        File file = new File("userInfo.xml");
-//        if (file.exists()) {
-//            rememberMeHomePage(file, primaryStage);
-//        } else {
+        File file = new File("userInfo.xml");
+        if (file.exists()) {
+            rememberMeHomePage(file, primaryStage);
+        } else {
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
-        Parent root = loader.load();
-        com.chat.client.view.client.startpageController controller = loader.getController();
-        controller.setStage(primaryStage);
-        Scene scene = new Scene(root);
-        scene.setFill(Color.TRANSPARENT);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-//        }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
+            Parent root = loader.load();
+            com.chat.client.view.client.startpageController controller = loader.getController();
+            controller.setStage(primaryStage);
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }
 
     }
 
@@ -58,10 +62,20 @@ public class Main extends Application {
             String data = userInfo.item(0).getTextContent();
             System.out.println(data);
 
-            loginViewController.setStageLogin(primaryStage);
-            primaryStage.show();
+            String phone = data.trim().substring(0, 12);
+            String password = data.trim().substring(13).trim();
+            SignUpAndRegistration signUpAndRegistration = new RegistrationController();
+            User user = signUpAndRegistration.login(phone, password);
+            if (user != null) {
+                System.out.println("PHONE : " + phone);
+                System.out.println("PASSWORD " + password);
 
-            loginViewController.goToHomePage();
+                loginViewController.setStageLogin(primaryStage);
+                primaryStage.show();
+                loginViewController.goToHomePage(user);
+            } else {
+                loadLoginPage(primaryStage);
+            }
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
@@ -69,5 +83,12 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadLoginPage(Stage stage) {
+        startpageController startpageController = new startpageController();
+        startpageController.setStage(stage);
+        stage.show();
+        startpageController.gotosigninpage(new ActionEvent());
     }
 }

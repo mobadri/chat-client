@@ -12,7 +12,7 @@ import java.rmi.registry.Registry;
 
 public class MessageHandlerImpl implements MessageHandler {
 
-    private final int PORT_NUMBER = 11223;
+    private final int PORT_NUMBER = 44444;
     private ServerMessageService serverMessageService;
 
     public MessageHandlerImpl() {

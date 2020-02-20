@@ -5,10 +5,15 @@ import com.chat.client.controller.client.pushNotifications.PushNotificationContr
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
 import com.chat.client.view.client.friend.AddFriend;
+import com.chat.client.view.client.login.LoginViewController;
+import com.chat.client.view.client.notification.NotificationViewListController;
+import com.chat.client.view.client.notification.traynotifications.animations.AnimationType;
+import com.chat.client.view.client.notification.traynotifications.notification.TrayNotification;
+import com.chat.client.view.client.friend.AddFriend;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
-import com.chat.server.model.user.Mode;
+import com.chat.server.model.chat.NotificationType;
 import com.chat.server.model.user.User;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
@@ -68,6 +73,9 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private List<ChatGroupController> chatGroupControllerList = new ArrayList<>();
     private List<Parent> chatViewList = new ArrayList<>();
 
+    NotificationViewListController notificationViewListcontroller ;
+
+
 
     Stage friendStage;
 
@@ -75,7 +83,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private PushNotificationController pushNotificationController;
     private User currentUser;
 
-
+    private boolean isShowNotificationList = false;
 
     public UserHome() {
         try {
@@ -98,15 +106,23 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        //setListView();
-//        setSearchforfriends();
+        loadNotificationList();
     }
 
     public void nav(MouseEvent mouseEvent) {
     }
 
     public void logOut(MouseEvent mouseEvent) {
+        File file = new File("userInfo.xml");
+        if (file.exists()) file.delete();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/login.fxml"));
+        try {
+            Parent root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        LoginViewController loginView = loader.getController();
+        loginView.setStageLogin(friendStage);
     }
 
     public void nav1(MouseEvent mouseEvent) {
@@ -227,28 +243,39 @@ public class UserHome implements Initializable, PushNotificationInterface {
         Platform.runLater(() ->
 
         {
-
-            Stage owner = new Stage(StageStyle.TRANSPARENT);
-            StackPane root = new StackPane();
-            root.setStyle("-fx-background-color: TRANSPARENT");
-            Scene scene = new Scene(root, 1, 1);
-            scene.setFill(Color.TRANSPARENT);
-            owner.setScene(scene);
-            owner.setWidth(1);
-            owner.setHeight(1);
-            owner.toBack();
-            owner.show();
-            Notifications.create().title(notification.getNotificationType().toString()).text(notification.getNotificationMessage())
-                    .owner(owner).showInformation();
-            System.err.println("res notification" + notification.getUserFrom());
-//        Notifications.create()
-//                .text(notification.getNotificationMessage())
-//                .title(notification.getNotificationType().toString())
-//                .showInformation();
+            Image profileImg = new Image(getClass().getResource("/static/images/AddPic.png").toString(), 50, 50, false, false);
+            TrayNotification tray = new TrayNotification();
+            tray.setTitle(notification.getNotificationType().toString());
+            tray.setMessage(notification.getNotificationMessage());
+            tray.setRectangleFill(Paint.valueOf("#2C3E50"));
+            tray.setAnimationType(AnimationType.FADE);
+            tray.setImage(profileImg);
+            tray.showAndDismiss(Duration.seconds(5));
+            tray.setNotificationType(NotificationType.MESSAGE_RECEIVED);
+            addNotificationToList(notification);
         });
         System.out.println(notification);
     }
 
+    private void addNotificationToList(Notification notification) {
+        notificationViewListcontroller.addNotification(notification);
+    }
+    @FXML
+    public void showNotification(ActionEvent actionEvent) {
+        anchorPaneNotification.setVisible(!isShowNotificationList);
+        isShowNotificationList = !isShowNotificationList;
+    }
+    private void loadNotificationList(){
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/notification-list.fxml"));
+            Parent load = loader.load();
+            notificationViewListcontroller = loader.getController();
+            anchorPaneNotification.getChildren().setAll(load);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
     public void onProfileclicked(MouseEvent mouseEvent) {
 
     }
@@ -318,21 +345,18 @@ public class UserHome implements Initializable, PushNotificationInterface {
         userList.setItems(sortedData);
     }*/
 
-    private void changeFriendsStatus(User user){
-        for(User user1 : myFriendsList ){
-            if(user1.getId() == user.getId()){
-                user1.setMode(user.getMode());
-            }
-        }
+    @Override
+    public void changeFriendsStatus(User user){
+
+        pushNotificationController.changeFriendsStatus(user);
     }
 
-    private void removeOfflineFriends(User user){
-        if(user.getMode() == Mode.AWAY){
-            for(User user1 : myFriendsList ){
-                if(user1.getId() == user.getId()){
-                    myFriendsList.remove(user1);
-                }
-            }
-        }
+    @Override
+    public void showOfflineFriends(User user){
+
+        pushNotificationController.showOfflineFriends(user);
+    }
+
+    public void handleRequestsButton(ActionEvent actionEvent) {
     }
 }

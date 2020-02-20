@@ -27,6 +27,7 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
     @Override
     public void sendMessage(Message message)
     {
+
         messageService.sendMessage(message);
     }
 

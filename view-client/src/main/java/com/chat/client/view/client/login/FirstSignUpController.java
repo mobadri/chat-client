@@ -3,6 +3,9 @@ package com.chat.client.view.client.login;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.server.model.user.Gender;
 import com.chat.server.model.user.User;
+import com.jfoenix.controls.JFXComboBox;
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +18,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FirstSignUpController implements Initializable {
     private SignUpAndRegistration signUpAndRegistration;
@@ -43,7 +45,7 @@ public class FirstSignUpController implements Initializable {
     private TextField txtFieldSignUpEmail;
 
     @FXML
-    private TextField txtFieldSignUpCountry;
+    private JFXComboBox<String> comboBoxSignUpCountry;
 
     @FXML
     private Button btnSignUpNext;
@@ -76,6 +78,20 @@ public class FirstSignUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                loadCountries();
+            });
+        }).start();
+    }
+
+    private void loadCountries() {
+        List<String> collect = Arrays.asList(Locale.getAvailableLocales())
+                .parallelStream().map(Locale::getDisplayCountry)
+                .filter(s -> !s.isEmpty())
+                .sorted()
+                .collect(Collectors.toList());
+        comboBoxSignUpCountry.setItems(FXCollections.observableList(collect));
     }
 
     public void setStageSignUp(Stage myStage) {
@@ -87,7 +103,9 @@ public class FirstSignUpController implements Initializable {
         clearValidation();
 
 
-            Map<String, Boolean> validationMap = new HashMap<>();
+        Map<String, Boolean> validationMap = new HashMap<>();
+        if (txtFieldSignUpPassword.getText().equals(txtFieldSignUpConfirmPassword.getText())) {
+            txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
             User user = mapUserFromFields();
             try {
                 Map<String, Boolean> validateMap = signUpAndRegistration.validate(user);
@@ -107,10 +125,11 @@ public class FirstSignUpController implements Initializable {
                 e.printStackTrace();
             }
 
+        } else {
+            InvalidPassword.setText("* Invalid Password");
+            txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
         }
-
-
-
+    }
 
     private void clearValidation() {
         InvalidFirstName.setText("");
@@ -119,34 +138,40 @@ public class FirstSignUpController implements Initializable {
         InvalidPassword.setText("");
         InvalidEmail.setText("");
         InvalidCountry.setText("");
+        txtFieldSignUpFirstName.setStyle("-fx-border-color: gray; -fx-border-width: 1px ;");
+        txtFieldSignUpLastName.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpEmail.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        comboBoxSignUpCountry.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
     }
 
     private void setError(String key, Boolean value) {
         switch (key) {
             case "InvalidFirstName":
                 InvalidFirstName.setText("* Invalid First Name");
-                txtFieldSignUpFirstName.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpFirstName.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidLastName":
                 InvalidLastName.setText("* Invalid Last Name");
-                txtFieldSignUpLastName.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpLastName.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidPhone":
                 InvalidPhone.setText("*Invalid Phone");
-                txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidPassword":
                 InvalidPassword.setText("* Invalid Password");
-                txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidEmail":
                 InvalidEmail.setText("* Invalid Email");
-                txtFieldSignUpEmail.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                txtFieldSignUpEmail.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
 
                 break;
             case "InvalidCountry":
                 InvalidCountry.setText("*Invalid Country");
-                txtFieldSignUpCountry.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+                comboBoxSignUpCountry.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
 
         }
@@ -160,7 +185,7 @@ public class FirstSignUpController implements Initializable {
         user.setLastName(txtFieldSignUpLastName.getText().trim());
         user.setPhone(txtFieldSignUpPhoneNumber.getText().trim());
         user.setEmail(txtFieldSignUpEmail.getText());
-        user.setCountry(txtFieldSignUpCountry.getText());
+        user.setCountry(comboBoxSignUpCountry.getSelectionModel().getSelectedItem());
         user.setGender(gender);
         return user;
     }

@@ -42,9 +42,19 @@ public interface UserHandler {
      */
     User login(String phone, String password);
 
+    User signUp(User user);
+
     List<User> getAllUsers();
 
-    User signUp(User user);
+
+    /**
+     *  ckeck this phone is registered  or not
+     * @param phone user phone
+     * @return user if found or null if notfound
+     */
+    User exsitedPhone(String phone);
+
+
 
 
 }
