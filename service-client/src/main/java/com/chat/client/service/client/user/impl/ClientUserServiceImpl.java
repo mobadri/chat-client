@@ -35,6 +35,12 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     }
 
     @Override
+    public User exsitedPhone(String phone) throws RemoteException {
+        return userHandler.exsitedPhone(phone);
+   }
+
+
+    @Override
     public int removeFriend(int currentid,int userid) throws RemoteException {
         return userHandler.removeFriend(currentid,userid);
     }
@@ -64,6 +70,11 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
             }
         }
         return instance;
+    }
+    @Override
+    public boolean validatePhone(String phone) throws RemoteException {
+        UserValidation userValidation = new UserValidation();
+        return userValidation.validPhone(phone);
     }
 }
 

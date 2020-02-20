@@ -31,14 +31,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -62,6 +66,8 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private AnchorPane friendsAnchorPane;
     @FXML
     private AnchorPane ChatGroupAnchorPane;
+    @FXML
+    private AnchorPane anchorPaneNotification;
 
     private boolean showList = true;
     ListProperty<User> myFriendsListProperty = new SimpleListProperty<>();

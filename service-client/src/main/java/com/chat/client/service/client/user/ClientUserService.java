@@ -55,6 +55,13 @@ public interface ClientUserService extends Remote {
     User signup(User user) throws RemoteException;
 
     /**
+     * search by phone
+     * @param phone to search with
+     * @return existed user
+     * @throws RemoteException
+     */
+    User exsitedPhone(String phone) throws RemoteException;
+    /**
      * search of users
      *
      * @param phone used for phone
@@ -62,5 +69,13 @@ public interface ClientUserService extends Remote {
      * @throws RemoteException
      */
     List<User> searchByPhone(String phone) throws RemoteException;
+
+    /**
+     * validate phone
+     * @param phone to validate
+     * @return
+     * @throws RemoteException
+     */
+    boolean validatePhone(String phone) throws RemoteException;
 
 }
