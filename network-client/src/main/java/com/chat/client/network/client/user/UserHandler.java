@@ -27,11 +27,11 @@ public interface UserHandler {
     /**
      * remove friend from my friend list
      *
-     * @param currentUser login user
-     * @param friend      friend will remove from friend list
+     *
+     * @param friendid     friend will remove from friend list
      * @return true if succeed to remove , false if failed
      */
-    boolean removeFriend(User currentUser, User friend);
+    int removeFriend(int currentId,int friendid);
 
     /**
      * login to the system

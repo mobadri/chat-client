@@ -8,6 +8,7 @@ import com.chat.server.model.user.User;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 import java.util.Map;
 
 public class ClientUserServiceImpl extends UnicastRemoteObject implements ClientUserService {
@@ -34,6 +35,11 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     }
 
     @Override
+    public int removeFriend(int currentid,int userid) throws RemoteException {
+        return userHandler.removeFriend(currentid,userid);
+    }
+
+    @Override
     public Map<String, Boolean> validation(User user) throws RemoteException {
         UserValidation userValidation = new UserValidation(user);
         return userValidation.validUser(user);
@@ -42,6 +48,11 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     @Override
     public User signup(User user) {
         return userHandler.signUp(user);
+    }
+
+    @Override
+    public List<User> searchByPhone(String phone) throws RemoteException {
+        return userHandler.searchByPhone(phone);
     }
 
     public static synchronized ClientUserServiceImpl createUserServiceInstance() {

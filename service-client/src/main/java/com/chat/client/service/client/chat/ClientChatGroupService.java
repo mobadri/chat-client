@@ -58,4 +58,5 @@ public interface ClientChatGroupService {
      */
     ChatGroup findById(int id);
 
+
 }

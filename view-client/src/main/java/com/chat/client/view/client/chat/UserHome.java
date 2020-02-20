@@ -4,6 +4,7 @@ import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
+import com.chat.client.view.client.friend.AddFriend;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
@@ -73,6 +74,8 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     private PushNotificationController pushNotificationController;
     private User currentUser;
+
+
 
     public UserHome() {
         try {
@@ -261,9 +264,12 @@ public class UserHome implements Initializable, PushNotificationInterface {
     public void addFriend(MouseEvent mouseEvent) {
         Parent root;
         try {
+
             FXMLLoader loader =
                     new FXMLLoader(getClass().getResource("/templates/friend/addFriend.fxml"));
             root = loader.load();
+            AddFriend controller = loader.getController();
+            controller.setCurrentUser(currentUser);
             friendStage = new Stage();
             friendStage.setScene(new Scene(root));
             friendStage.show();

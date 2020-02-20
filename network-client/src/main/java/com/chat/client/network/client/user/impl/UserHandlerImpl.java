@@ -40,17 +40,22 @@ public class UserHandlerImpl implements UserHandler {
 
     @Override
     public int addFriend(User currentUser, User friend) {
-       /* try {
+        try {
             return serverUserService.addFriend(currentUser, friend);
         } catch (RemoteException e) {
             e.printStackTrace();
-        }*/
+        }
         return 0;
     }
 
     @Override
-    public boolean removeFriend(User currentUser, User friend) {
-        return false;
+    public int removeFriend(int currentid,int friendid) {
+        try {
+            return serverUserService.removeFriend(currentid,friendid);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     @Override

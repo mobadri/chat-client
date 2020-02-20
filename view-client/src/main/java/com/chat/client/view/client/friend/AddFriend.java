@@ -1,5 +1,7 @@
 package com.chat.client.view.client.friend;
 
+import com.chat.client.controller.client.user.HomeController;
+import com.chat.client.view.client.chat.ChatRendererwithbuttons;
 import com.chat.server.model.user.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,6 +13,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddFriend implements Initializable {
@@ -19,7 +22,11 @@ public class AddFriend implements Initializable {
     private TextField phoneNumberSearch;
     @FXML
     private ListView usersListView;
+private User currentUser;
 
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -34,15 +41,18 @@ public class AddFriend implements Initializable {
     private void setListView(String phone) {
 
         //all user for testing the list view
-       /* UserHandler userHandler = new UserHandlerImpl();
-        List<User> users = userHandler.searchByPhone(phone);
+        HomeController homeController = new HomeController();
+         List<User> users = homeController.findByPhone(phone);
         System.out.println("User is = " + users.size());
-
         allUsers = FXCollections.observableList(users);
         System.out.println(users.size());
+
         usersListView.setItems(allUsers);
-        usersListView.setCellFactory(new ChatRendererwithbuttons());
-        */
+        ChatRendererwithbuttons chatRendererwithbuttons = new ChatRendererwithbuttons();
+        chatRendererwithbuttons.setCurrentUser(currentUser);
+        chatRendererwithbuttons.setFriends(currentUser.getFriends());
+        usersListView.setCellFactory(chatRendererwithbuttons);
+
     }
 
     private void Search() {

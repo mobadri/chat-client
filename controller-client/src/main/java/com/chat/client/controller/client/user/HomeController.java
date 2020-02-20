@@ -7,6 +7,8 @@ import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeController {
     private ClientUserService clientUserService = ServiceClientFactory.createUserService();
@@ -24,8 +26,31 @@ public class HomeController {
         }
         return 0;
     }
+    public int removeFriend(int currentid,int friendid)
+    {
+        try{
+            return clientUserService.removeFriend(currentid,friendid);
+        }
+        catch (RemoteException e)
+        {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
     public ChatGroup getById(int id) {
         return clientChatGroupService.findById(id);
     }
+
+    public List<User> findByPhone(String phone)
+    {
+        try {
+            return clientUserService.searchByPhone(phone);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }
