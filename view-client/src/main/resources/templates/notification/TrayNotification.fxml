@@ -1,42 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Polyline?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="rootNode" maxHeight="-Infinity" maxWidth="-Infinity"
-            minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="180.0" prefWidth="461.0"
-            style="-fx-border-color: transparent;" xmlns="http://javafx.com/javafx/10.0.2-internal">
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="rootNode" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="141.0" prefWidth="350.0" style="-fx-border-color: transparent;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Rectangle fx:id="rectangleColor" arcHeight="5.0" arcWidth="5.0" fill="#0078d4" height="131.0" layoutX="14.0"
-                   layoutY="14.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0"
-                   style="-fx-arc-width: 30.0; -fx-arc-height: 20.0;" width="441.0"/>
-        <ImageView fx:id="imageIcon" fitHeight="67.0" fitWidth="67.0" layoutX="28.0" layoutY="47.0"
-                   pickOnBounds="true"/>
-        <Label fx:id="lblTitle" layoutX="126.0" layoutY="33.0" text="Title:" textFill="WHITE" wrapText="true">
+        <Rectangle fx:id="rectangleColor" arcHeight="5.0" arcWidth="5.0" fill="#0078d4" height="115.0" layoutY="2.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" style="-fx-arc-width: 30.0; -fx-arc-height: 20.0;" width="350.0" />
+        <ImageView fx:id="imageIcon" fitHeight="67.0" fitWidth="67.0" layoutX="13.0" layoutY="25.0" pickOnBounds="true" />
+        <Label fx:id="lblTitle" layoutX="80.0" layoutY="13.0" prefHeight="25.0" prefWidth="235.0" text="Title:" textFill="WHITE" wrapText="true">
             <font>
-                <Font name="System Bold" size="16.0"/>
+                <Font name="System Bold" size="16.0" />
             </font>
         </Label>
-        <Label fx:id="lblMessage" layoutX="126.0" layoutY="72.0" text="Message:" textFill="WHITE" wrapText="true">
+        <Label fx:id="lblMessage" layoutX="80.0" layoutY="49.0" prefHeight="19.0" prefWidth="268.0" text="Message:" textFill="WHITE" wrapText="true">
             <font>
-                <Font size="13.0"/>
+                <Font size="13.0" />
             </font>
         </Label>
-        <Label fx:id="lblClose" layoutX="435.0" layoutY="21.0" text="x" textFill="WHITE">
+        <Label fx:id="lblClose" layoutX="333.0" layoutY="2.0" text="x" textFill="WHITE">
             <font>
-                <Font size="20.0"/>
+                <Font size="20.0" />
             </font>
             <cursor>
-                <Cursor fx:constant="HAND"/>
+                <Cursor fx:constant="HAND" />
             </cursor>
         </Label>
-        <Polyline fx:id="notificationPolyline" fill="#0078d4" layoutX="371.0" layoutY="190.0"
-                  points="-50.0, -45.0, 57.0, -61.0, 19.0, -16.0, -50.0, -45.0" stroke="#0078d4" strokeType="INSIDE"
-                  strokeWidth="0.0"/>
+        <Polyline fx:id="notificationPolyline" fill="#0078d4" layoutX="281.0" layoutY="155.0" points="-50.0, -45.0, 57.0, -61.0, 19.0, -16.0, -50.0, -45.0" stroke="#0078d4" strokeType="INSIDE" strokeWidth="0.0" />
     </children>
 </AnchorPane>

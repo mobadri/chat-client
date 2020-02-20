@@ -74,18 +74,23 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private List<ChatGroupController> chatGroupControllerList = new ArrayList<>();
     private List<Parent> chatViewList = new ArrayList<>();
 
+    NotificationViewListController notificationViewListcontroller ;
+
+
 
     Stage friendStage;
 
-
     private PushNotificationController pushNotificationController;
     private User currentUser;
+
+    private boolean isShowNotificationList = false;
 
     public UserHome() {
         try {
 
             pushNotificationController = new PushNotificationController();
             pushNotificationController.setPushNotifications(this);
+
 
             homeController = new HomeController();
         } catch (RemoteException e) {
@@ -102,9 +107,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        //setListView();
-//        setSearchforfriends();
+        loadNotificationList();
     }
 
     public void nav(MouseEvent mouseEvent) {
@@ -119,7 +122,6 @@ public class UserHome implements Initializable, PushNotificationInterface {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("loaded");
         LoginViewController loginView = loader.getController();
         loginView.setStageLogin(friendStage);
     }
@@ -128,12 +130,9 @@ public class UserHome implements Initializable, PushNotificationInterface {
     }
 
     private void setFriendsListView(List<User> users) {
-        System.out.println(users.size());
         myFriendsList = FXCollections.observableList(users);
-        System.out.println(users.size());
         userList.setItems(myFriendsList);
         userList.setCellFactory(new CellRenderer());
-
     }
 
     private void setChatGroupListView(List<ChatGroup> chatGroups) {
@@ -143,7 +142,6 @@ public class UserHome implements Initializable, PushNotificationInterface {
             for (ChatGroup chatGroup : chatGroups) {
                 groups.add(homeController.getById(chatGroup.getId()));
             }
-
             Platform.runLater(() -> {
                 myChatGroupsList = FXCollections.observableList(groups);
                 chatGroupList.setItems(myChatGroupsList);
@@ -167,7 +165,6 @@ public class UserHome implements Initializable, PushNotificationInterface {
         if (user != null) {
             addFriend(user);
             loadFriendProfile(user);
-//            loadChatGroup(new ChatGroup());
         }
     }
 
@@ -199,7 +196,6 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
 
     private void loadChatGroup(ChatGroup chatGroup) {
-
         try {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/chat/chat-view.fxml"));
             Parent root = loader.load();
@@ -234,46 +230,46 @@ public class UserHome implements Initializable, PushNotificationInterface {
         new Thread(() -> {
             setChatGroupListView(currentUser.getChatGroups());
         }).start();
-
-
         setSearchforfriends();
     }
 
     @Override
     public void receiveNotification(Notification notification) {
-
-
         Platform.runLater(() ->
-
         {
-
             Image profileImg = new Image(getClass().getResource("/static/images/AddPic.png").toString(), 50, 50, false, false);
             TrayNotification tray = new TrayNotification();
             tray.setTitle(notification.getNotificationType().toString());
             tray.setMessage(notification.getNotificationMessage());
             tray.setRectangleFill(Paint.valueOf("#2C3E50"));
-            tray.setAnimationType(AnimationType.SLIDE);
+            tray.setAnimationType(AnimationType.FADE);
             tray.setImage(profileImg);
             tray.showAndDismiss(Duration.seconds(5));
             tray.setNotificationType(NotificationType.MESSAGE_RECEIVED);
+            addNotificationToList(notification);
         });
         System.out.println(notification);
     }
 
-    private void setNotificationListView(Notification notification) {
+    private void addNotificationToList(Notification notification) {
+        notificationViewListcontroller.addNotification(notification);
+    }
+    @FXML
+    public void showNotification(ActionEvent actionEvent) {
+        anchorPaneNotification.setVisible(!isShowNotificationList);
+        isShowNotificationList = !isShowNotificationList;
+    }
+    private void loadNotificationList(){
         try {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/notification-list.fxml"));
             Parent load = loader.load();
-            NotificationViewListController controller = loader.getController();
-            controller.getNotifications().add(notification);
+            notificationViewListcontroller = loader.getController();
             anchorPaneNotification.getChildren().setAll(load);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-
     public void onProfileclicked(MouseEvent mouseEvent) {
 
     }
@@ -355,7 +351,4 @@ public class UserHome implements Initializable, PushNotificationInterface {
     public void handleRequestsButton(ActionEvent actionEvent) {
     }
 
-    public void showNotification(ActionEvent actionEvent) {
-        setNotificationListView(null);
-    }
 }

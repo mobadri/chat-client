@@ -26,7 +26,7 @@ import javafx.util.Callback;
 
 public class NotificationCellRenderer implements Callback<ListView<Notification>, ListCell<Notification>> {
 
-    NotificationViewListController controller = new NotificationViewListController();
+    NotificationViewListController controller;
 
     @Override
     public ListCell<Notification> call(ListView<Notification> p) {
@@ -126,4 +126,7 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
         });
     }
 
+    public void setController(NotificationViewListController controller) {
+        this.controller = controller;
+    }
 }
