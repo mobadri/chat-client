@@ -43,7 +43,7 @@ public class PushNotificationController extends UnicastRemoteObject implements N
     }
 
     @Override
-    public void removeOfflineFriends(User user) {
+    public void showOfflineFriends(User user) {
         int index = -1 ;
         for(int i = 0 ; i<currentUser.getFriends().size() ; i++){
             if(currentUser.getFriends().get(i).getId() == user.getId()){

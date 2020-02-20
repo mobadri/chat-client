@@ -35,6 +35,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.io.IOException;
@@ -164,7 +165,9 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private void onFriendsListClicked(MouseEvent mouseEvent) {
         User user = (User) userList.getSelectionModel().getSelectedItem();
         if (user != null) {
+            addFriend(user);
             loadFriendProfile(user);
+//            loadChatGroup(new ChatGroup());
         }
     }
 
@@ -186,7 +189,9 @@ public class UserHome implements Initializable, PushNotificationInterface {
             Parent root = loader.load();
             UserProfileController userProfileController = loader.getController();
             userProfileController.setUser(user);
+            System.out.println("my Profile is loaded ............");
             containerPane.getChildren().setAll(root);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -335,12 +340,16 @@ public class UserHome implements Initializable, PushNotificationInterface {
         userList.setItems(sortedData);
     }*/
 
-    private void changeFriendsStatus(User user) {
+    @Override
+    public void changeFriendsStatus(User user){
+
         pushNotificationController.changeFriendsStatus(user);
     }
 
-    private void removeOfflineFriends(User user) {
-        pushNotificationController.removeOfflineFriends(user);
+    @Override
+    public void showOfflineFriends(User user){
+
+        pushNotificationController.showOfflineFriends(user);
     }
 
     public void handleRequestsButton(ActionEvent actionEvent) {

@@ -15,6 +15,8 @@ public interface NotificationServiceCallback extends Remote {
     void receiveNotification(Notification notification) throws RemoteException;
 
     int getUserId() throws RemoteException;
+
     void changeFriendsStatus(User user) throws RemoteException;
-    void removeOfflineFriends(User user) throws RemoteException;
+
+    void showOfflineFriends(User user) throws RemoteException;
 }
