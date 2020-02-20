@@ -90,6 +90,5 @@ public class Main extends Application {
         startpageController.setStage(stage);
         stage.show();
         startpageController.gotosigninpage(new ActionEvent());
-
     }
 }
