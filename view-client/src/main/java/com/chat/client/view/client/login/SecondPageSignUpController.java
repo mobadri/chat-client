@@ -9,14 +9,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -27,7 +36,8 @@ public class SecondPageSignUpController implements Initializable {
     SignUpAndRegistration signUpAndRegistration;
     @FXML
     private TextField bio;
-
+    @FXML
+    private Circle userImage;
     @FXML
     private DatePicker dateOfBirth;
     private Stage stage;
@@ -46,7 +56,6 @@ public class SecondPageSignUpController implements Initializable {
         this.stage = stage;
     }
 
-
     private void appendUserInfoFromSecondPage() {
 
         if (bio.getText() != null) user.setBIO(bio.getText());
@@ -54,8 +63,6 @@ public class SecondPageSignUpController implements Initializable {
         LocalDate localDate = dateOfBirth.getValue();
         if (localDate != null) {
             Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            System.out.println(localDate);
-            System.out.println(date);
             user.setDateOfBirth(date);
         } else {
 
@@ -92,5 +99,36 @@ public class SecondPageSignUpController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private byte[] readImage(String path) {
+        byte[] image = null;
+        try {
+            image = Files.readAllBytes(Paths.get(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
+    @FXML
+    public void chooseImage(MouseEvent mouseEvent) {
+        File file = openChooserDialog(mouseEvent);
+        if (file != null) {
+            Image image = new Image(file.toURI().toString());
+            userImage.setFill(new ImagePattern(image));
+            user.setImage(readImage(file.getPath()));
+        }
+    }
+
+    private File openChooserDialog(MouseEvent mouseEvent) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        File file = fileChooser.showOpenDialog(((Node) mouseEvent.getSource()).getScene().getWindow());
+        if (file != null) {
+            return file;
+        }
+        return null;
     }
 }
