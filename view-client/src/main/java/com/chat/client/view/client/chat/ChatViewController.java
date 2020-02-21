@@ -6,8 +6,9 @@ import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
 import com.chat.server.model.chat.Style;
 import com.chat.server.model.user.User;
-import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.*;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,16 +25,30 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import org.controlsfx.dialog.FontSelectorDialog;
 
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
-import java.util.StringTokenizer;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class ChatViewController implements Initializable, ChatGroupInterface {
+    @FXML
+    public JFXComboBox sizeComboBox;
+    @FXML
+    public JFXButton boldButton;
+    @FXML
+    public JFXButton italicButton;
+    @FXML
+    public JFXComboBox fontComboBox;
+    @FXML
+    public JFXColorPicker fontColorPicker;
+
+    @FXML
     ChatGroupInterface chatGroupInterface;
 
     @FXML
@@ -55,6 +70,12 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                loadFontFamily();
+                loadSize();
+            });
+        }).start();
 
     }
 
@@ -139,28 +160,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     }
 
 
-    private String getFont(String messageFont, Color color) {
-        messageFont = messageFont.substring(5, messageFont.length() - 1);
-
-        Font font = new Font(12);
-        StringTokenizer stringTokenizer = new StringTokenizer(messageFont, ",");
-        String name = stringTokenizer.nextToken().split("=")[1];
-        String family = stringTokenizer.nextToken().split("=")[1];
-        String style = stringTokenizer.nextToken().split("=")[1];
-        String size = stringTokenizer.nextToken().split("=")[1];
-        System.out.println(name + ", " + family + ", " + style + ", " + size);
-
-        StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append("-fx-fill:" + format(color) + ";");
-        stringBuilder.append("-fx-font-name:" + name + ";");
-        stringBuilder.append("-fx-font-family:" + family + ";");
-        stringBuilder.append("-fx-font-size:" + size + ";");
-        stringBuilder.append("-fx-font-weight:" + style + ";");
-
-        return stringBuilder.toString();
-    }
-
 //    public void showSentMessage(User user) {
 //
 //        Text text = new Text(user.getMessage());
@@ -238,29 +237,67 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
 
     @FXML
-    public void handleSendingFile(MouseEvent mouseEvent) {
-        ((Node) (mouseEvent.getSource())).getScene().getWindow();
+    public void openFile(MouseEvent mouseEvent) {
 
-        // call file chooser
     }
 
-    private void chooseFileFromHardDisk(Window parent) {
-        //open file chooser
-        // if file returned !=null
-        //call method on controller and pass file , current  chatgroup
-        //
 
-
+    public void handleSendingFile(MouseEvent mouseEvent) {
         FileChooser fileChooser = new FileChooser();
-        File file = fileChooser.showOpenDialog(parent);
+        File file = fileChooser.showOpenDialog(new Stage());
+        System.out.println(file.getPath());
 
-        //   FileInputStream fileInputStream = new FileInputStream(file);
-        //  int letter = fileInputStream.read();
-           /* while (letter != -1) {
-                System.out.println((char) letter);
-                letter = fileInputStream.read();
-            }*/
+    }
 
+
+    private void loadSize() {
+        List<Integer> sizes = new ArrayList<>();
+        for (int i = 1; i <= 72; i += 2) {
+            sizes.add(i);
+        }
+
+        sizeComboBox.setItems(FXCollections.observableList(sizes));
+    }
+
+    private void loadFontFamily() {
+        List<String> fontFamilies = Font.getFamilies().parallelStream().sorted().
+                collect(Collectors.toList());
+        fontComboBox.setItems(FXCollections.observableList(fontFamilies));
+
+        System.out.println(fontFamilies);
+    }
+
+
+    public void onClickBoldBuuton(ActionEvent actionEvent) {
+
+        style.setBold(!style.isBold());
+        messageContent.setStyle(style.toString());
+    }
+
+    public void onClickItalicButton(ActionEvent actionEvent) {
+        style.setItalic(!style.isItalic());
+        messageContent.setStyle(style.toString());
+
+    }
+
+
+    public void onClickFontComboBox(ActionEvent actionEvent) {
+        style.setFontName(fontComboBox.getValue().toString());
+        messageContent.setStyle(style.toString());
+        System.out.println(style.getFontName());
+    }
+
+    public void onClickSizeComboBox(ActionEvent actionEvent) {
+        style.setFontSize(Integer.parseInt(sizeComboBox.getValue().toString()));
+        messageContent.setStyle(style.toString());
+        System.out.println(style.getFontSize());
+
+    }
+
+
+    public void onClickColorPicker(ActionEvent actionEvent) {
+        style.setFontColor(format(fontColorPicker.getValue()));
+        messageContent.setStyle(style.toString());
 
     }
 }

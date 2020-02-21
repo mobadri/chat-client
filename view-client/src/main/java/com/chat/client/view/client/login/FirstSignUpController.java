@@ -161,7 +161,7 @@ public class FirstSignUpController implements Initializable {
                 txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidPassword":
-                InvalidPassword.setText("* Invalid Password");
+                InvalidPassword.setText("* Weak Password At least 8 letters");
                 txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
                 break;
             case "InvalidEmail":

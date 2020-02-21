@@ -34,11 +34,4 @@ public class FileTranseferController extends UnicastRemoteObject implements File
 
     }
 
-   /* public  void sendFile (String fileName, byte[] data, int length){
-        try {
-            clientFileTransferService.sendFile(fileName,data,length);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }*/
 }

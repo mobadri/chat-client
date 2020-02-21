@@ -64,7 +64,8 @@
                                               </ImageView>
                                           </graphic>
                                       </Button>
-                                      <ImageView fx:id="SendImg" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                      <ImageView fx:id="SendImg" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true"
+                                                 preserveRatio="true">
                                           <image>
                                               <Image url="@../../static/images/AddPic.png" />
                                           </image>
@@ -83,20 +84,22 @@
                               </HBox>
                                 <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="722.0">
                                     <children>
-                                        <JFXComboBox fx:id="sizeComboBox" prefHeight="12.0" prefWidth="74.0" visibleRowCount="5" HBox.hgrow="ALWAYS" />
-                                        <JFXToggleButton fx:id="boldButton" prefHeight="25.0" prefWidth="74.0" text="B" HBox.hgrow="ALWAYS">
-                                            <font>
-                                                <Font name="Times New Roman Bold" size="18.0" />
-                                            </font>
-                                        </JFXToggleButton>
-                                        <JFXToggleButton fx:id="italicButton" prefHeight="48.0" prefWidth="103.0" text="I">
-                                            <font>
-                                                <Font name="Times New Roman Italic" size="18.0" />
-                                            </font>
-                                        </JFXToggleButton>
-                                        <JFXComboBox fx:id="fontComboBox" prefHeight="26.0" prefWidth="133.0" visibleRowCount="5" />
-                                        <JFXButton id="addGroupMembersImgBtn" fx:id="addGroupMembersImgBtn" ellipsisString="" graphicTextGap="0.0" prefHeight="49.0" prefWidth="54.0" textAlignment="CENTER" />
-                                        <JFXColorPicker id="fontColorPicker" fx:id="fontColorPicker" prefHeight="26.0" prefWidth="90.0" promptText="choose font color ..." style="-fx-color-label-visible: false;" HBox.hgrow="ALWAYS" />
+                                        <JFXComboBox fx:id="sizeComboBox" onAction="#onClickSizeComboBox"
+                                                     prefHeight="12.0" prefWidth="74.0" visibleRowCount="5"
+                                                     HBox.hgrow="ALWAYS"/>
+                                        <JFXComboBox fx:id="fontComboBox" onAction="#onClickFontComboBox"
+                                                     prefHeight="26.0" prefWidth="133.0" visibleRowCount="5"/>
+                                        <JFXButton id="boldBuuton" fx:id="boldBuuton" ellipsisString=""
+                                                   graphicTextGap="0.0" onAction="#onClickBoldBuuton" prefHeight="49.0"
+                                                   prefWidth="54.0" text="B" textAlignment="CENTER"/>
+                                        <JFXButton id="italicButton" fx:id="italicButton" ellipsisString=""
+                                                   graphicTextGap="0.0" onAction="#onClickItalicButton"
+                                                   prefHeight="49.0" prefWidth="54.0" text="I" textAlignment="CENTER"/>
+                                        <JFXColorPicker id="fontColorPicker" fx:id="fontColorPicker"
+                                                        onAction="#onClickColorPicker" prefHeight="26.0"
+                                                        prefWidth="90.0" promptText="choose font color ..."
+                                                        style="-fx-color-label-visible: false;"
+                                                        HBox.hgrow="ALWAYS"></JFXColorPicker>
                                     </children>
                                     <VBox.margin>
                                         <Insets />
