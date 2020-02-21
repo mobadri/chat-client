@@ -52,14 +52,12 @@ public class RegistrationController implements SignUpAndRegistration {
     @Override
     public User existedPhone(String phone) {
         try {
-            return clientUserService.exsitedPhone(phone);
+            return clientUserService.existedPhone(phone);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         return null;
     }
-
-
 
     public User isRemembered() {
         // read file xml (userinfo)
@@ -68,6 +66,4 @@ public class RegistrationController implements SignUpAndRegistration {
 
         return null;
     }
-
-
 }

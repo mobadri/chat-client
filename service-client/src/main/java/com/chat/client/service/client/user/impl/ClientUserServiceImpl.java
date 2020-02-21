@@ -35,8 +35,8 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     }
 
     @Override
-    public User exsitedPhone(String phone) throws RemoteException {
-        return userHandler.exsitedPhone(phone);
+    public User existedPhone(String phone) throws RemoteException {
+        return userHandler.existedPhone(phone);
    }
 
 
@@ -76,6 +76,9 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
         UserValidation userValidation = new UserValidation();
         return userValidation.validPhone(phone);
     }
+
+    @Override
+    public User updateUserData(User user) throws RemoteException {
+        return userHandler.updateUser(user);
+    }
 }
-
-
