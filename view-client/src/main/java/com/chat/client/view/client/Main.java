@@ -32,10 +32,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         File file = new File("userInfo.xml");
-        if (file.exists()) {
+      /*  if (file.exists()) {
             rememberMeHomePage(file, primaryStage);
         } else {
-
+*/
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
             Parent root = loader.load();
             com.chat.client.view.client.startpageController controller = loader.getController();
@@ -44,7 +44,7 @@ public class Main extends Application {
             scene.setFill(Color.TRANSPARENT);
             primaryStage.setScene(scene);
             primaryStage.show();
-        }
+      //  }
 
     }
 
@@ -62,7 +62,7 @@ public class Main extends Application {
             String data = userInfo.item(0).getTextContent();
             System.out.println(data);
 
-            String phone = data.trim().substring(0, 12);
+            String phone = data.trim().substring(0, 11);
             String password = data.trim().substring(13).trim();
             SignUpAndRegistration signUpAndRegistration = new RegistrationController();
             User user = signUpAndRegistration.login(phone, password);

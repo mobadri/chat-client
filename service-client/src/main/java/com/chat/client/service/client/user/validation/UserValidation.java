@@ -1,8 +1,6 @@
 package com.chat.client.service.client.user.validation;
 
 import com.chat.client.service.client.factory.ServiceClientFactory;
-import com.chat.client.service.client.user.ClientUserService;
-import com.chat.client.service.client.user.impl.ClientUserServiceImpl;
 import com.chat.server.model.user.Gender;
 import com.chat.server.model.user.User;
 
@@ -82,7 +80,7 @@ public class UserValidation {
     public Map<String, Boolean> validUser(User user) {
         User userPhone = null;
         try {
-            userPhone = ServiceClientFactory.createUserService().exsitedPhone(user.getPhone());
+            userPhone = ServiceClientFactory.createUserService().existedPhone(user.getPhone());
         } catch (RemoteException e) {
             e.printStackTrace();
         }

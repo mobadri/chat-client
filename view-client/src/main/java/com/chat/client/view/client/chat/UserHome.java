@@ -9,7 +9,6 @@ import com.chat.client.view.client.login.LoginViewController;
 import com.chat.client.view.client.notification.NotificationViewListController;
 import com.chat.client.view.client.notification.traynotifications.animations.AnimationType;
 import com.chat.client.view.client.notification.traynotifications.notification.TrayNotification;
-import com.chat.client.view.client.friend.AddFriend;
 import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
@@ -29,18 +28,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,10 +51,14 @@ import java.util.ResourceBundle;
 
 public class UserHome implements Initializable, PushNotificationInterface {
     @FXML
+    public Label userName;
+    @FXML
     private TextField searchforfriends;
     @FXML
     private Button addFriend;
-    private HomeController homeController;
+    RenderImage renderImage = new RenderImage();
+    NotificationViewListController notificationViewListcontroller;
+
     @FXML
     private ListView userList;
     @FXML
@@ -68,7 +71,10 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private AnchorPane ChatGroupAnchorPane;
     @FXML
     private AnchorPane anchorPaneNotification;
-
+    @FXML
+    private Circle userImage;
+    @FXML
+    private ImageView defaultUserImage;
     private boolean showList = true;
     ListProperty<User> myFriendsListProperty = new SimpleListProperty<>();
     private ObservableList<User> myFriendsList = FXCollections.observableArrayList();
@@ -78,9 +84,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private ObservableList<Notification> myNotificationList = FXCollections.observableArrayList();
     private List<ChatGroupController> chatGroupControllerList = new ArrayList<>();
     private List<Parent> chatViewList = new ArrayList<>();
-
-    NotificationViewListController notificationViewListcontroller ;
-
+    private HomeController homeController;
 
 
     Stage friendStage;
@@ -227,10 +231,15 @@ public class UserHome implements Initializable, PushNotificationInterface {
         }
     }
 
-
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
         pushNotificationController.setCurrentUser(currentUser);
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                setUserDataView(currentUser);
+
+            });
+        }).start();
         new Thread(() -> {
             setFriendsListView(currentUser.getFriends());
         }).start();
@@ -240,6 +249,16 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
 
         setSearchforfriends();
+    }
+
+    private void setUserDataView(User user) {
+        Image image = renderImage.convertToImage(user.getImage(), 50, 50, true, true);
+        if (image != null) {
+            userImage.setFill(new ImagePattern(image));
+        }
+        defaultUserImage.setVisible(false);
+        userName.setText(user.getFirstName() + " " + user.getLastName());
+
     }
 
     @Override
@@ -266,12 +285,14 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private void addNotificationToList(Notification notification) {
         notificationViewListcontroller.addNotification(notification);
     }
+
     @FXML
     public void showNotification(ActionEvent actionEvent) {
         anchorPaneNotification.setVisible(!isShowNotificationList);
         isShowNotificationList = !isShowNotificationList;
     }
-    private void loadNotificationList(){
+
+    private void loadNotificationList() {
         try {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/notification-list.fxml"));
             Parent load = loader.load();
@@ -282,6 +303,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
         }
 
     }
+
     public void onProfileclicked(MouseEvent mouseEvent) {
 
     }
@@ -352,17 +374,19 @@ public class UserHome implements Initializable, PushNotificationInterface {
     }*/
 
     @Override
-    public void changeFriendsStatus(User user){
+    public void changeFriendsStatus(User user) {
 
         pushNotificationController.changeFriendsStatus(user);
     }
 
     @Override
-    public void showOfflineFriends(User user){
+    public void showOfflineFriends(User user) {
 
         pushNotificationController.showOfflineFriends(user);
     }
 
     public void handleRequestsButton(ActionEvent actionEvent) {
     }
+
+
 }
