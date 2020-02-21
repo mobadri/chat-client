@@ -60,7 +60,7 @@ public interface ClientUserService extends Remote {
      * @return existed user
      * @throws RemoteException
      */
-    User exsitedPhone(String phone) throws RemoteException;
+    User existedPhone(String phone) throws RemoteException;
     /**
      * search of users
      *
@@ -78,4 +78,11 @@ public interface ClientUserService extends Remote {
      */
     boolean validatePhone(String phone) throws RemoteException;
 
+    /**
+     * User to be updated
+     * @param user
+     * @return updated user
+     * @throws RemoteException
+     */
+    User updateUserData(User user) throws RemoteException;
 }

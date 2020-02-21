@@ -1,9 +1,12 @@
 package com.chat.client.network.client.user.impl;
 
+import com.chat.client.network.client.socket_factory.RMISSLClientSocketFactory;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.user.ServerUserService;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -16,7 +19,11 @@ public class UserHandlerImpl implements UserHandler {
 
     public UserHandlerImpl() {
         try {
+
+            /*commented segments of code is connection security trail */
 //            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
+            /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
+                    PORT_NUMBER, new RMISSLClientSocketFactory());*/
             Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
             serverUserService = (ServerUserService) registry.lookup("userService");
             System.out.println(serverUserService);
@@ -49,9 +56,9 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public int removeFriend(int currentid,int friendid) {
+    public int removeFriend(int currentId,int friendId) {
         try {
-            return serverUserService.removeFriend(currentid,friendid);
+            return serverUserService.removeFriend(currentId,friendId);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -80,7 +87,7 @@ public class UserHandlerImpl implements UserHandler {
 
 
     @Override
-    public User exsitedPhone(String phone) {
+    public User existedPhone(String phone) {
         try {
             return serverUserService.getUserByPhone(phone);
         } catch (RemoteException e) {
@@ -90,13 +97,22 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public User signUp(User user) {
+    public User updateUser(User user) {
         try {
-            return serverUserService.insertUser(user);
+            return serverUserService.updateUser(user, user.getPassword());
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         return user;
     }
 
+    @Override
+    public User signUp(User user) {
+        try {
+            return serverUserService.insertUser(user, user.getPassword());
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 }

@@ -15,7 +15,10 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
 
     public FileTranseferHandlerImpl() {
 
+        /*commented segments of code is connection security trail */
         try {
+            /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
+                    PORT_NUMBER, new RMISSLClientSocketFactory());*/
             Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
             serverFileTranseferService = (ServerFileTranseferService) registry.lookup("serverFileTranseferService");
 

@@ -28,10 +28,10 @@ public interface UserHandler {
      * remove friend from my friend list
      *
      *
-     * @param friendid     friend will remove from friend list
+     * @param friendId     friend will remove from friend list
      * @return true if succeed to remove , false if failed
      */
-    int removeFriend(int currentId,int friendid);
+    int removeFriend(int currentId,int friendId);
 
     /**
      * login to the system
@@ -52,9 +52,13 @@ public interface UserHandler {
      * @param phone user phone
      * @return user if found or null if notfound
      */
-    User exsitedPhone(String phone);
+    User existedPhone(String phone);
 
-
-
-
+    /**
+     * update user data
+     *
+     * @param user to be updated
+     * @return updated user
+     */
+    User updateUser(User user);
 }
