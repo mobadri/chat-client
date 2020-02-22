@@ -78,6 +78,7 @@ public class UserHandlerImpl implements UserHandler {
         return null;
     }
 
+
     @Override
     public List<User> getAllUsers() {
         try {
@@ -98,6 +99,7 @@ public class UserHandlerImpl implements UserHandler {
         }
         return null;
     }
+
 
     @Override
     public User updateUser(User user,String password) {
