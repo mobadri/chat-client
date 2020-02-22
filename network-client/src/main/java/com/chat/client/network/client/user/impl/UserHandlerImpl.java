@@ -1,5 +1,6 @@
 package com.chat.client.network.client.user.impl;
 
+import com.chat.client.network.client.config.NetworkConfig;
 import com.chat.client.network.client.socket_factory.RMISSLClientSocketFactory;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.server.model.user.User;
@@ -14,20 +15,22 @@ import java.rmi.registry.Registry;
 import java.util.List;
 
 public class UserHandlerImpl implements UserHandler {
-    private final int PORT_NUMBER = 11223;
+    NetworkConfig networkConfig;
     ServerUserService serverUserService;
 
     public UserHandlerImpl() {
+        networkConfig = NetworkConfig.getInstance();
+        String portNumber =networkConfig.getServerPortNumber();
+        String serverIP = networkConfig.getServerIp();
         try {
 
             /*commented segments of code is connection security trail */
-//            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
+            Registry registry = LocateRegistry.getRegistry(serverIP,Integer.valueOf(portNumber));
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
-            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
+//            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
             serverUserService = (ServerUserService) registry.lookup("userService");
             System.out.println(serverUserService);
-
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
             System.out.println("something incorrect happened!!");

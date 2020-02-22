@@ -1,6 +1,7 @@
 package com.chat.client.network.client.chat.impl;
 
 import com.chat.client.network.client.chat.ChatGroupHandler;
+import com.chat.client.network.client.config.NetworkConfig;
 import com.chat.client.network.client.socket_factory.RMISSLClientSocketFactory;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
@@ -16,19 +17,22 @@ import java.util.List;
 
 public class ChatGroupHandlerImpl implements ChatGroupHandler {
 
-    private final int PORT_NUMBER = 11223;
+    NetworkConfig networkConfig;
+
     ServerChatGroupService serverChatGroupService;
 
     public ChatGroupHandlerImpl() {
-
+        networkConfig = NetworkConfig.getInstance();
+        String portNumber =networkConfig.getServerPortNumber();
+        String serverIP = networkConfig.getServerIp();
         try {
             /*commented segments of code is connection security trail */
 
-//            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
+            Registry registry = LocateRegistry.getRegistry(serverIP, Integer.valueOf(portNumber));
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
-                    PORT_NUMBER, new RMISSLClientSocketFactory());*/
+                    portNumber, new RMISSLClientSocketFactory());*/
 
-            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
+            //Registry registry = LocateRegistry.getRegistry(portNumber);
             serverChatGroupService = (ServerChatGroupService) registry.lookup("chatGroupService");
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
