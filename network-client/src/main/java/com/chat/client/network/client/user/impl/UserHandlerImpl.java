@@ -14,7 +14,7 @@ import java.rmi.registry.Registry;
 import java.util.List;
 
 public class UserHandlerImpl implements UserHandler {
-    private final int PORT_NUMBER = 44444;
+    private final int PORT_NUMBER = 11223;
     ServerUserService serverUserService;
 
     public UserHandlerImpl() {
@@ -97,9 +97,9 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public User updateUser(User user) {
+    public User updateUser(User user,String password) {
         try {
-            return serverUserService.updateUser(user, user.getPassword());
+            return serverUserService.updateUser(user,password);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -107,9 +107,9 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public User signUp(User user) {
+    public User signUp(User user,String password) {
         try {
-            return serverUserService.insertUser(user, user.getPassword());
+            return serverUserService.insertUser(user,password);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

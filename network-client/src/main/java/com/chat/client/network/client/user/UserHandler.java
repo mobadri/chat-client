@@ -42,7 +42,7 @@ public interface UserHandler {
      */
     User login(String phone, String password);
 
-    User signUp(User user);
+    User signUp(User user,String password);
 
     List<User> getAllUsers();
 
@@ -60,5 +60,5 @@ public interface UserHandler {
      * @param user to be updated
      * @return updated user
      */
-    User updateUser(User user);
+    User updateUser(User user,String password);
 }

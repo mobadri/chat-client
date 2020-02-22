@@ -1,5 +1,6 @@
 package com.chat.client.view.client.notification;
 
+import com.chat.client.view.client.chat.RenderImage;
 import com.chat.client.view.client.chat.UserHome;
 import com.chat.server.model.chat.Notification;
 import com.jfoenix.controls.JFXButton;
@@ -16,6 +17,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -27,6 +29,7 @@ import javafx.util.Callback;
 public class NotificationCellRenderer implements Callback<ListView<Notification>, ListCell<Notification>> {
 
     NotificationViewListController controller;
+    private RenderImage renderImage = new RenderImage();
 
     @Override
     public ListCell<Notification> call(ListView<Notification> p) {
@@ -39,6 +42,7 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                 setText(null);
                 JFXButton view = new JFXButton();
                 JFXButton remove = new JFXButton();
+
                 Circle circle = new Circle();
                 if (notification != null) {
                     VBox vBox = new VBox();
@@ -90,10 +94,27 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                             "    border-color: lightgrey;");*/
                     circle.setCenterX(22);
                     circle.setRadius(22);
-                    Image image = new Image(getClass().getResource("/static/images/baby.png").toString(), 50, 50, true, true);
+                    //-------------------------------------
+                    ImageView statusImageView = new ImageView();
+                    Image statusImage = new Image(getClass()
+//                            .getResource("/static/images/mode/available.png").toString(), 16, 16, true, true);
+                            .getResource("/static/images/mode/" + notification.getUserFrom().getMode().toString().toLowerCase().trim() + ".png").toString(), 36, 36, true, true);
+                    statusImageView.setImage(statusImage);
+                    Image image = renderImage.convertToImage(notification.getUserFrom().getImage(), 40, 40, false, true);
+                    if (image == null) {
+                        image = new Image(getClass().getResource("/static/images/Smile.png").toString(), 40, 40, true, false);
+                    }
+
+                    StackPane stackPane = new StackPane();
+
+                    stackPane.setMargin(statusImageView, new Insets(65, 0, 0, 45));
+
                     circle.setFill(new ImagePattern(image));
+                    stackPane.getChildren().addAll(circle, statusImageView);
+                    //---------------
+
 //                    pictureImageView.setImage(image);
-                    hBox.getChildren().addAll(circle,vBox);
+                    hBox.getChildren().addAll(stackPane,vBox);
                     //hBox.getChildren().addAll(pictureImageView,vBox);
                     hBox.setAlignment(Pos.CENTER_LEFT);
                     setPrefWidth(200);

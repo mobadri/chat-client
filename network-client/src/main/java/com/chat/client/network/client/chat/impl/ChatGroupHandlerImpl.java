@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ChatGroupHandlerImpl implements ChatGroupHandler {
 
-    private final int PORT_NUMBER = 44444;
+    private final int PORT_NUMBER = 11223;
     ServerChatGroupService serverChatGroupService;
 
     public ChatGroupHandlerImpl() {
