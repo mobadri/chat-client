@@ -21,7 +21,7 @@ public class NetworkConfig {
         DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-            Document document = documentBuilder.parse(new File("server.xml"));
+            Document document = documentBuilder.parse(new File("networkConfig.xml"));
             document.getDocumentElement().normalize();
             NodeList networkConfig1 = document.getElementsByTagName("networkConfig");
             for(int i=0;i<networkConfig1.getLength();i++){
