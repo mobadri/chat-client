@@ -84,5 +84,16 @@ public interface ClientUserService extends Remote {
      * @return updated user
      * @throws RemoteException
      */
-    User updateUserData(User user,String password) throws RemoteException;
+    User updateUserData(User user) throws RemoteException;
+
+
+    /**
+     * status Friend
+     * @param userID the id of the user
+     * @param friendID the friend id to the friend
+     * @return the friend status number
+     * @throws RemoteException
+     */
+    int statusFriend(int userID,int friendID) throws RemoteException;
+
 }

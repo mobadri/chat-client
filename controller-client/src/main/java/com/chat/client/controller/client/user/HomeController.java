@@ -51,6 +51,14 @@ public class HomeController {
         }
         return null;
     }
-
+    public  int getSatatus(int userId,int friendId)
+    {
+        try {
+            return clientUserService.statusFriend(userId, friendId);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
 }

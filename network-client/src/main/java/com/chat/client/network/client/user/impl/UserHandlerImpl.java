@@ -118,4 +118,13 @@ public class UserHandlerImpl implements UserHandler {
         }
         return user;
     }
+    @Override
+    public int friendStatus(int userID, int friendID) {
+        try {
+            return serverUserService.getStatus(userID, friendID);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
