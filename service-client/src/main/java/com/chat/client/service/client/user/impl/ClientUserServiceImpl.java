@@ -81,4 +81,8 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     public User updateUserData(User user) throws RemoteException {
         return userHandler.updateUser(user);
     }
+    @Override
+    public int statusFriend(int userID, int friendID) throws RemoteException {
+        return userHandler.friendStatus(userID,friendID);
+    }
 }
