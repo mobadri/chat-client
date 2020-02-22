@@ -3,6 +3,7 @@ package com.chat.client.network.client.user.impl;
 import com.chat.client.network.client.config.NetworkConfig;
 import com.chat.client.network.client.socket_factory.RMISSLClientSocketFactory;
 import com.chat.client.network.client.user.UserHandler;
+import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.user.ServerUserService;
 
@@ -15,8 +16,10 @@ import java.rmi.registry.Registry;
 import java.util.List;
 
 public class UserHandlerImpl implements UserHandler {
+
     private final int PORT_NUMBER = 44444;
-    ServerUserService serverUserService;
+    private ServerUserService serverUserService;
+    private NetworkConfig networkConfig;
 
     public UserHandlerImpl() {
         networkConfig = NetworkConfig.getInstance();

@@ -53,7 +53,7 @@ public interface ClientUserService extends Remote {
      * @return user to logged in
      * @throws RemoteException
      */
-    User signUp(User user) throws RemoteException;
+    User signUp(User user, String password) throws RemoteException;
 
     /**
      * search by phone

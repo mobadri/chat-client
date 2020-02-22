@@ -53,8 +53,8 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     }
 
     @Override
-    public User signup(User user) {
-        return userHandler.signUp(user);
+    public User signUp(User user, String password) {
+        return userHandler.signUp(user, password);
     }
 
     @Override
@@ -79,8 +79,8 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     }
 
     @Override
-    public User updateUserData(User user,String password) throws RemoteException {
-        return userHandler.updateUser(user,password);
+    public User updateUserData(User user) throws RemoteException {
+        return userHandler.updateUser(user, user.getPassword());
     }
     @Override
     public int statusFriend(int userID, int friendID) throws RemoteException {

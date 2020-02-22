@@ -44,7 +44,7 @@ public interface UserHandler {
      */
     User login(String phone, String password);
 
-    User signUp(User user);
+    User signUp(User user,String password);
 
     List<User> getAllUsers();
 
@@ -70,7 +70,6 @@ public interface UserHandler {
      * @return number of status;
      */
     int friendStatus (int userID,int friendID);
-    User updateUser(User user);
 
     /**
      * User to be updated
