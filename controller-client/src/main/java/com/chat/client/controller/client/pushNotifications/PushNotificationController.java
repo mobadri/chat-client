@@ -60,4 +60,8 @@ public class PushNotificationController extends UnicastRemoteObject implements N
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
+
+    public void unregisterService(){
+        clientNotificationService.unRegister(this);
+    }
 }

@@ -1,5 +1,6 @@
 package com.chat.client.service.client.user;
 
+import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 
 import java.rmi.Remote;
@@ -52,7 +53,7 @@ public interface ClientUserService extends Remote {
      * @return user to logged in
      * @throws RemoteException
      */
-    User signup(User user) throws RemoteException;
+    User signUp(User user) throws RemoteException;
 
     /**
      * search by phone
@@ -85,4 +86,14 @@ public interface ClientUserService extends Remote {
      * @throws RemoteException
      */
     User updateUserData(User user) throws RemoteException;
+
+
+    /**
+     * User to be updated
+     * @param user to update his mode
+     * @param mode new mode
+     * @return updated user
+     * @throws RemoteException
+     */
+    User updateUserMode(User user, Mode mode) throws RemoteException;
 }

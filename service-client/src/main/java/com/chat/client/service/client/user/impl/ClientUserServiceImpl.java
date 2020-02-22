@@ -4,6 +4,7 @@ import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.service.client.user.ClientUserService;
 import com.chat.client.service.client.user.validation.UserValidation;
+import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 
 import java.rmi.RemoteException;
@@ -41,8 +42,8 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
 
 
     @Override
-    public int removeFriend(int currentid,int userid) throws RemoteException {
-        return userHandler.removeFriend(currentid,userid);
+    public int removeFriend(int currentId,int friendId) throws RemoteException {
+        return userHandler.removeFriend(currentId,friendId);
     }
 
     @Override
@@ -52,7 +53,7 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     }
 
     @Override
-    public User signup(User user) {
+    public User signUp(User user) {
         return userHandler.signUp(user);
     }
 
@@ -80,5 +81,10 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     @Override
     public User updateUserData(User user) throws RemoteException {
         return userHandler.updateUser(user);
+    }
+
+    @Override
+    public User updateUserMode(User user, Mode mode) throws RemoteException {
+        return userHandler.updateUserMode(user, mode);
     }
 }

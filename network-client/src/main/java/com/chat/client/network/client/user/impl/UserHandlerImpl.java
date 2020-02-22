@@ -2,6 +2,7 @@ package com.chat.client.network.client.user.impl;
 
 import com.chat.client.network.client.socket_factory.RMISSLClientSocketFactory;
 import com.chat.client.network.client.user.UserHandler;
+import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.user.ServerUserService;
 
@@ -104,6 +105,11 @@ public class UserHandlerImpl implements UserHandler {
             e.printStackTrace();
         }
         return user;
+    }
+
+    @Override
+    public User updateUserMode(User user, Mode mode) {
+        return serverUserService.updateUserMode(user, mode);
     }
 
     @Override

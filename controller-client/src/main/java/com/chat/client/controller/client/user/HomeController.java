@@ -26,13 +26,11 @@ public class HomeController {
         }
         return 0;
     }
-    public int removeFriend(int currentid,int friendid)
-    {
-        try{
-            return clientUserService.removeFriend(currentid,friendid);
-        }
-        catch (RemoteException e)
-        {
+
+    public int removeFriend(int currentid, int friendid) {
+        try {
+            return clientUserService.removeFriend(currentid, friendid);
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
         return 0;
@@ -42,8 +40,7 @@ public class HomeController {
         return clientChatGroupService.findById(id);
     }
 
-    public List<User> findByPhone(String phone)
-    {
+    public List<User> findByPhone(String phone) {
         try {
             return clientUserService.searchByPhone(phone);
         } catch (RemoteException e) {

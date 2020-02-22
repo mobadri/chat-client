@@ -6,197 +6,28 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<AnchorPane id="AnchorPane" prefHeight="787.0" prefWidth="590.0" style="-fx-background-color: #F0F4F8;"
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXListView?>
+<AnchorPane fx:id="friendsAnchorPane" layoutX="5.0" layoutY="108.0" prefHeight="669.0" prefWidth="282.0"
+            visible="false" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="5.0"
+            AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="108.0"
+            style="-fx-background-color: #F0F4F8;"
             stylesheets="@../../static/css/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.chat.client.view.client.chat.ChatpropertiesController">
+            fx:controller="com.chat.client.view.client.user.UserFriends">
     <children>
-        <AnchorPane layoutY="143.0" prefHeight="609.0" prefWidth="480.0" style="-fx-background-color: #F0F4F8;"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-            <children>
-                <AnchorPane layoutY="14.0" prefHeight="111.0" prefWidth="480.0" style="-fx-background-color: #F0F4F8;"
-                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                    <children>
-                        <TabPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="630.0" prefWidth="575.0"
-                                 AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                            <tabs>
-                                <Tab text="Chat">
-                                    <AnchorPane prefWidth="511.0">
-                                        <children>
-                                            <AnchorPane layoutX="51.0" prefHeight="589.0" prefWidth="418.0">
-                                                <children>
-                                                    <VBox layoutX="-18.0" layoutY="69.0" maxHeight="1"
-                                                          prefHeight="520.0" prefWidth="497.0"
-                                                          AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="69.0">
-                                                        <children>
-                                                            <HBox fx:id="onlineUsersHbox" minHeight="-Infinity"
-                                                                  minWidth="-Infinity" prefHeight="57.0"
-                                                                  prefWidth="424.0"
-                                                                  stylesheets="@../../static/css/ListViewStyle.css">
-                                                                <children>
-                                                                    <Label prefHeight="50.0" prefWidth="124.0"
-                                                                           text="Online Users:" textAlignment="CENTER"
-                                                                           textFill="#fc6747">
-                                                                        <font>
-                                                                            <Font name="SansSerif Regular" size="14.0"/>
-                                                                        </font>
-                                                                        <padding>
-                                                                            <Insets left="10.0"/>
-                                                                        </padding>
-                                                                        <opaqueInsets>
-                                                                            <Insets bottom="10.0"/>
-                                                                        </opaqueInsets>
-                                                                    </Label>
-                                                                    <Label fx:id="onlineCountLabel" prefHeight="48.0"
-                                                                           prefWidth="94.0" text="0" textFill="#fc6747">
-                                                                        <opaqueInsets>
-                                                                            <Insets/>
-                                                                        </opaqueInsets>
-                                                                        <font>
-                                                                            <Font name="SansSerif Regular" size="14.0"/>
-                                                                        </font>
-                                                                    </Label>
-                                                                </children>
-                                                            </HBox>
-                                                            <ListView fx:id="userList" focusTraversable="false"
-                                                                      maxHeight="2" prefHeight="473.0" prefWidth="433.0"
-                                                                      style="-fx-border-image-width: 0;"
-                                                                      stylesheets="@../../static/css/ListViewStyle.css">
-                                                            </ListView>
-                                                        </children>
-                                                    </VBox>
-                                                    <AnchorPane fx:id="addNewContactPane" layoutX="-25.0"
-                                                                prefHeight="58.0" prefWidth="480.0"
-                                                                style="-fx-background-color: #F0F4F8;"
-                                                                AnchorPane.leftAnchor="-25.0"
-                                                                AnchorPane.rightAnchor="24.0">
-                                                        <children>
-                                                            <Button id="newContact" fx:id="newContactButton"
-                                                                    layoutX="8.0" layoutY="15.0" mnemonicParsing="false"
-                                                                    prefHeight="26.0" prefWidth="233.0"
-                                                                    text="New Contact" AnchorPane.leftAnchor="8.0"
-                                                                    AnchorPane.rightAnchor="8.0">
-                                                                <padding>
-                                                                    <Insets left="16.0" right="16.0"/>
-                                                                </padding>
-                                                                <graphic>
-                                                                    <ImageView fitHeight="26.0" fitWidth="14.0"
-                                                                               pickOnBounds="true" preserveRatio="true">
-                                                                        <image>
-                                                                            <Image url="@../../static/images/contacts.png"/>
-                                                                        </image>
-                                                                    </ImageView>
-                                                                </graphic>
-                                                            </Button>
-                                                        </children>
-                                                    </AnchorPane>
-                                                </children>
-                                            </AnchorPane>
-                                        </children>
-                                    </AnchorPane>
-                                    <graphic>
-                                        <!--                                        <Button contentDisplay="TOP" graphicTextGap="0.0" mnemonicParsing="false"-->
-                                        <!--                                                prefHeight="75.0" prefWidth="160.0" text="Chats">-->
-                                        <!--                                            <graphic>-->
-                                        <ImageView id="chatIcon" fx:id="chatIcon" fitHeight="29.0" fitWidth="29.0"
-                                                   pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../static/images/chat2.png"/>
-                                            </image>
-                                        </ImageView>
-                                        <!--                                            </graphic>-->
-                                        <!--                                        </Button>-->
-                                    </graphic>
-                                </Tab>
-                                <Tab text="Contacts">
-                                    <AnchorPane/>
-                                    <!--                                    <graphic>-->
-                                    <!--                                        <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="75.0" prefWidth="160.0" text="Contacts">-->
-                                    <graphic>
-                                        <ImageView fx:id="contactIcon" fitHeight="29.0" fitWidth="57.0"
-                                                   pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../static/images/contacts.png"/>
-                                            </image>
-                                            <viewport>
-                                                <Rectangle2D/>
-                                            </viewport>
-                                        </ImageView>
-                                    </graphic>
-                                    <!--                                        </Button>-->
-                                    <!--                                    </graphic>-->
-                                </Tab>
-                                <Tab text="Notification">
-                                    <AnchorPane/>
-                                    <!--                                    <graphic>-->
-                                    <!--                                        <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="75.0"-->
-                                    <!--                                                prefWidth="173.0" text="Notifications">-->
-                                    <graphic>
-                                        <ImageView fx:id="notificationsIcon" fitHeight="29.0" fitWidth="37.0"
-                                                   pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../static/images/bell.png"/>
-                                            </image>
-                                        </ImageView>
-                                    </graphic>
-                                    <!--                                        </Button>-->
-                                    <!--                                    </graphic>-->
-                                </Tab>
-                            </tabs>
-                            <opaqueInsets>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-                            </opaqueInsets>
-                            <cursor>
-                                <Cursor fx:constant="OPEN_HAND"/>
-                            </cursor>
-                        </TabPane>
-                    </children>
-                </AnchorPane>
-            </children>
-        </AnchorPane>
-        <AnchorPane layoutX="-1.0" prefHeight="143.0" prefWidth="310.0" style="-fx-background-color: #F0F4F8;"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-            <children>
+        <ImageView fitHeight="32.0" fitWidth="36.0" layoutX="-78.0" layoutY="111.0" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="55.0"/>
+        <JFXTextField fx:id="searchForFriends" layoutX="48.0" prefHeight="26.0" prefWidth="239.0"
+                      AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55"/>
 
-                <ImageView id="options" fitHeight="19.0" fitWidth="36.0" layoutX="272.0" layoutY="18.0"
-                           pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="16.0">
-                    <image>
-                        <Image url="@../../static/images/more.png"/>
-                    </image>
-                </ImageView>
-
-                <Label fx:id="namePerson" layoutX="103.0" layoutY="42.0" text="Yasmeen Abdelazeem">
-                    <font>
-                        <Font size="18.0"/>
-                    </font>
-                </Label>
-                <TextField fx:id="peopleSearch" layoutX="16.0" layoutY="100.0" onAction="#searchForFriend"
-                           prefHeight="29.0" prefWidth="279.0" promptText="search for people"
-                           style="-fx-border: 2px #FEFEFE; -fx-border-radius: 25px; -fx-border-width: 1px; -fx-background-color: #FFFFF;"
-                           AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0">
-                    <padding>
-                        <Insets left="32.0" right="32.0"/>
-                    </padding>
-                </TextField>
-                <ImageView fitHeight="25.0" fitWidth="14.0" layoutX="29.0" layoutY="108.0" pickOnBounds="true"
-                           preserveRatio="true" AnchorPane.leftAnchor="29.0">
-                    <image>
-                        <Image url="@../../static/images/search.png"/>
-                    </image>
-                </ImageView>
-                <ImageView id="userImage" fitHeight="85.0" fitWidth="85.0" layoutX="16.0" layoutY="11.0"
-                           pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0"
-                           AnchorPane.topAnchor="10.0">
-                    <image>
-                        <Image url="@../../static/images/profile.png"/>
-                    </image>
-                </ImageView>
-                <Label fx:id="namePerson1" layoutX="150.0" layoutY="72.0" text="Java Developer">
-                    <font>
-                        <Font size="14.0"/>
-                    </font>
-                </Label>
-            </children>
-        </AnchorPane>
+        <JFXListView fx:id="userList" focusTraversable="false" onMouseClicked="#onFriendsListClicked"
+                     prefHeight="495.0" prefWidth="272.0" style="-fx-border-image-width: 0;"
+                     stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="55"
+                     AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0">
+        </JFXListView>
+        <Button fx:id="addFriend" layoutX="14.0" layoutY="513.0" mnemonicParsing="false"
+                onMouseClicked="#addFriend" prefHeight="25.0" prefWidth="260.0" text="Add new Friend"
+                AnchorPane.bottomAnchor="5" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="8.0"/>
     </children>
 </AnchorPane>

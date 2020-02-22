@@ -26,7 +26,6 @@ public class Main extends Application {
     public static void main(String[] args) {
 
         launch(args);
-
     }
 
     @Override
@@ -44,6 +43,8 @@ public class Main extends Application {
             scene.setFill(Color.TRANSPARENT);
             primaryStage.setScene(scene);
             primaryStage.show();
+
+            primaryStage.setOnCloseRequest((e) -> System.exit(0));
       //  }
 
     }
@@ -76,11 +77,7 @@ public class Main extends Application {
             } else {
                 loadLoginPage(primaryStage);
             }
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ParserConfigurationException | SAXException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -89,6 +86,6 @@ public class Main extends Application {
         startpageController startpageController = new startpageController();
         startpageController.setStage(stage);
         stage.show();
-        startpageController.gotosigninpage(new ActionEvent());
+        startpageController.goToSignInPage(new ActionEvent());
     }
 }

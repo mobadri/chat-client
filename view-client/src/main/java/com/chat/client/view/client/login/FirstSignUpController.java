@@ -96,7 +96,9 @@ public class FirstSignUpController implements Initializable {
 
     public void setStageSignUp(Stage myStage) {
         this.stage = myStage;
+        stage.setOnCloseRequest((e) -> System.exit(0));
     }
+
 
     @FXML
     void onNextAction(ActionEvent event) {

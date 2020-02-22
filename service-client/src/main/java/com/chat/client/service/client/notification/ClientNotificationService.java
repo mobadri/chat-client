@@ -29,4 +29,6 @@ public interface ClientNotificationService {
     public List<Notification> getUserNotificationByType(User user, boolean seen, NotificationType notificationType);
 
     void register(NotificationServiceCallback notificationServiceCallback);
+
+    void unRegister(NotificationServiceCallback notificationServiceCallback);
 }

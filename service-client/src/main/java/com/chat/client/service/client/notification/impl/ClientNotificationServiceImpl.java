@@ -40,4 +40,9 @@ public class ClientNotificationServiceImpl implements ClientNotificationService 
         }
         return instance;
     }
+
+    @Override
+    public void unRegister(NotificationServiceCallback notificationServiceCallback) {
+        notificationHandler.unregister(notificationServiceCallback);
+    }
 }

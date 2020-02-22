@@ -173,14 +173,6 @@ public class UserHome implements Initializable, PushNotificationInterface {
     }
 
     @FXML
-    private void onFriendsListClicked(MouseEvent mouseEvent) {
-        User user = (User) userList.getSelectionModel().getSelectedItem();
-        if (user != null) {
-            loadFriendProfile(user);
-        }
-    }
-
-    @FXML
     public void onchatGroupListClicked(MouseEvent mouseEvent) {
         ChatGroup chatGroup = (ChatGroup) chatGroupList.getSelectionModel().getSelectedItem();
         if (chatGroup != null && chatViewList.size() > 0) {
@@ -230,6 +222,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
             e.printStackTrace();
         }
     }
+
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;

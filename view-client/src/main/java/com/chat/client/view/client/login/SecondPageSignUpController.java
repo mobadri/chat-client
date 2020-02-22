@@ -45,7 +45,6 @@ public class SecondPageSignUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
     public void setUserFromFirstPage(User user) {
@@ -54,6 +53,7 @@ public class SecondPageSignUpController implements Initializable {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+        stage.setOnCloseRequest((e) -> System.exit(0));
     }
 
     private void appendUserInfoFromSecondPage() {

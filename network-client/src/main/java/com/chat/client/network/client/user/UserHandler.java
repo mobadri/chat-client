@@ -1,7 +1,9 @@
 package com.chat.client.network.client.user;
 
+import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 public interface UserHandler {
@@ -61,4 +63,12 @@ public interface UserHandler {
      * @return updated user
      */
     User updateUser(User user);
+
+    /**
+     * User to be updated
+     * @param user to update his mode
+     * @param mode new mode
+     * @return updated user
+     */
+    User updateUserMode(User user, Mode mode);
 }

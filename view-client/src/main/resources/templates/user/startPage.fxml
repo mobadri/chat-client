@@ -29,10 +29,10 @@
                 <Image url="@../../static/images/meeting.png"/>
             </image>
         </ImageView>
-        <Button fx:id="btnStartSignUp" layoutX="65.0" layoutY="495.0" mnemonicParsing="false" onAction="#gotosignuppage"
+        <Button fx:id="btnStartSignUp" layoutX="65.0" layoutY="495.0" mnemonicParsing="false" onAction="#goToSignUpPage"
                 prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: #0078D4; -fx-background-radius: 10;"
                 text="Sign up" textFill="WHITE" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="64.0"/>
-        <Button fx:id="btnStartSignIn" layoutX="65.0" layoutY="340.0" mnemonicParsing="false" onAction="#gotosigninpage"
+        <Button fx:id="btnStartSignIn" layoutX="65.0" layoutY="340.0" mnemonicParsing="false" onAction="#goToSignInPage"
                 prefHeight="25.0" prefWidth="158.0" style="-fx-background-color: #0078D4; -fx-background-radius: 10;"
                 text="Sign in" textFill="WHITE" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="65.0"
                 AnchorPane.rightAnchor="64.0"/>

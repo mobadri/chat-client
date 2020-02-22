@@ -144,14 +144,15 @@
                         </AnchorPane>
                     </children>
                 </HBox>
-                <ImageView fitHeight="32.0" fitWidth="36.0" layoutX="-78.0" layoutY="111.0" pickOnBounds="true"
-                           preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="55.0"/>
-                <JFXTextField fx:id="searchforfriends" layoutX="48.0" prefHeight="26.0" prefWidth="239.0"
-                              AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55"/>
                 <AnchorPane fx:id="friendsAnchorPane" layoutX="5.0" layoutY="108.0" prefHeight="669.0" prefWidth="282.0"
                             visible="false" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="5.0"
-                            AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="108.0">
+                    AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="108.0">
                     <children>
+                        <ImageView fitHeight="32.0" fitWidth="36.0" layoutX="-78.0" layoutY="111.0" pickOnBounds="true"
+                                   preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="55.0"/>
+                        <JFXTextField fx:id="searchforfriends" layoutX="48.0" prefHeight="26.0" prefWidth="239.0"
+                                      AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="55"/>
+
                         <JFXListView fx:id="userList" focusTraversable="false" onMouseClicked="#onFriendsListClicked"
                                      prefHeight="495.0" prefWidth="272.0" style="-fx-border-image-width: 0;"
                                      stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="55"

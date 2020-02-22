@@ -25,8 +25,8 @@ public class startpageController implements Initializable {
     }
 
     @FXML
-    public void gotosignuppage(ActionEvent actionEvent) {
-        System.out.println("cliecked");
+    public void goToSignUpPage(ActionEvent actionEvent) {
+        System.out.println("clicked");
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/firstsignup.fxml"));
@@ -36,6 +36,7 @@ public class startpageController implements Initializable {
             FirstSignUpController firstSignUpController = loader.getController();
             firstSignUpController.setStageSignUp(stage);
             firstSignUpController.setSignUpAndRegistration(new RegistrationController());
+
             //firstSignUpController
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,8 +46,8 @@ public class startpageController implements Initializable {
     }
 
     @FXML
-    public void gotosigninpage(ActionEvent actionEvent) {
-        System.out.println("cliecked");
+    public void goToSignInPage(ActionEvent actionEvent) {
+        System.out.println("clicked");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/login.fxml"));
             Parent root = loader.load();
@@ -66,6 +67,8 @@ public class startpageController implements Initializable {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+        stage.setOnCloseRequest((e) -> {
+            System.exit(0);
+        });
     }
-
 }

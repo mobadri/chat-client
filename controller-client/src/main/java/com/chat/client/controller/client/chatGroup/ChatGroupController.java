@@ -62,5 +62,7 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
         return this.currentUser.getId();
     }
 
-
+    public void unregisterService(){
+        messageService.unRegister(this);
+    }
 }

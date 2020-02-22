@@ -26,7 +26,7 @@ public class RegistrationController implements SignUpAndRegistration {
     @Override
     public User signUp(User user) {
         try {
-            return clientUserService.signup(user);
+            return clientUserService.signUp(user);
 
         } catch (RemoteException e) {
             e.printStackTrace();

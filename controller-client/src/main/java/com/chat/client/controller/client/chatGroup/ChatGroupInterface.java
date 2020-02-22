@@ -10,4 +10,6 @@ public interface ChatGroupInterface {
     void receiveMessage(Message message);
 
     void setChatGroup(ChatGroup chatGroup);
+
+    void unregisterService();
 }

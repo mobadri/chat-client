@@ -32,23 +32,13 @@ import org.controlsfx.dialog.FontSelectorDialog;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class ChatViewController implements Initializable, ChatGroupInterface {
-    @FXML
-    public JFXComboBox sizeComboBox;
-    @FXML
-    public JFXButton boldButton;
-    @FXML
-    public JFXButton italicButton;
-    @FXML
-    public JFXComboBox fontComboBox;
-    @FXML
-    public JFXColorPicker fontColorPicker;
-
-    @FXML
     ChatGroupInterface chatGroupInterface;
 
     @FXML
@@ -65,6 +55,15 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     @FXML
     private VBox messageBox;
+
+    @FXML
+    private ComboBox sizeComboBox;
+
+    @FXML
+    private ComboBox fontComboBox;
+
+    @FXML
+    private ColorPicker fontColorPicker;
 
     private Color currentColor = Color.BLACK;
 
@@ -278,6 +277,11 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         style.setItalic(!style.isItalic());
         messageContent.setStyle(style.toString());
 
+    }
+
+    @Override
+    public void unregisterService() {
+        chatGroupInterface.unregisterService();
     }
 
 
