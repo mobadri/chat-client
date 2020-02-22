@@ -81,7 +81,7 @@ public class SecondPageSignUpController implements Initializable {
 
         SignUpAndRegistration signUpAndRegistration = new RegistrationController();
         System.out.println("fxml : " + user);
-        User savedUser = signUpAndRegistration.signUp(this.user);
+        User savedUser = signUpAndRegistration.signUp(this.user,user.getPassword());
         if (savedUser.getId() > 0) {
             loadNextPage(savedUser);
         }

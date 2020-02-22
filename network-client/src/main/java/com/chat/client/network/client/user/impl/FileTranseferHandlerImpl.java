@@ -1,5 +1,6 @@
 package com.chat.client.network.client.user.impl;
 
+import com.chat.client.network.client.config.NetworkConfig;
 import com.chat.client.network.client.user.FileTransferHandeler;
 import com.chat.client.service.client.callback.FileTransferServiceCallBack;
 import com.chat.server.service.server.fileTransfer.ServerFileTranseferService;
@@ -10,16 +11,20 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
 public class FileTranseferHandlerImpl implements FileTransferHandeler {
-    private final int PORT_NUMBER = 44444;
+    NetworkConfig networkConfig;
     private ServerFileTranseferService serverFileTranseferService;
 
     public FileTranseferHandlerImpl() {
+        networkConfig = NetworkConfig.getInstance();
+        String portNumber =networkConfig.getServerPortNumber();
+        String serverIP = networkConfig.getServerIp();
 
         /*commented segments of code is connection security trail */
         try {
+            Registry registry = LocateRegistry.getRegistry(serverIP, Integer.valueOf(portNumber));
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
-            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
+//            Registry registry = LocateRegistry.getRegistry(portNumber);
             serverFileTranseferService = (ServerFileTranseferService) registry.lookup("serverFileTranseferService");
 
         } catch (RemoteException | NotBoundException e) {

@@ -1,5 +1,6 @@
 package com.chat.client.network.client.notifocation.impl;
 
+import com.chat.client.network.client.config.NetworkConfig;
 import com.chat.client.network.client.notifocation.NotificationHandler;
 import com.chat.client.network.client.socket_factory.RMISSLClientSocketFactory;
 import com.chat.client.service.client.callback.NotificationServiceCallback;
@@ -22,20 +23,20 @@ import java.util.List;
 
 public class NotificationHandlerImpl implements NotificationHandler {
 
-    private final static int PORT_NUMBER = 44444;
+    NetworkConfig networkConfig;
     ServerNotificationService notificationService;
 
     public NotificationHandlerImpl() {
-
+        networkConfig = NetworkConfig.getInstance();
+        String portNumber =networkConfig.getServerPortNumber();
+        String serverIP = networkConfig.getServerIp();
         try {
-
-
-//            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
+            Registry registry = LocateRegistry.getRegistry(serverIP, Integer.valueOf(portNumber));
 
             /*commented segments of code is connection security trail */
            /* Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
-            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
+//            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
             notificationService = (ServerNotificationService) registry.lookup("notificationService");
 
         } catch (RemoteException | NotBoundException e) {

@@ -1,8 +1,8 @@
 package com.chat.client.network.client.user.impl;
 
+import com.chat.client.network.client.config.NetworkConfig;
 import com.chat.client.network.client.socket_factory.RMISSLClientSocketFactory;
 import com.chat.client.network.client.user.UserHandler;
-import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.user.ServerUserService;
 
@@ -19,6 +19,9 @@ public class UserHandlerImpl implements UserHandler {
     ServerUserService serverUserService;
 
     public UserHandlerImpl() {
+        networkConfig = NetworkConfig.getInstance();
+        String portNumber =networkConfig.getServerPortNumber();
+        String serverIP = networkConfig.getServerIp();
         try {
 
             /*commented segments of code is connection security trail */
@@ -98,9 +101,9 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public User updateUser(User user) {
+    public User updateUser(User user,String password) {
         try {
-            return serverUserService.updateUser(user, user.getPassword());
+            return serverUserService.updateUser(user,password);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -113,12 +116,21 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public User signUp(User user) {
+    public User signUp(User user,String password) {
         try {
-            return serverUserService.insertUser(user, user.getPassword());
+            return serverUserService.insertUser(user,password);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         return user;
+    }
+    @Override
+    public int friendStatus(int userID, int friendID) {
+        try {
+            return serverUserService.getStatus(userID, friendID);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

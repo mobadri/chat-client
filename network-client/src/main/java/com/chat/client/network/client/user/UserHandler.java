@@ -62,6 +62,14 @@ public interface UserHandler {
      * @param user to be updated
      * @return updated user
      */
+    User updateUser(User user,String password);
+    /**
+     * friend status
+     * @param userID id for the user
+     * @param friendID id for the friend
+     * @return number of status;
+     */
+    int friendStatus (int userID,int friendID);
     User updateUser(User user);
 
     /**

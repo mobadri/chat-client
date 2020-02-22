@@ -9,7 +9,7 @@ public interface SignUpAndRegistration {
 
     User login(String Phone, String Password);
 
-    User signUp(User user);
+    User signUp(User user,String password);
 
     Map<String, Boolean> validate(User user) throws RemoteException;
 

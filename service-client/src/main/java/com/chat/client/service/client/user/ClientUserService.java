@@ -89,6 +89,17 @@ public interface ClientUserService extends Remote {
 
 
     /**
+     * status Friend
+     * @param userID the id of the user
+     * @param friendID the friend id to the friend
+     * @return the friend status number
+     * @throws RemoteException
+     */
+    int statusFriend(int userID,int friendID) throws RemoteException;
+
+
+
+    /**
      * User to be updated
      * @param user to update his mode
      * @param mode new mode

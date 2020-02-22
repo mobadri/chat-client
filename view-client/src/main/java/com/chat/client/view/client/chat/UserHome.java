@@ -256,10 +256,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     @Override
     public void receiveNotification(Notification notification) {
-
-
         Platform.runLater(() ->
-
         {
             Image profileImg = new Image(getClass().getResource("/static/images/AddPic.png").toString(), 50, 50, false, false);
             TrayNotification tray = new TrayNotification();
@@ -271,8 +268,10 @@ public class UserHome implements Initializable, PushNotificationInterface {
             tray.showAndDismiss(Duration.seconds(5));
             tray.setNotificationType(NotificationType.MESSAGE_RECEIVED);
             addNotificationToList(notification);
+            System.out.println("send proplem");
         });
-        System.out.println(notification);
+        //System.out.println(notification);
+        System.out.println("send proplem");
     }
 
     private void addNotificationToList(Notification notification) {

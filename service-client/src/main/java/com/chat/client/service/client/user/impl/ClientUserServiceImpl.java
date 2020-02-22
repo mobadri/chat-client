@@ -42,8 +42,8 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
 
 
     @Override
-    public int removeFriend(int currentId,int friendId) throws RemoteException {
-        return userHandler.removeFriend(currentId,friendId);
+    public int removeFriend(int currentid,int userid) throws RemoteException {
+        return userHandler.removeFriend(currentid,userid);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     }
 
     @Override
-    public User signUp(User user) {
+    public User signup(User user) {
         return userHandler.signUp(user);
     }
 
@@ -79,8 +79,12 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     }
 
     @Override
-    public User updateUserData(User user) throws RemoteException {
-        return userHandler.updateUser(user);
+    public User updateUserData(User user,String password) throws RemoteException {
+        return userHandler.updateUser(user,password);
+    }
+    @Override
+    public int statusFriend(int userID, int friendID) throws RemoteException {
+        return userHandler.friendStatus(userID,friendID);
     }
 
     @Override

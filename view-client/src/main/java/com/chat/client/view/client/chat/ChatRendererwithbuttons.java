@@ -22,7 +22,7 @@ import javafx.util.Callback;
 import java.util.List;
 
 public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCell<User>> {
-   List<User> friends;
+    List<User> friends;
     static String friendAdded ="Add Friend";
     static String friendRemoved ="Remove Friend";
     Button buttonaddFriend,removeFriend ;
@@ -87,9 +87,12 @@ public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCel
                     else
                     {
                         buttonaddFriend = new Button(friendAdded);
+
                         buttonaddFriend.setStyle(  "-fx-background-color: #0078D4; -fx-background-radius: 20; -fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-alignment: CENTER;");
                         hboxButtons.getChildren().addAll(buttonaddFriend,buttonviewProfile);
-                       handleAddOrRemoveButton(user,buttonaddFriend);
+                        handleAddOrRemoveButton(user,buttonaddFriend);
+                        int status = homeController.getSatatus(currentUser.getId(),user.getId());
+                        getStatusbyNumber(status,buttonaddFriend);
                     }
 
 
@@ -104,10 +107,10 @@ public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCel
     Boolean isFriend(User user )
     {
         return
-        friends.parallelStream().anyMatch(user1 -> {
-            return
-            user1.getId()==user.getId()?true:false;
-        });
+                friends.parallelStream().anyMatch(user1 -> {
+                    return
+                            user1.getId()==user.getId()?true:false;
+                });
     }
 
     public void handleAddOrRemoveButton(User user, Button button){
@@ -135,13 +138,12 @@ public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCel
                     Platform.runLater(new Runnable() {
                         @Override
                         public void run() {
-                           int numberofRows = homeController.addFriend(currentUser,user);
-                           if(numberofRows>0) {
-                               System.out.println("This is Number of Friend added" + numberofRows);
-                               String freindRequest = "Friend Request";
-
-                               button.setText(freindRequest);
-                           }
+                            int numberofRows = homeController.addFriend(currentUser,user);
+                            if(numberofRows>0) {
+                                System.out.println("This is Number of Friend added" + numberofRows);
+                                int status = homeController.getSatatus(currentUser.getId(),user.getId());
+                                getStatusbyNumber(status,buttonaddFriend);
+                            }
                             System.out.println("" + currentUser.getFirstName() + user.getFirstName());
                         }
                     });
@@ -151,8 +153,21 @@ public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCel
             }
         });
     }
+    public void getStatusbyNumber(int status,Button buttonaddFriend)
+    {
+        if(status==0)
+        {
+            buttonaddFriend.setText("Request Friend");
+        }
+        else if(status==1)
+        {
+            buttonaddFriend.setText("Remove Friend");
+        }
+        else if(status ==2)
+        {
+            buttonaddFriend.setText("Rejected");
+        }
 
+    }
 
 }
-
-
