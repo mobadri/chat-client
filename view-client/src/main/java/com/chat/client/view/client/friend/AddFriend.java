@@ -1,7 +1,7 @@
 package com.chat.client.view.client.friend;
 
 import com.chat.client.controller.client.user.HomeController;
-import com.chat.client.view.client.chat.ChatRendererwithbuttons;
+import com.chat.client.view.client.chat.render.ChatRendererwithbuttons;
 import com.chat.server.model.user.User;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -22,7 +22,7 @@ public class AddFriend implements Initializable {
     private TextField phoneNumberSearch;
     @FXML
     private ListView usersListView;
-private User currentUser;
+    private User currentUser;
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
@@ -42,7 +42,7 @@ private User currentUser;
 
         //all user for testing the list view
         HomeController homeController = new HomeController();
-         List<User> users = homeController.findByPhone(phone);
+        List<User> users = homeController.findByPhone(phone);
         System.out.println("User is = " + users.size());
         allUsers = FXCollections.observableList(users);
         System.out.println(users.size());

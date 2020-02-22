@@ -3,9 +3,7 @@ package com.chat.client.view.client.user;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.UserHomeInterface;
-import com.chat.client.view.client.chat.CellRenderer;
-import com.chat.client.view.client.chat.ChatGroupCellRenderer;
-import com.chat.client.view.client.chat.RenderImage;
+import com.chat.client.view.client.chat.render.RenderImage;
 import com.chat.client.view.client.notification.NotificationViewListController;
 import com.chat.client.view.client.notification.traynotifications.animations.AnimationType;
 import com.chat.client.view.client.notification.traynotifications.notification.TrayNotification;
@@ -33,7 +31,6 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -71,7 +68,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-       Platform.runLater(this::loadNotificationList);
+        Platform.runLater(this::loadNotificationList);
     }
 
     public UserViewHome() {
@@ -121,6 +118,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     /**
      * show my profile
+     *
      * @param mouseEvent
      */
     @FXML
@@ -158,7 +156,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     //-----------------------------view section-------------------------------------
     //------------------------------------------------------------------------------
 
-    public Parent loadUserProfile(User user){
+    public Parent loadUserProfile(User user) {
 
         try {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/User_profile.fxml"));
@@ -202,9 +200,10 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     public void receiveNotification(Notification notification) {
         Platform.runLater(() ->
         {
-           // Image profileImg = new Image(getClass().getResource("/static/images/AddPic.png").toString(), 50, 50, false, false);
-            Image userImage = renderImage.convertToImage(notification.getUserFrom().getImage(), 22, 22, false, false);
-
+            // Image profileImg = new Image(getClass().getResource("/static/images/AddPic.png").toString(), 50, 50, false, false);
+            Image userImage = renderImage.convertToImage(notification.getUserFrom().getImage());
+//            Circle circle = new Circle(22);
+//            circle.setFill(new ImagePattern(userImage));
             TrayNotification tray = new TrayNotification();
             tray.setTitle(notification.getNotificationType().toString());
             tray.setMessage(notification.getNotificationMessage());
@@ -227,6 +226,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     public void showOfflineFriends(User user) {
 
     }
+
     private void addNotificationToList(Notification notification) {
         notificationViewListcontroller.addNotification(notification);
     }
@@ -249,6 +249,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     /**
      * set current user data
+     *
      * @param currentUser
      */
     public void setCurrentUser(User currentUser) {
@@ -257,6 +258,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     /**
      * set home controller reference
+     *
      * @param userHomeInterface object from user home controller
      */
     public void setUserHomeInterface(UserHomeInterface userHomeInterface) {

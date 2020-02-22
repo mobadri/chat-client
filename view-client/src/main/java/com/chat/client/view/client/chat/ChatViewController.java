@@ -2,31 +2,29 @@ package com.chat.client.view.client.chat;
 
 
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
+import com.chat.client.view.client.chat.render.MessageCellRenderer;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
 import com.chat.server.model.chat.Style;
 import com.chat.server.model.user.User;
 import com.jfoenix.controls.*;
 import javafx.application.Platform;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import org.controlsfx.dialog.FontSelectorDialog;
 
 import java.io.File;
@@ -36,59 +34,67 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
-import java.util.stream.Collectors;
 
 public class ChatViewController implements Initializable, ChatGroupInterface {
-    ChatGroupInterface chatGroupInterface;
 
+    ChatGroupInterface chatGroupInterface;
+    //----------------------------------------------------------------------
+    //---------------------------view section ------------------------------
+    //--------------------------------------- ------------------------------
     @FXML
-    private Label userName;
+    private JFXComboBox<Integer> sizeComboBox;
+    @FXML
+    private JFXButton boldButon;
+    @FXML
+    private JFXButton italicButton;
+    @FXML
+    private JFXColorPicker fontColorPicker;
+    @FXML
+    private JFXListView messageListView;
     @FXML
     private JFXTextArea messageContent;
     @FXML
     private ColorPicker colorChooser;
     @FXML
     private Button chooseFontButton;
+    @FXML
+    private Label chatGroupName;
+    //----------------------------------------------------------------------
+    //---------------------------data section ------------------------------
+    //--------------------------------------- ------------------------------
+    private ObservableList<Message> messageObservableList = FXCollections.observableArrayList();
+    private ListProperty<Message> messageListProperty = new SimpleListProperty<>();
     private User currentUser;
     private ChatGroup currentChatGroup;
-    private Style style;
-
-    @FXML
-    private VBox messageBox;
-
-    @FXML
-    private ComboBox sizeComboBox;
-
-    @FXML
-    private ComboBox fontComboBox;
-
-    @FXML
-    private ColorPicker fontColorPicker;
-
+    private Style defualtStyle;
     private Color currentColor = Color.BLACK;
+
+    public ChatViewController() {
+        defualtStyle = new Style();
+        defualtStyle.setFontName("Arial");
+        defualtStyle.setFontFamily("Arial");
+        defualtStyle.setBackground("white");
+        defualtStyle.setFontColor("black");
+        defualtStyle.setFontSize(14);
+        defualtStyle.setBold(false);
+        defualtStyle.setItalic(false);
+        defualtStyle.setUnderline(false);
+
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         new Thread(() -> {
             Platform.runLater(() -> {
-                loadFontFamily();
+//                loadFontFamily();
                 loadSize();
             });
         }).start();
 
-    }
-
-    public ChatViewController() {
-        style = new Style();
-        style.setFontName("Arial");
-        style.setFontFamily("Arial");
-        style.setBackground("white");
-        style.setFontColor("black");
-        style.setFontSize(14);
-        style.setBold(false);
-        style.setItalic(false);
-        style.setUnderline(false);
-
+        messageListProperty.set(messageObservableList);
+        messageListView.itemsProperty().bindBidirectional(messageListProperty);
+        messageListView.setItems(messageListProperty);
+        messageListView.setCellFactory(new MessageCellRenderer());
     }
 
     @FXML
@@ -101,24 +107,11 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         String messageContentText = messageContent.getText();
         Message message = new Message();
         message.setMessage(messageContentText);
-        message.setStyle(style);
+        message.setStyle(defualtStyle);
         message.setChatGroup(currentChatGroup);
         message.setTimestamp(LocalDate.now());
         message.setUserFrom(currentUser);
         return message;
-    }
-
-    public void setUser(User user) {
-        System.out.println("set user data");
-        this.currentUser = user;
-        Platform.runLater(() ->
-                userName.setText(user.getFirstName() + " " + user.getLastName())
-        );
-
-    }
-
-    public void setChatGroupInterface(ChatGroupInterface chatGroupInterface) {
-        this.chatGroupInterface = chatGroupInterface;
     }
 
     @Override
@@ -128,7 +121,9 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     @Override
     public void receiveMessage(Message message) {
-        showReceivedMessage(message);
+        Platform.runLater(() -> {
+            showReceivedMessage(message);
+        });
     }
 
     @Override
@@ -158,82 +153,9 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         fontSelector.showAndWait().ifPresent(messageContent::setFont);
     }
 
-
-//    public void showSentMessage(User user) {
-//
-//        Text text = new Text(user.getMessage());
-//        text.setTextAlignment(TextAlignment.JUSTIFY);
-//        text.setStyle("-fx-fill: white; -fx-font-size: 15;");
-//
-//        ImageView imageView = getImageView(user);
-//
-//        Label label = new Label(user.getUserName(), imageView);
-//        label.setContentDisplay(ContentDisplay.BOTTOM);
-//
-//        HBox hBox = new HBox(10);
-//        hBox.setPadding(new Insets(5, 10, 2, 10));
-//
-//        FlowPane pane = new FlowPane();
-//        pane.getChildren().add(text);
-//        pane.setAlignment(Pos.BASELINE_RIGHT);
-//        pane.setHgap(15);
-//        pane.setPrefHeight(45);
-//        pane.setStyle(" -fx-background-radius: 10px; -fx-background-color:#7D1B7E ;");
-//
-//        hBox.getChildren().addAll(pane, label);
-//        hBox.setAlignment(Pos.BASELINE_RIGHT);
-//
-//        Platform.runLater(() -> {
-//            vBox.getChildren().add(hBox);
-//        });
-//    }
-
     public void showReceivedMessage(Message message) {
-
-        Text text = new Text(message.getMessage());
-        text.setTextAlignment(TextAlignment.JUSTIFY);
-//        text.setStyle("-fx-fill: black; -fx-font-size: 15;");
-        text.setStyle(message.getStyle().toString());
-        System.out.println(message.getStyle());
-
-//        ImageView imageView = getImageView(message.get);
-
-        Label label = new Label(message.getUserFrom().getFirstName()
-                + " " + message.getUserFrom().getLastName());
-        label.setContentDisplay(ContentDisplay.BOTTOM);
-
-        HBox hBox = new HBox(10);
-        hBox.setPadding(new Insets(5, 10, 2, 10));
-
-        FlowPane pane = new FlowPane();
-        pane.getChildren().add(text);
-        pane.setAlignment(Pos.BASELINE_LEFT);
-        pane.setHgap(15);
-        pane.setPrefHeight(45);
-        pane.setStyle(" -fx-background-radius: 10px;" + message.getStyle().toString());
-
-        hBox.getChildren().addAll(label, pane);
-        hBox.setAlignment(Pos.BASELINE_LEFT);
-
-        Platform.runLater(() -> {
-            messageBox.getChildren().add(hBox);
-        });
+        messageObservableList.add(message);
     }
-
-//    private ImageView getImageView(User user) {
-//
-//        ImageView imageView = null;
-//        try {
-//            imageView = new ImageView(new Image(new FileInputStream(user.getPhotoPath())));
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        imageView.setFitWidth(20);
-//        imageView.setFitHeight(20);
-//        imageView.setPreserveRatio(true);
-//        return imageView;
-//    }
-
 
     @FXML
     public void openFile(MouseEvent mouseEvent) {
@@ -258,24 +180,21 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         sizeComboBox.setItems(FXCollections.observableList(sizes));
     }
 
-    private void loadFontFamily() {
-        List<String> fontFamilies = Font.getFamilies().parallelStream().sorted().
-                collect(Collectors.toList());
-        fontComboBox.setItems(FXCollections.observableList(fontFamilies));
-
-        System.out.println(fontFamilies);
-    }
+//    private void loadFontFamily() {
+//        List<String> fontFamilies = Font.getFamilies().parallelStream().sorted().
+//                collect(Collectors.toList());
+//        fontComboBox.setItems(FXCollections.observableList(fontFamilies));
+//    }
 
 
     public void onClickBoldBuuton(ActionEvent actionEvent) {
-
-        style.setBold(!style.isBold());
-        messageContent.setStyle(style.toString());
+        defualtStyle.setBold(!defualtStyle.isBold());
+        messageContent.setStyle(defualtStyle.toString());
     }
 
     public void onClickItalicButton(ActionEvent actionEvent) {
-        style.setItalic(!style.isItalic());
-        messageContent.setStyle(style.toString());
+        defualtStyle.setItalic(!defualtStyle.isItalic());
+        messageContent.setStyle(defualtStyle.toString());
 
     }
 
@@ -284,24 +203,76 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         chatGroupInterface.unregisterService();
     }
 
-
-    public void onClickFontComboBox(ActionEvent actionEvent) {
-        style.setFontName(fontComboBox.getValue().toString());
-        messageContent.setStyle(style.toString());
-        System.out.println(style.getFontName());
-    }
+//
+//    public void onClickFontComboBox(ActionEvent actionEvent) {
+//        defualtStyle.setFontName(fontComboBox.getValue().toString());
+//        messageContent.setStyle(defualtStyle.toString());
+//        System.out.println(defualtStyle.getFontName());
+//    }
 
     public void onClickSizeComboBox(ActionEvent actionEvent) {
-        style.setFontSize(Integer.parseInt(sizeComboBox.getValue().toString()));
-        messageContent.setStyle(style.toString());
-        System.out.println(style.getFontSize());
+        defualtStyle.setFontSize(sizeComboBox.getValue());
+        messageContent.setStyle(defualtStyle.toString());
+        System.out.println(defualtStyle.getFontSize());
+    }
+
+    @FXML
+    private void onClickColorPicker(ActionEvent actionEvent) {
+        defualtStyle.setFontColor(format(fontColorPicker.getValue()));
+        messageContent.setStyle(defualtStyle.toString());
+        System.out.println(format(fontColorPicker.getValue()));
 
     }
 
+    //-------------------------------------------------------------------------
+    //----------------------------data section ------------------------------
+    //-------------------------------------------------------------------------
+    private String getFont(String messageFont, Color color) {
+        messageFont = messageFont.substring(5, messageFont.length() - 1);
 
-    public void onClickColorPicker(ActionEvent actionEvent) {
-        style.setFontColor(format(fontColorPicker.getValue()));
-        messageContent.setStyle(style.toString());
+        Font font = new Font(12);
+        StringTokenizer stringTokenizer = new StringTokenizer(messageFont, ",");
+        String name = stringTokenizer.nextToken().split("=")[1];
+        String family = stringTokenizer.nextToken().split("=")[1];
+        String style = stringTokenizer.nextToken().split("=")[1];
+        String size = stringTokenizer.nextToken().split("=")[1];
+        System.out.println(name + ", " + family + ", " + style + ", " + size);
 
+        StringBuilder stringBuilder = new StringBuilder();
+        defualtStyle.setFontColor(format(color));
+        defualtStyle.setFontName(name);
+        defualtStyle.setFontFamily(family);
+        defualtStyle.setFontSize(Integer.parseInt(size));
+        defualtStyle.setBold(style.contains("bold"));
+        defualtStyle.setItalic(style.contains("Italic"));
+        defualtStyle.setUnderline(style.contains("underline"));
+
+        stringBuilder.append("-fx-fill:" + format(color) + ";");
+        stringBuilder.append("-fx-font-name:" + name + ";");
+        stringBuilder.append("-fx-font-family:" + family + ";");
+        stringBuilder.append("-fx-font-size:" + size + ";");
+        stringBuilder.append("-fx-font-weight:" + style + ";");
+
+        return stringBuilder.toString();
     }
+
+
+    //-------------------------------------------------------------------------
+    //----------------------------setter section ------------------------------
+    //-------------------------------------------------------------------------
+
+    public void setUser(User user) {
+        this.currentUser = user;
+    }
+
+    public void setCurrentChatGroup(ChatGroup currentChatGroup) {
+        this.currentChatGroup = currentChatGroup;
+        chatGroupName.setText(currentChatGroup.getName());
+    }
+
+    public void setChatGroupInterface(ChatGroupInterface chatGroupInterface) {
+        this.chatGroupInterface = chatGroupInterface;
+    }
+
+
 }

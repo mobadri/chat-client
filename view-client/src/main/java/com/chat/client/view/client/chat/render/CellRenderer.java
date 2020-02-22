@@ -1,4 +1,4 @@
-package com.chat.client.view.client.chat;
+package com.chat.client.view.client.chat.render;
 
 import com.chat.server.model.user.User;
 import javafx.geometry.Insets;
@@ -44,7 +44,7 @@ public class CellRenderer implements Callback<ListView<User>, ListCell<User>> {
 //                            .getResource("/static/images/mode/available.png").toString(), 16, 16, true, true);
                             .getResource("/static/images/mode/" + user.getMode().toString().toLowerCase().trim() + ".png").toString(), 36, 36, true, true);
                     statusImageView.setImage(statusImage);
-                    Image image = renderImage.convertToImage(user.getImage(), 40, 40, false, true);
+                    Image image = renderImage.convertToImage(user.getImage());
                     if (image == null) {
                         image = new Image(getClass().getResource("/static/images/Smile.png").toString(), 40, 40, true, false);
                     }

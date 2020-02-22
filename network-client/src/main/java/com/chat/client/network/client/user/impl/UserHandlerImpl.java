@@ -1,14 +1,11 @@
 package com.chat.client.network.client.user.impl;
 
 import com.chat.client.network.client.config.NetworkConfig;
-import com.chat.client.network.client.socket_factory.RMISSLClientSocketFactory;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.user.ServerUserService;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -17,13 +14,12 @@ import java.util.List;
 
 public class UserHandlerImpl implements UserHandler {
 
-    private final int PORT_NUMBER = 44444;
     private ServerUserService serverUserService;
     private NetworkConfig networkConfig;
 
     public UserHandlerImpl() {
         networkConfig = NetworkConfig.getInstance();
-        String portNumber =networkConfig.getServerPortNumber();
+        String portNumber = networkConfig.getServerPortNumber();
         String serverIP = networkConfig.getServerIp();
         try {
 
@@ -31,7 +27,7 @@ public class UserHandlerImpl implements UserHandler {
 //            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
-            Registry registry = LocateRegistry.getRegistry(PORT_NUMBER);
+            Registry registry = LocateRegistry.getRegistry(serverIP, Integer.parseInt(portNumber));
             serverUserService = (ServerUserService) registry.lookup("userService");
             System.out.println(serverUserService);
 
@@ -63,9 +59,9 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public int removeFriend(int currentId,int friendId) {
+    public int removeFriend(int currentId, int friendId) {
         try {
-            return serverUserService.removeFriend(currentId,friendId);
+            return serverUserService.removeFriend(currentId, friendId);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -104,9 +100,9 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public User updateUser(User user,String password) {
+    public User updateUser(User user, String password) {
         try {
-            return serverUserService.updateUser(user,password);
+            return serverUserService.updateUser(user, password);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -119,14 +115,15 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public User signUp(User user,String password) {
+    public User signUp(User user, String password) {
         try {
-            return serverUserService.insertUser(user,password);
+            return serverUserService.insertUser(user, password);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         return user;
     }
+
     @Override
     public int friendStatus(int userID, int friendID) {
         try {

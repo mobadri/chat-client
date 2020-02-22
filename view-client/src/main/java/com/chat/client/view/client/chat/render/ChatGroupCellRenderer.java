@@ -1,4 +1,4 @@
-package com.chat.client.view.client.chat;
+package com.chat.client.view.client.chat.render;
 
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
@@ -55,4 +55,5 @@ public class ChatGroupCellRenderer implements Callback<ListView<ChatGroup>, List
         };
         return cell;
     }
+
 }

@@ -1,12 +1,9 @@
 package com.chat.client.view.client.notification;
 
-import com.chat.client.view.client.chat.RenderImage;
-import com.chat.client.view.client.chat.UserHome;
+import com.chat.client.view.client.chat.render.RenderImage;
 import com.chat.server.model.chat.Notification;
 import com.jfoenix.controls.JFXButton;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -54,8 +51,8 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                             + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
                             + "-fx-border-radius: 5;" + "-fx-border-color: gray;");
 
-                    Label notificationFrom = new Label(notification.getUserFrom().getFirstName()+" "
-                            +notification.getUserFrom().getLastName());
+                    Label notificationFrom = new Label(notification.getUserFrom().getFirstName() + " "
+                            + notification.getUserFrom().getLastName());
                     notificationFrom.setTextFill(Color.WHITE);
                     notificationFrom.setFont(Font.font(12));
                     notificationFrom.setTextFill(Color.BLACK);
@@ -69,21 +66,21 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                     view.setText(" View ");
                     view.setTextAlignment(TextAlignment.CENTER);
                     view.setStyle("-fx-background-color: lightgrey ;" +
-                            "  -fx-text-fill: dimgray;" );
-                    handleViewButton(notification,view);
+                            "  -fx-text-fill: dimgray;");
+                    handleViewButton(notification, view);
 
 
                     remove.setText("Remove");
                     remove.setTextAlignment(TextAlignment.CENTER);
                     remove.setStyle("-fx-background-color: lightgrey ;" +
-                            "  -fx-text-fill: dimgray;" );
-                    handleRemoveButton(notification,remove);
+                            "  -fx-text-fill: dimgray;");
+                    handleRemoveButton(notification, remove);
 
-                    hBox1.getChildren().addAll(view,remove);
+                    hBox1.getChildren().addAll(view, remove);
                     hBox1.setSpacing(8);
 
-                    vBox.getChildren().addAll(notificationFrom,notificationContent,hBox1);
-                    vBox.setPadding(new Insets(0,0,0,0));
+                    vBox.getChildren().addAll(notificationFrom, notificationContent, hBox1);
+                    vBox.setPadding(new Insets(0, 0, 0, 0));
                     vBox.layout();
                     ImageView pictureImageView = new ImageView();
                    /* pictureImageView.setStyle("width: 24px;\n" +
@@ -92,30 +89,27 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                             "    border-style: solid;\n" +
                             "    border-width: 1px;\n" +
                             "    border-color: lightgrey;");*/
-                    circle.setCenterX(22);
-                    circle.setRadius(22);
+                    circle.setCenterX(32);
+                    circle.setRadius(32);
                     //-------------------------------------
                     ImageView statusImageView = new ImageView();
                     Image statusImage = new Image(getClass()
 //                            .getResource("/static/images/mode/available.png").toString(), 16, 16, true, true);
                             .getResource("/static/images/mode/" + notification.getUserFrom().getMode().toString().toLowerCase().trim() + ".png").toString(), 36, 36, true, true);
                     statusImageView.setImage(statusImage);
-                    Image image = renderImage.convertToImage(notification.getUserFrom().getImage(), 40, 40, false, true);
+                    Image image = renderImage.convertToImage(notification.getUserFrom().getImage());
                     if (image == null) {
                         image = new Image(getClass().getResource("/static/images/Smile.png").toString(), 40, 40, true, false);
                     }
 
                     StackPane stackPane = new StackPane();
 
-                    stackPane.setMargin(statusImageView, new Insets(65, 0, 0, 45));
+                    stackPane.setMargin(statusImageView, new Insets(32, 0, 0, 32));
 
                     circle.setFill(new ImagePattern(image));
                     stackPane.getChildren().addAll(circle, statusImageView);
-                    //---------------
 
-//                    pictureImageView.setImage(image);
-                    hBox.getChildren().addAll(stackPane,vBox);
-                    //hBox.getChildren().addAll(pictureImageView,vBox);
+                    hBox.getChildren().addAll(stackPane, vBox);
                     hBox.setAlignment(Pos.CENTER_LEFT);
                     setPrefWidth(200);
                     hBox.setMaxWidth(220);
@@ -127,7 +121,7 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
         return cell;
     }
 
-    public void handleViewButton(Notification notification,Button button){
+    public void handleViewButton(Notification notification, Button button) {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -137,7 +131,7 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
         });
     }
 
-    public void handleRemoveButton(Notification notification,Button button){
+    public void handleRemoveButton(Notification notification, Button button) {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {

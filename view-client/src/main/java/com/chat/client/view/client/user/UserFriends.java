@@ -1,6 +1,6 @@
 package com.chat.client.view.client.user;
 
-import com.chat.client.view.client.chat.CellRenderer;
+import com.chat.client.view.client.chat.render.CellRenderer;
 import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.user.User;
 import javafx.collections.FXCollections;

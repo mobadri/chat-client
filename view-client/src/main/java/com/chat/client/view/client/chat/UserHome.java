@@ -4,6 +4,9 @@ import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
+import com.chat.client.view.client.chat.render.CellRenderer;
+import com.chat.client.view.client.chat.render.ChatGroupCellRenderer;
+import com.chat.client.view.client.chat.render.RenderImage;
 import com.chat.client.view.client.friend.AddFriend;
 import com.chat.client.view.client.login.LoginViewController;
 import com.chat.client.view.client.notification.NotificationViewListController;
@@ -35,6 +38,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -64,13 +68,13 @@ public class UserHome implements Initializable, PushNotificationInterface {
     @FXML
     private ListView chatGroupList;
     @FXML
-    private AnchorPane containerPane;
+    private StackPane containerPane;
     @FXML
     private AnchorPane friendsAnchorPane;
     @FXML
     private AnchorPane ChatGroupAnchorPane;
     @FXML
-    private AnchorPane anchorPaneNotification;
+    private StackPane anchorPaneNotification;
     @FXML
     private Circle userImage;
     @FXML
@@ -245,7 +249,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
     }
 
     private void setUserDataView(User user) {
-        Image image = renderImage.convertToImage(user.getImage(), 50, 50, true, true);
+        Image image = renderImage.convertToImage(user.getImage());
         if (image != null) {
             userImage.setFill(new ImagePattern(image));
         }
@@ -381,4 +385,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
     }
 
 
+    public void onFriendsListClicked(MouseEvent mouseEvent) {
+
+    }
 }

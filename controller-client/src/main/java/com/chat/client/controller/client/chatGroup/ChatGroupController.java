@@ -9,11 +9,14 @@ import com.chat.server.model.user.User;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatGroupController extends UnicastRemoteObject implements ChatGroupInterface
         , MessageServiceCallBack {
 
     private ClientMessageService messageService = ServiceClientFactory.createMessageService();
+    private List<ChatGroupController> chatGroupControllerList = new ArrayList<>();
     private ChatGroupInterface chatGroupInterface;
 
     private ChatGroup chatGroup;
@@ -25,8 +28,7 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
 
 
     @Override
-    public void sendMessage(Message message)
-    {
+    public void sendMessage(Message message) {
 
         messageService.sendMessage(message);
     }
@@ -38,8 +40,7 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
 
 
     @Override
-    public void receiveMessage(Message message)
-    {
+    public void receiveMessage(Message message) {
         chatGroupInterface.receiveMessage(message);
     }
 
@@ -62,7 +63,11 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
         return this.currentUser.getId();
     }
 
-    public void unregisterService(){
+    public void unregisterService() {
         messageService.unRegister(this);
+    }
+
+    public List<ChatGroupController> getChatGroupControllerList() {
+        return chatGroupControllerList;
     }
 }
