@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified"
+           elementFormDefault="qualified">
+    <xs:element name="messages" type="messagesType"/>
+    <xs:complexType name="styleType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="font-color"/>
+            <xs:element type="xs:string" name="font-name"/>
+            <xs:element type="xs:string" name="font-family"/>
+            <xs:element type="xs:string" name="font-size"/>
+            <xs:element type="xs:string" name="font-weight"/>
+            <xs:element type="xs:string" name="fill-background"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="userFromType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="id"/>
+            <xs:element type="xs:string" name="firstName"/>
+            <xs:element type="xs:string" name="lastName"/>
+            <xs:element type="xs:string" name="phone"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="chatGroupType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="id"/>
+            <xs:element type="xs:string" name="name"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="messageType">
+        <xs:sequence>
+            <xs:element type="xs:string" name="id"/>
+            <xs:element type="xs:string" name="messageContent"/>
+            <xs:element type="styleType" name="style"/>
+            <xs:element type="userFromType" name="userFrom"/>
+            <xs:element type="chatGroupType" name="chatGroup"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="messagesType">
+        <xs:sequence>
+            <xs:element type="messageType" name="message" maxOccurs="unbounded" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

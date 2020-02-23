@@ -2,6 +2,7 @@ package com.chat.client.view.client.chat;
 
 
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
+import com.chat.client.controller.client.message.MessageControllerImpl;
 import com.chat.client.view.client.chat.render.MessageCellRenderer;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
@@ -54,7 +55,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     @FXML
     private JFXTextArea messageContent;
     @FXML
-    private ColorPicker colorChooser;
+    private ColorPicker backgroundColorPicker;
     @FXML
     private Button chooseFontButton;
     @FXML
@@ -64,21 +65,15 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     //--------------------------------------- ------------------------------
     private ObservableList<Message> messageObservableList = FXCollections.observableArrayList();
     private ListProperty<Message> messageListProperty = new SimpleListProperty<>();
+    private MessageControllerImpl messageController = new MessageControllerImpl();
     private User currentUser;
     private ChatGroup currentChatGroup;
     private Style defualtStyle;
     private Color currentColor = Color.BLACK;
+    private Color bgColor = Color.WHITE;
 
     public ChatViewController() {
-        defualtStyle = new Style();
-        defualtStyle.setFontName("Arial");
-        defualtStyle.setFontFamily("Arial");
-        defualtStyle.setBackground("white");
-        defualtStyle.setFontColor("black");
-        defualtStyle.setFontSize(14);
-        defualtStyle.setBold(false);
-        defualtStyle.setItalic(false);
-        defualtStyle.setUnderline(false);
+        setDefaultStyle();
 
     }
 
@@ -95,6 +90,8 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         messageListView.itemsProperty().bindBidirectional(messageListProperty);
         messageListView.setItems(messageListProperty);
         messageListView.setCellFactory(new MessageCellRenderer());
+        messageContent.setStyle(defualtStyle.toString());
+
     }
 
     @FXML
@@ -124,6 +121,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         Platform.runLater(() -> {
             showReceivedMessage(message);
         });
+        currentChatGroup.getMessages().add(message);
     }
 
     @Override
@@ -131,14 +129,14 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         this.currentChatGroup = chatGroup;
     }
 
-    @FXML
-    private void changeTextColor(ActionEvent actionEvent) {
-        Color color = colorChooser.getValue();
-        System.out.println(color.toString());
-        currentColor = color;
-        messageContent.setStyle("-fx-text-inner-color :" + format(color) + ";");
-
-    }
+//    @FXML
+//    private void changeTextColor(ActionEvent actionEvent) {
+//        Color color = colorChooser.getValue();
+//        System.out.println(color.toString());
+//        currentColor = color;
+//        messageContent.setStyle("-fx-text-inner-color :" + format(color) + ";");
+//
+//    }
 
     private String format(Color c) {
         int r = (int) (255 * c.getRed());
@@ -160,6 +158,29 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     @FXML
     public void openFile(MouseEvent mouseEvent) {
 
+    }
+
+    @FXML
+    private void saveMessages(MouseEvent mouseEvent) {
+        messageController.saveMessages(currentChatGroup.getMessages(), "messages.xml");
+    }
+
+    @FXML
+    private void onClickFontColorPicker(ActionEvent actionEvent) {
+        Color color = fontColorPicker.getValue();
+        currentColor = color;
+//        System.out.println(color.toString());
+        defualtStyle.setFontColor(format(color));
+        System.out.println(defualtStyle.toString());
+        messageContent.setStyle(defualtStyle.toString());
+    }
+
+    @FXML
+    private void onClickBackgroundColorPicker(ActionEvent actionEvent) {
+        Color color = backgroundColorPicker.getValue();
+        bgColor = color;
+        defualtStyle.setBackground(format(color));
+        messageContent.setStyle(defualtStyle.toString());
     }
 
 
@@ -198,10 +219,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     }
 
-    @Override
-    public void unregisterService() {
-        chatGroupInterface.unregisterService();
-    }
 
 //
 //    public void onClickFontComboBox(ActionEvent actionEvent) {
@@ -216,13 +233,31 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         System.out.println(defualtStyle.getFontSize());
     }
 
-    @FXML
-    private void onClickColorPicker(ActionEvent actionEvent) {
-        defualtStyle.setFontColor(format(fontColorPicker.getValue()));
-        messageContent.setStyle(defualtStyle.toString());
-        System.out.println(format(fontColorPicker.getValue()));
+//    @FXML
+//    private void onClickColorPicker(ActionEvent actionEvent) {
+//        defualtStyle.setFontColor(format(fontColorPicker.getValue()));
+//        messageContent.setStyle(defualtStyle.toString());
+//        System.out.println(format(fontColorPicker.getValue()));
+//
+//    }
 
+    //-----------------------------------------------------------------------
+    //----------------------------view section ------------------------------
+    //-------------------------------------------------------------------------
+    private void setDefaultStyle() {
+        defualtStyle = new Style();
+        defualtStyle.setFontName("Arial");
+        defualtStyle.setFontFamily("Arial");
+        defualtStyle.setBackground("white");
+        defualtStyle.setFontColor("black");
+        defualtStyle.setFontSize(16);
+        defualtStyle.setBold(false);
+        defualtStyle.setItalic(false);
+        defualtStyle.setUnderline(false);
+        defualtStyle.setFontColor(format(currentColor));
+        defualtStyle.setBackground(format(bgColor));
     }
+
 
     //-------------------------------------------------------------------------
     //----------------------------data section ------------------------------
@@ -256,6 +291,10 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         return stringBuilder.toString();
     }
 
+    @Override
+    public void unregisterService() {
+        chatGroupInterface.unregisterService();
+    }
 
     //-------------------------------------------------------------------------
     //----------------------------setter section ------------------------------
