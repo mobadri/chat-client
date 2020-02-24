@@ -28,10 +28,10 @@ public class NotificationHandlerImpl implements NotificationHandler {
 
     public NotificationHandlerImpl() {
         networkConfig = NetworkConfig.getInstance();
-        String portNumber =networkConfig.getServerPortNumber();
+        int portNumber =networkConfig.getServerPortNumber();
         String serverIP = networkConfig.getServerIp();
         try {
-            Registry registry = LocateRegistry.getRegistry(serverIP, Integer.valueOf(portNumber));
+            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
 
             /*commented segments of code is connection security trail */
            /* Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),

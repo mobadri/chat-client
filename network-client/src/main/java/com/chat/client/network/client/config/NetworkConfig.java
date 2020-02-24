@@ -15,7 +15,7 @@ import java.io.IOException;
 public class NetworkConfig {
     private static NetworkConfig instance;
     private String serverIp;
-    private String serverPortNumber;
+    private int serverPortNumber;
 
     private NetworkConfig() {
         DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
@@ -28,7 +28,8 @@ public class NetworkConfig {
                 Node item = networkConfig1.item(i);
                 Element eElement = (Element) item;
                 this.serverIp = eElement.getElementsByTagName("server-ip").item(i).getTextContent().trim();
-               this.serverPortNumber = eElement.getElementsByTagName("server-port").item(i).getTextContent().trim();
+                String trim = eElement.getElementsByTagName("server-port").item(i).getTextContent().trim();
+                this.serverPortNumber = Integer.valueOf(trim);
             }
         } catch (SAXException e) {
             e.printStackTrace();
@@ -43,7 +44,7 @@ public class NetworkConfig {
         return serverIp;
     }
 
-    public String getServerPortNumber() {
+    public int getServerPortNumber() {
         return serverPortNumber;
     }
 
