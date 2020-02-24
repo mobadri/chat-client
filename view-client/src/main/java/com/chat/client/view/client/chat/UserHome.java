@@ -4,6 +4,7 @@ import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
+import com.chat.client.controller.client.user.HomeControllerImpl;
 import com.chat.client.view.client.chat.render.CellRenderer;
 import com.chat.client.view.client.chat.render.ChatGroupCellRenderer;
 import com.chat.client.view.client.chat.render.RenderImage;
@@ -16,6 +17,7 @@ import com.chat.client.view.client.user.UserProfileController;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
 import com.chat.server.model.chat.NotificationType;
+import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
@@ -28,12 +30,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -44,6 +44,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.PropertySheet;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,6 +57,8 @@ import java.util.ResourceBundle;
 public class UserHome implements Initializable, PushNotificationInterface {
     @FXML
     public Label userName;
+    @FXML
+    public Circle modeColor;
     @FXML
     private TextField searchforfriends;
     @FXML
@@ -384,5 +387,46 @@ public class UserHome implements Initializable, PushNotificationInterface {
 
     public void onFriendsListClicked(MouseEvent mouseEvent) {
 
+    }
+
+    @FXML
+    public void onPictureClick(MouseEvent mouseEvent) {
+        ListView<Mode> listView = handleUserMode();
+        listView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        Mode mode = listView.getSelectionModel().getSelectedItem();
+        if (mode != null) {
+            System.out.println(mode);
+            HomeControllerImpl homeController = new HomeControllerImpl();
+            switch (mode) {
+                case AWAY:
+                    modeColor.setFill(Paint.valueOf("RED"));
+                    System.out.println("oooooooooooo");
+                    homeController.changeMode(currentUser, Mode.AWAY);
+                    break;
+                case BUSY:
+                    modeColor.setFill(Paint.valueOf("#52FF07"));
+                    homeController.changeMode(currentUser, Mode.BUSY);
+                    break;
+                case AVAILABLE:
+                    modeColor.setFill(Paint.valueOf("#FFDB90"));
+                    homeController.changeMode(currentUser, Mode.AVAILABLE);
+                    break;
+            }
+        }
+
+    }
+
+    private ListView handleUserMode() {
+        ObservableList<Mode> modeList = FXCollections.observableArrayList(Mode.AWAY, Mode.BUSY, Mode.AVAILABLE);
+        ListView<Mode> modes = new ListView<>(modeList);
+        modes.setOrientation(Orientation.VERTICAL);
+        modes.setPrefSize(100, 120);
+        StackPane root = new StackPane();
+        root.getChildren().add(modes);
+        Scene scen = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scen);
+        stage.show();
+        return modes;
     }
 }
