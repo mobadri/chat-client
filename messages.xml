@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<messages>
+    <message>
+        <id>0</id>
+        <messageContent>test</messageContent>
+        <style>
+            <font-color>#000000</font-color>
+            <font-name>Arial</font-name>
+            <font-family>Arial</font-family>
+            <font-size>16.0</font-size>
+            <font-weight></font-weight>
+            <fill-background>#ffffff</fill-background>
+        </style>
+        <userFrom>
+            <id>110</id>
+            <firstName>ahmed</firstName>
+            <lastName>shaheen</lastName>
+            <phone>01061510304</phone>
+        </userFrom>
+        <chatGroup>
+            <id>1</id>
+            <name>iti</name>
+        </chatGroup>
+    </message>
+</messages>
