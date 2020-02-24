@@ -272,10 +272,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
             tray.showAndDismiss(Duration.seconds(5));
             tray.setNotificationType(NotificationType.MESSAGE_RECEIVED);
             addNotificationToList(notification);
-            System.out.println("send proplem");
         });
-        //System.out.println(notification);
-        System.out.println("send proplem");
     }
 
     private void addNotificationToList(Notification notification) {

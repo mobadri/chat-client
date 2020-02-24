@@ -13,6 +13,7 @@ module service.client {
     requires serviceclientcallback;
     requires chat.bot;
     requires repository.server;
+    requires java.xml.bind;
     opens com.chat.client.service.client.factory;
     opens com.chat.client.service.client.user;
     opens com.chat.client.service.client.user.impl;

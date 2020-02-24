@@ -33,6 +33,7 @@
                        minWidth="-Infinity" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 100;"
                        styleClass="parent"/>
                 <ImageView fx:id="CallPic" fitHeight="40.0" fitWidth="40.0" layoutX="418.0" layoutY="36.0"
+                           onMouseClicked="#saveMessages"
                            pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="142.0"
                            AnchorPane.topAnchor="36.0">
                     <image>
@@ -118,7 +119,7 @@
                                            onAction="#onClickItalicButton" prefHeight="49.0" prefWidth="54.0" text="I"
                                            textAlignment="CENTER"/>
                                 <JFXColorPicker id="fontColorPicker" fx:id="fontColorPicker"
-                                                onAction="#onClickColorPicker" prefHeight="26.0" prefWidth="90.0"
+                                                onAction="#onClickFontColorPicker" prefHeight="26.0" prefWidth="90.0"
                                                 promptText="choose font color ..."
                                                 style="-fx-color-label-visible: false;" HBox.hgrow="ALWAYS">
                                     <value>
@@ -126,8 +127,8 @@
                                     </value>
                                 </JFXColorPicker>
                                 <JFXColorPicker id="backgroundColorPicker" fx:id="backgroundColorPicker"
-                                                onAction="#onClickColorPicker" prefHeight="26.0" prefWidth="90.0"
-                                                promptText="choose font color ..."
+                                                onAction="#onClickBackgroundColorPicker" prefHeight="26.0"
+                                                prefWidth="90.0" promptText="choose font color ..."
                                                 style="-fx-color-label-visible: false;" HBox.hgrow="ALWAYS">
                                     <value>
                                         <Color/>
@@ -145,9 +146,9 @@
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
                         <JFXListView fx:id="messageListView" prefHeight="200.0" prefWidth="200.0"
-                                     stylesheets="@../../static/css/ListViewStyle.css"
-                                     AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                     AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                     stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="0.0"
+                                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                     AnchorPane.topAnchor="0.0"/>
                     </children>
                 </AnchorPane>
             </children>
