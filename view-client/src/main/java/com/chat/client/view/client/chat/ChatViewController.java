@@ -16,7 +16,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Dialog;
@@ -29,6 +32,7 @@ import javafx.stage.Stage;
 import org.controlsfx.dialog.FontSelectorDialog;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -85,7 +89,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
                 loadSize();
             });
         }).start();
-
         messageListProperty.set(messageObservableList);
         messageListView.itemsProperty().bindBidirectional(messageListProperty);
         messageListView.setItems(messageListProperty);
@@ -155,10 +158,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         messageObservableList.add(message);
     }
 
-    @FXML
-    public void openFile(MouseEvent mouseEvent) {
-
-    }
 
     @FXML
     private void saveMessages(MouseEvent mouseEvent) {
@@ -187,10 +186,25 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     public void handleSendingFile(MouseEvent mouseEvent) {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(new Stage());
-        System.out.println(file.getPath());
-
+        if (file != null) {
+            loadFxmlFileTransefer(file);
+        }
     }
 
+    public void loadFxmlFileTransefer(File file) {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/TransferFile.fxml"));
+            Parent root = loader.load();
+            TransferFileController transferFileController = loader.getController();
+            transferFileController.setNameOfFile(file.getPath());
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void loadSize() {
         List<Integer> sizes = new ArrayList<>();
@@ -303,6 +317,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     public void setUser(User user) {
         this.currentUser = user;
     }
+
 
     public void setCurrentChatGroup(ChatGroup currentChatGroup) {
         this.currentChatGroup = currentChatGroup;

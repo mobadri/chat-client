@@ -1,12 +1,13 @@
 package com.chat.client.network.client.user;
 
 import com.chat.client.service.client.callback.FileTransferServiceCallBack;
+import com.healthmarketscience.rmiio.RemoteInputStream;
 
 public interface FileTransferHandeler {
 
-    public void sendFile(String fileName, byte[] data, int length);
+        void sendFile(String nameFile, RemoteInputStream remoteInputStream);
 
-    void register(FileTransferServiceCallBack fileTransferServiceCallBack);
+        void register(FileTransferServiceCallBack fileTransferServiceCallBack);
 
-    void unregister(FileTransferServiceCallBack fileTransferServiceCallBack);
+        void unregister(FileTransferServiceCallBack fileTransferServiceCallBack);
 }

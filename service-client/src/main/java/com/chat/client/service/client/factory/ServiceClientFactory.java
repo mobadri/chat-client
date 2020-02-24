@@ -3,6 +3,7 @@ package com.chat.client.service.client.factory;
 import com.chat.client.service.client.chat.ClientChatGroupService;
 import com.chat.client.service.client.chat.impl.ClientChatGroupServiceImpl;
 import com.chat.client.service.client.fileTransfer.ClientFileTransferService;
+import com.chat.client.service.client.fileTransfer.impl.ClientFileTransferServiceImpl;
 import com.chat.client.service.client.message.ClientMessageService;
 import com.chat.client.service.client.message.impl.ClientMessageServiceImpl;
 import com.chat.client.service.client.notification.ClientNotificationService;
@@ -38,5 +39,8 @@ public class ServiceClientFactory {
         return ClientChatGroupServiceImpl.createChatGroupServiceInstance();
     }
 
+    public static ClientFileTransferService createClientFileTransferService() {
+        return ClientFileTransferServiceImpl.createFileTransferServiceInstance();
 
+    }
 }
