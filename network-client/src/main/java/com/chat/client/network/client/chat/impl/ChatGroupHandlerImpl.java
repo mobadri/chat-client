@@ -92,14 +92,17 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
         return chatGroup;
     }
 
+
+
     @Override
-    public ChatGroup addUser(ChatGroup chatGroup, User user) {
+    public boolean addUser(int chatGroup, int user) {
         try {
             return serverChatGroupService.addFriend(chatGroup, user);
+
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return null;
+        return false;
     }
 
     @Override

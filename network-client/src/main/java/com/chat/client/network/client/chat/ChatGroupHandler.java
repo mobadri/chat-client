@@ -53,7 +53,7 @@ public interface ChatGroupHandler {
      * @param user user to added
      * @return updated chat group
      */
-    public ChatGroup addUser(ChatGroup chatGroup, User user);
+    public boolean addUser(int chatGroup, int user);
 
     /**
      * add user to group

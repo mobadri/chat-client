@@ -57,4 +57,9 @@ public class ClientChatGroupServiceImpl implements ClientChatGroupService {
     public ChatGroup findById(int id) {
         return chatGroupHandler.getChatGroupByID(id);
     }
+
+    @Override
+    public boolean addUserToGroup(int chatGroup, int user) {
+        return chatGroupHandler.addUser(chatGroup,user);
+    }
 }

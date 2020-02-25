@@ -43,4 +43,13 @@ public interface UserHomeInterface {
      * @return list of groups
      */
     List<ChatGroup> getAllChatGroups(User currentUser);
+
+    /**
+     * Add Friend to chatGroup
+     * @param chatGroup to add on it
+     * @param user to add in the chat
+     * @return chatgroup
+     */
+    boolean  addFriend(int chatGroup,int user);
+
 }
