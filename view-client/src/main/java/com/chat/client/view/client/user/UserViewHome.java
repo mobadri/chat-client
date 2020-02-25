@@ -1,8 +1,13 @@
 package com.chat.client.view.client.user;
 
+import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
+import com.chat.client.controller.client.user.HomeController;
 import com.chat.client.controller.client.user.UserHomeInterface;
+import com.chat.client.view.client.chat.ChatGroupListViewController;
+import com.chat.client.view.client.chat.ChatViewController;
+import com.chat.client.view.client.chat.render.ChatGroupCellRenderer;
 import com.chat.client.view.client.chat.render.RenderImage;
 import com.chat.client.view.client.notification.NotificationViewListController;
 import com.chat.client.view.client.notification.traynotifications.animations.AnimationType;
@@ -12,6 +17,7 @@ import com.chat.server.model.chat.Notification;
 import com.chat.server.model.chat.NotificationType;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
+import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,17 +26,20 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -41,28 +50,32 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private AnchorPane containerPane;
     @FXML
     private AnchorPane anchorPaneNotification;
-
-    @FXML
-    private ListView chatGroupList;
-
-    @FXML
-    private AnchorPane friendsAnchorPane;
     @FXML
     private AnchorPane ChatGroupAnchorPane;
     @FXML
     private Circle userImage;
-
+    @FXML
+    private ImageView defaultUserImage;
+    @FXML
+    public Label userName;
 
     //------------------------------data section-----------------------------
     private User currentUser;
     private UserHomeInterface userHomeInterface;
     private PushNotificationController pushNotificationController;
     private NotificationViewListController notificationViewListcontroller;
+    private ChatGroupListViewController chatGroupListViewController;
+    private UserFriends userFriendsController;
+    private HomeController homeController;
     private RenderImage renderImage = new RenderImage();
-
 
     private boolean showList = true;
     private boolean isShowNotificationList;
+    private Parent friendsPane;
+    private Parent groupsPane;
+
+    private List<Parent> chatViewList = new ArrayList<>();
+    private List<ChatGroupController> chatGroupControllerList = new ArrayList<>();
 
     private ObservableList<ChatGroup> chatGroupObservableList = FXCollections.observableArrayList();
 
@@ -75,7 +88,31 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         try {
             pushNotificationController = new PushNotificationController();
             pushNotificationController.setPushNotifications(this);
-        } catch (RemoteException e) {
+            homeController = new HomeController();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadFriendsListView(){
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/user-friends.fxml"));
+        try {
+            friendsPane = loader.load();
+            userFriendsController = loader.getController();
+            userFriendsController.setCurrentUser(currentUser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadChatGroupListView(){
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/chat/chat-group-listview.fxml"));
+        try {
+            groupsPane = loader.load();
+            chatGroupListViewController = loader.getController();
+            chatGroupListViewController.setCurrentUser(currentUser);
+            chatGroupListViewController.setUserHome(this);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -127,29 +164,27 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         containerPane.getChildren().setAll(root);
     }
 
-    //todo show notification list
     @FXML
     private void showNotificationList(ActionEvent actionEvent) {
         anchorPaneNotification.setVisible(!isShowNotificationList);
         isShowNotificationList = !isShowNotificationList;
     }
 
-    //todo logout
     @FXML
     private void logoOut(MouseEvent mouseEvent) {
         logout(currentUser);
     }
 
-    //todo show friend list
     @FXML
     private void viewFriendList(ActionEvent actionEvent) {
-
+        ChatGroupAnchorPane.getChildren().clear();
+        ChatGroupAnchorPane.getChildren().add(friendsPane);
     }
 
-
     @FXML
-    private void onChatGroupListClicked(MouseEvent mouseEvent) {
-
+    private void viewChatGroupsList(ActionEvent actionEvent) {
+        ChatGroupAnchorPane.getChildren().clear();
+        ChatGroupAnchorPane.getChildren().add(groupsPane);
     }
 
     //------------------------------------------------------------------------------
@@ -170,28 +205,38 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         return null;
     }
 
-   /* private void setChatGroupListView(List<ChatGroup> chatGroups) {
+    private void loadChatGroup(ChatGroup chatGroup) {
 
-      chatGroupObservableList = FXCollections.observableList(chatGroups);
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/chat/chat-view.fxml"));
+            Parent root = loader.load();
+            //view controller
+            ChatViewController chatViewController = loader.getController();
+            chatViewController.setUser(currentUser);
+            chatViewController.setChatGroup(chatGroup);
+            //---------
+            //add ref to each other
+            //app controller
+            ChatGroupController chatGroupInterface = new ChatGroupController();
+            chatGroupInterface.setChatGroupInterface(chatViewController);
+            chatViewController.setChatGroupInterface(chatGroupInterface);
 
-        myChatGroupsList = FXCollections.observableList(chatGroups);
-        new Thread(() -> {
-            List<ChatGroup> groups = new ArrayList<>();
-            for (ChatGroup chatGroup : chatGroups) {
-                groups.add(homeController.getById(chatGroup.getId()));
-            }
+            chatGroupInterface.setChatGroup(chatGroup);
+            chatGroupInterface.setCurrentUser(currentUser);
 
-            Platform.runLater(() -> {
-                myChatGroupsList = FXCollections.observableList(groups);
-                chatGroupList.setItems(myChatGroupsList);
-                loadAllChatGroupViewOnMemory(myChatGroupsList);
-            });
-        }).start();
-        chatGroupList.setItems(myChatGroupsList);
-        chatGroupList.setCellFactory(new ChatGroupCellRenderer());
-    }*/
+            chatGroupControllerList.add(chatGroupInterface);
+            chatViewList.add(root);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-
+    private void loadAllChatGroupViewOnMemory(ObservableList<ChatGroup> myChatGroupsList) {
+        for (ChatGroup chatGroup : myChatGroupsList) {
+            System.out.println(chatGroup.getId());
+            loadChatGroup(chatGroup);
+        }
+    }
     //------------------------------------------------------------------------------
     //----------------------------Notification Section -----------------------------
     //------------------------------------------------------------------------------
@@ -200,10 +245,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     public void receiveNotification(Notification notification) {
         Platform.runLater(() ->
         {
-            // Image profileImg = new Image(getClass().getResource("/static/images/AddPic.png").toString(), 50, 50, false, false);
             Image userImage = renderImage.convertToImage(notification.getUserFrom().getImage());
-//            Circle circle = new Circle(22);
-//            circle.setFill(new ImagePattern(userImage));
             TrayNotification tray = new TrayNotification();
             tray.setTitle(notification.getNotificationType().toString());
             tray.setMessage(notification.getNotificationMessage());
@@ -247,14 +289,59 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     //--------------------------setter section--------------------------------------
     //------------------------------------------------------------------------------
 
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+        pushNotificationController.setCurrentUser(currentUser);
+        loadFriendsListView();
+        loadChatGroupListView();
+
+        new Thread(() -> {
+            Platform.runLater(() -> {
+                setUserDataView(currentUser);
+
+            });
+        }).start();
+        new Thread(() -> {
+            setChatGroupListView(currentUser.getChatGroups());
+        }).start();
+
+    }
+
+    private void setUserDataView(User user) {
+        Image image = renderImage.convertToImage(user.getImage());
+        if (image != null) {
+            userImage.setFill(new ImagePattern(image));
+        }
+        defaultUserImage.setVisible(false);
+        userName.setText(user.getFirstName() + " " + user.getLastName());
+
+    }
+
+    private void setChatGroupListView(List<ChatGroup> chatGroups) {
+        chatGroupObservableList = FXCollections.observableList(chatGroups);
+        JFXListView<ChatGroup> chatGroupListView = chatGroupListViewController.getChatGroupListView();
+
+        new Thread(() -> {
+            List<ChatGroup> groups = new ArrayList<>();
+            for (ChatGroup chatGroup : chatGroups) {
+                groups.add(homeController.getById(chatGroup.getId()));
+            }
+
+            Platform.runLater(() -> {
+                chatGroupObservableList = FXCollections.observableList(groups);
+                chatGroupListView.setItems(chatGroupObservableList);
+                loadAllChatGroupViewOnMemory(chatGroupObservableList);
+            });
+        }).start();
+        chatGroupListView.setItems(chatGroupObservableList);
+        chatGroupListView.setCellFactory(new ChatGroupCellRenderer());
+    }
+
     /**
      * set current user data
      *
      * @param currentUser
      */
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
-    }
 
     /**
      * set home controller reference
@@ -263,5 +350,17 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
      */
     public void setUserHomeInterface(UserHomeInterface userHomeInterface) {
         this.userHomeInterface = userHomeInterface;
+    }
+
+    public ObservableList<ChatGroup> getChatGroupObservableList() {
+        return chatGroupObservableList;
+    }
+
+    public void setOnMainPane(Parent node){
+        containerPane.getChildren().setAll(node);
+    }
+
+    public List<Parent> getChatViewList() {
+        return chatViewList;
     }
 }

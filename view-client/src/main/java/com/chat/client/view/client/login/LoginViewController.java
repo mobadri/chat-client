@@ -3,6 +3,7 @@ package com.chat.client.view.client.login;
 import com.chat.client.controller.client.user.login.RememberMeController;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.client.view.client.chat.UserHome;
+import com.chat.client.view.client.user.UserViewHome;
 import com.chat.server.model.user.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -117,10 +118,12 @@ public class LoginViewController implements Initializable {
         //;
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/templates/user/user-home.fxml"));
+//                    getClass().getResource("/templates/user/user-home.fxml"));
+                    getClass().getResource("/templates/user/user-home-copy.fxml"));
             root = loader.load();
-            UserHome userHome = loader.getController();
-            userHome.setCurrentUser(user);
+            //UserHome userHome = loader.getController();
+            UserViewHome userViewHome = loader.getController();
+            userViewHome.setCurrentUser(user);
             stage.setMaximized(true);
             stage.setFullScreen(true);
             stage.setScene(new Scene(root));

@@ -89,6 +89,7 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
 
     @Override
     public User updateUserMode(User user, Mode mode) throws RemoteException {
-        return userHandler.updateUserMode(user, mode);
+        userHandler.updateUserMode(user, mode);
+        return user;
     }
 }

@@ -1,6 +1,7 @@
 package com.chat.client.view.client.chat;
 
 import com.chat.client.view.client.chat.render.ChatGroupCellRenderer;
+import com.chat.client.view.client.user.UserViewHome;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 import com.jfoenix.controls.JFXButton;
@@ -25,6 +26,7 @@ public class ChatGroupListViewController implements Initializable {
 
     @FXML
     private JFXButton newGroupBtn;
+
     @FXML
     private JFXListView<ChatGroup> chatGroupListView;
 
@@ -40,7 +42,7 @@ public class ChatGroupListViewController implements Initializable {
     //----------------------------------------------------------------
 
     // parent home
-    private UserHome userHome;
+    private UserViewHome userHome;
 
     // current login user
     private User currentUser;
@@ -83,16 +85,29 @@ public class ChatGroupListViewController implements Initializable {
     }
 
     /**
+     * set user home view reference for current view
+     * @param userHome current parent
+     */
+    public void setUserHome(UserViewHome userHome) {
+        this.userHome = userHome;
+    }
+
+    public JFXListView<ChatGroup> getChatGroupListView() {
+        return chatGroupListView;
+    }
+
+    /**
      * set selected chat group from list view to parent view section
      */
     public void setSelectedChatGroup() {
-        if (!chatGroupObservableList.isEmpty()) {
-            // get selected
-            // set the view on the parent home with selected chat group
-            chatGroupListView.getSelectionModel().getSelectedItem();
 
+        if (!chatGroupObservableList.isEmpty()) {
+            ChatGroup chatGroup = chatGroupListView.getSelectionModel().getSelectedItem();
+            if (chatGroup != null && chatGroupObservableList.size() > 0) {
+                int selectedIndex = chatGroupListView.getSelectionModel().getSelectedIndex();
+                userHome.setOnMainPane(userHome.getChatViewList().get(selectedIndex));
+            }
         }
 
     }
-
 }
