@@ -15,12 +15,12 @@
                 <DropShadow blurType="ONE_PASS_BOX" color="#00000053" height="4.75" radius="1.9375" width="5.0" />
             </effect>
             <children>
-                <Label fx:id="USERNAME" alignment="CENTER" layoutX="83.0" layoutY="107.0" prefHeight="21.0" prefWidth="90.0" style="-fx-font-weight: Bold; -fx-font-size: 15px;" text="User Name" textAlignment="JUSTIFY" textFill="#575656">
+                <Label fx:id="userName" alignment="CENTER" layoutX="83.0" layoutY="107.0" prefHeight="21.0" prefWidth="90.0" style="-fx-font-weight: Bold; -fx-font-size: 15px;" text="User Name" textAlignment="JUSTIFY" textFill="#575656">
                     <font>
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <ImageView fitHeight="23.0" fitWidth="17.0" layoutX="31.0" layoutY="233.0" opacity="0.57" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="defaultUserImage" fitHeight="23.0" fitWidth="17.0" layoutX="31.0" layoutY="233.0" opacity="0.57" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../static/images/user-home/icons8_user_group_man_woman_30px.png" />
                     </image>
@@ -50,7 +50,7 @@
                         <Font size="16.0" />
                     </font>
                 </Label>
-                <Circle fill="#1f93ff00" layoutX="130.0" layoutY="70.0" radius="25.0" stroke="#0000005a" strokeType="INSIDE" />
+                <Circle fx:id="userImage" fill="#1f93ff00" layoutX="130.0" layoutY="70.0" radius="25.0" stroke="#0000005a" strokeType="INSIDE" />
                 <ImageView fitHeight="50.0" fitWidth="44.0" layoutX="108.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../static/images/user-home/icons8_user_32px_1.png" />
@@ -83,7 +83,7 @@
                         <AnchorPane prefHeight="44.0" prefWidth="100.0">
                             <children>
                                 <Line fx:id="linelists1" endX="50.0" endY="7.0" layoutX="54.0" layoutY="32.0" startX="0" startY="7.0" stroke="#d7d0d0" />
-                                <JFXButton fx:id="LISTS1" layoutX="3.0" layoutY="-2.0" onAction="#viewFriendList" prefHeight="44.0" prefWidth="101.0" ripplerFill="#3b8ef4" text="Chat">
+                                <JFXButton fx:id="LISTS1" layoutX="3.0" layoutY="-2.0" onAction="#viewChatGroupsList" prefHeight="44.0" prefWidth="101.0" ripplerFill="#3b8ef4" text="Chat">
                                     <font>
                                         <Font name="System Bold" size="15.0" />
                                     </font>
@@ -113,7 +113,6 @@
                 </AnchorPane>-->
                 <AnchorPane fx:id="ChatGroupAnchorPane" layoutX="5.0" layoutY="108.0" prefHeight="669.0" prefWidth="282.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="108.0">
                     <children>
-                        <JFXListView fx:id="chatGroupList" focusTraversable="false" onMouseClicked="#onChatGroupListClicked" prefHeight="495.0" prefWidth="272.0" style="-fx-border-image-width: 0;" stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="55" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0" />
                         <ImageView fitHeight="25.0" fitWidth="17.0" layoutX="38.0" layoutY="623.0" opacity="0.56" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@../../static/images/user-home/icons8_bar_chart_filled_50px.png" />

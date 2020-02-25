@@ -1,7 +1,6 @@
 package chatbot;
 
-
-public interface ChatBotInterface {
+public interface ChatBotInterface{
 
     public String getMessage(String message);
 

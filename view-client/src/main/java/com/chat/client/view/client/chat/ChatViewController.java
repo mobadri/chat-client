@@ -65,9 +65,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private Button chooseFontButton;
     @FXML
     private Label chatGroupName;
-    @FXML
-    private ImageView addnewfriend;
-
     //----------------------------------------------------------------------
     //---------------------------data section ------------------------------
     //--------------------------------------- ------------------------------

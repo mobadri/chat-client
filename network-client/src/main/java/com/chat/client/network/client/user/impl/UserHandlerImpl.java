@@ -19,7 +19,7 @@ public class UserHandlerImpl implements UserHandler {
 
     public UserHandlerImpl() {
         networkConfig = NetworkConfig.getInstance();
-        String portNumber = networkConfig.getServerPortNumber();
+        int portNumber = networkConfig.getServerPortNumber();
         String serverIP = networkConfig.getServerIp();
         try {
 
@@ -27,7 +27,7 @@ public class UserHandlerImpl implements UserHandler {
 //            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
-            Registry registry = LocateRegistry.getRegistry(serverIP, Integer.parseInt(portNumber));
+            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
             serverUserService = (ServerUserService) registry.lookup("userService");
             System.out.println(serverUserService);
 
@@ -110,13 +110,12 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public User updateUserMode(User user, Mode mode) {
+    public void updateUserMode(User user, Mode mode) {
         try {
-            return serverUserService.updateUserMode(user, mode);
+            serverUserService.updateUserMode(user, mode);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return null;
     }
 
     @Override

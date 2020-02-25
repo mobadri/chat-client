@@ -75,7 +75,6 @@ public interface UserHandler {
      * User to be updated
      * @param user to update his mode
      * @param mode new mode
-     * @return updated user
      */
-    User updateUserMode(User user, Mode mode);
+    void updateUserMode(User user, Mode mode);
 }

@@ -16,12 +16,12 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
 
     public FileTranseferHandlerImpl() {
         networkConfig = NetworkConfig.getInstance();
-        String portNumber =networkConfig.getServerPortNumber();
+        int portNumber =networkConfig.getServerPortNumber();
         String serverIP = networkConfig.getServerIp();
 
         /*commented segments of code is connection security trail */
         try {
-            Registry registry = LocateRegistry.getRegistry(serverIP, Integer.valueOf(portNumber));
+            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
 //            Registry registry = LocateRegistry.getRegistry(portNumber);
