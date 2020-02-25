@@ -45,5 +45,4 @@ public interface ClientMessageService {
      * @return list of messages from xml
      */
     List<Message> loadFromXml(String path);
-
 }

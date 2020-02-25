@@ -60,6 +60,9 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private Button chooseFontButton;
     @FXML
     private Label chatGroupName;
+    @FXML
+    private JFXCheckBox chatBot;
+
     //----------------------------------------------------------------------
     //---------------------------data section ------------------------------
     //--------------------------------------- ------------------------------
@@ -71,6 +74,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private Style defualtStyle;
     private Color currentColor = Color.BLACK;
     private Color bgColor = Color.WHITE;
+    private boolean isChatBotEnabled;
 
     public ChatViewController() {
         setDefaultStyle();
@@ -94,16 +98,20 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     }
 
-    @FXML
-    private void sendMessageAction(ActionEvent actionEvent) {
-        Message message = createMessage();
-        sendMessage(message);
+    public void enableChatBot(ActionEvent actionEvent) {
+        isChatBotEnabled = chatBot.isSelected();
     }
 
-    private Message createMessage() {
+    @FXML
+    private void sendMessageAction(ActionEvent actionEvent) {
         String messageContentText = messageContent.getText();
+        Message message = createMessage(messageContentText);
+        sendMessage(message, isChatBotEnabled);
+    }
+
+    public Message createMessage(String messageContent) {
         Message message = new Message();
-        message.setMessage(messageContentText);
+        message.setMessage(messageContent);
         message.setStyle(defualtStyle);
         message.setChatGroup(currentChatGroup);
         message.setTimestamp(LocalDate.now());
@@ -112,8 +120,8 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     }
 
     @Override
-    public void sendMessage(Message message) {
-        chatGroupInterface.sendMessage(message);
+    public void sendMessage(Message message, boolean isChatBotEnabled) {
+        chatGroupInterface.sendMessage(message,isChatBotEnabled);
     }
 
     @Override
@@ -121,7 +129,15 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         Platform.runLater(() -> {
             showReceivedMessage(message);
         });
+
+        if(isChatBotEnabled)
+            getChatBotResponse(message);
         currentChatGroup.getMessages().add(message);
+    }
+
+    @Override
+    public void getChatBotResponse(Message receivedMessage) {
+        chatGroupInterface.getChatBotResponse(receivedMessage);
     }
 
     @Override
@@ -312,6 +328,5 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     public void setChatGroupInterface(ChatGroupInterface chatGroupInterface) {
         this.chatGroupInterface = chatGroupInterface;
     }
-
 
 }
