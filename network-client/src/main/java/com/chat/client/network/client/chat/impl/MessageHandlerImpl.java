@@ -2,13 +2,11 @@ package com.chat.client.network.client.chat.impl;
 
 import com.chat.client.network.client.chat.MessageHandler;
 import com.chat.client.network.client.config.NetworkConfig;
-import com.chat.client.network.client.socket_factory.RMISSLClientSocketFactory;
+import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.service.client.callback.MessageServiceCallBack;
 import com.chat.server.model.chat.Message;
 import com.chat.server.service.server.message.ServerMessageService;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -21,14 +19,16 @@ public class MessageHandlerImpl implements MessageHandler {
 
     public MessageHandlerImpl() {
         networkConfig = NetworkConfig.getInstance();
-        int portNumber =networkConfig.getServerPortNumber();
+        int portNumber = networkConfig.getServerPortNumber();
         String serverIP = networkConfig.getServerIp();
         try {
             /*commented segments of code is connection security trail */
 
-            Registry registry = LocateRegistry.getRegistry(serverIP , portNumber);
+//            Registry registry = LocateRegistry.getRegistry(serverIP , portNumber);
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
+            Registry registry = LocateRegistry.getRegistry(serverIP,
+                    portNumber, NetworkFactory.createSslClientSocketFactory());
 //            Registry registry = LocateRegistry.getRegistry(portNumber);
             serverMessageService = (ServerMessageService) registry.lookup("messageService");
 
