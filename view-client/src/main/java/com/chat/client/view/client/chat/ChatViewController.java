@@ -360,5 +360,27 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         this.chatGroupInterface = chatGroupInterface;
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    @FXML
+    public void addnewfriendAction(MouseEvent mouseEvent) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader =
+                    new FXMLLoader(getClass().getResource("/templates/chat/addfriendstochat.fxml"));
+            Parent root = loader.load();
+            AddFriendToChatGroup controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+            System.err.println("Chat View controller current user " + currentUser.getFriends().size());
+            System.err.println("Chat View controller chat group user " + currentChatGroup.getUsers().size());
+            controller.setGroupChat(currentChatGroup);
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

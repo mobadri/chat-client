@@ -59,4 +59,7 @@ public interface ClientChatGroupService {
     ChatGroup findById(int id);
 
 
+    ChatGroup addUserToGroup(ChatGroup chatGroup, User user);
+
+
 }

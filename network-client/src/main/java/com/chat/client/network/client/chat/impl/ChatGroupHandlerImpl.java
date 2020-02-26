@@ -92,6 +92,7 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
         return chatGroup;
     }
 
+
     @Override
     public ChatGroup addUser(ChatGroup chatGroup, User user) {
         try {
@@ -109,7 +110,7 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return null;
+        return chatGroup;
     }
 
     @Override

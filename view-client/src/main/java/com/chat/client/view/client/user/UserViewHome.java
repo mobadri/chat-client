@@ -27,7 +27,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -88,7 +87,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     }
 
-    private void loadFriendsListView(){
+    private void loadFriendsListView() {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/user-friends.fxml"));
         try {
             friendsPane = loader.load();
@@ -99,7 +98,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         }
     }
 
-    private void loadChatGroupListView(){
+    private void loadChatGroupListView() {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/chat/chat-group-listview.fxml"));
         try {
             groupsPane = loader.load();
@@ -139,6 +138,12 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     @Override
     public List<ChatGroup> getAllChatGroups(User currentUser) {
         return userHomeInterface.getAllChatGroups(currentUser);
+    }
+
+    @Override
+    public ChatGroup addFriend(ChatGroup chatGroup, User user) {
+
+        return userHomeInterface.addFriend(chatGroup, user);
     }
 
     //todo show list of requests
@@ -357,7 +362,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         return chatGroupObservableList;
     }
 
-    public void setOnMainPane(Parent node){
+    public void setOnMainPane(Parent node) {
         containerPane.getChildren().setAll(node);
     }
 
