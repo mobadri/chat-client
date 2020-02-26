@@ -49,11 +49,12 @@ public interface ChatGroupHandler {
 
     /**
      * add user to group
+     *
      * @param chatGroup chat group to add user to it
-     * @param user user to added
+     * @param user      user to added
      * @return updated chat group
      */
-    public boolean addUser(int chatGroup, int user);
+    public ChatGroup addUser(ChatGroup chatGroup, User user);
 
     /**
      * add user to group

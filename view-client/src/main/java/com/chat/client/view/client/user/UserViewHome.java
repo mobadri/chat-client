@@ -85,13 +85,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     }
 
     public UserViewHome() {
-        try {
-            pushNotificationController = new PushNotificationController();
-            pushNotificationController.setPushNotifications(this);
-            homeController = new HomeController();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     private void loadFriendsListView(){
@@ -145,11 +139,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     @Override
     public List<ChatGroup> getAllChatGroups(User currentUser) {
         return userHomeInterface.getAllChatGroups(currentUser);
-    }
-
-    @Override
-    public boolean addFriend(int chatGroup, int user) {
-        return userHomeInterface.addFriend(chatGroup,user);
     }
 
     //todo show list of requests
@@ -296,7 +285,14 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
-        pushNotificationController.setCurrentUser(currentUser);
+        try {
+            pushNotificationController = new PushNotificationController();
+            pushNotificationController.setPushNotifications(this);
+            homeController = new HomeController();
+            pushNotificationController.setCurrentUser(currentUser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         loadFriendsListView();
         loadChatGroupListView();
 
