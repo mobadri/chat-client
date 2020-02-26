@@ -2,6 +2,8 @@ package com.chat.client.view.client.chat;
 
 
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
+import com.chat.client.controller.client.fileTransfer.FileTranseferController;
+import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImpl;
 import com.chat.client.controller.client.message.MessageControllerImpl;
 import com.chat.client.view.client.chat.render.MessageCellRenderer;
 import com.chat.server.model.chat.ChatGroup;
@@ -29,11 +31,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.controlsfx.dialog.FontSelectorDialog;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,10 +79,15 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private Style defualtStyle;
     private Color currentColor = Color.BLACK;
     private Color bgColor = Color.WHITE;
+    FileTranseferController fileTranseferController;
 
     public ChatViewController() {
         setDefaultStyle();
-
+        try {
+            fileTranseferController = new FileTranseferControllerImpl();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -196,10 +205,16 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/TransferFile.fxml"));
             Parent root = loader.load();
             TransferFileController transferFileController = loader.getController();
-            transferFileController.setNameOfFile(file.getPath());
+            transferFileController.setFileTranseferController(fileTranseferController);
+            transferFileController.setNameOfFile(file.getName());
+            transferFileController.setPathOfFile(file.getPath());
+            transferFileController.setCurrentUser(currentUser);
+            transferFileController.setCurrentChatGroup(currentChatGroup);
             Scene scene = new Scene(root);
             Stage stage = new Stage();
+            stage.initStyle(StageStyle.TRANSPARENT);
             stage.setScene(scene);
+            transferFileController.setStage(stage);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

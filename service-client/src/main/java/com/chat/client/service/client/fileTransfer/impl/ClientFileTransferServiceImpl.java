@@ -19,12 +19,12 @@ public class ClientFileTransferServiceImpl extends UnicastRemoteObject implement
 
     @Override
     public void register(FileTransferServiceCallBack fileTransferServiceCallBack) throws RemoteException {
-
+        fileTransferHandeler.register(fileTransferServiceCallBack);
     }
 
     @Override
     public void unregister(FileTransferServiceCallBack fileTransferServiceCallBack) throws RemoteException {
-
+        fileTransferHandeler.unregister(fileTransferServiceCallBack);
     }
 
     public static synchronized ClientFileTransferService createFileTransferServiceInstance() {

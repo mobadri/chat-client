@@ -13,7 +13,7 @@
     <children>
         <HBox prefHeight="55.0" prefWidth="680.0">
             <children>
-                <Label fx:id="nameOfFile" prefHeight="54.0" prefWidth="622.0" textFill="#828283">
+                <Label fx:id="pathOfFile" prefHeight="54.0" prefWidth="622.0" textFill="#828283">
                     <font>
                         <Font name="System Bold" size="12.0"/>
                     </font>
