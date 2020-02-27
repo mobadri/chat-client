@@ -1,16 +1,14 @@
 package com.chat.client.network.client.notifocation.impl;
 
 import com.chat.client.network.client.config.NetworkConfig;
+import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.network.client.notifocation.NotificationHandler;
-import com.chat.client.network.client.socket_factory.RMISSLClientSocketFactory;
 import com.chat.client.service.client.callback.NotificationServiceCallback;
 import com.chat.server.model.chat.Notification;
 import com.chat.server.model.chat.NotificationType;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.notification.ServerNotificationService;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -28,10 +26,12 @@ public class NotificationHandlerImpl implements NotificationHandler {
 
     public NotificationHandlerImpl() {
         networkConfig = NetworkConfig.getInstance();
-        int portNumber =networkConfig.getServerPortNumber();
+        int portNumber = networkConfig.getServerPortNumber();
         String serverIP = networkConfig.getServerIp();
         try {
-            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
+//            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
+            Registry registry = LocateRegistry.getRegistry(serverIP,
+                    portNumber, NetworkFactory.createSslClientSocketFactory());
 
             /*commented segments of code is connection security trail */
            /* Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),

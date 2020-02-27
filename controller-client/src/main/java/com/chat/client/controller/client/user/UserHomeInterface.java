@@ -1,7 +1,6 @@
 package com.chat.client.controller.client.user;
 
 import com.chat.server.model.chat.ChatGroup;
-import com.chat.server.model.chat.Notification;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 
@@ -13,25 +12,29 @@ public interface UserHomeInterface {
 
     /**
      * to change user mode
+     *
      * @param currentUser to be updated
-     * @param mode new mode
+     * @param mode        new mode
      */
     void changeMode(User currentUser, Mode mode);
 
     /**
      * add new friend to friend list
+     *
      * @param friend to be added
      */
     void appendFriend(User friend);
 
     /**
      * add new chat group to groups list
+     *
      * @param chatGroup to be added
      */
     void appendChatGroup(ChatGroup chatGroup);
 
     /**
      * get all user's friends
+     *
      * @param currentUser login user
      * @return list of friends
      */
@@ -39,8 +42,19 @@ public interface UserHomeInterface {
 
     /**
      * get all user's groups
+     *
      * @param currentUser login user
      * @return list of groups
      */
     List<ChatGroup> getAllChatGroups(User currentUser);
+
+    /**
+     * Add Friend to chatGroup
+     *
+     * @param chatGroup to add on it
+     * @param user      to add in the chat
+     * @return chatgroup
+     */
+    ChatGroup addFriend(ChatGroup chatGroup, User user);
+
 }

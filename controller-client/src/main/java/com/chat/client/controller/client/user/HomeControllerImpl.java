@@ -18,6 +18,7 @@ public class HomeControllerImpl implements UserHomeInterface {
     private ClientChatGroupService chatGroupService = ServiceClientFactory.createClientChatGroupService();
     private List<User> friends = new ArrayList<>();
     private List<ChatGroup> groups = new ArrayList<>();
+    ChatGroup chatGroup;
 
     //todo noura impl
     @Override
@@ -52,8 +53,14 @@ public class HomeControllerImpl implements UserHomeInterface {
 
     @Override
     public List<ChatGroup> getAllChatGroups(User currentUser) {
-         groups = currentUser.getChatGroups();
-         return groups;
+        groups = currentUser.getChatGroups();
+        return groups;
+    }
+
+    @Override
+    public ChatGroup addFriend(ChatGroup chatGroup2, User user) {
+        return chatGroupService.addUserToGroup(chatGroup2, user);
+
     }
 
     public void setUserHomeInterface(UserHomeInterface userHomeInterface) {

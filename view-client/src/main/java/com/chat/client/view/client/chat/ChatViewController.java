@@ -16,11 +16,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -29,6 +33,7 @@ import javafx.stage.Stage;
 import org.controlsfx.dialog.FontSelectorDialog;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -60,6 +65,11 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private Button chooseFontButton;
     @FXML
     private Label chatGroupName;
+    @FXML
+    private ImageView addnewfriend;
+    @FXML
+    private JFXCheckBox chatBot;
+
     //----------------------------------------------------------------------
     //---------------------------data section ------------------------------
     //--------------------------------------- ------------------------------
@@ -71,6 +81,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private Style defualtStyle;
     private Color currentColor = Color.BLACK;
     private Color bgColor = Color.WHITE;
+    private boolean isChatBotEnabled;
 
     public ChatViewController() {
         setDefaultStyle();
@@ -94,10 +105,14 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     }
 
+    public void enableChatBot(ActionEvent actionEvent) {
+        isChatBotEnabled = chatBot.isSelected();
+    }
+
     @FXML
     private void sendMessageAction(ActionEvent actionEvent) {
         Message message = createMessage();
-        sendMessage(message);
+        sendMessage(message, isChatBotEnabled);
     }
 
     private Message createMessage() {
@@ -112,8 +127,8 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     }
 
     @Override
-    public void sendMessage(Message message) {
-        chatGroupInterface.sendMessage(message);
+    public void sendMessage(Message message, boolean isChatBotEnabled) {
+        chatGroupInterface.sendMessage(message, isChatBotEnabled);
     }
 
     @Override
@@ -121,7 +136,20 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         Platform.runLater(() -> {
             showReceivedMessage(message);
         });
+
+        if (isChatBotEnabled)
+            getChatBotResponse(message);
         currentChatGroup.getMessages().add(message);
+    }
+
+    @Override
+    public void getChatBotResponse(Message receivedMessage) {
+        chatGroupInterface.getChatBotResponse(receivedMessage);
+    }
+
+    @Override
+    public Message createMessage(String messageContent) {
+        return null;
     }
 
     @Override
@@ -183,6 +211,25 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         messageContent.setStyle(defualtStyle.toString());
     }
 
+//    @FXML
+//    public void addnewfriendAction(MouseEvent mouseEvent) {
+//        try {
+//            Stage stage = new Stage();
+//            FXMLLoader loader =
+//                    new FXMLLoader(getClass().getResource("/templates/chat/addfriendstochat.fxml"));
+//            Parent root = loader.load();
+//            AddFriendToChatGroup controller = loader.getController();
+//            controller.setCurrentUser(currentUser);
+//            System.err.println("Chat View controller current user " + currentUser.getFriends().size());
+//            System.err.println("Chat View controller chat group user " + currentChatGroup.getUsers().size());
+//            controller.setGroupChat(currentChatGroup);
+//            stage.setScene(new Scene(root));
+//            stage.show();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void handleSendingFile(MouseEvent mouseEvent) {
         FileChooser fileChooser = new FileChooser();
@@ -313,5 +360,27 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         this.chatGroupInterface = chatGroupInterface;
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////
+    @FXML
+    public void addnewfriendAction(MouseEvent mouseEvent) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader =
+                    new FXMLLoader(getClass().getResource("/templates/chat/addfriendstochat.fxml"));
+            Parent root = loader.load();
+            AddFriendToChatGroup controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+            System.err.println("Chat View controller current user " + currentUser.getFriends().size());
+            System.err.println("Chat View controller chat group user " + currentChatGroup.getUsers().size());
+            controller.setGroupChat(currentChatGroup);
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

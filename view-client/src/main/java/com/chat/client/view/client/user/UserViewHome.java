@@ -28,6 +28,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -59,11 +60,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     @FXML
     public Label userName;
 
-    FriendRequestListViewController friendRequestListViewController;
-    private boolean isShowFriendRequestList = false;
-    private Parent firendRequestPane;
-    private Parent notificationPane;
-
     //------------------------------data section-----------------------------
     private User currentUser;
     private UserHomeInterface userHomeInterface;
@@ -86,21 +82,12 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         Platform.runLater(this::loadNotificationList);
         Platform.runLater(this::loadFriendRequestList);
         //loadFriendRequestList();
     }
 
     public UserViewHome() {
-        try {
-            pushNotificationController = new PushNotificationController();
-            pushNotificationController.setPushNotifications(this);
-            homeController = new HomeController();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
 
     }
 
@@ -155,6 +142,12 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     @Override
     public List<ChatGroup> getAllChatGroups(User currentUser) {
         return userHomeInterface.getAllChatGroups(currentUser);
+    }
+
+    @Override
+    public ChatGroup addFriend(ChatGroup chatGroup, User user) {
+
+        return userHomeInterface.addFriend(chatGroup, user);
     }
 
     //todo show list of requests
@@ -301,7 +294,14 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
-        pushNotificationController.setCurrentUser(currentUser);
+        try {
+            pushNotificationController = new PushNotificationController();
+            pushNotificationController.setPushNotifications(this);
+            homeController = new HomeController();
+            pushNotificationController.setCurrentUser(currentUser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         loadFriendsListView();
         loadChatGroupListView();
 

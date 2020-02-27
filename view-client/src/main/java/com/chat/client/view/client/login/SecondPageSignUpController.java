@@ -27,8 +27,6 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 
@@ -62,11 +60,10 @@ public class SecondPageSignUpController implements Initializable {
         else user.setBIO("");
         LocalDate localDate = dateOfBirth.getValue();
         if (localDate != null) {
-            Date date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            user.setDateOfBirth(date);
+            user.setDateOfBirth(localDate);
         } else {
 
-            user.setDateOfBirth(new Date(1996, 7, 30));
+            user.setDateOfBirth(LocalDate.now());
         }
         System.out.println(user.getDateOfBirth());
         user.setMode(Mode.AVAILABLE);
@@ -81,7 +78,7 @@ public class SecondPageSignUpController implements Initializable {
 
         SignUpAndRegistration signUpAndRegistration = new RegistrationController();
         System.out.println("fxml : " + user);
-        User savedUser = signUpAndRegistration.signUp(this.user,user.getPassword());
+        User savedUser = signUpAndRegistration.signUp(this.user, user.getPassword());
         if (savedUser.getId() > 0) {
             loadNextPage(savedUser);
         }

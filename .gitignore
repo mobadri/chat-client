@@ -36,3 +36,4 @@ chat-client.iml
 *.iml
 *.properties
 *.lst
+/security/
