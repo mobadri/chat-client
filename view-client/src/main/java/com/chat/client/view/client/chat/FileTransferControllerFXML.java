@@ -19,7 +19,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
 
-public class TransferFileController implements Initializable {
+public class FileTransferControllerFXML implements Initializable {
     FileTranseferController fileTranseferController;
     @FXML
     private Label pathOfFile;
@@ -29,8 +29,12 @@ public class TransferFileController implements Initializable {
     private User currentUser;
     private ChatGroup currentChatGroup;
 
-    public TransferFileController() {
-
+    public FileTransferControllerFXML() {
+//        try {
+//            fileTranseferController = new FileTranseferControllerImpl();
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
@@ -40,8 +44,8 @@ public class TransferFileController implements Initializable {
 
     @FXML
     public void handleSendFile(MouseEvent mouseEvent) {
-        System.out.println("currentUser" + currentUser);
-        System.out.println("currentChatGroup" + currentChatGroup.getName());
+        System.out.println("currentUser : " + currentUser);
+        System.out.println("currentChatGroup : " + currentChatGroup.getName());
 
         RemoteInputStreamServer istream = null;
         try {
@@ -51,9 +55,8 @@ public class TransferFileController implements Initializable {
             istream = new SimpleRemoteInputStream(bufferedInputStream);
             System.out.println(istream);
             System.out.println("handleSendFile istream is supposednot to be null : " + istream);
-            System.out.println("fxml");
 
-            fileTranseferController.sendFile(nameOfFile, istream);
+            fileTranseferController.sendFile(nameOfFile, istream, currentChatGroup, currentUser);
             stage.close();
 
         } catch (FileNotFoundException e) {
@@ -61,7 +64,6 @@ public class TransferFileController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-
             if (istream != null) istream.close();
         }
     }
@@ -82,7 +84,9 @@ public class TransferFileController implements Initializable {
 
     public void setCurrentChatGroup(ChatGroup currentChatGroup) {
         this.currentChatGroup = currentChatGroup;
+        System.out.println("fileTranseferController : " + fileTranseferController);
         fileTranseferController.setChatGroup(currentChatGroup);
+
     }
 
     public void setFileTranseferController(FileTranseferController fileTranseferController) {

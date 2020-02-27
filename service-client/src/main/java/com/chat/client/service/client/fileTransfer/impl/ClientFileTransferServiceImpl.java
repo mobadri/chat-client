@@ -4,6 +4,8 @@ import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.network.client.user.FileTransferHandeler;
 import com.chat.client.service.client.callback.FileTransferServiceCallBack;
 import com.chat.client.service.client.fileTransfer.ClientFileTransferService;
+import com.chat.server.model.chat.ChatGroup;
+import com.chat.server.model.user.User;
 import com.healthmarketscience.rmiio.RemoteInputStream;
 
 import java.rmi.RemoteException;
@@ -39,8 +41,8 @@ public class ClientFileTransferServiceImpl extends UnicastRemoteObject implement
     }
 
     @Override
-    public void sendFile(String nameFile, RemoteInputStream remoteInputStream) throws RemoteException {
-        fileTransferHandeler.sendFile(nameFile, remoteInputStream);
+    public void sendFile(String nameFile, RemoteInputStream remoteInputStream, ChatGroup currentChatGroup, User currentUser) throws RemoteException {
+        fileTransferHandeler.sendFile(nameFile, remoteInputStream, currentChatGroup, currentUser);
 
     }
 }

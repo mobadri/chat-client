@@ -1,6 +1,8 @@
 package com.chat.client.service.client.fileTransfer;
 
 import com.chat.client.service.client.callback.FileTransferServiceCallBack;
+import com.chat.server.model.chat.ChatGroup;
+import com.chat.server.model.user.User;
 import com.healthmarketscience.rmiio.RemoteInputStream;
 
 import java.rmi.Remote;
@@ -29,5 +31,5 @@ public interface ClientFileTransferService extends Remote {
      * @param remoteInputStream
      * @throws RemoteException
      */
-    void sendFile(String nameFile, RemoteInputStream remoteInputStream) throws RemoteException;
+    void sendFile(String nameFile, RemoteInputStream remoteInputStream, ChatGroup currentChatGroup, User currentUser) throws RemoteException;
 }

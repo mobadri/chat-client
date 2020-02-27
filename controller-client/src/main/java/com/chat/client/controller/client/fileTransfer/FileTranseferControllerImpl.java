@@ -21,7 +21,8 @@ import java.rmi.server.UnicastRemoteObject;
 public class FileTranseferControllerImpl extends UnicastRemoteObject implements FileTransferServiceCallBack
         , FileTranseferController {
 
-    ClientFileTransferService clientFileTransferService;
+    private ClientFileTransferService clientFileTransferService;
+
     private ChatGroup chatGroup;
     private User currentUser;
     private String storagePath = "C:/Users/pc/Downloads/mariam/";
@@ -30,7 +31,7 @@ public class FileTranseferControllerImpl extends UnicastRemoteObject implements 
         clientFileTransferService = ServiceClientFactory.createClientFileTransferService();
         try {
             clientFileTransferService.register(this);
-            System.out.println("i register");
+            System.out.println("i register +******************************");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -42,28 +43,20 @@ public class FileTranseferControllerImpl extends UnicastRemoteObject implements 
      */
 
     @Override
-    public void sendFile(String nameFile, RemoteInputStream export) {
+    public void sendFile(String nameFile, RemoteInputStream export, ChatGroup currentChatGroup, User currentUser) {
 
         try {
-            clientFileTransferService.sendFile(nameFile, export);
+            clientFileTransferService.sendFile(nameFile, export, currentChatGroup, currentUser);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void register(FileTransferServiceCallBack fileTransferServiceCallBack) {
-        try {
-            clientFileTransferService.register(fileTransferServiceCallBack);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
-    public void unregister(FileTransferServiceCallBack fileTransferServiceCallBack) {
+    public void unregister() {
         try {
-            clientFileTransferService.unregister(fileTransferServiceCallBack);
+            clientFileTransferService.unregister(this);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -79,13 +72,17 @@ public class FileTranseferControllerImpl extends UnicastRemoteObject implements 
     ///////////////////////////////////Part of implement CallBack //////////////////////////
      */
 
+    @Override
     public void setChatGroup(ChatGroup chatGroup) {
+        System.out.println("chatgroup setter");
         this.chatGroup = chatGroup;
 
     }
 
-    public void setCurrentUser(User user) {
-        this.currentUser = user;
+    @Override
+    public int getChatGroupId() {
+        System.out.println("chatGroup" + chatGroup);
+        return chatGroup.getId();
     }
 
     @Override
@@ -192,14 +189,17 @@ public class FileTranseferControllerImpl extends UnicastRemoteObject implements 
 
     }
 
-
     @Override
-    public int getChatGroupId() {
-        return chatGroup.getId();
+    public User getCurrentUser() {
+        return currentUser;
     }
 
     @Override
-    public int getCurrentUserId() {
-        return currentUser.getId();
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
+    public void setClientFileTransferService(ClientFileTransferService clientFileTransferService) {
+        this.clientFileTransferService = clientFileTransferService;
     }
 }

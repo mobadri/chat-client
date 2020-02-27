@@ -7,11 +7,9 @@ import com.healthmarketscience.rmiio.RemoteInputStream;
 
 public interface FileTranseferController {
 
-    void sendFile(String nameFile, RemoteInputStream export);
+    void sendFile(String nameFile, RemoteInputStream remoteInputStream, ChatGroup currentChatGroup, User currentUser);
 
-    void register(FileTransferServiceCallBack fileTransferServiceCallBack);
-
-    void unregister(FileTransferServiceCallBack fileTransferServiceCallBack);
+    void unregister();
 
     void setChatGroup(ChatGroup chatGroup);
 

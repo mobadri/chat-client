@@ -3,6 +3,8 @@ package com.chat.client.network.client.user.impl;
 import com.chat.client.network.client.config.NetworkConfig;
 import com.chat.client.network.client.user.FileTransferHandeler;
 import com.chat.client.service.client.callback.FileTransferServiceCallBack;
+import com.chat.server.model.chat.ChatGroup;
+import com.chat.server.model.user.User;
 import com.chat.server.service.server.fileTransfer.ServerFileTranseferService;
 import com.healthmarketscience.rmiio.RemoteInputStream;
 
@@ -17,7 +19,7 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
 
     public FileTranseferHandlerImpl() {
         networkConfig = NetworkConfig.getInstance();
-        String portNumber =networkConfig.getServerPortNumber();
+        String portNumber = networkConfig.getServerPortNumber();
         String serverIP = networkConfig.getServerIp();
 
         /*commented segments of code is connection security trail */
@@ -35,9 +37,9 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
     }
 
     @Override
-    public void sendFile(String nameFile, RemoteInputStream remoteInputStream) {
+    public void sendFile(String nameFile, RemoteInputStream remoteInputStream, ChatGroup currentChatGroup, User currentUser) {
         try {
-            serverFileTranseferService.sendFile(nameFile, remoteInputStream);
+            serverFileTranseferService.sendFile(nameFile, remoteInputStream, currentChatGroup, currentUser);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

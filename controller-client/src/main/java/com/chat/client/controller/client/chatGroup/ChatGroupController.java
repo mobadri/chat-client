@@ -44,9 +44,11 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
         chatGroupInterface.receiveMessage(message);
     }
 
+    @Override
     public void setChatGroup(ChatGroup chatGroup) {
         this.chatGroup = chatGroup;
     }
+
 
     public void setCurrentUser(User user) {
         this.currentUser = user;
@@ -59,7 +61,7 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
     }
 
     @Override
-    public int getCurrentUserId() throws RemoteException {
+    public int getCurrentUserId() {
         return this.currentUser.getId();
     }
 

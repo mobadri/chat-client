@@ -1,6 +1,7 @@
 package com.chat.client.service.client.callback;
 
 
+import com.chat.server.model.user.User;
 import com.healthmarketscience.rmiio.RemoteInputStream;
 import com.healthmarketscience.rmiio.RemoteOutputStream;
 
@@ -26,7 +27,7 @@ public interface FileTransferServiceCallBack extends Remote {
      *
      * @return
      */
-    int getCurrentUserId() throws RemoteException;
+    User getCurrentUser() throws RemoteException;
 
 
 }

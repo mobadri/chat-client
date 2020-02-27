@@ -9,7 +9,7 @@
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="55.0" prefWidth="667.0"
             xmlns="http://javafx.com/javafx/11.0.1"
-            fx:controller="com.chat.client.view.client.chat.TransferFileController">
+            fx:controller="com.chat.client.view.client.chat.FileTransferControllerFXML">
     <children>
         <HBox prefHeight="55.0" prefWidth="680.0">
             <children>
