@@ -9,6 +9,7 @@ import com.chat.client.view.client.chat.ChatGroupListViewController;
 import com.chat.client.view.client.chat.ChatViewController;
 import com.chat.client.view.client.chat.render.ChatGroupCellRenderer;
 import com.chat.client.view.client.chat.render.RenderImage;
+import com.chat.client.view.client.notification.FriendRequestListViewController;
 import com.chat.client.view.client.notification.NotificationViewListController;
 import com.chat.client.view.client.notification.traynotifications.animations.AnimationType;
 import com.chat.client.view.client.notification.traynotifications.notification.TrayNotification;
@@ -27,7 +28,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -59,6 +59,11 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     @FXML
     public Label userName;
 
+    FriendRequestListViewController friendRequestListViewController;
+    private boolean isShowFriendRequestList = false;
+    private Parent firendRequestPane;
+    private Parent notificationPane;
+
     //------------------------------data section-----------------------------
     private User currentUser;
     private UserHomeInterface userHomeInterface;
@@ -81,7 +86,10 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         Platform.runLater(this::loadNotificationList);
+        Platform.runLater(this::loadFriendRequestList);
+        //loadFriendRequestList();
     }
 
     public UserViewHome() {
@@ -92,9 +100,11 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
     }
 
-    private void loadFriendsListView(){
+    private void loadFriendsListView() {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/user-friends.fxml"));
         try {
             friendsPane = loader.load();
@@ -105,7 +115,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         }
     }
 
-    private void loadChatGroupListView(){
+    private void loadChatGroupListView() {
         FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/chat/chat-group-listview.fxml"));
         try {
             groupsPane = loader.load();
@@ -356,11 +366,41 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         return chatGroupObservableList;
     }
 
-    public void setOnMainPane(Parent node){
+    public void setOnMainPane(Parent node) {
         containerPane.getChildren().setAll(node);
     }
 
     public List<Parent> getChatViewList() {
         return chatViewList;
+    }
+
+
+    private void addfriendRequestToList(User user) {
+
+        friendRequestListViewController.addFriendRequestequest(user);
+    }
+
+    @FXML
+    private void handleRequestsButton(ActionEvent actionEvent) {
+        System.out.println("isShowFriendRequestList");
+        anchorPaneNotification.setVisible(!isShowFriendRequestList);
+        isShowFriendRequestList = !isShowFriendRequestList;
+        anchorPaneNotification.getChildren().clear();
+        anchorPaneNotification.getChildren().setAll(firendRequestPane);
+    }
+
+    private void loadFriendRequestList() {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/FriendRequest-list.fxml"));
+            firendRequestPane = loader.load();
+            friendRequestListViewController = loader.getController();
+            List<User> friendRequest = homeController.getFriendRequest(currentUser);
+            for (User user : friendRequest) {
+                friendRequestListViewController.addFriendRequestequest(user);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

@@ -48,8 +48,8 @@ public class HomeController {
         }
         return null;
     }
-    public  int getSatatus(int userId,int friendId)
-    {
+
+    public int getSatatus(int userId, int friendId) {
         try {
             return clientUserService.statusFriend(userId, friendId);
         } catch (RemoteException e) {
@@ -58,4 +58,13 @@ public class HomeController {
         return 0;
     }
 
+    public List<User> getFriendRequest(User currentUser) {
+        List<User> userList = new ArrayList<>();
+        try {
+            userList = clientUserService.getAllFriendRequests(currentUser);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
 }

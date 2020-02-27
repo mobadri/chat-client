@@ -107,4 +107,11 @@ public interface ClientUserService extends Remote {
      * @throws RemoteException
      */
     User updateUserMode(User user, Mode mode) throws RemoteException;
+
+    /**
+     * get all friends on pending state
+     * @param currentUser login user
+     * @return list of friends on pending state
+     */
+    List<User> getAllFriendRequests(User currentUser)throws RemoteException;
 }

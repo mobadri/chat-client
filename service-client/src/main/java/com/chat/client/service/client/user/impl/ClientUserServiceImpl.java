@@ -92,4 +92,9 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
         userHandler.updateUserMode(user, mode);
         return user;
     }
+
+    @Override
+    public List<User> getAllFriendRequests(User currentUser) throws RemoteException {
+        return userHandler.getAllFriendRequests(currentUser);
+    }
 }

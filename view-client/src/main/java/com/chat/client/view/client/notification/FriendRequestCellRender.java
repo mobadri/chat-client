@@ -1,7 +1,7 @@
 package com.chat.client.view.client.notification;
 
 import com.chat.client.view.client.chat.render.RenderImage;
-import com.chat.server.model.chat.Notification;
+import com.chat.server.model.user.User;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,26 +23,25 @@ import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
 
-public class NotificationCellRenderer implements Callback<ListView<Notification>, ListCell<Notification>> {
+public class FriendRequestCellRender implements Callback<ListView<User>, ListCell<User>> {
 
-    NotificationViewListController controller;
+    FriendRequestListViewController controller;
     private RenderImage renderImage = new RenderImage();
 
     @Override
-    public ListCell<Notification> call(ListView<Notification> p) {
+    public ListCell<User> call(ListView<User> userListView) {
 
-        ListCell<Notification> cell = new ListCell<Notification>() {
+        ListCell<User> cell = new ListCell<User>(){
 
             @Override
-            protected void updateItem(Notification notification, boolean b) {
-                super.updateItem(notification, b);
+            protected void updateItem(User user, boolean b) {
+                super.updateItem(user, b);
                 setGraphic(null);
                 setText(null);
-                JFXButton view = new JFXButton();
-                JFXButton remove = new JFXButton();
-
+                JFXButton confirm = new JFXButton();
+                JFXButton delete = new JFXButton();
                 Circle circle = new Circle();
-                if (notification != null) {
+                if(user != null){
                     VBox vBox = new VBox();
                     HBox hBox = new HBox();
                     HBox hBox1 = new HBox();
@@ -52,48 +51,46 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                             + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
                             + "-fx-border-radius: 5;" + "-fx-border-color: gray;");
 
-                    Label notificationFrom = new Label(notification.getUserFrom().getFirstName() + " "
-                            + notification.getUserFrom().getLastName());
-                    notificationFrom.setTextFill(Color.WHITE);
-                    notificationFrom.setFont(Font.font(12));
-                    notificationFrom.setTextFill(Color.BLACK);
+                    Label userFrom = new Label(user.getFirstName()+" "+user.getLastName());
+                    userFrom.setTextFill(Color.WHITE);
+                    userFrom.setFont(Font.font(12));
+                    userFrom.setTextFill(Color.BLACK);
 
-                    Label notificationContent = new Label(notification.getNotificationMessage());
-                    notificationContent.setTextFill(Color.WHITE);
-                    notificationContent.setFont(Font.font(11));
-                    notificationContent.setTextFill(Color.BLACK);
+                    Label requestContent = new Label("Sent you a friend request");
+                    requestContent.setTextFill(Color.WHITE);
+                    requestContent.setFont(Font.font(11));
+                    requestContent.setTextFill(Color.BLACK);
 
 
-                    view.setText(" View ");
-                    view.setTextAlignment(TextAlignment.CENTER);
-                    view.setStyle("-fx-background-color: lightgrey ;" +
+                    confirm.setText("Confirm");
+                    confirm.setTextAlignment(TextAlignment.CENTER);
+                    confirm.setStyle("-fx-background-color: lightgrey ;" +
                             "  -fx-text-fill: dimgray;");
-                    handleViewButton(notification, view);
+                    handleConfirmButton(user, confirm);
 
 
-                    remove.setText("Remove");
-                    remove.setTextAlignment(TextAlignment.CENTER);
-                    remove.setStyle("-fx-background-color: lightgrey ;" +
+                    delete.setText("Delete");
+                    delete.setTextAlignment(TextAlignment.CENTER);
+                    delete.setStyle("-fx-background-color: lightgrey ;" +
                             "  -fx-text-fill: dimgray;");
-                    handleRemoveButton(notification, remove);
+                    handleDeleteButton(user, delete);
 
-                    hBox1.getChildren().addAll(view, remove);
+                    hBox1.getChildren().addAll(confirm, delete);
                     hBox1.setSpacing(8);
 
-                    vBox.getChildren().addAll(notificationFrom, notificationContent, hBox1);
+                    vBox.getChildren().addAll(userFrom, requestContent, hBox1);
                     vBox.setPadding(new Insets(0, 0, 0, 0));
                     vBox.layout();
                     circle.setCenterX(32);
                     circle.setRadius(32);
                     ImageView statusImageView = new ImageView();
                     Image statusImage = new Image(getClass()
-                            .getResource("/static/images/mode/" + notification.getUserFrom().getMode().toString().toLowerCase().trim() + ".png").toString(), 36, 36, true, true);
+                            .getResource("/static/images/mode/" + user.getMode().toString().toLowerCase().trim() + ".png").toString(), 36, 36, true, true);
                     statusImageView.setImage(statusImage);
-                    Image image = renderImage.convertToImage(notification.getUserFrom().getImage());
+                    Image image = renderImage.convertToImage(user.getImage());
                     if (image == null) {
                         image = new Image(getClass().getResource("/static/images/Smile.png").toString(), 40, 40, true, false);
                     }
-
                     StackPane stackPane = new StackPane();
 
                     stackPane.setMargin(statusImageView, new Insets(32, 0, 0, 32));
@@ -113,27 +110,27 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
         return cell;
     }
 
-    public void handleViewButton(Notification notification, Button button) {
+    public void handleConfirmButton(User user, Button button) {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
 
-                System.out.println(notification.getUserFrom());
+               // System.out.println(user.getUserFrom());
             }
         });
     }
 
-    public void handleRemoveButton(Notification notification, Button button) {
+    public void handleDeleteButton(User user, Button button) {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
                 //System.out.println(notification.getUserFrom());
-                controller.removeNotificationFromUI(notification);
+                controller.removeFriendRequestFromUI(user);
             }
         });
     }
 
-    public void setController(NotificationViewListController controller) {
+    public void setController(FriendRequestListViewController controller) {
 
         this.controller = controller;
     }

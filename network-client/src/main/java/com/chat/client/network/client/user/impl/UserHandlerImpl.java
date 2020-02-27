@@ -2,6 +2,7 @@ package com.chat.client.network.client.user.impl;
 
 import com.chat.client.network.client.config.NetworkConfig;
 import com.chat.client.network.client.user.UserHandler;
+import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.user.ServerUserService;
@@ -10,6 +11,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserHandlerImpl implements UserHandler {
@@ -116,6 +118,19 @@ public class UserHandlerImpl implements UserHandler {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<User> getAllFriendRequests(User currentUser) {
+        List<User> userList = new ArrayList<>();
+        try {
+            System.out.println(userList.size());
+            userList = serverUserService.getUserFriends(currentUser, FriendStatus.PENDING);
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return userList;
     }
 
     @Override
