@@ -15,5 +15,9 @@ public interface FileTranseferController {
 
     void setCurrentUser(User user);
 
-    void clientAcceptFile(String fileName, int currentChatGroupId, User currentUser);
+   // void clientAcceptFile(String fileName, int currentChatGroupId, User currentUser);
+
+    void send(String nameFile, ChatGroup currentChatGroup, User currentUser);
+
+
 }

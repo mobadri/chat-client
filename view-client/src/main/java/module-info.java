@@ -3,6 +3,7 @@ module view.client {
     requires javafx.controls;
     requires controller.client;
     requires javafx.fxml;
+
     requires javafx.base;
     requires javafx.graphics;
     requires javafx.web;
@@ -23,7 +24,6 @@ module view.client {
     opens com.chat.client.view.client.friend;
     opens com.chat.client.view.client.notification;
     opens com.chat.client.view.client.notification.traynotifications.notification;
-
     requires java.desktop;
     requires java.logging;
 }

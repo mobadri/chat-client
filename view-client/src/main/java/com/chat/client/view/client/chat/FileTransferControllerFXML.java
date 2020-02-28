@@ -23,6 +23,18 @@ import java.util.ResourceBundle;
 
 public class FileTransferControllerFXML implements Initializable {
     FileTranseferController fileTranseferController;
+
+
+
+   static FileTransferControllerFXML  fileTransferControllerFXML ;
+
+    public static FileTransferControllerFXML getFileTransferControllerFXML() {
+        return fileTransferControllerFXML;
+    }
+
+    public void setFileTransferControllerFXML(FileTransferControllerFXML fileTransferControllerFXML) {
+        this.fileTransferControllerFXML = fileTransferControllerFXML;
+    }
     @FXML
     private Label pathOfFile;
     private String nameOfFile;
@@ -32,16 +44,39 @@ public class FileTransferControllerFXML implements Initializable {
     private ChatGroup currentChatGroup;
 
     public FileTransferControllerFXML() {
-//        try {
-//            fileTranseferController = new FileTranseferControllerImpl();
-//        } catch (RemoteException e) {
-//            e.printStackTrace();
-//        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    public void recieve(){
+
+        new Thread(() -> {
+            RemoteInputStreamServer istream = null;
+            try {
+                System.out.println("handleSendFile pathOfFile is supposednot to be null : " + pathOfFile.getText());
+                BufferedInputStream bufferedInputStream = new BufferedInputStream
+                        (new FileInputStream(new File(pathOfFile.getText())));
+
+                istream = new SimpleRemoteInputStream(bufferedInputStream);
+                System.out.println(istream);
+                System.out.println("handleSendFile istream is supposednot to be null : " + istream);
+                fileTranseferController.sendFile(nameOfFile, istream, currentChatGroup, currentUser);
+                //fileTranseferController.send(nameOfFile, currentChatGroup, currentUser);
+                Platform.runLater(() -> stage.close());
+
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (istream != null) istream.close();
+            }
+
+        }).start();
     }
 
     @FXML
@@ -59,7 +94,8 @@ public class FileTransferControllerFXML implements Initializable {
                 System.out.println(istream);
                 System.out.println("handleSendFile istream is supposednot to be null : " + istream);
 
-                fileTranseferController.sendFile(nameOfFile, istream, currentChatGroup, currentUser);
+                //fileTranseferController.sendFile(nameOfFile, istream, currentChatGroup, currentUser);
+                fileTranseferController.send(nameOfFile, currentChatGroup, currentUser);
                 Platform.runLater(() -> stage.close());
 
 

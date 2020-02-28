@@ -159,10 +159,19 @@ public class FileTranseferControllerImpl extends UnicastRemoteObject implements 
         this.currentUser = user;
     }
 
+//    @Override
+//    public void clientAcceptFile(String fileName, int currentChatGroupId, User currentUser) {
+//        try {
+//            clientFileTransferService.clientAcceptFile(fileName, currentChatGroupId, currentUser);
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
     @Override
-    public void clientAcceptFile(String fileName, int currentChatGroupId, User currentUser) {
+    public void send(String nameFile, ChatGroup currentChatGroup, User currentUser) {
         try {
-            clientFileTransferService.clientAcceptFile(fileName, currentChatGroupId, currentUser);
+            clientFileTransferService.send(nameFile,currentChatGroup,currentUser);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

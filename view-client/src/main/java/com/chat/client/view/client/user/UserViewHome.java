@@ -270,7 +270,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             tray.setMessage(notification.getNotificationMessage());
             tray.setRectangleFill(Paint.valueOf("#2C3E50"));
             tray.setAnimationType(AnimationType.FADE);
-            tray.setImage(userImage);
+            //tray.setImage(userImage);
             tray.showAndDismiss(Duration.seconds(5));
             tray.setNotificationType(NotificationType.MESSAGE_RECEIVED);
             addNotificationToList(notification);

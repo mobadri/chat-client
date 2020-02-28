@@ -117,7 +117,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     }
 
     @FXML
-    private void sendMessageAction(MouseEvent actionEvent) {
+    private void sendMessageAction(ActionEvent actionEvent) {
         Message message = createMessage();
         sendMessage(message, isChatBotEnabled);
     }
@@ -249,7 +249,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
             Parent root = loader.load();
             FileTransferControllerFXML transferControllerFXML = loader.getController();
             /***********************************************************************************/
-
             fileTranseferController.setCurrentUser(currentUser);
             fileTranseferController.setChatGroup(currentChatGroup);
             transferControllerFXML.setFileTranseferController(fileTranseferController);
@@ -259,6 +258,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
             transferControllerFXML.setNameOfFile(file.getName());
             transferControllerFXML.setPathOfFile(file.getPath());
+            System.out.println(file.getPath());
             transferControllerFXML.setCurrentUser(currentUser);
             transferControllerFXML.setCurrentChatGroup(currentChatGroup);
             System.out.println("currentChatGroup" + currentChatGroup);
@@ -267,6 +267,8 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
             stage.initStyle(StageStyle.TRANSPARENT);
             stage.setScene(scene);
             transferControllerFXML.setStage(stage);
+            transferControllerFXML.setFileTransferControllerFXML(transferControllerFXML);
+            System.out.println("transferControllerFXML in chat View "+transferControllerFXML);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -399,7 +401,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         this.currentUser = user;
         try {
             fileTranseferController = new FileTranseferControllerImpl();
-
             System.out.println("ChatViewController created");
         } catch (RemoteException e) {
             e.printStackTrace();
