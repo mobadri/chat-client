@@ -39,6 +39,7 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
     @Override
     public void sendFile(String nameFile, RemoteInputStream remoteInputStream, ChatGroup currentChatGroup, User currentUser) {
         try {
+
             serverFileTranseferService.sendFile(nameFile, remoteInputStream, currentChatGroup, currentUser);
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -59,6 +60,15 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
     public void unregister(FileTransferServiceCallBack fileTransferServiceCallBack) {
         try {
             serverFileTranseferService.unregister(fileTransferServiceCallBack);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void clientAcceptFile(String fileName, int currentChatGroupId, User currentUser) {
+        try {
+            serverFileTranseferService.clientAcceptFile(fileName, currentChatGroupId, currentUser);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

@@ -293,6 +293,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/notification-list.fxml"));
             Parent load = loader.load();
             notificationViewListcontroller = loader.getController();
+            notificationViewListcontroller.setUserHome(this);
             anchorPaneNotification.getChildren().setAll(load);
         } catch (IOException e) {
             e.printStackTrace();
@@ -428,5 +429,9 @@ public class UserHome implements Initializable, PushNotificationInterface {
         stage.setScene(scen);
         stage.show();
         return modes;
+    }
+
+    public void clientAcceptFile(String fileName, int i, User userTo) {
+
     }
 }

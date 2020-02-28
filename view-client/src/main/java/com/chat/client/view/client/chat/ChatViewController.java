@@ -335,6 +335,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         this.currentUser = user;
         try {
             fileTranseferController = new FileTranseferControllerImpl();
+
             System.out.println("ChatViewController created");
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -354,5 +355,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         this.chatGroupInterface = chatGroupInterface;
     }
 
-
+    public FileTranseferController getFileTranseferController() {
+        return fileTranseferController;
+    }
 }

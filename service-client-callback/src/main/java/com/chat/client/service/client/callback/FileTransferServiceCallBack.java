@@ -1,6 +1,7 @@
 package com.chat.client.service.client.callback;
 
 
+import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 import com.healthmarketscience.rmiio.RemoteInputStream;
 import com.healthmarketscience.rmiio.RemoteOutputStream;
@@ -20,7 +21,7 @@ public interface FileTransferServiceCallBack extends Remote {
      *
      * @return integer represent ChatGroupId that will be recieved the file
      */
-    int getChatGroupId() throws RemoteException;
+    ChatGroup getChatGroup() throws RemoteException;
 
     /**
      * getCurrentUserId represent user that sent the file

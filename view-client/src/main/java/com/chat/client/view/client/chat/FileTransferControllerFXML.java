@@ -7,6 +7,7 @@ import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 import com.healthmarketscience.rmiio.RemoteInputStreamServer;
 import com.healthmarketscience.rmiio.SimpleRemoteInputStream;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
@@ -18,6 +19,7 @@ import java.io.*;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ResourceBundle;
+
 
 public class FileTransferControllerFXML implements Initializable {
     FileTranseferController fileTranseferController;
@@ -47,25 +49,29 @@ public class FileTransferControllerFXML implements Initializable {
         System.out.println("currentUser : " + currentUser);
         System.out.println("currentChatGroup : " + currentChatGroup.getName());
 
-        RemoteInputStreamServer istream = null;
-        try {
-            BufferedInputStream bufferedInputStream = new BufferedInputStream
-                    (new FileInputStream(new File(pathOfFile.getText())));
-            System.out.println("handleSendFile pathOfFile is supposednot to be null : " + pathOfFile.getText());
-            istream = new SimpleRemoteInputStream(bufferedInputStream);
-            System.out.println(istream);
-            System.out.println("handleSendFile istream is supposednot to be null : " + istream);
+        new Thread(() -> {
+            RemoteInputStreamServer istream = null;
+            try {
+                BufferedInputStream bufferedInputStream = new BufferedInputStream
+                        (new FileInputStream(new File(pathOfFile.getText())));
+                System.out.println("handleSendFile pathOfFile is supposednot to be null : " + pathOfFile.getText());
+                istream = new SimpleRemoteInputStream(bufferedInputStream);
+                System.out.println(istream);
+                System.out.println("handleSendFile istream is supposednot to be null : " + istream);
 
-            fileTranseferController.sendFile(nameOfFile, istream, currentChatGroup, currentUser);
-            stage.close();
+                fileTranseferController.sendFile(nameOfFile, istream, currentChatGroup, currentUser);
+                Platform.runLater(() -> stage.close());
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (istream != null) istream.close();
-        }
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                if (istream != null) istream.close();
+            }
+
+        }).start();
     }
 
     public void setPathOfFile(String pathOfFile) {
@@ -84,10 +90,11 @@ public class FileTransferControllerFXML implements Initializable {
 
     public void setCurrentChatGroup(ChatGroup currentChatGroup) {
         this.currentChatGroup = currentChatGroup;
-        System.out.println("fileTranseferController : " + fileTranseferController);
+        System.out.println("fileTranseferController : ***" + fileTranseferController);
         fileTranseferController.setChatGroup(currentChatGroup);
 
     }
+
 
     public void setFileTranseferController(FileTranseferController fileTranseferController) {
         this.fileTranseferController = fileTranseferController;

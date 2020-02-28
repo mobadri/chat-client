@@ -45,4 +45,9 @@ public class ClientFileTransferServiceImpl extends UnicastRemoteObject implement
         fileTransferHandeler.sendFile(nameFile, remoteInputStream, currentChatGroup, currentUser);
 
     }
+
+    @Override
+    public void clientAcceptFile(String fileName, int currentChatGroupId, User currentUser) throws RemoteException {
+        fileTransferHandeler.clientAcceptFile(fileName, currentChatGroupId, currentUser);
+    }
 }

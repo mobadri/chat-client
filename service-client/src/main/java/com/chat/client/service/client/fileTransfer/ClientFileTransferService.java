@@ -28,8 +28,19 @@ public interface ClientFileTransferService extends Remote {
 
     /**
      * * send file from client server
+     *
      * @param remoteInputStream
      * @throws RemoteException
      */
     void sendFile(String nameFile, RemoteInputStream remoteInputStream, ChatGroup currentChatGroup, User currentUser) throws RemoteException;
+
+    /**
+     * client accept file from server
+     *
+     * @param fileName
+     * @param currentChatGroupId
+     * @param currentUser
+     * @throws RemoteException
+     */
+    void clientAcceptFile(String fileName, int currentChatGroupId, User currentUser) throws RemoteException;
 }

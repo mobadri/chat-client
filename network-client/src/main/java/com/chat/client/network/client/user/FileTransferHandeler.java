@@ -15,4 +15,6 @@ public interface FileTransferHandeler {
     void register(FileTransferServiceCallBack fileTransferServiceCallBack);
 
     void unregister(FileTransferServiceCallBack fileTransferServiceCallBack);
+
+    void clientAcceptFile(String fileName, int currentChatGroupId, User currentUser);
 }

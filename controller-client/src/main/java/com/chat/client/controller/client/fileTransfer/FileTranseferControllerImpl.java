@@ -22,6 +22,7 @@ public class FileTranseferControllerImpl extends UnicastRemoteObject implements 
         , FileTranseferController {
 
     private ClientFileTransferService clientFileTransferService;
+    private static FileTranseferController instance;
 
     private ChatGroup chatGroup;
     private User currentUser;
@@ -73,16 +74,16 @@ public class FileTranseferControllerImpl extends UnicastRemoteObject implements 
      */
 
     @Override
-    public void setChatGroup(ChatGroup chatGroup) {
-        System.out.println("chatgroup setter");
-        this.chatGroup = chatGroup;
-
+    public ChatGroup getChatGroup() {
+        System.out.println("chatGroup in call back " + chatGroup);
+        return chatGroup;
     }
 
     @Override
-    public int getChatGroupId() {
-        System.out.println("chatGroup" + chatGroup);
-        return chatGroup.getId();
+    public void setChatGroup(ChatGroup chatGroup) {
+        System.out.println("chatgroup in controller implement  call back  ");
+        this.chatGroup = chatGroup;
+
     }
 
     @Override
@@ -103,7 +104,7 @@ public class FileTranseferControllerImpl extends UnicastRemoteObject implements 
             while ((from.read(buffer) != -1)) {
                 buffer.flip();
                 while (buffer.hasRemaining()) {
-                    System.out.println("server write");
+                    System.out.println("server write ........");
                     to.write(buffer);
                 }
                 buffer.clear();
@@ -127,47 +128,6 @@ public class FileTranseferControllerImpl extends UnicastRemoteObject implements 
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
-        File file;
-        try {
-            if (remoteInputStream != null){
-                InputStream istream = RemoteInputStreamClient.wrap(remoteInputStream);
-                ReadableByteChannel readableByteChannel = Channels.newChannel(istream);
-                ByteBuffer byteBuffer = ByteBuffer.allocate( istream.available());
-                String home = System.getProperty("user.home");
-                WritableByteChannel writableByteChannel = FileChannel.open(Paths.get(home + "/Downloads/"+ nameFile ),
-                        StandardOpenOption.WRITE ,StandardOpenOption.APPEND, StandardOpenOption.CREATE_NEW );
-                while (readableByteChannel.read(byteBuffer) != -1){
-                    byteBuffer.flip();
-                    while (byteBuffer.hasRemaining()){
-                        writableByteChannel.write(byteBuffer);
-                    }
-                    byteBuffer.clear();
-                }
-
-            }else{
-                System.out.println("Remote input stream is nulll");
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
- */
 
 //            InputStream inputStream = RemoteInputStreamClient.wrap(remoteOutputStream);
 //            FileOutputStream fileOutputStream = new FileOutputStream(new File(storagePath + nameFile));
@@ -199,7 +159,17 @@ public class FileTranseferControllerImpl extends UnicastRemoteObject implements 
         this.currentUser = user;
     }
 
+    @Override
+    public void clientAcceptFile(String fileName, int currentChatGroupId, User currentUser) {
+        try {
+            clientFileTransferService.clientAcceptFile(fileName, currentChatGroupId, currentUser);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setClientFileTransferService(ClientFileTransferService clientFileTransferService) {
         this.clientFileTransferService = clientFileTransferService;
     }
+
 }

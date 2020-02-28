@@ -236,6 +236,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/notification-list.fxml"));
             Parent load = loader.load();
             notificationViewListcontroller = loader.getController();
+            notificationViewListcontroller.setUserHome(this);
             anchorPaneNotification.getChildren().setAll(load);
         } catch (IOException e) {
             e.printStackTrace();
@@ -263,5 +264,11 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
      */
     public void setUserHomeInterface(UserHomeInterface userHomeInterface) {
         this.userHomeInterface = userHomeInterface;
+    }
+
+    public void clientAcceptFile(String fileName, int chatGroupId, User userTo) {
+        for (ChatGroup chatGroup : chatGroupObservableList) {
+
+        }
     }
 }
