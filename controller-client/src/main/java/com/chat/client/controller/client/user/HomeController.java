@@ -4,6 +4,7 @@ import com.chat.client.service.client.chat.ClientChatGroupService;
 import com.chat.client.service.client.factory.ServiceClientFactory;
 import com.chat.client.service.client.user.ClientUserService;
 import com.chat.server.model.chat.ChatGroup;
+import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.User;
 
 import java.rmi.RemoteException;
@@ -48,14 +49,34 @@ public class HomeController {
         }
         return null;
     }
-    public  int getSatatus(int userId,int friendId)
-    {
+
+    public FriendStatus getSatatus(int userId, int friendId) {
+        FriendStatus friendStatus = null;
         try {
-            return clientUserService.statusFriend(userId, friendId);
+            friendStatus = clientUserService.statusFriend(userId, friendId);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return friendStatus;
+    }
+
+    //Update status
+    public int updateFriend(int userId, int friendId, FriendStatus friendStatus) {
+        try {
+            return clientUserService.updateFriend(userId, friendId, friendStatus);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
         return 0;
     }
 
+    public List<User> getFriendRequest(User currentUser) {
+        List<User> userList = new ArrayList<>();
+        try {
+            userList = clientUserService.getAllFriendRequests(currentUser);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
 }

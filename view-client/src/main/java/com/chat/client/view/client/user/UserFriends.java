@@ -3,8 +3,12 @@ package com.chat.client.view.client.user;
 import com.chat.client.view.client.chat.render.CellRenderer;
 import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.user.User;
+import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -12,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,13 +28,15 @@ public class UserFriends implements Initializable {
 
     @FXML
     private ListView userList;
+    @FXML
+    private JFXTextField searchForFriends;
+
     private ObservableList<User> friendsObservableList = FXCollections.observableArrayList();
     private User currentUser;
     private UserViewHome userViewHome;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        new Thread(() -> setFriendsListView(currentUser.getFriends())).start();
     }
 
     @FXML
@@ -69,9 +76,48 @@ public class UserFriends implements Initializable {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+        Platform.runLater(() -> setFriendsListView(currentUser.getFriends()));
     }
 
     public void setUserViewHome(UserViewHome userViewHome) {
         this.userViewHome = userViewHome;
+    }
+
+    public void setFriendMode(User friend) {
+
+        List<User> users = userList.getItems();
+        boolean isRemoved = users.removeIf((user) -> user.getId() == friend.getId());
+        if (isRemoved) {
+            users.add(friend);
+            userList.setItems(FXCollections.observableArrayList(users));
+        }
+    }
+
+    private void searchTextListener(FilteredList<User> filteredData) {
+
+        searchForFriends.textProperty().addListener((observable, oldValue, newValue) ->
+                filteredData.setPredicate(friend -> {
+                    if (newValue == null || newValue.isEmpty()) {
+                        return true;
+                    }
+                    String lowerCaseFilter = newValue.toLowerCase();
+                    if (friend.getFirstName().toLowerCase().contains(lowerCaseFilter)
+                            || friend.getPhone().contains(lowerCaseFilter)
+                            || (friend.getCountry() != null
+                            && friend.getCountry().toLowerCase().contains(lowerCaseFilter))
+                            || (friend.getLastName() != null
+                            && friend.getLastName().toLowerCase().contains(lowerCaseFilter))) {
+                        System.out.println("Search is here");
+                        return true;
+                    }
+                    return false;
+                }));
+    }
+
+    void setSearchForFriends() {
+        FilteredList<User> filteredData = new FilteredList<>(friendsObservableList, p -> true);
+        searchTextListener(filteredData);
+        SortedList<User> sortedData = new SortedList<>(filteredData);
+        userList.setItems(sortedData);
     }
 }

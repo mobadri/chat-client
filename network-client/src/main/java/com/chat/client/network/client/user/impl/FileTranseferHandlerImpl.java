@@ -6,7 +6,6 @@ import com.chat.client.service.client.callback.FileTransferServiceCallBack;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.fileTransfer.ServerFileTranseferService;
-import com.healthmarketscience.rmiio.RemoteInputStream;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -24,7 +23,7 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
 
         /*commented segments of code is connection security trail */
         try {
-            Registry registry = LocateRegistry.getRegistry(serverIP, Integer.valueOf(portNumber));
+            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
 //            Registry registry = LocateRegistry.getRegistry(portNumber);

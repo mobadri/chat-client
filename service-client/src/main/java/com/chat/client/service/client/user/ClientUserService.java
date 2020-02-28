@@ -1,5 +1,6 @@
 package com.chat.client.service.client.user;
 
+import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 
@@ -24,6 +25,7 @@ public interface ClientUserService extends Remote {
 
     /**
      * this method to add new Friend
+     *
      * @param currentUser the user is logged in
      * @param friend the user will be added
      * @return number of rows of friends
@@ -32,6 +34,7 @@ public interface ClientUserService extends Remote {
     int addFriend(User currentUser, User friend) throws RemoteException;
     /**
      * this method to remove  Friend
+     *
      * @param currentId the current user will delete this friend
      * @param friendId the user will be deleted by id
      * @return number of rows of friends will be deleted
@@ -95,16 +98,34 @@ public interface ClientUserService extends Remote {
      * @return the friend status number
      * @throws RemoteException
      */
-    int statusFriend(int userID,int friendID) throws RemoteException;
-
+    FriendStatus statusFriend(int userID, int friendID) throws RemoteException;
 
 
     /**
      * User to be updated
+     *
      * @param user to update his mode
      * @param mode new mode
      * @return updated user
      * @throws RemoteException
      */
     User updateUserMode(User user, Mode mode) throws RemoteException;
+
+    /**
+     * get all friends on pending state
+     * @param currentUser login user
+     * @return list of friends on pending state
+     */
+    List<User> getAllFriendRequests(User currentUser)throws RemoteException;
+
+    /**
+     * @param userId       the current user
+     * @param friendId     friend User
+     * @param friendStatus status to 1
+     * @return no of update
+     * @throws RemoteException
+     */
+    int updateFriend(int userId, int friendId, FriendStatus friendStatus) throws RemoteException;
+
+
 }

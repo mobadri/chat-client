@@ -2,13 +2,11 @@ package com.chat.client.network.client.chat.impl;
 
 import com.chat.client.network.client.chat.ChatGroupHandler;
 import com.chat.client.network.client.config.NetworkConfig;
-import com.chat.client.network.client.socket_factory.RMISSLClientSocketFactory;
+import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.chatgroup.ServerChatGroupService;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -23,14 +21,16 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
 
     public ChatGroupHandlerImpl() {
         networkConfig = NetworkConfig.getInstance();
-        String portNumber =networkConfig.getServerPortNumber();
+        int portNumber = networkConfig.getServerPortNumber();
         String serverIP = networkConfig.getServerIp();
         try {
             /*commented segments of code is connection security trail */
 
-            Registry registry = LocateRegistry.getRegistry(serverIP, Integer.valueOf(portNumber));
+//            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     portNumber, new RMISSLClientSocketFactory());*/
+            Registry registry = LocateRegistry.getRegistry(serverIP,
+                    portNumber, NetworkFactory.createSslClientSocketFactory());
 
             //Registry registry = LocateRegistry.getRegistry(portNumber);
             serverChatGroupService = (ServerChatGroupService) registry.lookup("chatGroupService");
@@ -92,14 +92,15 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
         return chatGroup;
     }
 
+
     @Override
     public ChatGroup addUser(ChatGroup chatGroup, User user) {
         try {
-            return serverChatGroupService.addFriend(chatGroup, user);
+            serverChatGroupService.addFriend(chatGroup.getId(), user.getId());
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return null;
+        return chatGroup;
     }
 
     @Override
@@ -109,7 +110,7 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return null;
+        return chatGroup;
     }
 
     @Override

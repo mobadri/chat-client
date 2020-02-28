@@ -1,5 +1,6 @@
 package com.chat.client.service.client.message.impl;
 
+import chatbot.factory.ChatBotFactory;
 import com.chat.client.network.client.chat.MessageHandler;
 import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.service.client.callback.MessageServiceCallBack;
@@ -35,7 +36,6 @@ public class ClientMessageServiceImpl implements ClientMessageService {
     }
 
     @Override
-
     public void sendMessage(Message message) {
         messageHandler.sendMessage(message);
     }

@@ -7,6 +7,7 @@ import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImp
 import com.chat.client.controller.client.message.MessageControllerImpl;
 
 import com.chat.client.view.client.chat.render.MessageCellRenderer;
+import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
 import com.chat.server.model.chat.Style;
@@ -27,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -69,6 +71,11 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private Button chooseFontButton;
     @FXML
     private Label chatGroupName;
+    @FXML
+    private ImageView addnewfriend;
+    @FXML
+    private JFXCheckBox chatBot;
+
     //----------------------------------------------------------------------
     //---------------------------data section ------------------------------
     //--------------------------------------- ------------------------------
@@ -82,9 +89,11 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private Color bgColor = Color.WHITE;
     private FileTranseferController fileTranseferController;
 
+    private boolean isChatBotEnabled;
 
     public ChatViewController() {
         setDefaultStyle();
+
     }
 
     @Override
@@ -95,7 +104,9 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
                 loadSize();
             });
         }).start();
+
         messageListProperty.set(messageObservableList);
+
         messageListView.itemsProperty().bindBidirectional(messageListProperty);
         messageListView.setItems(messageListProperty);
         messageListView.setCellFactory(new MessageCellRenderer());
@@ -103,10 +114,14 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     }
 
+    public void enableChatBot(ActionEvent actionEvent) {
+        isChatBotEnabled = chatBot.isSelected();
+    }
+
     @FXML
     private void sendMessageAction(ActionEvent actionEvent) {
         Message message = createMessage();
-        sendMessage(message);
+        sendMessage(message, isChatBotEnabled);
     }
 
     private Message createMessage() {
@@ -121,8 +136,8 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     }
 
     @Override
-    public void sendMessage(Message message) {
-        chatGroupInterface.sendMessage(message);
+    public void sendMessage(Message message, boolean isChatBotEnabled) {
+        chatGroupInterface.sendMessage(message, isChatBotEnabled);
     }
 
     @Override
@@ -130,7 +145,25 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         Platform.runLater(() -> {
             showReceivedMessage(message);
         });
+
+        if (isChatBotEnabled)
+            getChatBotResponse(message);
         currentChatGroup.getMessages().add(message);
+    }
+
+    @Override
+    public void getChatBotResponse(Message receivedMessage) {
+        chatGroupInterface.getChatBotResponse(receivedMessage);
+    }
+
+    @Override
+    public Message createMessage(String messageContent) {
+        return null;
+    }
+
+    @Override
+    public void setChatGroup(ChatGroup chatGroup) {
+        this.currentChatGroup = chatGroup;
     }
 
 //    @FXML
@@ -183,6 +216,26 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         messageContent.setStyle(defualtStyle.toString());
     }
 
+    @FXML
+    public void addnewfriendAction(MouseEvent mouseEvent) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader =
+                    new FXMLLoader(getClass().getResource("/templates/chat/addfriendstochat.fxml"));
+            Parent root = loader.load();
+            AddFriendToChatGroup controller = loader.getController();
+            controller.setCurrentUser(currentUser);
+            System.err.println("Chat View controller current user " + currentUser.getFriends().size());
+            System.err.println("Chat View controller chat group user " + currentChatGroup.getUsers().size());
+            controller.setGroupChat(currentChatGroup);
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void handleSendingFile(MouseEvent mouseEvent) {
         FileChooser fileChooser = new FileChooser();
@@ -249,6 +302,10 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     }
 
+    @Override
+    public void unregisterService() {
+        chatGroupInterface.unregisterService();
+    }
 
 //
 //    public void onClickFontComboBox(ActionEvent actionEvent) {
@@ -263,13 +320,28 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         System.out.println(defualtStyle.getFontSize());
     }
 
-//    @FXML
-//    private void onClickColorPicker(ActionEvent actionEvent) {
-//        defualtStyle.setFontColor(format(fontColorPicker.getValue()));
-//        messageContent.setStyle(defualtStyle.toString());
-//        System.out.println(format(fontColorPicker.getValue()));
-//
-//    }
+    @FXML
+    private void onClickColorPicker(ActionEvent actionEvent) {
+        defualtStyle.setFontColor(format(fontColorPicker.getValue()));
+        messageContent.setStyle(defualtStyle.toString());
+        System.out.println(format(fontColorPicker.getValue()));
+    }
+    @FXML
+    public void AddUserToGroup(ActionEvent actionEvent) {
+        Parent root;
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/chat/Chat-group-users.fxml"));
+            root = loader.load();
+            ChatGroupUsers chatGroupUsers = loader.getController();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            System.out.println("kkkkkkkkkkkkkk");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     //-----------------------------------------------------------------------
     //----------------------------view section ------------------------------
@@ -320,18 +392,11 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
         return stringBuilder.toString();
     }
-
-    @Override
-    public void unregisterService() {
-        chatGroupInterface.unregisterService();
-    }
-
     //-------------------------------------------------------------------------
     //----------------------------setter section ------------------------------
     //-------------------------------------------------------------------------
 
     public void setUser(User user) {
-
         this.currentUser = user;
         try {
             fileTranseferController = new FileTranseferControllerImpl();

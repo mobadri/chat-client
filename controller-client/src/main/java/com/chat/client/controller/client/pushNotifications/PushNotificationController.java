@@ -18,7 +18,7 @@ public class PushNotificationController extends UnicastRemoteObject implements N
     private User currentUser;
 
     public PushNotificationController() throws RemoteException {
-        clientNotificationService.register(this);
+
     }
 
     @Override
@@ -59,6 +59,7 @@ public class PushNotificationController extends UnicastRemoteObject implements N
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+        clientNotificationService.register(this);
     }
 
     public void unregisterService(){

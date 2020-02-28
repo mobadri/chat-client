@@ -25,7 +25,9 @@ public class NotificationViewListController implements Initializable {
     private UserViewHome userHome;
 
     private ObservableList<Notification> myNotificationList = FXCollections.observableArrayList();
+
     private ListProperty<Notification> myNotificationProperty =new SimpleListProperty<>();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         myNotificationProperty.set(myNotificationList);
@@ -39,11 +41,14 @@ public class NotificationViewListController implements Initializable {
          cellRenderer = new NotificationCellRenderer();
          cellRenderer.setController(this);
     }
+
     public void addNotification(Notification notification){
+
         myNotificationList.add(notification);
     }
 
     public void removeNotificationFromUI(Notification notification){
+
         myNotificationList.remove(notification);
     }
 

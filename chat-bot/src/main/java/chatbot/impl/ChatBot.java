@@ -27,25 +27,48 @@ public class ChatBot implements ChatBotInterface {
     private static ChatBot chatBotInstance;
     private Document document;
     private File xmlFile;
+    private boolean defaultMessage;
     private Map<String, List<XmlValueTag>> chatBot = new TreeMap<>();
 
-    public static ChatBot getInstance() throws IOException, SAXException, ParserConfigurationException {
+    public static ChatBot getInstance(String userPhone) throws IOException, SAXException, ParserConfigurationException, TransformerException {
 
         if (chatBotInstance == null)
-            chatBotInstance = new ChatBot();
+            chatBotInstance = new ChatBot(userPhone);
         return chatBotInstance;
     }
 
-    private ChatBot() throws ParserConfigurationException, SAXException, IOException {
+    private ChatBot(String userPhone) throws ParserConfigurationException, IOException, TransformerException {
 
-        xmlFile = new File("chat_bot_keys.xml");
-        readXml(xmlFile);
+        xmlFile = new File( "chat-bot/"+ userPhone + ".xml");
+        if(xmlFile.exists()){
+            new Thread(() -> {
+                try {
+                    readXml(xmlFile);
+                } catch (IOException | SAXException | ParserConfigurationException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+        else {
+            xmlFile.createNewFile();
+            createNewDocument();
+            writeToXmlFile(document);
+        }
+    }
+
+    private void createNewDocument() throws ParserConfigurationException, TransformerException {
+
+        document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        Element root = document.createElement("keys");
+        root.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance",
+                "xsi:noNamespaceSchemaLocation", "chat_bot_keys.xsd");
+        document.appendChild(root);
+        writeToXmlFile(document);
     }
 
     public void readXml(File xmlFile) throws IOException, SAXException, ParserConfigurationException {
 
         getDocument(xmlFile);
-
         NodeList keys = document.getElementsByTagName("key");
         List<XmlValueTag> xmlValueTagList;
 
@@ -101,7 +124,7 @@ public class ChatBot implements ChatBotInterface {
         XPathFactory factory = XPathFactory.newInstance();
         XPath path = factory.newXPath();
 
-        String valueXpath = "/keys/key[contains(@name,'" + keyName + "')]/*/value[text() = '" + valueTag.getValue() + "']";
+        String valueXpath = "/keys/key[contains(@name,'" + keyName + "')]/*/value[contains(text(),'" + valueTag.getValue() + "')]";
         XPathExpression expression = path.compile(valueXpath);
         Node keyValue = (Node) expression.evaluate(document, XPathConstants.NODE);
 
@@ -143,6 +166,8 @@ public class ChatBot implements ChatBotInterface {
         DOMSource source = new DOMSource(doc);
         StreamResult result = new StreamResult(xmlFile);
         transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "1");
         transformer.transform(source, result);
     }
 
@@ -186,11 +211,15 @@ public class ChatBot implements ChatBotInterface {
         String respond = "sorry !! what do you mean ?";
         message = message.toLowerCase().trim();
         List<XmlValueTag> valueTags = search(message);
-        System.out.println(valueTags);
+
         if (!valueTags.isEmpty()) {
             valueTags.sort(Comparator.comparing(chatbot.XmlValueTag::getWeight).reversed());
             respond = valueTags.get(0).getValue();
-        }
+        }else if(defaultMessage){
+            respond = "sorry, I'm busy now. Can you call me later ?";
+            defaultMessage = false;
+        }else
+            defaultMessage = true;
         return respond;
     }
 
@@ -198,12 +227,14 @@ public class ChatBot implements ChatBotInterface {
     public void learn(String message, String respond) {
 
         message = message.toLowerCase().trim();
-        respond = respond.toLowerCase().trim();
-        XmlValueTag valueTag = new XmlValueTag(respond);
-        try {
-            enableChatBotToLearn(message, valueTag);
-        } catch (XPathExpressionException | TransformerException e) {
-            e.printStackTrace();
+        if(!message.equalsIgnoreCase("sorry !! what do you mean ?")) {
+            respond = respond.toLowerCase().trim();
+            XmlValueTag valueTag = new XmlValueTag(respond);
+            try {
+                enableChatBotToLearn(message, valueTag);
+            } catch (XPathExpressionException | TransformerException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

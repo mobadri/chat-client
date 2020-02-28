@@ -10,6 +10,7 @@ import com.chat.client.view.client.chat.render.ChatGroupCellRenderer;
 import com.chat.client.view.client.chat.render.RenderImage;
 import com.chat.client.view.client.friend.AddFriend;
 import com.chat.client.view.client.login.LoginViewController;
+import com.chat.client.view.client.notification.FriendRequestListViewController;
 import com.chat.client.view.client.notification.NotificationViewListController;
 import com.chat.client.view.client.notification.traynotifications.animations.AnimationType;
 import com.chat.client.view.client.notification.traynotifications.notification.TrayNotification;
@@ -65,6 +66,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private Button addFriend;
     RenderImage renderImage = new RenderImage();
     NotificationViewListController notificationViewListcontroller;
+    FriendRequestListViewController friendRequestListViewController;
 
     @FXML
     private ListView userList;
@@ -101,6 +103,10 @@ public class UserHome implements Initializable, PushNotificationInterface {
     private User currentUser;
 
     private boolean isShowNotificationList = false;
+    private boolean isShowFriendRequestList = false;
+    private Parent firendRequestPane;
+    private Parent notificationPane;
+
 
     public UserHome() {
         try {
@@ -124,6 +130,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadNotificationList();
+        loadFriendRequestList();
     }
 
     public void nav(MouseEvent mouseEvent) {
@@ -286,13 +293,17 @@ public class UserHome implements Initializable, PushNotificationInterface {
     public void showNotification(ActionEvent actionEvent) {
         anchorPaneNotification.setVisible(!isShowNotificationList);
         isShowNotificationList = !isShowNotificationList;
+        anchorPaneNotification.getChildren().clear();
+        anchorPaneNotification.getChildren().setAll(notificationPane);
+
     }
 
     private void loadNotificationList() {
         try {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/notification-list.fxml"));
-            Parent load = loader.load();
+            notificationPane = loader.load();
             notificationViewListcontroller = loader.getController();
+
             notificationViewListcontroller.setUserHome(this);
             anchorPaneNotification.getChildren().setAll(load);
         } catch (IOException e) {
@@ -321,6 +332,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
                     new FXMLLoader(getClass().getResource("/templates/friend/addFriend.fxml"));
             root = loader.load();
             AddFriend controller = loader.getController();
+            controller.setHomeController(homeController);
             controller.setCurrentUser(currentUser);
             friendStage = new Stage();
             friendStage.setScene(new Scene(root));
@@ -382,7 +394,33 @@ public class UserHome implements Initializable, PushNotificationInterface {
         pushNotificationController.showOfflineFriends(user);
     }
 
+    private void addfriendRequestToList(User user) {
+
+        friendRequestListViewController.addFriendRequestequest(user);
+    }
+
+    @FXML
     public void handleRequestsButton(ActionEvent actionEvent) {
+        System.out.println("isShowFriendRequestList");
+        anchorPaneNotification.setVisible(!isShowFriendRequestList);
+        isShowFriendRequestList = !isShowFriendRequestList;
+        anchorPaneNotification.getChildren().clear();
+        anchorPaneNotification.getChildren().setAll(firendRequestPane);
+    }
+
+    private void loadFriendRequestList() {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/FriendRequest-list.fxml"));
+            firendRequestPane = loader.load();
+            friendRequestListViewController = loader.getController();
+            List<User> friendRequest = homeController.getFriendRequest(currentUser);
+            for (User user : friendRequest) {
+                friendRequestListViewController.addFriendRequestequest(user);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

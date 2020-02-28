@@ -42,6 +42,7 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
     public ListCell<Notification> call(ListView<Notification> p) {
 
         ListCell<Notification> cell = new ListCell<Notification>() {
+
             @Override
             protected void updateItem(Notification notification, boolean b) {
                 super.updateItem(notification, b);
@@ -92,19 +93,10 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                     vBox.getChildren().addAll(notificationFrom, notificationContent, hBox1);
                     vBox.setPadding(new Insets(0, 0, 0, 0));
                     vBox.layout();
-                    ImageView pictureImageView = new ImageView();
-                   /* pictureImageView.setStyle("width: 24px;\n" +
-                            "    height: 24px;\n" +
-                            "    border-radius: 50%;\n" +
-                            "    border-style: solid;\n" +
-                            "    border-width: 1px;\n" +
-                            "    border-color: lightgrey;");*/
                     circle.setCenterX(32);
                     circle.setRadius(32);
-                    //-------------------------------------
                     ImageView statusImageView = new ImageView();
                     Image statusImage = new Image(getClass()
-//                            .getResource("/static/images/mode/available.png").toString(), 16, 16, true, true);
                             .getResource("/static/images/mode/" + notification.getUserFrom().getMode().toString().toLowerCase().trim() + ".png").toString(), 36, 36, true, true);
                     statusImageView.setImage(statusImage);
                     Image image = renderImage.convertToImage(notification.getUserFrom().getImage());
@@ -159,6 +151,7 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
     }
 
     public void setController(NotificationViewListController controller) {
+
         this.controller = controller;
     }
 }

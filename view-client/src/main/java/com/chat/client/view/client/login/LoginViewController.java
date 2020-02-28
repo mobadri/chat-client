@@ -2,7 +2,7 @@ package com.chat.client.view.client.login;
 
 import com.chat.client.controller.client.user.login.RememberMeController;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
-import com.chat.client.view.client.chat.UserHome;
+import com.chat.client.view.client.user.UserViewHome;
 import com.chat.server.model.user.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,8 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -50,13 +48,12 @@ public class LoginViewController implements Initializable {
 
     }
 
-
     public void setStageLogin(Stage stage) {
         this.stage = stage;
 
     }
 
-    public void login(){
+    public void login() {
         clearAffectOfValidation();
         if (validatePhone(txtFieldLoginPhone.getText().trim()) && existedPhone(txtFieldLoginPhone.getText().trim()) != null) {
 
@@ -64,7 +61,7 @@ public class LoginViewController implements Initializable {
             System.out.println(user);
             if (user != null && user.getId() > 0) {
                 System.out.println("login successfully");
-                if(rememberMe.isSelected()){
+                if (rememberMe.isSelected()) {
                     isRememberMe();
                 }
                 goToHomePage(user);
@@ -80,6 +77,7 @@ public class LoginViewController implements Initializable {
         }
         String title = "sign in";
     }
+
     @FXML
     private void onLogin(ActionEvent actionEvent) {
         clearAffectOfValidation();
@@ -89,8 +87,8 @@ public class LoginViewController implements Initializable {
             System.out.println(user);
             if (user != null && user.getId() > 0) {
                 System.out.println("login successfully");
-               if(rememberMe.isSelected()){
-                   isRememberMe();
+                if (rememberMe.isSelected()) {
+                    isRememberMe();
                 }
                 goToHomePage(user);
 
@@ -117,10 +115,12 @@ public class LoginViewController implements Initializable {
         //;
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/templates/user/user-home.fxml"));
+//                    getClass().getResource("/templates/user/user-home.fxml"));
+                    getClass().getResource("/templates/user/user-home-copy.fxml"));
             root = loader.load();
-            UserHome userHome = loader.getController();
-            userHome.setCurrentUser(user);
+//            UserHome userHome = loader.getController();
+            UserViewHome userViewHome = loader.getController();
+            userViewHome.setCurrentUser(user);
             stage.setMaximized(true);
             stage.setFullScreen(true);
             stage.setScene(new Scene(root));
@@ -163,10 +163,10 @@ public class LoginViewController implements Initializable {
     }
 
 
-    public void isRememberMe(){
-            RememberMeController rememberMeController = new RememberMeController();
-            rememberMeController.CreateIntoXML(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
-            System.out.println(true);
+    public void isRememberMe() {
+        RememberMeController rememberMeController = new RememberMeController();
+        rememberMeController.CreateIntoXML(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
+        System.out.println(true);
     }
 
 

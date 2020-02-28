@@ -1,5 +1,6 @@
 package com.chat.client.network.client.user;
 
+import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 
@@ -50,7 +51,8 @@ public interface UserHandler {
 
 
     /**
-     *  ckeck this phone is registered  or not
+     * ckeck this phone is registered  or not
+     *
      * @param phone user phone
      * @return user if found or null if notfound
      */
@@ -62,20 +64,38 @@ public interface UserHandler {
      * @param user to be updated
      * @return updated user
      */
-    User updateUser(User user,String password);
+    User updateUser(User user, String password);
+
     /**
      * friend status
-     * @param userID id for the user
+     *
+     * @param userID   id for the user
      * @param friendID id for the friend
      * @return number of status;
      */
-    int friendStatus (int userID,int friendID);
+    FriendStatus friendStatus(int userID, int friendID);
 
     /**
      * User to be updated
+     *
      * @param user to update his mode
      * @param mode new mode
-     * @return updated user
      */
-    User updateUserMode(User user, Mode mode);
+    void updateUserMode(User user, Mode mode);
+
+    /**
+     * @param userId       the current user
+     * @param friendId     friend id
+     * @param friendStatus status will be 1
+     * @return
+     */
+    int updateFriend(int userId, int friendId, FriendStatus friendStatus);
+
+    /**
+     * get all friends on pending state
+     *
+     * @param currentUser login user
+     * @return list of friends on pending state
+     */
+    List<User> getAllFriendRequests(User currentUser);
 }

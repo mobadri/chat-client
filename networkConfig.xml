@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <networkConfig>
-    <server-ip>localhost</server-ip>
-    <server-port>44444</server-port>
+    <server-ip>10.145.6.87</server-ip>
+    <server-port>11223</server-port>
 </networkConfig>
