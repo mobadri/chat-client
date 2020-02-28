@@ -16,6 +16,7 @@ import com.chat.client.view.client.notification.traynotifications.notification.T
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Notification;
 import com.chat.server.model.chat.NotificationType;
+import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import com.jfoenix.controls.JFXListView;
@@ -32,6 +33,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -47,7 +49,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     //------------------------------view section-----------------------------
     @FXML
-    private AnchorPane containerPane;
+    private StackPane containerPane;
     @FXML
     private AnchorPane anchorPaneNotification;
     @FXML
@@ -102,6 +104,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             friendsPane = loader.load();
             userFriendsController = loader.getController();
             userFriendsController.setCurrentUser(currentUser);
+            userFriendsController.setUserViewHome(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -150,9 +153,9 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     }
 
     @Override
-    public ChatGroup addFriend(ChatGroup chatGroup, User user) {
+    public ChatGroup addFriendToChatGroup(ChatGroup chatGroup, User user) {
 
-        return userHomeInterface.addFriend(chatGroup, user);
+        return userHomeInterface.addFriendToChatGroup(chatGroup, user);
     }
 
     //todo show list of requests
@@ -415,5 +418,25 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             e.printStackTrace();
         }
 
+    }
+
+    public List<User> findByPhone(String phone) {
+        return homeController.findByPhone(phone);
+    }
+
+    public FriendStatus getFriendStatus(User user, User friend) {
+        return homeController.getSatatus(user.getId(), friend.getId());
+    }
+
+    public void removeFriend(User user, User userFriend) {
+        homeController.removeFriend(user, userFriend);
+    }
+
+    public void addFriend(User user, User friend) {
+        homeController.addFriend(user, friend);
+    }
+
+    public void updateFriend(User user, User friend, FriendStatus status) {
+        homeController.updateFriend(user.getId(), friend.getId(), status);
     }
 }

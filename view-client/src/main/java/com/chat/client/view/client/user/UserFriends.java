@@ -15,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -60,6 +59,7 @@ public class UserFriends implements Initializable {
             Parent root = loader.load();
             AddFriend controller = loader.getController();
             controller.setCurrentUser(currentUser);
+            controller.setHomeController(userViewHome);
             Stage friendStage = new Stage();
             friendStage.setScene(new Scene(root));
             friendStage.show();

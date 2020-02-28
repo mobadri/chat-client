@@ -13,6 +13,7 @@ import java.security.cert.CertificateException;
 public class SslClientSocketFactory implements RMIClientSocketFactory, Serializable {
 
     private SSLSocketFactory sf = null;
+    private static SslClientSocketFactory instance = null;
 
     /**
      * complete guid https://github.com/hvqzao/java-rmi
@@ -31,7 +32,7 @@ public class SslClientSocketFactory implements RMIClientSocketFactory, Serializa
      * @throws UnrecoverableKeyException
      * @throws KeyManagementException
      */
-    public SslClientSocketFactory(String filename, String password) throws FileNotFoundException, IOException, NoSuchAlgorithmException, CertificateException, KeyStoreException, UnrecoverableKeyException, KeyManagementException {
+    private SslClientSocketFactory(String filename, String password) throws FileNotFoundException, IOException, NoSuchAlgorithmException, CertificateException, KeyStoreException, UnrecoverableKeyException, KeyManagementException {
         // creating instance from keystore
         KeyStore ks = KeyStore.getInstance("jks");
         //reading key store from file system
@@ -61,4 +62,27 @@ public class SslClientSocketFactory implements RMIClientSocketFactory, Serializa
         return sslSock;
     }
 
+    public static synchronized SslClientSocketFactory getInstance() {
+        if (instance == null) {
+            try {
+                instance = new SslClientSocketFactory("security/client", "ahm741741");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (KeyManagementException e) {
+                e.printStackTrace();
+            } catch (CertificateException e) {
+                e.printStackTrace();
+            } catch (KeyStoreException e) {
+                e.printStackTrace();
+            } catch (UnrecoverableKeyException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(instance);
+        return instance;
+    }
 }

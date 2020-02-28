@@ -55,6 +55,6 @@ public interface UserHomeInterface {
      * @param user      to add in the chat
      * @return chatgroup
      */
-    ChatGroup addFriend(ChatGroup chatGroup, User user);
+    ChatGroup addFriendToChatGroup(ChatGroup chatGroup, User user);
 
 }

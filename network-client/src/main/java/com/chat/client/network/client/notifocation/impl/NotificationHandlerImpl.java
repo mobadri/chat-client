@@ -1,7 +1,6 @@
 package com.chat.client.network.client.notifocation.impl;
 
 import com.chat.client.network.client.config.NetworkConfig;
-import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.network.client.notifocation.NotificationHandler;
 import com.chat.client.service.client.callback.NotificationServiceCallback;
 import com.chat.server.model.chat.Notification;
@@ -31,7 +30,7 @@ public class NotificationHandlerImpl implements NotificationHandler {
         try {
 //            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
             Registry registry = LocateRegistry.getRegistry(serverIP,
-                    portNumber, NetworkFactory.createSslClientSocketFactory());
+                    portNumber);
 
             /*commented segments of code is connection security trail */
            /* Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
@@ -40,6 +39,7 @@ public class NotificationHandlerImpl implements NotificationHandler {
             notificationService = (ServerNotificationService) registry.lookup("notificationService");
 
         } catch (RemoteException | NotBoundException e) {
+            e.printStackTrace();
             System.out.println("something incorrect happened!!");
         }
     }
