@@ -39,6 +39,7 @@ public class NotificationViewListController implements Initializable {
     }
 
     public void addNotification(Notification notification){
+
         myNotificationList.add(notification);
     }
 

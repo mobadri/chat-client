@@ -9,6 +9,7 @@ import com.chat.client.view.client.chat.ChatGroupListViewController;
 import com.chat.client.view.client.chat.ChatViewController;
 import com.chat.client.view.client.chat.render.ChatGroupCellRenderer;
 import com.chat.client.view.client.chat.render.RenderImage;
+import com.chat.client.view.client.notification.FriendRequestListViewController;
 import com.chat.client.view.client.notification.NotificationViewListController;
 import com.chat.client.view.client.notification.traynotifications.animations.AnimationType;
 import com.chat.client.view.client.notification.traynotifications.notification.TrayNotification;
@@ -58,6 +59,11 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     @FXML
     public Label userName;
 
+    FriendRequestListViewController friendRequestListViewController;
+    private boolean isShowFriendRequestList = false;
+    private Parent firendRequestPane;
+    private Parent notificationPane;
+
     //------------------------------data section-----------------------------
     private User currentUser;
     private UserHomeInterface userHomeInterface;
@@ -81,6 +87,8 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(this::loadNotificationList);
+        Platform.runLater(this::loadFriendRequestList);
+        //loadFriendRequestList();
     }
 
     public UserViewHome() {
@@ -368,5 +376,35 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     public List<Parent> getChatViewList() {
         return chatViewList;
+    }
+
+
+    private void addfriendRequestToList(User user) {
+
+        friendRequestListViewController.addFriendRequestequest(user);
+    }
+
+    @FXML
+    private void handleRequestsButton(ActionEvent actionEvent) {
+        System.out.println("isShowFriendRequestList");
+        anchorPaneNotification.setVisible(!isShowFriendRequestList);
+        isShowFriendRequestList = !isShowFriendRequestList;
+        anchorPaneNotification.getChildren().clear();
+        anchorPaneNotification.getChildren().setAll(firendRequestPane);
+    }
+
+    private void loadFriendRequestList() {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/FriendRequest-list.fxml"));
+            firendRequestPane = loader.load();
+            friendRequestListViewController = loader.getController();
+            List<User> friendRequest = homeController.getFriendRequest(currentUser);
+            for (User user : friendRequest) {
+                friendRequestListViewController.addFriendRequestequest(user);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

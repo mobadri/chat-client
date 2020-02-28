@@ -3,8 +3,20 @@
 <?import com.jfoenix.controls.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane minHeight="300.0" minWidth="208.0" prefWidth="244.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.notification.NotificationViewListController">
+<AnchorPane minHeight="300.0" minWidth="208.0" prefWidth="244.0"
+            xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.chat.client.view.client.notification.NotificationViewListController">
    <children>
-      <JFXListView fx:id="notificationListView" focusTraversable="false" layoutX="-5.0" maxWidth="240.0" minHeight="300.0" minWidth="240.0" prefWidth="218.0" style="-fx-border-image-width: 0;" stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <JFXListView fx:id="notificationListView"
+                   focusTraversable="false"
+                   layoutX="-5.0"
+                   maxWidth="240.0"
+                   minHeight="300.0"
+                   minWidth="240.0"
+                   prefWidth="218.0"
+                   style="-fx-border-image-width: 0;"
+                   stylesheets="@../../static/css/ListViewStyle.css"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

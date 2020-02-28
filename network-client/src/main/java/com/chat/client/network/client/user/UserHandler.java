@@ -4,6 +4,7 @@ import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 public interface UserHandler {
@@ -29,10 +30,11 @@ public interface UserHandler {
     /**
      * remove friend from my friend list
      *
-     * @param friendId friend will remove from friend list
+     *
+     * @param friendId     friend will remove from friend list
      * @return true if succeed to remove , false if failed
      */
-    int removeFriend(int currentId, int friendId);
+    int removeFriend(int currentId,int friendId);
 
     /**
      * login to the system
@@ -43,7 +45,7 @@ public interface UserHandler {
      */
     User login(String phone, String password);
 
-    User signUp(User user, String password);
+    User signUp(User user,String password);
 
     List<User> getAllUsers();
 
@@ -88,4 +90,12 @@ public interface UserHandler {
      * @return
      */
     int updateFriend(int userId, int friendId, FriendStatus friendStatus);
+
+    /**
+     * get all friends on pending state
+     *
+     * @param currentUser login user
+     * @return list of friends on pending state
+     */
+    List<User> getAllFriendRequests(User currentUser);
 }

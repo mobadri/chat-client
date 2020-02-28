@@ -8,6 +8,7 @@ import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.User;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeController {
@@ -67,8 +68,15 @@ public class HomeController {
             e.printStackTrace();
         }
         return 0;
-
     }
 
-
+    public List<User> getFriendRequest(User currentUser) {
+        List<User> userList = new ArrayList<>();
+        try {
+            userList = clientUserService.getAllFriendRequests(currentUser);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
 }

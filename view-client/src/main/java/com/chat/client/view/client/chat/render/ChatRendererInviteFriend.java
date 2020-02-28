@@ -77,13 +77,8 @@ public class ChatRendererInviteFriend implements Callback<ListView<User>, ListCe
                     InviteFriend.setAlignment(Pos.CENTER_RIGHT);
                     hBox.getChildren().addAll(stackPane, name, InviteFriend);
                     handleViewButton(InviteFriend, currentChatGroup, user);
-
-
                     setPrefHeight(80);
-
-
                     setGraphic(hBox);
-
                 }
 
             }

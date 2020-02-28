@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="236.0"
+            xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.chat.client.view.client.notification.FriendRequestListViewController">
+   <children>
+      <ListView fx:id="friendRequestListView"
+                focusTraversable="false"
+                minHeight="300.0"
+                minWidth="240.0"
+                prefWidth="236.0"
+                style="-fx-border-image-width: 0 ;"
+                stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+   </children>
+</AnchorPane>
