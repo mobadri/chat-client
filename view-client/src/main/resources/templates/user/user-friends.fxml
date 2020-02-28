@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <AnchorPane fx:id="friendsAnchorPane" layoutX="5.0" layoutY="108.0" prefHeight="669.0" prefWidth="282.0"
-            visible="false" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="5.0"
+            AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="5.0"
             AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="108.0"
             style="-fx-background-color: #F0F4F8;"
             stylesheets="@../../static/css/style.css" xmlns="http://javafx.com/javafx/10.0.2-internal"

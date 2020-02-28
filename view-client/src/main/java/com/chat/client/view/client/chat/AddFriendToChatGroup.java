@@ -19,13 +19,16 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AddFriendToChatGroup implements Initializable {
-    ChatGroup chatGroup;
-    User currentUser;
     private ObservableList<User> allUsers = FXCollections.observableArrayList();
+    ChatGroup chatGroup;
+
     @FXML
     private TextField searchfriendstoadd;
+
     @FXML
     private ListView listviewtoaddfriends;
+
+    User currentUser;
 
     public void setGroupChat(ChatGroup chatGroup) {
         this.chatGroup = chatGroup;
@@ -34,6 +37,7 @@ public class AddFriendToChatGroup implements Initializable {
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,8 +53,9 @@ public class AddFriendToChatGroup implements Initializable {
         checkifDeleted = users.removeIf(user -> user.getPhone().equals(currentUser.getPhone()));
 
         List<User> friends = currentUser.getFriends();
-        List<User> usersInGroup = chatGroup.getUsers();
         List<User> usersList = new ArrayList<>();
+        List<User> users1 = chatGroup.getUsers();
+        System.err.println("users on group" + users1.size());
         for (User user : friends) {
 
             if (!checkIfInGroupUser(user)) {
@@ -70,9 +75,9 @@ public class AddFriendToChatGroup implements Initializable {
         ChatRendererInviteFriend chatRendererInviteFriend = new ChatRendererInviteFriend();
         chatRendererInviteFriend.setCurrentUser(currentUser);
         chatRendererInviteFriend.setCurrentChatGroup(chatGroup);
-
+        System.out.println("Mona");
         listviewtoaddfriends.setItems(allUsers);
-        listviewtoaddfriends.setCellFactory(new ChatRendererInviteFriend());
+        listviewtoaddfriends.setCellFactory(chatRendererInviteFriend);
 
     }
 

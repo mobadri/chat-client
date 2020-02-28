@@ -3,6 +3,7 @@ package com.chat.client.network.client.user.impl;
 import com.chat.client.network.client.config.NetworkConfig;
 import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.network.client.user.UserHandler;
+import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.user.ServerUserService;
@@ -120,6 +121,23 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
+    public int updateFriend(int userId, int friendId, FriendStatus friendStatus) {
+//        try {
+
+        try {
+            return serverUserService.updateFriend(userId, friendId, friendStatus);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
+        return 0;
+    }
+
+
+    @Override
     public User signUp(User user, String password) {
         try {
             return serverUserService.insertUser(user, password);
@@ -130,12 +148,14 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public int friendStatus(int userID, int friendID) {
+    public FriendStatus friendStatus(int userID, int friendID) {
+        FriendStatus friendStatus = null;
+
         try {
-            return serverUserService.getStatus(userID, friendID);
+            friendStatus = serverUserService.getStatus(userID, friendID);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return 0;
+        return friendStatus;
     }
 }

@@ -34,7 +34,7 @@ public class ChatRendererInviteFriend implements Callback<ListView<User>, ListCe
             protected void updateItem(User user, boolean bln) {
 
                 super.updateItem(user, bln);
-
+                System.out.println("Ana Henna");
                 setGraphic(null);
                 setText(null);
                 Circle circle = new Circle();

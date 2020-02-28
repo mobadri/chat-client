@@ -1,14 +1,12 @@
 package com.chat.client.view.client.chat.render;
 
 import com.chat.client.controller.client.user.HomeController;
+import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.User;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -20,11 +18,14 @@ import java.util.List;
 
 public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCell<User>> {
     List<User> friends;
-    static String friendAdded = "Add Friend";
-    static String friendRemoved = "Remove Friend";
-    Button buttonaddFriend, removeFriend;
-    HomeController homeController = new HomeController();
+    HomeController homeController;
     User currentUser;
+    User userFriend;
+
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
+        System.out.println("Home Controller in chat render" + homeController);
+    }
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
@@ -42,9 +43,11 @@ public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCel
 
             @Override
             protected void updateItem(User user, boolean bln) {
+                //   p.refresh();
                 super.updateItem(user, bln);
                 setGraphic(null);
                 setText(null);
+                userFriend = user;
                 if (user != null) {
                     HBox hBox = new HBox();
 
@@ -66,36 +69,95 @@ public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCel
                     VBox vbox = new VBox();
                     Button buttonviewProfile = new Button("View Profile");
                     //setStyleForButtons
+                    Button buttonaddFriend = new Button("ADD Friend");
 
                     buttonviewProfile.setStyle("-fx-background-color: #0078D4; -fx-background-radius: 20; -fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-alignment: CENTER;");
                     HBox hboxButtons = new HBox();
                     hboxButtons.setSpacing(5);
                     hboxButtons.setAlignment(Pos.CENTER_RIGHT);
+                    // check if not firend
+                    // button on add
+                    FriendStatus satatus = homeController.getSatatus(currentUser.getId(), user.getId());
+                    System.out.println("Status in chat renderer " + satatus);
+                    System.out.println("Status in chat renderer " + user.getFirstName());
 
+                    if (satatus == null) {
+                        buttonaddFriend.setText("ADD Friend");
+                    } else {
+                        switch (satatus) {
+                            case PENDING:
+                                buttonaddFriend.setText("Request Friend");
+                                break;
+                            case REJECT:
+                                buttonaddFriend.setText("Rejected");
+                                break;
+                            case APPROVED:
+                                buttonaddFriend.setText("Remove Friend");
+
+                                break;
+                            default:
+                                buttonaddFriend.setText("ADD Friend");
+
+                        }
+                    }
+                    // check if friend
+                    // button on remove
 
                     if (isFriend(user)) {
-                        removeFriend = new Button(friendRemoved);
-                        removeFriend.setStyle("-fx-background-color: #FF0000; -fx-background-radius: 20; -fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-alignment: CENTER;");
-                        System.out.println("User is = " + user.getId());
-                        handleAddOrRemoveButton(user, removeFriend);
-                        hboxButtons.getChildren().addAll(removeFriend, buttonviewProfile);
+                        buttonaddFriend.setOnAction(new EventHandler<ActionEvent>() {
+                            @Override
+                            public void handle(ActionEvent actionEvent) {
+                                int count = homeController.removeFriend(currentUser.getId(), user.getId());
+                                System.out.println("Count is  = " + count + " Current user is = " + currentUser.getFirstName() + " The Friend is " + user.getId());
+                                getListView().refresh();
+                            }
+                        });
                     } else {
-                        buttonaddFriend = new Button(friendAdded);
+                        if (satatus == null || satatus.ordinal() == 2) {
+                            buttonaddFriend.setOnAction(new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent actionEvent) {
+                                    int count = homeController.addFriend(currentUser, user);
+                                    System.out.println("Count Add Friend button" + count);
+                                    getListView().refresh();
+                                }
+                            });
+                        } else {
+                            buttonaddFriend.setOnAction(new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent actionEvent) {
+                                    System.out.println("I am In Button addedFriend");
+                                    int i = homeController.updateFriend(user.getId(), currentUser.getId(), FriendStatus.APPROVED);
 
-                        buttonaddFriend.setStyle("-fx-background-color: #0078D4; -fx-background-radius: 20; -fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-alignment: CENTER;");
-                        hboxButtons.getChildren().addAll(buttonaddFriend, buttonviewProfile);
-                        handleAddOrRemoveButton(user, buttonaddFriend);
-                        int status = homeController.getSatatus(currentUser.getId(), user.getId());
-                        getStatusbyNumber(status, buttonaddFriend);
+                                    if (i == 0) {
+                                        showAlert();
+                                    } else {
+                                        buttonaddFriend.setText("Friend Added");
+                                    }
+                                    System.out.println("Rows Updated" + i);
+
+
+                                }
+                            });
+                        }
+
+
                     }
 
+
+                    // check if pending
+                    // button accept
+                    buttonaddFriend.setStyle("-fx-background-color: #0078D4; -fx-background-radius: 20; -fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-alignment: CENTER;");
+                    hboxButtons.getChildren().addAll(buttonaddFriend, buttonviewProfile);
 
                     vbox.getChildren().addAll(hBox, hboxButtons);
                     setGraphic(vbox);
                 }
+
             }
         };
         return cell;
+
     }
 
     Boolean isFriend(User user) {
@@ -106,53 +168,14 @@ public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCel
                 });
     }
 
-    public void handleAddOrRemoveButton(User user, Button button) {
+    void showAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Delete " + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait();
 
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                if (button.getText().equals(friendRemoved)) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            String friendRemoved = "Friend Removed";
-                            int count = homeController.removeFriend(currentUser.getId(), user.getId());
-                            if (count > 0) {
-                                System.out.println("This is Number of Friend Deleted" + count);
-                                button.setText(friendRemoved);
-                            }
-                        }
-                    });
+        if (alert.getResult() == ButtonType.YES) {
+            homeController.removeFriend(currentUser.getId(), userFriend.getId());
 
-                } else if (button.getText().equals(friendAdded)) {
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            int numberofRows = homeController.addFriend(currentUser, user);
-                            if (numberofRows > 0) {
-                                System.out.println("This is Number of Friend added" + numberofRows);
-                                int status = homeController.getSatatus(currentUser.getId(), user.getId());
-                                getStatusbyNumber(status, buttonaddFriend);
-                            }
-                            System.out.println("" + currentUser.getFirstName() + user.getFirstName());
-                        }
-                    });
-
-                }
-
-            }
-        });
-    }
-
-    public void getStatusbyNumber(int status, Button buttonaddFriend) {
-        if (status == 0) {
-            buttonaddFriend.setText("Request Friend");
-        } else if (status == 1) {
-            buttonaddFriend.setText("Remove Friend");
-        } else if (status == 2) {
-            buttonaddFriend.setText("Rejected");
         }
-
     }
 
 }

@@ -4,6 +4,7 @@ import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.service.client.user.ClientUserService;
 import com.chat.client.service.client.user.validation.UserValidation;
+import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 
@@ -38,12 +39,12 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     @Override
     public User existedPhone(String phone) throws RemoteException {
         return userHandler.existedPhone(phone);
-   }
+    }
 
 
     @Override
-    public int removeFriend(int currentid,int userid) throws RemoteException {
-        return userHandler.removeFriend(currentid,userid);
+    public int removeFriend(int currentid, int userid) throws RemoteException {
+        return userHandler.removeFriend(currentid, userid);
     }
 
     @Override
@@ -72,6 +73,7 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
         }
         return instance;
     }
+
     @Override
     public boolean validatePhone(String phone) throws RemoteException {
         UserValidation userValidation = new UserValidation();
@@ -82,9 +84,10 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     public User updateUserData(User user) throws RemoteException {
         return userHandler.updateUser(user, user.getPassword());
     }
+
     @Override
-    public int statusFriend(int userID, int friendID) throws RemoteException {
-        return userHandler.friendStatus(userID,friendID);
+    public FriendStatus statusFriend(int userID, int friendID) throws RemoteException {
+        return userHandler.friendStatus(userID, friendID);
     }
 
     @Override
@@ -92,4 +95,11 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
         userHandler.updateUserMode(user, mode);
         return user;
     }
+
+    @Override
+    public int updateFriend(int userId, int friendId, FriendStatus friendStatus) throws RemoteException {
+        return userHandler.updateFriend(userId, friendId, friendStatus);
+    }
+
+
 }

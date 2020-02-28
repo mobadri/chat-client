@@ -1,5 +1,6 @@
 package com.chat.client.service.client.user;
 
+import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 
@@ -15,7 +16,7 @@ public interface ClientUserService extends Remote {
     /**
      * User Login used for login to home page
      *
-     * @param phone is used to login
+     * @param phone    is used to login
      * @param password password of the user
      * @return a user to logged in
      * @throws RemoteException
@@ -24,23 +25,28 @@ public interface ClientUserService extends Remote {
 
     /**
      * this method to add new Friend
+     *
      * @param currentUser the user is logged in
-     * @param friend the user will be added
+     * @param friend      the user will be added
      * @return number of rows of friends
      * @throws RemoteException
      */
     int addFriend(User currentUser, User friend) throws RemoteException;
+
     /**
      * this method to remove  Friend
+     *
      * @param currentId the current user will delete this friend
-     * @param friendId the user will be deleted by id
+     * @param friendId  the user will be deleted by id
      * @return number of rows of friends will be deleted
      * @throws RemoteException
      */
 
-    int removeFriend(int currentId,int friendId) throws RemoteException;
+    int removeFriend(int currentId, int friendId) throws RemoteException;
+
     /**
      * validate user
+     *
      * @param user
      * @return
      * @throws RemoteException
@@ -49,6 +55,7 @@ public interface ClientUserService extends Remote {
 
     /**
      * User signed up
+     *
      * @param user
      * @return user to logged in
      * @throws RemoteException
@@ -57,11 +64,13 @@ public interface ClientUserService extends Remote {
 
     /**
      * search by phone
+     *
      * @param phone to search with
      * @return existed user
      * @throws RemoteException
      */
     User existedPhone(String phone) throws RemoteException;
+
     /**
      * search of users
      *
@@ -73,6 +82,7 @@ public interface ClientUserService extends Remote {
 
     /**
      * validate phone
+     *
      * @param phone to validate
      * @return
      * @throws RemoteException
@@ -81,6 +91,7 @@ public interface ClientUserService extends Remote {
 
     /**
      * User to be updated
+     *
      * @param user
      * @return updated user
      * @throws RemoteException
@@ -90,21 +101,33 @@ public interface ClientUserService extends Remote {
 
     /**
      * status Friend
-     * @param userID the id of the user
+     *
+     * @param userID   the id of the user
      * @param friendID the friend id to the friend
      * @return the friend status number
      * @throws RemoteException
      */
-    int statusFriend(int userID,int friendID) throws RemoteException;
-
+    FriendStatus statusFriend(int userID, int friendID) throws RemoteException;
 
 
     /**
      * User to be updated
+     *
      * @param user to update his mode
      * @param mode new mode
      * @return updated user
      * @throws RemoteException
      */
     User updateUserMode(User user, Mode mode) throws RemoteException;
+
+    /**
+     * @param userId       the current user
+     * @param friendId     friend User
+     * @param friendStatus status to 1
+     * @return no of update
+     * @throws RemoteException
+     */
+    int updateFriend(int userId, int friendId, FriendStatus friendStatus) throws RemoteException;
+
+
 }

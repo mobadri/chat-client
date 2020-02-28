@@ -1,9 +1,9 @@
 package com.chat.client.network.client.user;
 
+import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 
-import java.rmi.RemoteException;
 import java.util.List;
 
 public interface UserHandler {
@@ -29,11 +29,10 @@ public interface UserHandler {
     /**
      * remove friend from my friend list
      *
-     *
-     * @param friendId     friend will remove from friend list
+     * @param friendId friend will remove from friend list
      * @return true if succeed to remove , false if failed
      */
-    int removeFriend(int currentId,int friendId);
+    int removeFriend(int currentId, int friendId);
 
     /**
      * login to the system
@@ -44,13 +43,14 @@ public interface UserHandler {
      */
     User login(String phone, String password);
 
-    User signUp(User user,String password);
+    User signUp(User user, String password);
 
     List<User> getAllUsers();
 
 
     /**
-     *  ckeck this phone is registered  or not
+     * ckeck this phone is registered  or not
+     *
      * @param phone user phone
      * @return user if found or null if notfound
      */
@@ -62,19 +62,30 @@ public interface UserHandler {
      * @param user to be updated
      * @return updated user
      */
-    User updateUser(User user,String password);
+    User updateUser(User user, String password);
+
     /**
      * friend status
-     * @param userID id for the user
+     *
+     * @param userID   id for the user
      * @param friendID id for the friend
      * @return number of status;
      */
-    int friendStatus (int userID,int friendID);
+    FriendStatus friendStatus(int userID, int friendID);
 
     /**
      * User to be updated
+     *
      * @param user to update his mode
      * @param mode new mode
      */
     void updateUserMode(User user, Mode mode);
+
+    /**
+     * @param userId       the current user
+     * @param friendId     friend id
+     * @param friendStatus status will be 1
+     * @return
+     */
+    int updateFriend(int userId, int friendId, FriendStatus friendStatus);
 }
