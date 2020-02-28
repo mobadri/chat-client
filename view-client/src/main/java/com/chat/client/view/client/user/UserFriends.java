@@ -4,6 +4,7 @@ import com.chat.client.view.client.chat.render.CellRenderer;
 import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.user.User;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -28,8 +29,6 @@ public class UserFriends implements Initializable {
     @FXML
     private ListView userList;
     @FXML
-    private AnchorPane friendsAnchorPane;
-    @FXML
     private JFXTextField searchForFriends;
 
     private ObservableList<User> friendsObservableList = FXCollections.observableArrayList();
@@ -38,7 +37,6 @@ public class UserFriends implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        new Thread(() -> setFriendsListView(currentUser.getFriends())).start();
     }
 
     @FXML
@@ -78,6 +76,7 @@ public class UserFriends implements Initializable {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+        Platform.runLater(() -> setFriendsListView(currentUser.getFriends()));
     }
 
     public void setUserViewHome(UserViewHome userViewHome) {

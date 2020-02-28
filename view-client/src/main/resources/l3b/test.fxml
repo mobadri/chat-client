@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="700.0" style="-fx-background-color: #fefefe;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.login.LoginViewController">
+    <children>
+        <ImageView fitHeight="620.0" fitWidth="700.0">
+            <image>
+                <Image url="@../static/images/background.jpg" />
+            </image>
+        </ImageView>
+        <AnchorPane layoutX="181.0" layoutY="11.0" prefHeight="591.0" prefWidth="350" style="-fx-background-color: rgba(255,255,255,0.55); -fx-background-radius: 15px;">
+            <children>
+                <ImageView fitHeight="184.0" fitWidth="191.0" layoutX="74.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="74.0" AnchorPane.rightAnchor="77.0">
+                    <image>
+                        <Image url="@../static/images/chatIcon.png" />
+                    </image>
+                </ImageView>
+                <Label id="textbackground-black-bold" layoutY="226.0" stylesheets="@../static/css/loginandsignup.css" text="Login" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+                </Label>
+                <Label id="textbackground-black" layoutX="32.0" layoutY="256.0" prefHeight="38.0" prefWidth="214.0" text="Remeber to get up &amp; stretch once" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0">
+                    <stylesheets>
+
+                        <URL value="@../static/css/loginandsignup.css" />
+                    </stylesheets>
+                </Label>
+                <Label id="textbackground-black" layoutX="32.0" layoutY="286.0" stylesheets="@../static/css/loginandsignup.css" text=" in a while-your friends at chat" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="32.0" />
+                <TextField fx:id="txtFieldLoginPhone" layoutX="14.0" layoutY="322.0" prefHeight="25.0" prefWidth="206.0" promptText="Phone" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="18.0">
+                    <padding>
+                        <Insets left="32.0" right="8.0" />
+                    </padding>
+                </TextField>
+                <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="12.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../static/images/phone.png" />
+                    </image>
+                </ImageView>
+                <PasswordField fx:id="txtFieldloginPassword" layoutX="12.0" layoutY="375.0" prefHeight="25.0" prefWidth="206.0" promptText="Password" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="20.0">
+                    <padding>
+                        <Insets left="32.0" right="8.0" />
+                    </padding>
+                </PasswordField>
+                <ImageView fitHeight="25.0" fitWidth="21.0" layoutX="12.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../static/images/password2.png" />
+                    </image>
+                </ImageView>
+                <Button id="buttons-blue" fx:id="btnLoginSignin" layoutX="60.0" layoutY="469.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="25.0" prefWidth="158.0" stylesheets="@../static/css/loginandsignup.css" text="Sign in" textFill="WHITE" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="68.0" />
+                <Label id="textbackground-blue" layoutY="529.0" prefHeight="17.0" prefWidth="137.0" text="Forget Password?" textFill="#eff1f2" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                <Label id="textbackground-black" layoutX="32.0" layoutY="557.0" stylesheets="@../static/css/loginandsignup.css" text="Don't have an account?" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="105.0" />
+                <Label id="textbackground-blue" fx:id="lblloginSignuphere" layoutX="173.0" layoutY="557.0" onMouseClicked="#onSignUp" prefHeight="17.0" prefWidth="80.0" stylesheets="@../static/css/loginandsignup.css" text="Sign up here" textFill="WHITE" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="8.0" />
+                <CheckBox fx:id="rememberMe" layoutX="14.0" layoutY="417.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="109.0" text="Remember me" />
+                <Label fx:id="invalidPhone" layoutX="12.0" layoutY="347.0" prefHeight="17.0" prefWidth="318.0" textAlignment="RIGHT" textFill="#ff0b0b" />
+                <Label fx:id="invalidPassword" layoutX="12.0" layoutY="400.0" prefHeight="17.0" prefWidth="318.0" textAlignment="RIGHT" textFill="#ff1212" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

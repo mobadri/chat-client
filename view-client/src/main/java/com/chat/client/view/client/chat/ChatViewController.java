@@ -4,6 +4,7 @@ package com.chat.client.view.client.chat;
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
 import com.chat.client.controller.client.message.MessageControllerImpl;
 import com.chat.client.view.client.chat.render.MessageCellRenderer;
+import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
 import com.chat.server.model.chat.Style;
@@ -268,6 +269,10 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     }
 
+    @Override
+    public void unregisterService() {
+        chatGroupInterface.unregisterService();
+    }
 
 //
 //    public void onClickFontComboBox(ActionEvent actionEvent) {
@@ -282,13 +287,28 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         System.out.println(defualtStyle.getFontSize());
     }
 
-//    @FXML
-//    private void onClickColorPicker(ActionEvent actionEvent) {
-//        defualtStyle.setFontColor(format(fontColorPicker.getValue()));
-//        messageContent.setStyle(defualtStyle.toString());
-//        System.out.println(format(fontColorPicker.getValue()));
-//
-//    }
+    @FXML
+    private void onClickColorPicker(ActionEvent actionEvent) {
+        defualtStyle.setFontColor(format(fontColorPicker.getValue()));
+        messageContent.setStyle(defualtStyle.toString());
+        System.out.println(format(fontColorPicker.getValue()));
+    }
+    @FXML
+    public void AddUserToGroup(ActionEvent actionEvent) {
+        Parent root;
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/chat/Chat-group-users.fxml"));
+            root = loader.load();
+            ChatGroupUsers chatGroupUsers = loader.getController();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            System.out.println("kkkkkkkkkkkkkk");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     //-----------------------------------------------------------------------
     //----------------------------view section ------------------------------
@@ -306,7 +326,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         defualtStyle.setFontColor(format(currentColor));
         defualtStyle.setBackground(format(bgColor));
     }
-
 
     //-------------------------------------------------------------------------
     //----------------------------data section ------------------------------
@@ -339,12 +358,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
         return stringBuilder.toString();
     }
-
-    @Override
-    public void unregisterService() {
-        chatGroupInterface.unregisterService();
-    }
-
     //-------------------------------------------------------------------------
     //----------------------------setter section ------------------------------
     //-------------------------------------------------------------------------
@@ -361,7 +374,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     public void setChatGroupInterface(ChatGroupInterface chatGroupInterface) {
         this.chatGroupInterface = chatGroupInterface;
     }
-
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////
