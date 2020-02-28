@@ -96,7 +96,7 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
     @Override
     public ChatGroup addUser(ChatGroup chatGroup, User user) {
         try {
-            serverChatGroupService.addFriend(chatGroup, user);
+            serverChatGroupService.addFriend(chatGroup.getId(), user.getId());
         } catch (RemoteException e) {
             e.printStackTrace();
         }
