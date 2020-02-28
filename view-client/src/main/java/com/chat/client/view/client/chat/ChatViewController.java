@@ -4,6 +4,7 @@ package com.chat.client.view.client.chat;
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
 import com.chat.client.controller.client.message.MessageControllerImpl;
 import com.chat.client.view.client.chat.render.MessageCellRenderer;
+import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
 import com.chat.server.model.chat.Style;
@@ -18,8 +19,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Dialog;
@@ -33,7 +32,6 @@ import javafx.stage.Stage;
 import org.controlsfx.dialog.FontSelectorDialog;
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -268,6 +266,10 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     }
 
+    @Override
+    public void unregisterService() {
+        chatGroupInterface.unregisterService();
+    }
 
 //
 //    public void onClickFontComboBox(ActionEvent actionEvent) {
@@ -282,13 +284,11 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         System.out.println(defualtStyle.getFontSize());
     }
 
-//    @FXML
-//    private void onClickColorPicker(ActionEvent actionEvent) {
-//        defualtStyle.setFontColor(format(fontColorPicker.getValue()));
-//        messageContent.setStyle(defualtStyle.toString());
-//        System.out.println(format(fontColorPicker.getValue()));
-//
-//    }
+    @FXML
+    private void onClickColorPicker(ActionEvent actionEvent) {
+        defualtStyle.setFontColor(format(fontColorPicker.getValue()));
+        messageContent.setStyle(defualtStyle.toString());
+        System.out.println(format(fontColorPicker.getValue()));
 
     //-----------------------------------------------------------------------
     //----------------------------view section ------------------------------
@@ -306,7 +306,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         defualtStyle.setFontColor(format(currentColor));
         defualtStyle.setBackground(format(bgColor));
     }
-
 
     //-------------------------------------------------------------------------
     //----------------------------data section ------------------------------
@@ -362,6 +361,21 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         this.chatGroupInterface = chatGroupInterface;
     }
 
+    @FXML
+    public void AddUserToGroup(ActionEvent actionEvent) {
+        Parent root;
+        try {
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/chat/Chat-group-users.fxml"));
+            root = loader.load();
+            ChatGroupUsers chatGroupUsers = loader.getController();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+            System.out.println("kkkkkkkkkkkkkk");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     ///////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////

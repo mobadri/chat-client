@@ -113,6 +113,13 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
+    public User updateUserMode(User user, Mode mode) {
+        try {
+            return serverUserService.updateUserMode(user, mode);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return user;
     public void updateUserMode(User user, Mode mode) {
         try {
             serverUserService.updateUserMode(user, mode);
