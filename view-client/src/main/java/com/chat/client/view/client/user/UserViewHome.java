@@ -389,7 +389,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
         }
     }
-}
+
 
     public List<Parent> getChatViewList() {
         return chatViewList;

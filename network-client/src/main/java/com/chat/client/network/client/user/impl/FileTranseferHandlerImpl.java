@@ -6,6 +6,7 @@ import com.chat.client.service.client.callback.FileTransferServiceCallBack;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.fileTransfer.ServerFileTranseferService;
+import com.healthmarketscience.rmiio.RemoteInputStream;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -18,7 +19,7 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
 
     public FileTranseferHandlerImpl() {
         networkConfig = NetworkConfig.getInstance();
-        String portNumber = networkConfig.getServerPortNumber();
+        int portNumber = networkConfig.getServerPortNumber();
         String serverIP = networkConfig.getServerIp();
 
         /*commented segments of code is connection security trail */

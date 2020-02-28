@@ -45,7 +45,6 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.controlsfx.control.PropertySheet;
 
 import java.io.File;
 import java.io.IOException;
@@ -304,8 +303,8 @@ public class UserHome implements Initializable, PushNotificationInterface {
             notificationPane = loader.load();
             notificationViewListcontroller = loader.getController();
 
-            notificationViewListcontroller.setUserHome(this);
-            anchorPaneNotification.getChildren().setAll(load);
+//            notificationViewListcontroller.setUserHome(this);
+//            anchorPaneNotification.getChildren().setAll(load);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -5,9 +5,7 @@ import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
 import com.chat.client.controller.client.fileTransfer.FileTranseferController;
 import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImpl;
 import com.chat.client.controller.client.message.MessageControllerImpl;
-
 import com.chat.client.view.client.chat.render.MessageCellRenderer;
-import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
 import com.chat.server.model.chat.Style;
@@ -119,7 +117,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     }
 
     @FXML
-    private void sendMessageAction(ActionEvent actionEvent) {
+    private void sendMessageAction(MouseEvent actionEvent) {
         Message message = createMessage();
         sendMessage(message, isChatBotEnabled);
     }
@@ -161,10 +159,10 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         return null;
     }
 
-    @Override
-    public void setChatGroup(ChatGroup chatGroup) {
-        this.currentChatGroup = chatGroup;
-    }
+//    @Override
+//    public void setChatGroup(ChatGroup chatGroup) {
+//        this.currentChatGroup = chatGroup;
+//    }
 
 //    @FXML
 //    private void changeTextColor(ActionEvent actionEvent) {
@@ -326,6 +324,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         messageContent.setStyle(defualtStyle.toString());
         System.out.println(format(fontColorPicker.getValue()));
     }
+
     @FXML
     public void AddUserToGroup(ActionEvent actionEvent) {
         Parent root;
