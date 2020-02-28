@@ -28,9 +28,9 @@ public class HomeController {
         return 0;
     }
 
-    public int removeFriend(int currentid, int friendid) {
+    public int removeFriend(User currentUser, User friend) {
         try {
-            return clientUserService.removeFriend(currentid, friendid);
+            return clientUserService.removeFriend(currentUser, friend);
         } catch (RemoteException e) {
             e.printStackTrace();
         }

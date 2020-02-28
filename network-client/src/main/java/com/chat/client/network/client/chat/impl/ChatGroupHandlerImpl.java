@@ -2,7 +2,6 @@ package com.chat.client.network.client.chat.impl;
 
 import com.chat.client.network.client.chat.ChatGroupHandler;
 import com.chat.client.network.client.config.NetworkConfig;
-import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.chatgroup.ServerChatGroupService;
@@ -30,7 +29,7 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     portNumber, new RMISSLClientSocketFactory());*/
             Registry registry = LocateRegistry.getRegistry(serverIP,
-                    portNumber, NetworkFactory.createSslClientSocketFactory());
+                    portNumber);
 
             //Registry registry = LocateRegistry.getRegistry(portNumber);
             serverChatGroupService = (ServerChatGroupService) registry.lookup("chatGroupService");
@@ -76,7 +75,8 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
         try {
             return serverChatGroupService.insertChatGroup(chatGroup);
         } catch (RemoteException e) {
-            System.out.println("something incorrect happened!! " + e);
+            e.printStackTrace();
+            System.out.println("something incorrect happened!! ");
         }
         return chatGroup;
     }

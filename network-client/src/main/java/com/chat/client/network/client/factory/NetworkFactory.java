@@ -10,13 +10,6 @@ import com.chat.client.network.client.socket_factory.SslClientSocketFactory;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
 import java.util.Objects;
 
 /**
@@ -27,7 +20,6 @@ public class NetworkFactory {
     private static ChatGroupHandler chatGroupHandler;
     private static MessageHandler messageHandler;
     private static NotificationHandler notificationHandler;
-    private static SslClientSocketFactory sslClientSocketFactory;
 
     private NetworkFactory() {
     }
@@ -65,27 +57,7 @@ public class NetworkFactory {
     }
 
     public static SslClientSocketFactory createSslClientSocketFactory() {
-        if (sslClientSocketFactory == null) {
-            try {
-                //todo encrypt password
-                sslClientSocketFactory = new SslClientSocketFactory("security/client", "ahm741741");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (KeyManagementException e) {
-                e.printStackTrace();
-            } catch (CertificateException e) {
-                e.printStackTrace();
-            } catch (KeyStoreException e) {
-                e.printStackTrace();
-            } catch (UnrecoverableKeyException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return sslClientSocketFactory;
+        return SslClientSocketFactory.getInstance();
     }
 
     /**

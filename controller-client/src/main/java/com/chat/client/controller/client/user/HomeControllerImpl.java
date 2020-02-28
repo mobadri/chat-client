@@ -58,7 +58,7 @@ public class HomeControllerImpl implements UserHomeInterface {
     }
 
     @Override
-    public ChatGroup addFriend(ChatGroup chatGroup2, User user) {
+    public ChatGroup addFriendToChatGroup(ChatGroup chatGroup2, User user) {
         return chatGroupService.addUserToGroup(chatGroup2, user);
 
     }

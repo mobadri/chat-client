@@ -330,7 +330,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
                     new FXMLLoader(getClass().getResource("/templates/friend/addFriend.fxml"));
             root = loader.load();
             AddFriend controller = loader.getController();
-            controller.setHomeController(homeController);
+//            controller.setHomeController(this);
             controller.setCurrentUser(currentUser);
             friendStage = new Stage();
             friendStage.setScene(new Scene(root));

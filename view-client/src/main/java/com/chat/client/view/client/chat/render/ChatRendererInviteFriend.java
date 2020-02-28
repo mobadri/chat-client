@@ -92,7 +92,7 @@ public class ChatRendererInviteFriend implements Callback<ListView<User>, ListCe
             @Override
             public void handle(ActionEvent actionEvent) {
                 HomeControllerImpl homeController = new HomeControllerImpl();
-                homeController.addFriend(chatGroup, user);
+                homeController.addFriendToChatGroup(chatGroup, user);
                 button.setVisible(false);
             }
 

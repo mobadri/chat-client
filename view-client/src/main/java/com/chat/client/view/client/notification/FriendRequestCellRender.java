@@ -31,7 +31,7 @@ public class FriendRequestCellRender implements Callback<ListView<User>, ListCel
     @Override
     public ListCell<User> call(ListView<User> userListView) {
 
-        ListCell<User> cell = new ListCell<User>(){
+        ListCell<User> cell = new ListCell<User>() {
 
             @Override
             protected void updateItem(User user, boolean b) {
@@ -41,7 +41,7 @@ public class FriendRequestCellRender implements Callback<ListView<User>, ListCel
                 JFXButton confirm = new JFXButton();
                 JFXButton delete = new JFXButton();
                 Circle circle = new Circle();
-                if(user != null){
+                if (user != null) {
                     VBox vBox = new VBox();
                     HBox hBox = new HBox();
                     HBox hBox1 = new HBox();
@@ -51,7 +51,7 @@ public class FriendRequestCellRender implements Callback<ListView<User>, ListCel
                             + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
                             + "-fx-border-radius: 5;" + "-fx-border-color: gray;");
 
-                    Label userFrom = new Label(user.getFirstName()+" "+user.getLastName());
+                    Label userFrom = new Label(user.getFirstName() + " " + user.getLastName());
                     userFrom.setTextFill(Color.WHITE);
                     userFrom.setFont(Font.font(12));
                     userFrom.setTextFill(Color.BLACK);
@@ -115,18 +115,15 @@ public class FriendRequestCellRender implements Callback<ListView<User>, ListCel
             @Override
             public void handle(ActionEvent actionEvent) {
 
-               // System.out.println(user.getUserFrom());
+                // System.out.println(user.getUserFrom());
             }
         });
     }
 
     public void handleDeleteButton(User user, Button button) {
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent actionEvent) {
-                //System.out.println(notification.getUserFrom());
-                controller.removeFriendRequestFromUI(user);
-            }
+        button.setOnAction(actionEvent -> {
+            //System.out.println(notification.getUserFrom());
+            controller.removeFriendRequestFromUI(user);
         });
     }
 

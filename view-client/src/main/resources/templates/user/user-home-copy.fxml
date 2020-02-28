@@ -57,7 +57,7 @@
                 </Label>
                 <Label layoutX="64.0" layoutY="271.0" onMouseClicked="#onProfileClicked" text="Profile">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                     </font>
                 </Label>
                 <Circle fx:id="userImage" fill="#1f93ff00" layoutX="130.0" layoutY="70.0" radius="25.0"
@@ -65,19 +65,20 @@
                 <ImageView fitHeight="50.0" fitWidth="44.0" layoutX="108.0" layoutY="48.0" pickOnBounds="true"
                            preserveRatio="true">
                     <image>
-                        <Image url="@../../static/images/user-home/icons8_user_32px_1.png" />
+                        <Image url="@../../static/images/user-home/icons8_user_32px_1.png"/>
                     </image>
                 </ImageView>
-                <Line endX="100.0" layoutX="130.0" layoutY="205.0" startX="-100.0" stroke="#bfb8b896" />
-                <JFXButton fx:id="TODAY" layoutX="29.0" layoutY="265.0" onMouseClicked="#onProfileClicked" prefHeight="25.0" prefWidth="183.0" ripplerFill="#3b8ef4" text=" ">
+                <Line endX="100.0" layoutX="130.0" layoutY="205.0" startX="-100.0" stroke="#bfb8b896"/>
+                <JFXButton fx:id="TODAY" layoutX="29.0" layoutY="265.0" onMouseClicked="#onProfileClicked"
+                           prefHeight="25.0" prefWidth="183.0" ripplerFill="#3b8ef4" text=" ">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                     </font>
                 </JFXButton>
                 <JFXButton fx:id="REQUESTS" layoutX="29.0" layoutY="227.0" onAction="#handleRequestsButton"
                            prefHeight="25.0" prefWidth="183.0" ripplerFill="#3b8ef4" text=" ">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                     </font>
                 </JFXButton>
                 <JFXButton fx:id="SHOWNOTIFICATIONS" layoutX="172.0" layoutY="149.0" onAction="#showNotificationList"
@@ -150,7 +151,7 @@
                                    ripplerFill="#3b8ef4" text=" " AnchorPane.bottomAnchor="5"
                                    AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="8.0">
                             <font>
-                                <Font size="16.0" />
+                                <Font size="16.0"/>
                             </font>
                         </JFXButton>
                     </children>
@@ -158,9 +159,9 @@
             </children>
 
         </AnchorPane>
-        <AnchorPane fx:id="containerPane" layoutX="260.0" style="-fx-background-color: white;"
-                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="290.0"
-                    AnchorPane.topAnchor="0.0"/>
+        <StackPane fx:id="containerPane" layoutX="260.0" style="-fx-background-color: white;"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="260.0" AnchorPane.rightAnchor="290.0"
+                   AnchorPane.topAnchor="0.0"/>
 
     </children>
 </AnchorPane>

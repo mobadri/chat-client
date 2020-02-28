@@ -1,12 +1,12 @@
 package com.chat.client.view.client.chat.render;
 
-import com.chat.client.controller.client.user.HomeController;
+import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.User;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -18,23 +18,9 @@ import java.util.List;
 
 public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCell<User>> {
     List<User> friends;
-    HomeController homeController;
     User currentUser;
-    User userFriend;
+    private AddFriend addFriend;
 
-    public void setHomeController(HomeController homeController) {
-        this.homeController = homeController;
-        System.out.println("Home Controller in chat render" + homeController);
-    }
-
-    public void setCurrentUser(User currentUser) {
-        this.currentUser = currentUser;
-    }
-
-    public void setFriends(List<User> friends) {
-        this.friends = friends;
-
-    }
 
     @Override
     public ListCell<User> call(ListView<User> p) {
@@ -47,16 +33,14 @@ public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCel
                 super.updateItem(user, bln);
                 setGraphic(null);
                 setText(null);
-                userFriend = user;
                 if (user != null) {
                     HBox hBox = new HBox();
-
                     Text name = new Text(user.getFirstName() + " " + user.getLastName());
 
                     ImageView statusImageView = new ImageView();
-                    System.out.println(user.getMode().toString().toLowerCase());
-                    String path = "/static/images/mode/" + user.getMode().toString().toLowerCase() + ".png";
-                    System.out.println(path);
+//                    System.out.println(user.getMode().toString().toLowerCase());
+//                    String path = "/static/images/mode/" + user.getMode().toString().toLowerCase() + ".png";
+//                    System.out.println(path);
 
 
                     ImageView pictureImageView = new ImageView();
@@ -77,105 +61,121 @@ public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCel
                     hboxButtons.setAlignment(Pos.CENTER_RIGHT);
                     // check if not firend
                     // button on add
-                    FriendStatus satatus = homeController.getSatatus(currentUser.getId(), user.getId());
-                    System.out.println("Status in chat renderer " + satatus);
-                    System.out.println("Status in chat renderer " + user.getFirstName());
+                    FriendStatus status = addFriend.getStatus(currentUser, user);
 
-                    if (satatus == null) {
-                        buttonaddFriend.setText("ADD Friend");
+                    if (status == null) {
+                        buttonaddFriend.setText("Add Friend");
                     } else {
-                        switch (satatus) {
+                        switch (status) {
                             case PENDING:
-                                buttonaddFriend.setText("Request Friend");
+                                buttonaddFriend.setText("Cancel Request");
                                 break;
                             case REJECT:
-                                buttonaddFriend.setText("Rejected");
+                                buttonaddFriend.setText("Add Friend");
                                 break;
                             case APPROVED:
                                 buttonaddFriend.setText("Remove Friend");
-
                                 break;
+                            case REQUEST:
+                                buttonaddFriend.setText("Accept Friend");
                             default:
                                 buttonaddFriend.setText("ADD Friend");
-
                         }
                     }
-                    // check if friend
-                    // button on remove
 
-                    if (isFriend(user)) {
-                        buttonaddFriend.setOnAction(new EventHandler<ActionEvent>() {
-                            @Override
-                            public void handle(ActionEvent actionEvent) {
-                                int count = homeController.removeFriend(currentUser.getId(), user.getId());
-                                System.out.println("Count is  = " + count + " Current user is = " + currentUser.getFirstName() + " The Friend is " + user.getId());
-                                getListView().refresh();
-                            }
-                        });
-                    } else {
-                        if (satatus == null || satatus.ordinal() == 2) {
-                            buttonaddFriend.setOnAction(new EventHandler<ActionEvent>() {
-                                @Override
-                                public void handle(ActionEvent actionEvent) {
-                                    int count = homeController.addFriend(currentUser, user);
-                                    System.out.println("Count Add Friend button" + count);
-                                    getListView().refresh();
-                                }
-                            });
-                        } else {
-                            buttonaddFriend.setOnAction(new EventHandler<ActionEvent>() {
-                                @Override
-                                public void handle(ActionEvent actionEvent) {
-                                    System.out.println("I am In Button addedFriend");
-                                    int i = homeController.updateFriend(user.getId(), currentUser.getId(), FriendStatus.APPROVED);
+                    setButtonAction(buttonaddFriend, status, user);
 
-                                    if (i == 0) {
-                                        showAlert();
-                                    } else {
-                                        buttonaddFriend.setText("Friend Added");
-                                    }
-                                    System.out.println("Rows Updated" + i);
-
-
-                                }
-                            });
-                        }
-
-
-                    }
-
-
-                    // check if pending
-                    // button accept
                     buttonaddFriend.setStyle("-fx-background-color: #0078D4; -fx-background-radius: 20; -fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-alignment: CENTER;");
                     hboxButtons.getChildren().addAll(buttonaddFriend, buttonviewProfile);
 
                     vbox.getChildren().addAll(hBox, hboxButtons);
+
                     setGraphic(vbox);
                 }
-
             }
+
         };
         return cell;
+    }
+
+
+    private FriendStatus setButtonAction(Button button, FriendStatus status, User userFriend) {
+        FriendStatus currentStatus = status;
+        System.err.println("handel button action");
+        button.setOnAction((event) -> {
+            if (status != null) {
+                switch (status) {
+                    case PENDING:
+                        cancelRequest(currentUser, userFriend);
+                        button.setText("Add Friend");
+                        break;
+                    case APPROVED:
+                        removeFriend(currentUser, userFriend);
+                        button.setText("Add Friend");
+                        break;
+                    case REJECT:
+                        addFriend(currentUser, userFriend);
+                        button.setText("Add Friend");
+                    case REQUEST:
+                        approveRequest(currentUser, userFriend);
+                        button.setText("Remove Friend");
+                }
+            } else {
+                addFriend(currentUser, userFriend);
+                button.setText("Cancel Request");
+            }
+        });
+
+        return currentStatus;
+    }
+
+
+    private void cancelRequest(User currentUser, User userFriend) {
+        System.err.println("cancelRequest");
+        addFriend.removeFriend(currentUser, userFriend);
 
     }
 
-    Boolean isFriend(User user) {
-        return
-                friends.parallelStream().anyMatch(user1 -> {
-                    return
-                            user1.getId() == user.getId() ? true : false;
-                });
+    private void removeFriend(User currentUser, User friend) {
+        addFriend.removeFriend(currentUser, friend);
     }
 
-    void showAlert() {
-        Alert alert = new Alert(Alert.AlertType.ERROR, "Delete " + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
-        alert.showAndWait();
-
-        if (alert.getResult() == ButtonType.YES) {
-            homeController.removeFriend(currentUser.getId(), userFriend.getId());
-
-        }
+    private void addFriend(User currentUser, User friend) {
+        System.err.println("add Friend clicked");
+        addFriend.addFriend(currentUser, friend);
     }
 
+    private void approveRequest(User currentUser, User userFriend) {
+        addFriend.updateFriend(currentUser, userFriend, FriendStatus.APPROVED);
+    }
+
+    //    Boolean isFriend(User user) {
+//        return
+//                friends.parallelStream().anyMatch(user1 -> {
+//                    return user1.getId() == user.getId() ? true : false;
+//                });
+//    }
+//
+//    void showAlert() {
+//        Alert alert = new Alert(Alert.AlertType.ERROR, "Delete " + " ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+//        alert.showAndWait();
+//
+//        if (alert.getResult() == ButtonType.YES) {
+//            homeController.removeFriend(currentUser.getId(), userFriend.getId());
+//
+//        }
+//    }
+    public void setCurrentUser(User currentUser) {
+
+        this.currentUser = currentUser;
+    }
+
+    public void setFriends(List<User> friends) {
+        this.friends = friends;
+
+    }
+
+    public void setAddFriend(AddFriend addFriend) {
+        this.addFriend = addFriend;
+    }
 }
