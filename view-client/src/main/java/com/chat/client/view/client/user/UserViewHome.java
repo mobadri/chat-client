@@ -195,14 +195,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         ChatGroupAnchorPane.getChildren().add(groupsPane);
     }
 
-    @FXML
-    private void handleRequestsButton(ActionEvent actionEvent) {
-        anchorPaneNotification.setVisible(!isShowFriendRequestList);
-        isShowFriendRequestList = !isShowFriendRequestList;
-        anchorPaneNotification.getChildren().clear();
-        anchorPaneNotification.getChildren().setAll(firendRequestPane);
-    }
-
     //------------------------------------------------------------------------------
     //-----------------------------view section-------------------------------------
     //------------------------------------------------------------------------------
@@ -397,7 +389,17 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
 
     private void addfriendRequestToList(User user) {
+
         friendRequestListViewController.addFriendRequestequest(user);
+    }
+
+    @FXML
+    private void handleRequestsButton(ActionEvent actionEvent) {
+        System.out.println("isShowFriendRequestList");
+        anchorPaneNotification.setVisible(!isShowFriendRequestList);
+        isShowFriendRequestList = !isShowFriendRequestList;
+        anchorPaneNotification.getChildren().clear();
+        anchorPaneNotification.getChildren().setAll(firendRequestPane);
     }
 
     private void loadFriendRequestList() {
