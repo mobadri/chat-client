@@ -76,6 +76,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private HomeController homeController;
     private RenderImage renderImage = new RenderImage();
 
+
     private boolean showList = true;
     private boolean isShowNotificationList;
     private Parent friendsPane;
@@ -296,6 +297,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/notification-list.fxml"));
             Parent load = loader.load();
             notificationViewListcontroller = loader.getController();
+            notificationViewListcontroller.setUserHome(this);
             anchorPaneNotification.getChildren().setAll(load);
         } catch (IOException e) {
             e.printStackTrace();
@@ -384,6 +386,13 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     public void setOnMainPane(Parent node) {
         containerPane.getChildren().setAll(node);
     }
+
+    public void clientAcceptFile(String fileName, int chatGroupId, User userTo) {
+        for (ChatGroup chatGroup : chatGroupObservableList) {
+
+        }
+    }
+
 
     public List<Parent> getChatViewList() {
         return chatViewList;

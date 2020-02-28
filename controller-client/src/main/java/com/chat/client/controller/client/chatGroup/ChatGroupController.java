@@ -10,7 +10,6 @@ import com.chat.server.model.user.User;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,14 +31,14 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
 
     @Override
     public void sendMessage(Message message, boolean isChatBotEnabled) {
-        if(!isChatBotEnabled)
-            new Thread(() -> chatBotService.learn(chatGroup.getMessages(),message)).start();
+        if (!isChatBotEnabled)
+            new Thread(() -> chatBotService.learn(chatGroup.getMessages(), message)).start();
         messageService.sendMessage(message);
     }
 
     @Override
-    public void getChatBotResponse(Message receivedMessage){
-        if(receivedMessage.getUserFrom().getId() != currentUser.getId()) {
+    public void getChatBotResponse(Message receivedMessage) {
+        if (receivedMessage.getUserFrom().getId() != currentUser.getId()) {
             String messageContent = chatBotService.getMessage(receivedMessage.getMessage());
             Message sentMessage = createMessage(messageContent);
             sendMessage(sentMessage, false);
@@ -57,8 +56,10 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
         chatGroupInterface.receiveMessage(message);
     }
 
+
     @Override
     public int getChatGroupId() {
+
         return chatGroup.getId();
     }
 

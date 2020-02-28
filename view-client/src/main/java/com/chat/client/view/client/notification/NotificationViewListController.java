@@ -1,6 +1,10 @@
 package com.chat.client.view.client.notification;
 
+import com.chat.client.controller.client.fileTransfer.FileTranseferController;
+import com.chat.client.view.client.chat.UserHome;
+import com.chat.client.view.client.user.UserViewHome;
 import com.chat.server.model.chat.Notification;
+import com.chat.server.model.user.User;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleListProperty;
@@ -17,8 +21,8 @@ public class NotificationViewListController implements Initializable {
 
     @FXML
     private ListView notificationListView;
-    NotificationCellRenderer cellRenderer ;
-
+    private NotificationCellRenderer cellRenderer;
+    private UserViewHome userHome;
 
     private ObservableList<Notification> myNotificationList = FXCollections.observableArrayList();
 
@@ -48,4 +52,11 @@ public class NotificationViewListController implements Initializable {
         myNotificationList.remove(notification);
     }
 
+    public void clientAcceptFile(String fileName, int i, User userTo) {
+        userHome.clientAcceptFile(fileName, i, userTo);
+    }
+
+    public void setUserHome(UserViewHome userHome) {
+        this.userHome = userHome;
+    }
 }

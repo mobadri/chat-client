@@ -182,11 +182,11 @@ public class FirstSignUpController implements Initializable {
 
     private User mapUserFromFields() {
         User user = new User();
-        user.setPassword(txtFieldSignUpPassword.getText());
+        user.setPassword(txtFieldSignUpPassword.getText().trim());
         user.setFirstName(txtFieldSignUpFirstName.getText().trim());
         user.setLastName(txtFieldSignUpLastName.getText().trim());
         user.setPhone(txtFieldSignUpPhoneNumber.getText().trim());
-        user.setEmail(txtFieldSignUpEmail.getText());
+        user.setEmail(txtFieldSignUpEmail.getText().trim());
         user.setCountry(comboBoxSignUpCountry.getSelectionModel().getSelectedItem());
         user.setGender(gender);
         return user;

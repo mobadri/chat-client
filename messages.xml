@@ -1,2 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<messages/>
+<?xml-stylesheet type="text/xsl" href="messages.xsl"?>
+<messages>
+    <currentUser>101</currentUser>
+    <message>
+        <id>0</id>
+        <messageContent>pomf-dsj0isdjfi0</messageContent>
+        <style>
+            <font-color>#000000</font-color>
+            <font-name>Arial</font-name>
+            <font-family>Arial</font-family>
+            <font-size>16.0</font-size>
+            <font-weight></font-weight>
+            <fill-background>#fffddd</fill-background>
+        </style>
+        <userFrom>
+            <id>101</id>
+            <firstName>ahmed</firstName>
+            <lastName>shaheen</lastName>
+            <phone>01061510304</phone>
+        </userFrom>
+        <chatGroup>
+            <id>1</id>
+            <name>iti</name>
+        </chatGroup>
+    </message>
+    <message>
+        <id>1</id>
+        <messageContent>welcome</messageContent>
+        <style>
+            <font-color>#000000</font-color>
+            <font-name>Arial</font-name>
+            <font-family>Arial</font-family>
+            <font-size>16.0</font-size>
+            <font-weight></font-weight>
+            <fill-background>#ffffff</fill-background>
+        </style>
+        <userFrom>
+            <id>111</id>
+            <firstName>ahmed</firstName>
+            <lastName>shaheen</lastName>
+            <phone>01061510304</phone>
+        </userFrom>
+        <chatGroup>
+            <id>1</id>
+            <name>iti</name>
+        </chatGroup>
+    </message>
+    <message>
+        <id>2</id>
+        <messageContent>ya 5bbbbbrrrr</messageContent>
+        <style>
+            <font-color>#000000</font-color>
+            <font-name>Arial</font-name>
+            <font-family>Arial</font-family>
+            <font-size>16.0</font-size>
+            <font-weight></font-weight>
+            <fill-background>#ffffff</fill-background>
+        </style>
+        <userFrom>
+            <id>101</id>
+            <firstName>ahmed</firstName>
+            <lastName>shaheen</lastName>
+            <phone>01061510304</phone>
+        </userFrom>
+        <chatGroup>
+            <id>1</id>
+            <name>iti</name>
+        </chatGroup>
+    </message>
+</messages>

@@ -2,9 +2,10 @@ package com.chat.client.view.client.chat;
 
 
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
+import com.chat.client.controller.client.fileTransfer.FileTranseferController;
+import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImpl;
 import com.chat.client.controller.client.message.MessageControllerImpl;
 import com.chat.client.view.client.chat.render.MessageCellRenderer;
-import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
 import com.chat.server.model.chat.Style;
@@ -31,11 +32,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.controlsfx.dialog.FontSelectorDialog;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +85,8 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private Style defualtStyle;
     private Color currentColor = Color.BLACK;
     private Color bgColor = Color.WHITE;
+    private FileTranseferController fileTranseferController;
+
     private boolean isChatBotEnabled;
 
     public ChatViewController() {
@@ -112,7 +117,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     }
 
     @FXML
-    private void sendMessageAction(ActionEvent actionEvent) {
+    private void sendMessageAction(MouseEvent actionEvent) {
         Message message = createMessage();
         sendMessage(message, isChatBotEnabled);
     }
@@ -154,10 +159,10 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         return null;
     }
 
-    @Override
-    public void setChatGroup(ChatGroup chatGroup) {
-        this.currentChatGroup = chatGroup;
-    }
+//    @Override
+//    public void setChatGroup(ChatGroup chatGroup) {
+//        this.currentChatGroup = chatGroup;
+//    }
 
 //    @FXML
 //    private void changeTextColor(ActionEvent actionEvent) {
@@ -185,10 +190,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         messageObservableList.add(message);
     }
 
-    @FXML
-    public void openFile(MouseEvent mouseEvent) {
-
-    }
 
     @FXML
     private void saveMessages(MouseEvent mouseEvent) {
@@ -237,10 +238,40 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     public void handleSendingFile(MouseEvent mouseEvent) {
         FileChooser fileChooser = new FileChooser();
         File file = fileChooser.showOpenDialog(new Stage());
-        System.out.println(file.getPath());
-
+        if (file != null) {
+            loadFxmlFileTransefer(file);
+        }
     }
 
+    public void loadFxmlFileTransefer(File file) {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/TransferFile.fxml"));
+            Parent root = loader.load();
+            FileTransferControllerFXML transferControllerFXML = loader.getController();
+            /***********************************************************************************/
+
+            fileTranseferController.setCurrentUser(currentUser);
+            fileTranseferController.setChatGroup(currentChatGroup);
+            transferControllerFXML.setFileTranseferController(fileTranseferController);
+
+
+            /*****************************************************************************/
+
+            transferControllerFXML.setNameOfFile(file.getName());
+            transferControllerFXML.setPathOfFile(file.getPath());
+            transferControllerFXML.setCurrentUser(currentUser);
+            transferControllerFXML.setCurrentChatGroup(currentChatGroup);
+            System.out.println("currentChatGroup" + currentChatGroup);
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.TRANSPARENT);
+            stage.setScene(scene);
+            transferControllerFXML.setStage(stage);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void loadSize() {
         List<Integer> sizes = new ArrayList<>();
@@ -293,6 +324,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         messageContent.setStyle(defualtStyle.toString());
         System.out.println(format(fontColorPicker.getValue()));
     }
+
     @FXML
     public void AddUserToGroup(ActionEvent actionEvent) {
         Parent root;
@@ -326,6 +358,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         defualtStyle.setFontColor(format(currentColor));
         defualtStyle.setBackground(format(bgColor));
     }
+
 
     //-------------------------------------------------------------------------
     //----------------------------data section ------------------------------
@@ -364,37 +397,29 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     public void setUser(User user) {
         this.currentUser = user;
+        try {
+            fileTranseferController = new FileTranseferControllerImpl();
+
+            System.out.println("ChatViewController created");
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        fileTranseferController.setCurrentUser(user);
     }
 
-    public void setCurrentChatGroup(ChatGroup currentChatGroup) {
-        this.currentChatGroup = currentChatGroup;
+    @Override
+    public void setChatGroup(ChatGroup chatGroup) {
+        this.currentChatGroup = chatGroup;
         chatGroupName.setText(currentChatGroup.getName());
+        fileTranseferController.setChatGroup(currentChatGroup);
     }
+
 
     public void setChatGroupInterface(ChatGroupInterface chatGroupInterface) {
         this.chatGroupInterface = chatGroupInterface;
     }
-    ///////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////
-/*    @FXML
-    public void addnewfriendAction(MouseEvent mouseEvent) {
-        try {
-            Stage stage = new Stage();
-            FXMLLoader loader =
-                    new FXMLLoader(getClass().getResource("/templates/chat/addfriendstochat.fxml"));
-            Parent root = loader.load();
-            AddFriendToChatGroup controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-            System.err.println("Chat View controller current user " + currentUser.getFriends().size());
-            System.err.println("Chat View controller chat group user " + currentChatGroup.getUsers().size());
-            controller.setGroupChat(currentChatGroup);
-            stage.setScene(new Scene(root));
-            stage.show();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
+    public FileTranseferController getFileTranseferController() {
+        return fileTranseferController;
+    }
 }

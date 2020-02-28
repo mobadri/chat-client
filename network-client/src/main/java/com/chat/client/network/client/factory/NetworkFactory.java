@@ -7,7 +7,10 @@ import com.chat.client.network.client.chat.impl.MessageHandlerImpl;
 import com.chat.client.network.client.notifocation.NotificationHandler;
 import com.chat.client.network.client.notifocation.impl.NotificationHandlerImpl;
 import com.chat.client.network.client.socket_factory.SslClientSocketFactory;
+import com.chat.client.network.client.user.FileTransferHandeler;
+import com.chat.client.network.client.user.FileTransferHandeler;
 import com.chat.client.network.client.user.UserHandler;
+import com.chat.client.network.client.user.impl.FileTranseferHandlerImpl;
 import com.chat.client.network.client.user.impl.UserHandlerImpl;
 
 import java.util.Objects;
@@ -20,6 +23,8 @@ public class NetworkFactory {
     private static ChatGroupHandler chatGroupHandler;
     private static MessageHandler messageHandler;
     private static NotificationHandler notificationHandler;
+    private static SslClientSocketFactory sslClientSocketFactory;
+    private static FileTransferHandeler fileTransferHandeler;
 
     private NetworkFactory() {
     }
@@ -71,5 +76,17 @@ public class NetworkFactory {
         if (messageHandler == null)
             messageHandler = new MessageHandlerImpl();
         return messageHandler;
+    }
+
+    /**
+     * createFileTransferHandeler Object for user over application
+     *
+     * @return FileTransferHandelerImplantation
+     */
+    public static FileTransferHandeler createFileTransferHandler() {
+
+        if (fileTransferHandeler == null)
+            fileTransferHandeler = new FileTranseferHandlerImpl();
+        return fileTransferHandeler;
     }
 }

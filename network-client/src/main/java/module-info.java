@@ -4,6 +4,7 @@ module network.client {
     requires service.server;
     requires serviceclientcallback;
     requires java.xml;
+    requires rmiio;
     opens com.chat.client.network.client.factory;
     opens com.chat.client.network.client.chat;
     opens com.chat.client.network.client.user;

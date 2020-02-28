@@ -2,6 +2,7 @@ package com.chat.client.network.client.user.impl;
 
 import com.chat.client.network.client.config.NetworkConfig;
 import com.chat.client.network.client.user.UserHandler;
+import com.chat.client.service.client.callback.SslClientSocketFactory;
 import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
