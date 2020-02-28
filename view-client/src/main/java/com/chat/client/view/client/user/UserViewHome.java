@@ -28,7 +28,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -59,6 +58,11 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private ImageView defaultUserImage;
     @FXML
     public Label userName;
+
+    FriendRequestListViewController friendRequestListViewController;
+    private boolean isShowFriendRequestList = false;
+    private Parent firendRequestPane;
+    private Parent notificationPane;
 
     //------------------------------data section-----------------------------
     private User currentUser;
