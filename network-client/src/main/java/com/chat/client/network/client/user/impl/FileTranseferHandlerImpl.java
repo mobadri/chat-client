@@ -3,6 +3,8 @@ package com.chat.client.network.client.user.impl;
 import com.chat.client.network.client.config.NetworkConfig;
 import com.chat.client.network.client.user.FileTransferHandeler;
 import com.chat.client.service.client.callback.FileTransferServiceCallBack;
+import com.chat.server.model.chat.ChatGroup;
+import com.chat.server.model.user.User;
 import com.chat.server.service.server.fileTransfer.ServerFileTranseferService;
 
 import java.rmi.NotBoundException;
@@ -16,7 +18,7 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
 
     public FileTranseferHandlerImpl() {
         networkConfig = NetworkConfig.getInstance();
-        int portNumber =networkConfig.getServerPortNumber();
+        String portNumber = networkConfig.getServerPortNumber();
         String serverIP = networkConfig.getServerIp();
 
         /*commented segments of code is connection security trail */
@@ -25,7 +27,7 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
 //            Registry registry = LocateRegistry.getRegistry(portNumber);
-            serverFileTranseferService = (ServerFileTranseferService) registry.lookup("serverFileTranseferService");
+            serverFileTranseferService = (ServerFileTranseferService) registry.lookup("fileTranseferService");
 
         } catch (RemoteException | NotBoundException e) {
             e.printStackTrace();
@@ -34,17 +36,40 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
     }
 
     @Override
-    public void sendFile(String fileName, byte[] data, int length) {
-        //serverFileTranseferService.se
+    public void sendFile(String nameFile, RemoteInputStream remoteInputStream, ChatGroup currentChatGroup, User currentUser) {
+        try {
+
+            serverFileTranseferService.sendFile(nameFile, remoteInputStream, currentChatGroup, currentUser);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void register(FileTransferServiceCallBack fileTransferServiceCallBack) {
+        try {
+            serverFileTranseferService.register(fileTransferServiceCallBack);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public void unregister(FileTransferServiceCallBack fileTransferServiceCallBack) {
+        try {
+            serverFileTranseferService.unregister(fileTransferServiceCallBack);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Override
+    public void clientAcceptFile(String fileName, int currentChatGroupId, User currentUser) {
+        try {
+            serverFileTranseferService.clientAcceptFile(fileName, currentChatGroupId, currentUser);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }

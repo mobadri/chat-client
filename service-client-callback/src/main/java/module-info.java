@@ -3,5 +3,6 @@ module serviceclientcallback {
 
     requires model.server;
     requires java.rmi;
+    requires rmiio;
 
 }

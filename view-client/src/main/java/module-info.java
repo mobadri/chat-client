@@ -15,6 +15,7 @@ module view.client {
     requires org.kordamp.ikonli.octicons;
     requires org.kordamp.ikonli.javafx;
     requires java.xml;
+    requires rmiio;
     opens com.chat.client.view.client;
     opens com.chat.client.view.client.login;
     opens com.chat.client.view.client.chat;

@@ -8,6 +8,7 @@ module service.client {
     exports com.chat.client.service.client.fileTransfer;
     requires model.server;
     requires java.rmi;
+    requires rmiio;
     requires network.client;
     requires service.server;
     requires serviceclientcallback;

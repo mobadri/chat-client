@@ -34,7 +34,7 @@ public class UserValidation {
 
     public boolean validPhone(String phone) {
 
-        return phone.matches("^(?:\\+?2)?01[0-9]{9}$");
+        return phone.matches("^(?:\\+?2)?(01)[1250]{1}[0-9]{8}$");
     }
 
     public boolean gender(Gender gender) {
@@ -75,7 +75,6 @@ public class UserValidation {
     public Date ValidDate(Date date) {
         return date != null ? date : new Date("");
     }
-
 
     public Map<String, Boolean> validUser(User user) {
         User userPhone = null;

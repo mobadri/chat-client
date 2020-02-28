@@ -1,5 +1,7 @@
 package com.chat.client.view.client.notification;
 
+import com.chat.client.controller.client.fileTransfer.FileTranseferController;
+import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImpl;
 import com.chat.client.view.client.chat.render.RenderImage;
 import com.chat.server.model.chat.Notification;
 import com.jfoenix.controls.JFXButton;
@@ -22,10 +24,18 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
+import org.w3c.dom.ls.LSOutput;
+
+import java.rmi.RemoteException;
+import java.util.StringTokenizer;
 
 public class NotificationCellRenderer implements Callback<ListView<Notification>, ListCell<Notification>> {
 
-    NotificationViewListController controller;
+    private NotificationViewListController controller;
+
+    public NotificationCellRenderer() {
+    }
+
     private RenderImage renderImage = new RenderImage();
 
     @Override
@@ -58,7 +68,7 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                     notificationFrom.setFont(Font.font(12));
                     notificationFrom.setTextFill(Color.BLACK);
 
-                    Label notificationContent = new Label(notification.getNotificationMessage());
+                    Label notificationContent = new Label(notification.getNotificationMessage().substring(2));
                     notificationContent.setTextFill(Color.WHITE);
                     notificationContent.setFont(Font.font(11));
                     notificationContent.setTextFill(Color.BLACK);
@@ -117,8 +127,15 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-
+                System.out.println("\n mariam file \n");
                 System.out.println(notification.getUserFrom());
+                switch (notification.getNotificationType()) {
+                    case FILE_TRANSFER_ACCEPT:
+                        String messegeContent = notification.getNotificationMessage();
+                        String fileName = messegeContent.substring(messegeContent.indexOf(":=") + 2);
+                        controller.clientAcceptFile(fileName, 1,
+                                notification.getUserTo());
+                }
             }
         });
     }

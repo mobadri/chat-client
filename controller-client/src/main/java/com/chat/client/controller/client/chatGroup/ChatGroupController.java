@@ -57,8 +57,17 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
         chatGroupInterface.receiveMessage(message);
     }
 
+    public void setChatGroup(ChatGroup chatGroup) {
+        this.chatGroup = chatGroup;
+    }
+
+    public void setCurrentUser(User user) {
+        this.currentUser = user;
+    }
+
     @Override
     public int getChatGroupId() {
+
         return chatGroup.getId();
     }
 

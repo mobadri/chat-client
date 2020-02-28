@@ -55,9 +55,9 @@ public class LoginViewController implements Initializable {
 
     public void login() {
         clearAffectOfValidation();
-        if (validatePhone(txtFieldLoginPhone.getText()) && existedPhone(txtFieldLoginPhone.getText()) != null) {
+        if (validatePhone(txtFieldLoginPhone.getText().trim()) && existedPhone(txtFieldLoginPhone.getText().trim()) != null) {
 
-            User user = signUpAndRegistration.login(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
+            User user = signUpAndRegistration.login(txtFieldLoginPhone.getText().trim(), txtFieldloginPassword.getText().trim());
             System.out.println(user);
             if (user != null && user.getId() > 0) {
                 System.out.println("login successfully");
@@ -81,9 +81,9 @@ public class LoginViewController implements Initializable {
     @FXML
     private void onLogin(ActionEvent actionEvent) {
         clearAffectOfValidation();
-        if (validatePhone(txtFieldLoginPhone.getText()) && existedPhone(txtFieldLoginPhone.getText()) != null) {
+        if (validatePhone(txtFieldLoginPhone.getText().trim()) && existedPhone(txtFieldLoginPhone.getText().trim()) != null) {
 
-            User user = signUpAndRegistration.login(txtFieldLoginPhone.getText(), txtFieldloginPassword.getText());
+            User user = signUpAndRegistration.login(txtFieldLoginPhone.getText().trim(), txtFieldloginPassword.getText().trim());
             System.out.println(user);
             if (user != null && user.getId() > 0) {
                 System.out.println("login successfully");

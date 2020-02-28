@@ -6,6 +6,7 @@ import com.chat.client.service.client.chat.ClientChatGroupService;
 import com.chat.client.service.client.chat.impl.ChatBotServiceImpl;
 import com.chat.client.service.client.chat.impl.ClientChatGroupServiceImpl;
 import com.chat.client.service.client.fileTransfer.ClientFileTransferService;
+import com.chat.client.service.client.fileTransfer.impl.ClientFileTransferServiceImpl;
 import com.chat.client.service.client.message.ClientMessageService;
 import com.chat.client.service.client.message.impl.ClientMessageServiceImpl;
 import com.chat.client.service.client.notification.ClientNotificationService;
@@ -44,5 +45,9 @@ public class ServiceClientFactory {
 
     public static ChatBotService createChatBotService(String userPhone){
         return ChatBotServiceImpl.createChatBotServiceInstance(userPhone);
+    }
+    public static ClientFileTransferService createClientFileTransferService() {
+        return ClientFileTransferServiceImpl.createFileTransferServiceInstance();
+
     }
 }
