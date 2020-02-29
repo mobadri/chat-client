@@ -28,10 +28,11 @@ public class UserHandlerImpl implements UserHandler {
 
             /*commented segments of code is connection security trail */
 //            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
-            Registry registry = LocateRegistry.getRegistry("localhost",
-                    11223/*, SslClientSocketFactory.getInstance()*/);
+            Registry registry = LocateRegistry.getRegistry(serverIP,
+                    portNumber/*, SslClientSocketFactory.getInstance()*/);
             /*, NetworkFactory.createSslClientSocketFactory()*/
             ;
+            System.out.println(serverIP + "     " + portNumber);
 //            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
             serverUserService = (ServerUserService) registry.lookup("userService");
             System.out.println(serverUserService);
