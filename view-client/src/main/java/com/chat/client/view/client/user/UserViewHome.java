@@ -30,6 +30,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -39,6 +40,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -288,6 +291,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     @Override
     public void receiveNotification(Notification notification) {
+
         Platform.runLater(() ->
         {
             Image userImage = renderImage.convertToImage(notification.getUserFrom().getImage());
@@ -300,6 +304,13 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
                 tray.setImage(userImage);
             }
             tray.showAndDismiss(Duration.seconds(5));
+            if (notification.getNotificationType() == NotificationType.SERVER_IS_CLOSED) {
+                try {
+                    closeClient();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             tray.setNotificationType(NotificationType.MESSAGE_RECEIVED);
             addNotificationToList(notification);
         });
@@ -386,6 +397,9 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
      * @param status status to be updated
      */
     public void updateFriend(User user, User friend, FriendStatus status) {
+        if (status == FriendStatus.APPROVED) {
+//            homeController.c
+        }
         homeController.updateFriend(user.getId(), friend.getId(), status);
     }
 
@@ -489,4 +503,15 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         friendRequestListViewController.addFriendRequestequest(user);
     }
 
+    private void closeClient() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/templates/user/ServerDisconnectedView.fxml"));
+        Parent serverDisconnectedView = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(serverDisconnectedView));
+        stage.setTitle("Server Disconnected");
+        stage.showAndWait();
+        System.exit(0);
+    }
 }

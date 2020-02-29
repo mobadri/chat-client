@@ -19,6 +19,7 @@ import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class ClientMessageServiceImpl implements ClientMessageService {
             JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
             // list of messages
             MessagesType messages = new MessagesType();
-            //messages.setCurrentUser(BigInteger.valueOf(currentUser.getId()));
+            messages.setCurrentUser(BigInteger.valueOf(currentUser.getId()));
 
             new Thread(() -> {
                 try {
@@ -110,7 +111,7 @@ public class ClientMessageServiceImpl implements ClientMessageService {
     private void writeImage(byte[] imageBytes, String path, int userId, MessagesType messages) throws IOException {
 
         path = path.substring(0, path.lastIndexOf('\\'));
-        //messages.setImagePath(path + '\\' + userId + ".jpg");
+        messages.setImagePath(path + '\\' + userId + ".jpg");
 
         FileOutputStream outputStream = new FileOutputStream(path + "/" + userId + ".jpg");
         outputStream.write(imageBytes);
@@ -130,5 +131,4 @@ public class ClientMessageServiceImpl implements ClientMessageService {
         }
         return instance;
     }
-
 }
