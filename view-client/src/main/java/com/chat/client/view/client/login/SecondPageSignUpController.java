@@ -2,7 +2,6 @@ package com.chat.client.view.client.login;
 
 import com.chat.client.controller.client.user.login.RegistrationController;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
-import com.chat.client.view.client.chat.UserHome;
 import com.chat.client.view.client.user.UserViewHome;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
@@ -128,5 +127,31 @@ public class SecondPageSignUpController implements Initializable {
             return file;
         }
         return null;
+    }
+
+    @FXML
+    public void exit(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    public void minimize(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    public void back(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader loader =
+                    new FXMLLoader(getClass().getResource("/templates/login/testsignup.fxml"));
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }

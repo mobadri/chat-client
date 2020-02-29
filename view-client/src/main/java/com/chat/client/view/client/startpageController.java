@@ -29,7 +29,7 @@ public class startpageController implements Initializable {
         System.out.println("clicked");
         Parent root;
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/firstsignup.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/testsignup.fxml"));
             root = loader.load();
             System.out.println(stage);
             stage.setScene(new Scene(root));
@@ -49,7 +49,7 @@ public class startpageController implements Initializable {
     public void goToSignInPage(ActionEvent actionEvent) {
         System.out.println("clicked");
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/login.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/test.fxml"));
             Parent root = loader.load();
             System.out.println("loaded");
             LoginViewController loginView = loader.getController();
@@ -58,6 +58,8 @@ public class startpageController implements Initializable {
                     new RegistrationController();
             loginView.setSignUpAndRegistration(registrationController);
             stage.setScene(new Scene(root));
+
+            //stage.initStyle(StageStyle.TRANSPARENT);
         } catch (IOException e) {
             e.printStackTrace();
             e.getMessage();

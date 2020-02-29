@@ -10,9 +10,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -75,6 +78,9 @@ public class FirstSignUpController implements Initializable {
     @FXML
     private Label InvalidCountry;
 
+    @FXML
+    private ImageView back;
+    boolean isMaximized = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -197,7 +203,7 @@ public class FirstSignUpController implements Initializable {
         try {
 
             FXMLLoader loader =
-                    new FXMLLoader(getClass().getResource("/templates/login/secondpagesignup.fxml"));
+                    new FXMLLoader(getClass().getResource("/templates/login/secondpagesignup2.fxml"));
             root = loader.load();
             System.out.println(stage);
             SecondPageSignUpController secondpagesignupController = loader.getController();
@@ -229,4 +235,33 @@ public class FirstSignUpController implements Initializable {
             System.out.println(gender);
         }
     }
+
+    @FXML
+    public void exit(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    public void minimize(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    public void maximize(MouseEvent mouseEvent) {
+
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setFullScreenExitHint(" ");
+
+        if (!isMaximized) {
+            isMaximized = true;
+            stage.setMaximized(true);
+        } else {
+            isMaximized = false;
+            stage.setMaximized(false);
+        }
+    }
+
+
 }
