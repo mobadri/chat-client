@@ -24,6 +24,8 @@ public class HomeControllerImpl implements UserHomeInterface {
     @Override
     public void logout(User currentUser) {
 
+
+
     }
 
     @Override

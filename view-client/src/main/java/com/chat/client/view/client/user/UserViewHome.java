@@ -4,6 +4,7 @@ import com.chat.client.controller.client.chatGroup.ChatGroupController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
+import com.chat.client.controller.client.user.HomeControllerImpl;
 import com.chat.client.controller.client.user.UserHomeInterface;
 import com.chat.client.view.client.chat.ChatGroupListViewController;
 import com.chat.client.view.client.chat.ChatViewController;
@@ -21,22 +22,33 @@ import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -46,6 +58,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserViewHome implements Initializable, UserHomeInterface, PushNotificationInterface {
+
 
     //------------------------------view section-----------------------------
     @FXML
@@ -60,9 +73,15 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private ImageView defaultUserImage;
     @FXML
     public Label userName;
+    @FXML
+    public Circle modeColor;
+    @FXML
+    private AnchorPane statusPane;
 
+    @FXML
     FriendRequestListViewController friendRequestListViewController;
     private boolean isShowFriendRequestList = false;
+    private boolean isShowModeList = false;
     private Parent firendRequestPane;
     private Parent notificationPane;
 
@@ -86,11 +105,13 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private List<ChatGroupController> chatGroupControllerList = new ArrayList<>();
 
     private ObservableList<ChatGroup> chatGroupObservableList = FXCollections.observableArrayList();
+    private ListViewStatusController ListViewStatusController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(this::loadNotificationList);
         Platform.runLater(this::loadFriendRequestList);
+//        Platform.runLater(this::loadModeStatus);
         //loadFriendRequestList();
     }
 
@@ -204,6 +225,21 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         isShowFriendRequestList = !isShowFriendRequestList;
         anchorPaneNotification.getChildren().clear();
         anchorPaneNotification.getChildren().setAll(firendRequestPane);
+    }
+
+    @FXML
+    private void oncircleModeeClicked(MouseEvent mouseEvent) {
+        statusPane.setVisible(!isShowModeList);
+        isShowModeList = !isShowModeList;
+        Parent parent = loadModeStatus();
+
+        if (parent != null) {
+            System.out.println("loaded");
+            statusPane.getChildren().add(parent);
+            System.out.println(parent);
+        } else {
+            System.out.println("not loaded");
+        }
     }
 
     //------------------------------------------------------------------------------
@@ -400,6 +436,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
 
     private void addfriendRequestToList(User user) {
+
         friendRequestListViewController.addFriendRequestequest(user);
     }
 
@@ -437,4 +474,30 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     public void updateFriend(User user, User friend, FriendStatus status) {
         homeController.updateFriend(user.getId(), friend.getId(), status);
     }
+
+
+
+    private ListView handleUserMode() {
+        ObservableList<Mode> modeList = FXCollections.observableArrayList(Mode.AWAY, Mode.BUSY, Mode.AVAILABLE);
+        ListView<Mode> modes = new ListView<>(modeList);
+        modes.setStyle("-fx-background-color: white");
+        modes.setOrientation(Orientation.VERTICAL);
+        modes.setPrefSize(100, 120);
+        return modes;
+    }
+
+    private Parent loadModeStatus() {
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/chat/ListViewStatus.fxml"));
+            root = loader.load();
+            ListViewStatusController = loader.getController();
+            ListViewStatusController.setCurrentUser(currentUser);
+            ListViewStatusController.setModeColor(modeColor);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return root;
+    }
+
 }

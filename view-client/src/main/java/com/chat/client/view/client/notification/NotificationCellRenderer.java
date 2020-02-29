@@ -114,7 +114,7 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
 
                     hBox.getChildren().addAll(stackPane, vBox);
                     hBox.setAlignment(Pos.CENTER_LEFT);
-                    setPrefWidth(200);
+                    hBox.setPrefWidth(200);
                     hBox.setMaxWidth(220);
                     hBox.setMinWidth(220);
                     setGraphic(hBox);

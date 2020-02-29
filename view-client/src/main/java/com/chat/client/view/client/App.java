@@ -29,24 +29,24 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         File file = new File("userInfo.xml");
-      /*  if (file.exists()) {
+        if (file.exists()) {
             rememberMeHomePage(file, primaryStage);
         } else {
-*/
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
-        Parent root = loader.load();
-        com.chat.client.view.client.startpageController controller = loader.getController();
-        controller.setStage(primaryStage);
-        Scene scene = new Scene(root);
-        scene.setFill(Color.TRANSPARENT);
-        primaryStage.setScene(scene);
-        primaryStage.show();
 
-        primaryStage.setOnCloseRequest((e) -> System.exit(0));
-        //  }
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
+            Parent root = loader.load();
+            com.chat.client.view.client.startpageController controller = loader.getController();
+            controller.setStage(primaryStage);
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            primaryStage.setScene(scene);
+            primaryStage.show();
 
+            primaryStage.setOnCloseRequest((e) -> System.exit(0));
+            //  }
+
+        }
     }
-
     public void rememberMeHomePage(File file, Stage primaryStage) {
 
         LoginViewController loginViewController = new LoginViewController();
