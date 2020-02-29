@@ -11,7 +11,7 @@
 
 <AnchorPane prefHeight="552.0" prefWidth="587.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.user.UserProfileController">
     <children>
-        <AnchorPane layoutX="-4.0" layoutY="-2.0" prefHeight="132.0" prefWidth="729.0" style="-fx-border-color: GRAY;" AnchorPane.bottomAnchor="425.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
+        <AnchorPane layoutX="-4.0" layoutY="-2.0" prefHeight="552.0" prefWidth="770.0" style="-fx-border-color: GRAY;" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
             <children>
                 <Circle fx:id="circleImage" fill="WHITE" layoutX="675.0" layoutY="64.0" onMouseClicked="#chatImageHandelr" radius="56.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="619.0" AnchorPane.rightAnchor="37.0" />
                 <Label fx:id="nameOfProfile" layoutX="9.0" layoutY="15.0" prefHeight="68.0" prefWidth="362.0" textFill="#354578" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="357.0">
@@ -19,7 +19,7 @@
                         <Font size="36.0" />
                     </font>
                 </Label>
-                <ImageView fitHeight="15.0" fitWidth="37.0" layoutX="716.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="15.0" fitWidth="37.0" layoutX="699.0" layoutY="83.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../static/images/plus.png" />
                     </image>

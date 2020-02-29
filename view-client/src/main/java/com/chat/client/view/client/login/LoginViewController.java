@@ -130,6 +130,7 @@ public class LoginViewController implements Initializable {
             userViewHome.setUserHomeInterface(new HomeControllerImpl());
             userViewHome.setCurrentUser(user);
             stage.setMaximized(true);
+            stage.setResizable(true);
             stage.setFullScreen(true);
             stage.setScene(new Scene(root));
         } catch (IOException e) {
