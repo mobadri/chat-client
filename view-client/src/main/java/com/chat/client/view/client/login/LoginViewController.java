@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -39,6 +40,8 @@ public class LoginViewController implements Initializable {
 
     @FXML
     private Label invalidPassword;
+
+    boolean isMaximized = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -138,7 +141,7 @@ public class LoginViewController implements Initializable {
         //;
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/templates/login/firstsignup.fxml"));
+                    getClass().getResource("/templates/login/testsignup.fxml"));
             root = loader.load();
             FirstSignUpController firstSignUpController = loader.getController();
             firstSignUpController.setStageSignUp(stage);
@@ -169,12 +172,14 @@ public class LoginViewController implements Initializable {
 
     private void affectInvalidPhone() {
         invalidPhone.setText("* Invalid phone Number");
-        txtFieldLoginPhone.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+        invalidPhone.setStyle("-fx-text-fill: red;");
+        // txtFieldLoginPhone.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
     }
 
     private void affectInvalidPassword() {
         invalidPassword.setText("* Invalid password");
-        txtFieldloginPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+        invalidPassword.setStyle("-fx-text-fill: red;");
+        //   txtFieldloginPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
     }
 
 
@@ -188,12 +193,22 @@ public class LoginViewController implements Initializable {
 
     private void clearAffectOfValidation() {
         invalidPhone.setText("");
-        txtFieldLoginPhone.setStyle("-fx-border-color:gray  ; -fx-border-width: 1px ;");
 
         invalidPassword.setText("");
-        txtFieldloginPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
 
 
+    }
+
+    @FXML
+    public void exit(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    public void minimize(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setIconified(true);
     }
 
 

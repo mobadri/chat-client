@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -39,7 +40,9 @@ public class App extends Application {
         controller.setStage(primaryStage);
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
+        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
 
         primaryStage.setOnCloseRequest((e) -> System.exit(0));

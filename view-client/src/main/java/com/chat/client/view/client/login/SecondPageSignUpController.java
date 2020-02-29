@@ -25,6 +25,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -102,6 +104,15 @@ public class SecondPageSignUpController implements Initializable {
         }
     }
 
+    private byte[] readImage(String path) {
+        byte[] image = null;
+        try {
+            image = Files.readAllBytes(Paths.get(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
 
     @FXML
     public void chooseImage(MouseEvent mouseEvent) {
@@ -124,5 +135,31 @@ public class SecondPageSignUpController implements Initializable {
             return file;
         }
         return null;
+    }
+
+    @FXML
+    public void exit(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    public void minimize(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    public void back(MouseEvent mouseEvent) {
+        try {
+            FXMLLoader loader =
+                    new FXMLLoader(getClass().getResource("/templates/login/testsignup.fxml"));
+            Parent root = loader.load();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
