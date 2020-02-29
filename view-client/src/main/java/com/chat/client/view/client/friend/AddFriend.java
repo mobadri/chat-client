@@ -9,8 +9,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.List;
@@ -18,16 +22,21 @@ import java.util.ResourceBundle;
 
 public class AddFriend implements Initializable {
     private ObservableList<User> allUsers = FXCollections.observableArrayList();
-    String phone;
+    String phone = "";
     @FXML
     private TextField phoneNumberSearch;
     @FXML
     private ListView usersListView;
+    @FXML
+    private ImageView closeBtn;
+
     private User currentUser;
     private UserViewHome homeController;
+    boolean isMaximized = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+//        phoneNumberSearch.getScene().setFill(Color.TRANSPARENT);
         search();
         usersListView.refresh();
     }
@@ -46,6 +55,7 @@ public class AddFriend implements Initializable {
 
     }
 
+    @FXML
     private void search() {
         phoneNumberSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if ((newValue.isEmpty() || newValue == null)) {
@@ -84,6 +94,8 @@ public class AddFriend implements Initializable {
     //-------------------setter section ------------------------------------
     //----------------------------------------------------------------------
     public void setHomeController(UserViewHome homeController) {
+        System.out.println("I am here ");
+
         this.homeController = homeController;
     }
 
@@ -91,4 +103,30 @@ public class AddFriend implements Initializable {
         this.currentUser = currentUser;
     }
 
+
+    @FXML
+    public void exit(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    public void minimize(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    public void maximize(MouseEvent mouseEvent) {
+
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setFullScreenExitHint(" ");
+        if (!isMaximized) {
+            isMaximized = true;
+            stage.setMaximized(true);
+        } else {
+            isMaximized = false;
+            stage.setMaximized(false);
+        }
+    }
 }

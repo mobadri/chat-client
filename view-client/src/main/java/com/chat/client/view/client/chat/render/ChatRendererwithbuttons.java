@@ -53,7 +53,7 @@ public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCel
                     Button buttonAddFriend = new Button(addFriend);
                     Button buttonReject = new Button(rejectRequest);
 
-                    buttonViewProfile.setStyle("-fx-background-color: #0078D4; -fx-background-radius: 20; -fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-alignment: CENTER;");
+                    buttonViewProfile.setStyle("-fx-background-color: #354578; -fx-background-radius: 20; -fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-alignment: CENTER;");
                     buttonReject.setStyle("-fx-background-color: red; -fx-background-radius: 20; -fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-alignment: CENTER;");
                     HBox hboxButtons = new HBox();
                     hboxButtons.setSpacing(5);
@@ -94,7 +94,7 @@ public class ChatRendererwithbuttons implements Callback<ListView<User>, ListCel
                         }
                     }
                     setButtonAction(buttonAddFriend, status, user, userFriend);
-                    buttonAddFriend.setStyle("-fx-background-color: #0078D4; -fx-background-radius: 20; -fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-alignment: CENTER;");
+                    buttonAddFriend.setStyle("-fx-background-color: #354578; -fx-background-radius: 20; -fx-text-fill: #ffffff; -fx-font-size: 12px; -fx-alignment: CENTER;");
                     hboxButtons.getChildren().addAll(buttonAddFriend, buttonViewProfile);
 
                     vbox.getChildren().addAll(hBox, hboxButtons);

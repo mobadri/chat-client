@@ -4,6 +4,7 @@ import com.chat.client.view.client.chat.render.CellRenderer;
 import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.user.User;
 import com.jfoenix.controls.JFXTextField;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -15,8 +16,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,8 +30,6 @@ public class UserFriends implements Initializable {
     @FXML
     private ListView userList;
     @FXML
-    private AnchorPane friendsAnchorPane;
-    @FXML
     private JFXTextField searchForFriends;
 
     private ObservableList<User> friendsObservableList = FXCollections.observableArrayList();
@@ -38,7 +38,6 @@ public class UserFriends implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        new Thread(() -> setFriendsListView(currentUser.getFriends())).start();
     }
 
     @FXML
@@ -62,7 +61,10 @@ public class UserFriends implements Initializable {
             controller.setCurrentUser(currentUser);
             controller.setHomeController(userViewHome);
             Stage friendStage = new Stage();
-            friendStage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            friendStage.setScene(scene);
+            friendStage.initStyle(StageStyle.TRANSPARENT);
             friendStage.show();
 
         } catch (IOException e) {
@@ -79,6 +81,7 @@ public class UserFriends implements Initializable {
 
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
+        Platform.runLater(() -> setFriendsListView(currentUser.getFriends()));
     }
 
     public void setUserViewHome(UserViewHome userViewHome) {
