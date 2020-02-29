@@ -1,261 +1,341 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <keys xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="chat_bot_keys.xsd">
-        
+         
+ 
  
  
  
  <key name="welcome">
-                
+                  
+  
   
   
   
   <values>
-                        
+                           
+   
    
    
    
    <value weight="1">hello</value>
-                        
+                           
+   
    
    
    
    <value weight="1">hala wllah</value>
-                        
+                           
+   
    
    
    
    <value weight="1">hala</value>
-                        
+                           
+   
    
    
    
    <value weight="5">welcome</value>
-                    
+                       
   
   
   
+  
+   <value weight="1">hala whhah</value>
   </values>
-            
+              
+ 
  
  
  
  </key>
-        
+         
+ 
  
  
  
  <key name="hi">
-                
+                  
+  
   
   
   
   <values>
-                        
+                           
+   
    
    
    
    <value weight="5">hello</value>
-                        
+                           
+   
    
    
    
    <value weight="1">yahala</value>
-                        
+                           
+   
    
    
    
    <value weight="3">welcome</value>
-                        
+                           
+   
    
    
    
    <value weight="1">hala be 4bab</value>
-                    
+                       
   
   
    
+   
    <value weight="1">welcome ya welcome</value>
-     
+        
+  
   </values>
-            
+              
+ 
  
  
  
  </key>
-        
+         
+ 
  
  
  
  <key name="ya hala be shbab">
-                
+                  
+  
   
   
   
   <values>
-                        
+                           
+   
    
    
    
    <value weight="1">hello</value>
-                    
+                       
+  
   
   
   
   </values>
-            
+              
+ 
  
  
  
  </key>
-        
+         
+ 
  
  
  
  <key name="hala feek">
-                
+                  
+  
   
   
   
   <values>
-                        
+                           
+   
    
    
    
    <value weight="1">hala w 8ala</value>
-                    
+                       
+  
   
   
   
   </values>
-            
+              
+ 
  
  
  
  </key>
-        
+         
+ 
  
  
  
  <key name="hello">
-                
+                  
+  
   
   
   
   <values>
-                        
+                           
+   
    
    
    
    <value weight="1">welcome ya welcome</value>
-                    
+                       
+  
   
   
   
   </values>
-            
+              
+ 
  
  
  
  </key>
-        
+         
+ 
  
  
  
  <key name="your name ?">
-                
+                  
+  
   
   
   
   <values>
-                        
+                           
+   
    
    
    
    <value weight="1">noura</value>
-                    
+                       
+  
   
   
   
   </values>
-            
+              
+ 
  
  
  
  </key>
-        
+         
+ 
  
  
  
  <key name="hellooz">
-                
+                  
+  
   
   
   
   <values>
-                        
+                           
+   
    
    
    
    <value weight="1">ya 5bar</value>
-                    
+                       
+  
   
   
   
   </values>
-            
+              
+ 
  
  
  
  </key>
-    
+     
+ 
  
  
  
  <key name="ya hala w 8ala">
-        
+          
+  
   
   
   <values>
-            
+               
+   
    
    
    <value weight="1">msm</value>
-           
+              
+  
   
   
   </values>
-       
+         
+ 
  
  
  </key>
-    
+     
+ 
  
  
  <key name="zy el fol">
-        
+          
+  
   
   
   <values>
-            
+               
+   
    
    
    <value weight="1">ana tmam w ent ?</value>
-            
+               
+   
    
    
    <value weight="1">ya gd3</value>
-           
+              
+  
   
   
   </values>
-       
+         
+ 
+ 
+ 
+ </key>
+     
+ 
+ 
+ 
+ <key name="mazaaa">
+          
+  
+  
+  
+  <values>
+               
+   
+   
+   
+   <value weight="1">wla 6aga</value>
+              
+  
+  
+  
+  </values>
+         
+ 
  
  
  </key>
     
  
  
- <key name="mazaaa">
+ 
+ <key name="how are you?">
         
   
   
@@ -263,7 +343,7 @@
             
    
    
-   <value weight="1">wla 6aga</value>
+   <value weight="2">sorry !! what do you mean ?</value>
            
   
   
@@ -273,21 +353,6 @@
  
  </key>
    
- 
- 
- <key name="how are you?">
-      
-  
-  <values>
-         
-   
-   <value weight="2">sorry !! what do you mean ?</value>
-        
-  
-  </values>
-     
- 
- </key>
-  
+
 
 </keys>

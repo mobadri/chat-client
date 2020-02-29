@@ -1,6 +1,7 @@
 package com.chat.client.view.client.user;
 
 import com.chat.client.controller.client.chatGroup.ChatGroupController;
+import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImpl;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
@@ -20,6 +21,7 @@ import com.chat.server.model.chat.NotificationType;
 import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
+import com.chat.server.model.user.UserFriend;
 import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
 import javafx.beans.property.ListProperty;
@@ -53,12 +55,12 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class UserViewHome implements Initializable, UserHomeInterface, PushNotificationInterface {
-
 
     //------------------------------view section-----------------------------
     @FXML
@@ -105,6 +107,8 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private List<ChatGroupController> chatGroupControllerList = new ArrayList<>();
 
     private ObservableList<ChatGroup> chatGroupObservableList = FXCollections.observableArrayList();
+    private FileTranseferControllerImpl fileTranseferController;
+
     private ListViewStatusController ListViewStatusController;
 
     @Override
@@ -116,7 +120,11 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     }
 
     public UserViewHome() {
-
+        try {
+            fileTranseferController = new FileTranseferControllerImpl();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadFriendsListView() {
@@ -267,6 +275,10 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             Parent root = loader.load();
             //view controller
             ChatViewController chatViewController = loader.getController();
+
+            fileTranseferController.setCurrentUser(currentUser);
+            chatViewController.setFileTranseferController(fileTranseferController);
+
             chatViewController.setUser(currentUser);
             chatViewController.setChatGroup(chatGroup);
             //---------
@@ -292,6 +304,22 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             loadChatGroup(chatGroup);
         }
     }
+
+    private void loadFriendRequestList() {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/FriendRequest-list.fxml"));
+            firendRequestPane = loader.load();
+            friendRequestListViewController = loader.getController();
+            List<User> friendRequest = homeController.getFriendRequest(currentUser);
+            for (User user : friendRequest) {
+                friendRequestListViewController.addFriendRequestequest(user);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     //------------------------------------------------------------------------------
     //----------------------------Notification Section -----------------------------
     //------------------------------------------------------------------------------
@@ -306,7 +334,9 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             tray.setMessage(notification.getNotificationMessage());
             tray.setRectangleFill(Paint.valueOf("#2C3E50"));
             tray.setAnimationType(AnimationType.FADE);
-            //tray.setImage(userImage);
+            if (userImage != null) {
+                tray.setImage(userImage);
+            }
             tray.showAndDismiss(Duration.seconds(5));
             tray.setNotificationType(NotificationType.MESSAGE_RECEIVED);
             addNotificationToList(notification);
@@ -425,7 +455,9 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     public void clientAcceptFile(String fileName, int chatGroupId, User userTo) {
         for (ChatGroup chatGroup : chatGroupObservableList) {
-
+            if (chatGroup.getId() == chatGroupId) {
+                fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
+            }
         }
     }
 
@@ -436,7 +468,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
 
     private void addfriendRequestToList(User user) {
-
         friendRequestListViewController.addFriendRequestequest(user);
     }
 

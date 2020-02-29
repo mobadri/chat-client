@@ -57,10 +57,10 @@
                <font>
                   <Font size="14.0" />
                </font></Label>
-                <Label id="textbackground-blac" fx:id="lblloginSignuphere" layoutX="204.0" layoutY="396.0" onMouseClicked="#onSignUp" prefHeight="17.0" prefWidth="80.0" stylesheets="@../static/css/loginandsignup.css" text="Sign up here" textFill="WHITE" AnchorPane.leftAnchor="204.0" AnchorPane.rightAnchor="-23.0">
+                <Hyperlink id="textbackground-blac" fx:id="lblloginSignuphere" layoutX="198.0" layoutY="392.0" onMouseClicked="#onSignUp" prefHeight="17.0" prefWidth="80.0" stylesheets="@../static/css/loginandsignup.css" text="Sign up here" textFill="WHITE" AnchorPane.leftAnchor="198.0" AnchorPane.rightAnchor="-17.0">
                <font>
                   <Font size="15.0" />
-               </font></Label>
+               </font></Hyperlink>
                 <JFXCheckBox fx:id="rememberMe" layoutX="42.0" layoutY="272.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="129.0" text="Remember me" textFill="#354578" unCheckedColor="#354578">
                <font>
                   <Font size="14.0" />

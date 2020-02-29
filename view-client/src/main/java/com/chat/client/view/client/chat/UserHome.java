@@ -44,7 +44,9 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.controlsfx.control.PropertySheet;
 
 import java.io.File;
 import java.io.IOException;
@@ -303,8 +305,8 @@ public class UserHome implements Initializable, PushNotificationInterface {
             notificationPane = loader.load();
             notificationViewListcontroller = loader.getController();
 
-//            notificationViewListcontroller.setUserHome(this);
-//            anchorPaneNotification.getChildren().setAll(load);
+           /* notificationViewListcontroller.setUserHome(this);
+            anchorPaneNotification.getChildren().setAll(load);*/
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -331,10 +333,11 @@ public class UserHome implements Initializable, PushNotificationInterface {
                     new FXMLLoader(getClass().getResource("/templates/friend/addFriend.fxml"));
             root = loader.load();
             AddFriend controller = loader.getController();
-//            controller.setHomeController(this);
+            //controller.setHomeController(homeController);
             controller.setCurrentUser(currentUser);
             friendStage = new Stage();
             friendStage.setScene(new Scene(root));
+            friendStage.initStyle(StageStyle.UNDECORATED);
             friendStage.show();
         } catch (IOException e) {
             e.printStackTrace();

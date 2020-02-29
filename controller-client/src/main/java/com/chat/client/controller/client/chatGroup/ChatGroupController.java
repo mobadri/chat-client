@@ -17,6 +17,7 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
         , MessageServiceCallBack {
 
     private ClientMessageService messageService = ServiceClientFactory.createMessageService();
+
     private List<ChatGroupController> chatGroupControllerList = new ArrayList<>();
     private ChatGroupInterface chatGroupInterface;
     private ChatBotService chatBotService;
@@ -88,4 +89,6 @@ public class ChatGroupController extends UnicastRemoteObject implements ChatGrou
     public List<ChatGroupController> getChatGroupControllerList() {
         return chatGroupControllerList;
     }
+
+
 }

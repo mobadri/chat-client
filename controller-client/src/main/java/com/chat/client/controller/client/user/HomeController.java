@@ -6,6 +6,7 @@ import com.chat.client.service.client.user.ClientUserService;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.User;
+import com.chat.server.model.user.UserFriend;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -50,14 +51,14 @@ public class HomeController {
         return null;
     }
 
-    public FriendStatus getSatatus(int userId, int friendId) {
-        FriendStatus friendStatus = null;
+    public UserFriend getSatatus(int userId, int friendId) {
+        UserFriend userFriend = new UserFriend();
         try {
-            friendStatus = clientUserService.statusFriend(userId, friendId);
+            userFriend = clientUserService.statusFriend(userId, friendId);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return friendStatus;
+        return userFriend;
     }
 
     //Update status

@@ -2,6 +2,7 @@ package com.chat.client.service.client.message;
 
 import com.chat.client.service.client.callback.MessageServiceCallBack;
 import com.chat.server.model.chat.Message;
+import com.chat.server.model.user.User;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface ClientMessageService {
      * @param messageList list of message on the chat group
      * @param path        path of file to save on
      */
-    void saveXmlFile(List<Message> messageList, String path);
+    void saveXmlFile(User currentId, List<Message> messageList, String path);
 
     /**
      * load list of messages from xml file

@@ -3,8 +3,8 @@ package com.chat.client.network.client.user;
 import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
+import com.chat.server.model.user.UserFriend;
 
-import java.rmi.RemoteException;
 import java.util.List;
 
 public interface UserHandler {
@@ -30,11 +30,10 @@ public interface UserHandler {
     /**
      * remove friend from my friend list
      *
-     *
-     * @param friendId     friend will remove from friend list
+     * @param friendId friend will remove from friend list
      * @return true if succeed to remove , false if failed
      */
-    int removeFriend(int currentId,int friendId);
+    int removeFriend(int currentId, int friendId);
 
     /**
      * login to the system
@@ -45,7 +44,7 @@ public interface UserHandler {
      */
     User login(String phone, String password);
 
-    User signUp(User user,String password);
+    User signUp(User user, String password);
 
     List<User> getAllUsers();
 
@@ -73,7 +72,7 @@ public interface UserHandler {
      * @param friendID id for the friend
      * @return number of status;
      */
-    FriendStatus friendStatus(int userID, int friendID);
+    UserFriend friendStatus(int userID, int friendID);
 
     /**
      * User to be updated

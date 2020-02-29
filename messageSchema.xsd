@@ -37,6 +37,8 @@
     </xs:complexType>
     <xs:complexType name="messagesType">
         <xs:sequence>
+            <xs:element name="currentUser" type="xs:integer"></xs:element>
+            <xs:element name="imagePath" type="xs:string"></xs:element>
             <xs:element type="messageType" name="message" maxOccurs="unbounded" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>

@@ -1,11 +1,12 @@
 package com.chat.client.network.client.user.impl;
 
 import com.chat.client.network.client.config.NetworkConfig;
+import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.network.client.user.UserHandler;
-import com.chat.client.service.client.callback.SslClientSocketFactory;
 import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
+import com.chat.server.model.user.UserFriend;
 import com.chat.server.service.server.user.ServerUserService;
 
 import java.rmi.NotBoundException;
@@ -29,7 +30,7 @@ public class UserHandlerImpl implements UserHandler {
             /*commented segments of code is connection security trail */
 //            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
             Registry registry = LocateRegistry.getRegistry(serverIP,
-                    portNumber);
+                    portNumber/*, NetworkFactory.createSslClientSocketFactory()*/);
 //            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
             serverUserService = (ServerUserService) registry.lookup("userService");
             System.out.println(serverUserService);
@@ -162,14 +163,14 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
-    public FriendStatus friendStatus(int userID, int friendID) {
-        FriendStatus friendStatus = null;
+    public UserFriend friendStatus(int userID, int friendID) {
+        UserFriend userFriend = new UserFriend();
 
         try {
-            friendStatus = serverUserService.getStatus(userID, friendID);
+            userFriend = serverUserService.getStatus(userID, friendID);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        return friendStatus;
+        return userFriend;
     }
 }

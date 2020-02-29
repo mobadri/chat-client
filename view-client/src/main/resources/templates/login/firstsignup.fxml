@@ -7,11 +7,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.net.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="576.0" prefWidth="443.0" style="-fx-background-color: #F0F4F8;"
-            xmlns="http://javafx.com/javafx/10.0.2-internal"
-            fx:controller="com.chat.client.view.client.login.FirstSignUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0"
+            prefWidth="443.0" style="-fx-background-color: #F0F4F8;" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.login.FirstSignUpController">
+
     <children>
         <Label id="textbackground-black-bold" layoutY="30.0" text="Sign up" AnchorPane.leftAnchor="0.0"
                AnchorPane.rightAnchor="0.0">
@@ -168,5 +167,6 @@
                 <URL value="@../../static/css/loginandsignup.css"/>
             </stylesheets>
         </Label>
+
     </children>
 </AnchorPane>

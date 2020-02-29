@@ -37,17 +37,11 @@ public class ChatBot implements ChatBotInterface {
         return chatBotInstance;
     }
 
-    private ChatBot(String userPhone) throws ParserConfigurationException, IOException, TransformerException {
+    private ChatBot(String userPhone) throws ParserConfigurationException, SAXException, IOException, TransformerException {
 
         xmlFile = new File( "chat-bot/"+ userPhone + ".xml");
         if(xmlFile.exists()){
-            new Thread(() -> {
-                try {
-                    readXml(xmlFile);
-                } catch (IOException | SAXException | ParserConfigurationException e) {
-                    e.printStackTrace();
-                }
-            }).start();
+            readXml(xmlFile);
         }
         else {
             xmlFile.createNewFile();
@@ -227,14 +221,12 @@ public class ChatBot implements ChatBotInterface {
     public void learn(String message, String respond) {
 
         message = message.toLowerCase().trim();
-        if(!message.equalsIgnoreCase("sorry !! what do you mean ?")) {
-            respond = respond.toLowerCase().trim();
-            XmlValueTag valueTag = new XmlValueTag(respond);
-            try {
-                enableChatBotToLearn(message, valueTag);
-            } catch (XPathExpressionException | TransformerException e) {
-                e.printStackTrace();
-            }
+        respond = respond.toLowerCase().trim();
+        XmlValueTag valueTag = new XmlValueTag(respond);
+        try {
+            enableChatBotToLearn(message, valueTag);
+        } catch (XPathExpressionException | TransformerException e) {
+            e.printStackTrace();
         }
     }
 }
