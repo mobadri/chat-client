@@ -2,10 +2,10 @@ package com.chat.client.network.client.chat.impl;
 
 import com.chat.client.network.client.chat.ChatGroupHandler;
 import com.chat.client.network.client.config.NetworkConfig;
-import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
 import com.chat.server.service.server.chatgroup.ServerChatGroupService;
+import com.chat.server.service.server.socket_factories.SslClientSocketFactory;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -30,7 +30,7 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     portNumber, new RMISSLClientSocketFactory());*/
             Registry registry = LocateRegistry.getRegistry(serverIP,
-                    portNumber/*, NetworkFactory.createSslClientSocketFactory()*/);
+                    portNumber, SslClientSocketFactory.getInstance());
 
             //Registry registry = LocateRegistry.getRegistry(portNumber);
             serverChatGroupService = (ServerChatGroupService) registry.lookup("chatGroupService");

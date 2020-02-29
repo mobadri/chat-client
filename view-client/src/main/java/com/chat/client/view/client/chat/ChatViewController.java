@@ -3,6 +3,7 @@ package com.chat.client.view.client.chat;
 
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
 import com.chat.client.controller.client.fileTransfer.FileTranseferController;
+import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImpl;
 import com.chat.client.controller.client.message.MessageControllerImpl;
 import com.chat.client.view.client.chat.render.MessageCellRenderer;
 import com.chat.server.model.chat.ChatGroup;
@@ -37,6 +38,7 @@ import org.controlsfx.dialog.FontSelectorDialog;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,7 +118,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     }
 
     @FXML
-    private void sendMessageAction(ActionEvent actionEvent) {
+    private void sendMessageAction(MouseEvent mouseEvent) {
         Message message = createMessage();
         sendMessage(message, isChatBotEnabled);
         messageContent.clear();
@@ -183,7 +185,10 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     @FXML
     private void onFontChooser(ActionEvent actionEvent) {
         Dialog<Font> fontSelector = new FontSelectorDialog(messageContent.getFont());
-        fontSelector.showAndWait().ifPresent(messageContent::setFont);
+        Font font = fontSelector.showAndWait().get();
+        getFont(font.toString(), currentColor);
+        messageContent.setStyle(defualtStyle.toString());
+
     }
 
     public void showReceivedMessage(Message message) {
@@ -284,7 +289,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
             stage.setScene(scene);
             transferControllerFXML.setStage(stage);
             transferControllerFXML.setFileTransferControllerFXML(transferControllerFXML);
-            System.out.println("transferControllerFXML in chat View "+transferControllerFXML);
+            System.out.println("transferControllerFXML in chat View " + transferControllerFXML);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -333,14 +338,13 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     public void onClickSizeComboBox(ActionEvent actionEvent) {
         defualtStyle.setFontSize(sizeComboBox.getValue());
         messageContent.setStyle(defualtStyle.toString());
-        System.out.println(defualtStyle.getFontSize());
+
     }
 
     @FXML
     private void onClickColorPicker(ActionEvent actionEvent) {
         defualtStyle.setFontColor(format(fontColorPicker.getValue()));
         messageContent.setStyle(defualtStyle.toString());
-        System.out.println(format(fontColorPicker.getValue()));
     }
 
     @FXML
@@ -396,7 +400,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         defualtStyle.setFontColor(format(color));
         defualtStyle.setFontName(name);
         defualtStyle.setFontFamily(family);
-        defualtStyle.setFontSize(Integer.parseInt(size));
+        defualtStyle.setFontSize((int) Double.parseDouble(size));
         defualtStyle.setBold(style.contains("bold"));
         defualtStyle.setItalic(style.contains("Italic"));
         defualtStyle.setUnderline(style.contains("underline"));

@@ -25,7 +25,7 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
 
         /*commented segments of code is connection security trail */
         try {
-            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
+            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber, SslClientSocketFactory.getInstance());
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
 //            Registry registry = LocateRegistry.getRegistry(portNumber);
@@ -49,18 +49,18 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
 
     @Override
     public void send(String nameFile, ChatGroup currentChatGroup, User currentUser) {
-        try {
-            serverFileTranseferService.send( nameFile, currentChatGroup,  currentUser);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+//        try {
+////            serverFileTranseferService.send(nameFile, currentChatGroup, currentUser);
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
     public void register(FileTransferServiceCallBack fileTransferServiceCallBack) {
         try {
-            System.out.println("serverFileTranseferService "+serverFileTranseferService);
-            System.out.println("fileTransferServiceCallBack :"+fileTransferServiceCallBack);
+            System.out.println("serverFileTranseferService " + serverFileTranseferService);
+            System.out.println("fileTransferServiceCallBack :" + fileTransferServiceCallBack);
             serverFileTranseferService.register(fileTransferServiceCallBack);
 
         } catch (RemoteException e) {

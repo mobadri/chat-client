@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -33,21 +32,21 @@ public class App extends Application {
             rememberMeHomePage(file, primaryStage);
         } else {
 */
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/test.fxml"));
         Parent root = loader.load();
-        com.chat.client.view.client.startpageController controller = loader.getController();
-        controller.setStage(primaryStage);
+        LoginViewController controller = loader.getController();
+        controller.setSignUpAndRegistration(new RegistrationController());
+        controller.setStageLogin(primaryStage);
         Scene scene = new Scene(root);
-        scene.setFill(Color.TRANSPARENT);
-        primaryStage.setResizable(false);
+//        scene.setFill(Color.TRANSPARENT);
+//        primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         // primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
 
 
-
-            primaryStage.setOnCloseRequest((e) -> System.exit(0));
-            //  }
+        primaryStage.setOnCloseRequest((e) -> System.exit(0));
+        //  }
 
     }
 

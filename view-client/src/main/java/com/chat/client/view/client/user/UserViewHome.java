@@ -5,7 +5,6 @@ import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImp
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
-import com.chat.client.controller.client.user.HomeControllerImpl;
 import com.chat.client.controller.client.user.UserHomeInterface;
 import com.chat.client.view.client.chat.ChatGroupListViewController;
 import com.chat.client.view.client.chat.ChatViewController;
@@ -24,10 +23,6 @@ import com.chat.server.model.user.User;
 import com.chat.server.model.user.UserFriend;
 import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -39,13 +34,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
@@ -168,8 +160,11 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     }
 
     @Override
-    public void appendChatGroup(ChatGroup chatGroup) {
-        userHomeInterface.appendChatGroup(chatGroup);
+    public ChatGroup appendChatGroup(ChatGroup chatGroup) {
+        ChatGroup insertedChatGroup = userHomeInterface.appendChatGroup(chatGroup);
+        loadChatGroup(insertedChatGroup);
+        return insertedChatGroup;
+
     }
 
     @Override
@@ -318,7 +313,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         }
 
     }
-
     //------------------------------------------------------------------------------
     //----------------------------Notification Section -----------------------------
     //------------------------------------------------------------------------------
@@ -521,7 +515,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     public void clientAcceptFile(String fileName, int chatGroupId, User userTo) {
         for (ChatGroup chatGroup : chatGroupObservableList) {
             if (chatGroup.getId() == chatGroupId) {
-                fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
+                //   fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
             }
         }
     }
@@ -535,42 +529,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private void addfriendRequestToList(User user) {
         friendRequestListViewController.addFriendRequestequest(user);
     }
-
-    private void loadFriendRequestList() {
-        try {
-            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/FriendRequest-list.fxml"));
-            firendRequestPane = loader.load();
-            friendRequestListViewController = loader.getController();
-            List<User> friendRequest = homeController.getFriendRequest(currentUser);
-            for (User user : friendRequest) {
-                friendRequestListViewController.addFriendRequestequest(user);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public List<User> findByPhone(String phone) {
-        return homeController.findByPhone(phone);
-    }
-
-    public FriendStatus getFriendStatus(User user, User friend) {
-        return homeController.getSatatus(user.getId(), friend.getId());
-    }
-
-    public void removeFriend(User user, User userFriend) {
-        homeController.removeFriend(user, userFriend);
-    }
-
-    public void addFriend(User user, User friend) {
-        homeController.addFriend(user, friend);
-    }
-
-    public void updateFriend(User user, User friend, FriendStatus status) {
-        homeController.updateFriend(user.getId(), friend.getId(), status);
-    }
-
 
 
     private ListView handleUserMode() {
