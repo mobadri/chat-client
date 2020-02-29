@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Hyperlink?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600" prefWidth="350" style="-fx-background-color: #F0F4F8;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.login.LoginViewController">
     <children>
         <ImageView fitHeight="200" fitWidth="180" layoutX="85.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="85.0" AnchorPane.rightAnchor="85.0">
@@ -54,7 +55,7 @@
         <Button id="buttons-blue" fx:id="btnLoginSignin" layoutX="60.0" layoutY="469.0" mnemonicParsing="false" onAction="#onLogin" prefHeight="25.0" prefWidth="158.0" stylesheets="@../../static/css/loginandsignup.css" text="Sign in" textFill="WHITE" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="68.0" />
         <Label id="textbackground-blue" layoutY="529.0" prefHeight="17.0" prefWidth="137.0" text="Forget Password?" textFill="#eff1f2" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
         <Label id="textbackground-black" layoutX="32.0" layoutY="557.0" stylesheets="@../../static/css/loginandsignup.css" text="Don't have an account?" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="105.0" />
-        <Label id="textbackground-blue" fx:id="lblloginSignuphere" layoutX="173.0" layoutY="557.0" onMouseClicked="#onSignUp" prefHeight="17.0" prefWidth="80.0" stylesheets="@../../static/css/loginandsignup.css" text="Sign up here" textFill="WHITE" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="8.0" />
+        <Hyperlink id="textbackground-blue" fx:id="lblloginSignuphere" layoutX="173.0" layoutY="557.0" onMouseClicked="#onSignUp" prefHeight="17.0" prefWidth="80.0" stylesheets="@../../static/css/loginandsignup.css" text="Sign up here" textFill="WHITE" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="8.0" />
         <CheckBox fx:id="rememberMe" layoutX="14.0" layoutY="417.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="109.0" text="Remember me" />
         <Label fx:id="invalidPhone" layoutX="12.0" layoutY="347.0" prefHeight="17.0" prefWidth="318.0" textAlignment="RIGHT" textFill="#ff0b0b" />
         <Label fx:id="invalidPassword" layoutX="12.0" layoutY="400.0" prefHeight="17.0" prefWidth="318.0" textAlignment="RIGHT" textFill="#ff1212" />
