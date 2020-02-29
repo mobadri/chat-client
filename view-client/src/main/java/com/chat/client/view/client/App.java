@@ -22,6 +22,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class App extends Application {
+    private double xOffset;
+    private double yOffset;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -33,15 +36,28 @@ public class App extends Application {
             rememberMeHomePage(file, primaryStage);
         } else {
 */
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/test.fxml"));
         Parent root = loader.load();
-        com.chat.client.view.client.startpageController controller = loader.getController();
-        controller.setStage(primaryStage);
+        root.setOnMouseClicked(mouseEvent -> {
+            xOffset = mouseEvent.getSceneX();
+            yOffset = mouseEvent.getSceneY();
+
+        });
+        root.setOnMouseDragged(mouseEvent -> {
+            primaryStage.setX(mouseEvent.getScreenX() - xOffset);
+            primaryStage.setY(mouseEvent.getScreenY() - yOffset);
+        });
+        LoginViewController controller = loader.getController();
+        controller.setStageLogin(primaryStage);
+        controller.setSignUpAndRegistration(new RegistrationController());
+        controller.setStageLogin(primaryStage);
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
-        primaryStage.setResizable(false);
+        //primaryStage.setResizable(false);
+
         primaryStage.setScene(scene);
-        // primaryStage.initStyle(StageStyle.TRANSPARENT);
+        //   primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
 
         primaryStage.setOnCloseRequest((e) -> System.exit(0));
@@ -88,4 +104,6 @@ public class App extends Application {
         stage.show();
         startpageController.goToSignInPage(new ActionEvent());
     }
+
+
 }

@@ -75,4 +75,22 @@ public class startpageController implements Initializable {
             System.exit(0);
         });
     }
+
+    class SplashScreen extends Thread {
+        public void run() {
+            try {
+                Thread.sleep(5000);
+                Parent root = FXMLLoader.load(getClass().getResource("/templates/login/test.fxml"));
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
 }
