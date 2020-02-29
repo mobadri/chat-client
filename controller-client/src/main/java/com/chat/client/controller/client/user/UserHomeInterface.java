@@ -57,4 +57,8 @@ public interface UserHomeInterface {
      */
     ChatGroup addFriendToChatGroup(ChatGroup chatGroup, User user);
 
+    /**
+     *
+     */
+    User updateUser(User user);
 }

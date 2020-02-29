@@ -165,6 +165,11 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         return userHomeInterface.addFriendToChatGroup(chatGroup, user);
     }
 
+    @Override
+    public User updateUser(User user) {
+        return null;
+    }
+
     //todo show list of requests
     @FXML
     private void onRequestsClicked(MouseEvent mouseEvent) {

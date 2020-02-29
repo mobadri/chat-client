@@ -1,15 +1,22 @@
 package com.chat.client.view.client.user;
 
+import com.chat.client.controller.client.user.HomeControllerImpl;
+import com.chat.client.controller.client.user.UserHomeInterface;
 import com.chat.server.model.user.User;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +43,8 @@ public class UserProfileController implements Initializable {
     @FXML
     private Label nameOfProfile;
     private User user;
+
+    private HomeControllerImpl homeController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -67,15 +76,9 @@ public class UserProfileController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
-    public void setUser(User user) {
-        this.user = user;
-        setData(user);
-    }
-
-    public void setData(User user) {
+    public void setViewData(User user) {
         System.out.println(user);
         nameOfUser.setText(user.getFirstName() + " " + user.getLastName());
         bioOfUser.setText(user.getBIO());
@@ -83,5 +86,30 @@ public class UserProfileController implements Initializable {
         nameOfProfile.setText(user.getFirstName() + " " + user.getLastName());
     }
 
+    public void setUser(User user) {
+        this.user = user;
+        setViewData(user);
+    }
 
+
+    public void editProfileAction(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/userdata-view-client.fxml"));
+            Parent root = loader.load();
+            UserDataViewController userDataViewController = loader.getController();
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setTitle("Edit Profile");
+            stage.setScene(new Scene(root));
+            userDataViewController.setStage(stage);
+            userDataViewController.setUser(user);
+            userDataViewController.setUserController(homeController);
+            stage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
