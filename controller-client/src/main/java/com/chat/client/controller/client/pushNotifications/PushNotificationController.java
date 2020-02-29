@@ -4,7 +4,6 @@ import com.chat.client.service.client.callback.NotificationServiceCallback;
 import com.chat.client.service.client.factory.ServiceClientFactory;
 import com.chat.client.service.client.notification.ClientNotificationService;
 import com.chat.server.model.chat.Notification;
-import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 
 import java.rmi.RemoteException;
@@ -18,7 +17,7 @@ public class PushNotificationController extends UnicastRemoteObject implements N
     private User currentUser;
 
     public PushNotificationController() throws RemoteException {
-
+        //clientNotificationService.register(this);
     }
 
     @Override
@@ -33,9 +32,9 @@ public class PushNotificationController extends UnicastRemoteObject implements N
 
     @Override
     public void changeFriendsStatus(User user) {
-        int index = -1 ;
-        for(int i = 0 ; i<currentUser.getFriends().size() ; i++){
-            if(currentUser.getFriends().get(i).getId() == user.getId()){
+        int index = -1;
+        for (int i = 0; i < currentUser.getFriends().size(); i++) {
+            if (currentUser.getFriends().get(i).getId() == user.getId()) {
                 index = i;
             }
         }
@@ -44,9 +43,9 @@ public class PushNotificationController extends UnicastRemoteObject implements N
 
     @Override
     public void showOfflineFriends(User user) {
-        int index = -1 ;
-        for(int i = 0 ; i<currentUser.getFriends().size() ; i++){
-            if(currentUser.getFriends().get(i).getId() == user.getId()){
+        int index = -1;
+        for (int i = 0; i < currentUser.getFriends().size(); i++) {
+            if (currentUser.getFriends().get(i).getId() == user.getId()) {
                 index = i;
             }
         }
@@ -62,7 +61,7 @@ public class PushNotificationController extends UnicastRemoteObject implements N
         clientNotificationService.register(this);
     }
 
-    public void unregisterService(){
+    public void unregisterService() {
         clientNotificationService.unRegister(this);
     }
 }

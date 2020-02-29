@@ -493,5 +493,4 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         friendRequestListViewController.addFriendRequestequest(user);
     }
 
-
 }

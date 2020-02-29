@@ -3,11 +3,8 @@ package com.chat.client.view.client.chat;
 
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
 import com.chat.client.controller.client.fileTransfer.FileTranseferController;
-import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImpl;
 import com.chat.client.controller.client.message.MessageControllerImpl;
-
 import com.chat.client.view.client.chat.render.MessageCellRenderer;
-import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
 import com.chat.server.model.chat.Style;
@@ -40,7 +37,6 @@ import org.controlsfx.dialog.FontSelectorDialog;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +84,8 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private Color currentColor = Color.BLACK;
     private Color bgColor = Color.WHITE;
     private FileTranseferController fileTranseferController;
-
+    private Color fontColor;
+    private Color backgroundColor;
     private boolean isChatBotEnabled;
 
     public ChatViewController() {
@@ -111,7 +108,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         messageListView.setItems(messageListProperty);
         messageListView.setCellFactory(new MessageCellRenderer());
         messageContent.setStyle(defualtStyle.toString());
-
+        messageListView.scrollTo(messageListView.getItems().size());
     }
 
     public void enableChatBot(ActionEvent actionEvent) {
@@ -122,6 +119,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private void sendMessageAction(MouseEvent actionEvent) {
         Message message = createMessage();
         sendMessage(message, isChatBotEnabled);
+        messageContent.clear();
     }
 
     private Message createMessage() {
@@ -201,27 +199,34 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         chooser.getExtensionFilters().add(extFilter);
         File file = chooser.showSaveDialog(((ImageView) mouseEvent.getSource()).getParent().getScene().getWindow());
 
-        if(file != null) {
+        if (file != null) {
             messageController.saveMessages(currentUser, currentChatGroup.getMessages(), file.getAbsolutePath());
         }
     }
 
     @FXML
     private void onClickFontColorPicker(ActionEvent actionEvent) {
-        Color color = fontColorPicker.getValue();
-        currentColor = color;
+        fontColor = fontColorPicker.getValue();
+        currentColor = fontColor;
 //        System.out.println(color.toString());
-        defualtStyle.setFontColor(format(color));
+        defualtStyle.setFontColor(format(fontColor));
         System.out.println(defualtStyle.toString());
         messageContent.setStyle(defualtStyle.toString());
+        if (fontColor == backgroundColor || backgroundColor == fontColor) {
+            fontColor = fontColor.invert();
+        }
     }
 
     @FXML
     private void onClickBackgroundColorPicker(ActionEvent actionEvent) {
-        Color color = backgroundColorPicker.getValue();
-        bgColor = color;
-        defualtStyle.setBackground(format(color));
+        backgroundColor = backgroundColorPicker.getValue();
+        bgColor = backgroundColor;
+        defualtStyle.setBackground(format(backgroundColor));
         messageContent.setStyle(defualtStyle.toString());
+
+        if (fontColor == backgroundColor || backgroundColor == fontColor) {
+            backgroundColor = backgroundColor.invert();
+        }
     }
 
     @FXML
@@ -413,7 +418,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     public void setChatGroup(ChatGroup chatGroup) {
         this.currentChatGroup = chatGroup;
         chatGroupName.setText(currentChatGroup.getName());
-        System.out.println("teeeeeeeeeeeeeeeeeeeeesstt "+fileTranseferController);
+        System.out.println("teeeeeeeeeeeeeeeeeeeeesstt " + fileTranseferController);
         fileTranseferController.setChatGroup(currentChatGroup);
     }
 
