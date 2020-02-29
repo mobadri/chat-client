@@ -42,7 +42,8 @@ public class HomeControllerImpl implements UserHomeInterface {
 
     @Override
     public void appendChatGroup(ChatGroup chatGroup) {
-        groups.add(chatGroup);
+        ChatGroup group = chatGroupService.createGroup(chatGroup);
+        groups.add(group);
     }
 
     @Override

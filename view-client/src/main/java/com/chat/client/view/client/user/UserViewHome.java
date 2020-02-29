@@ -69,6 +69,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private Parent firendRequestPane;
     private Parent notificationPane;
 
+
     //------------------------------data section-----------------------------
     private User currentUser;
     private UserHomeInterface userHomeInterface;
@@ -90,6 +91,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     private ObservableList<ChatGroup> chatGroupObservableList = FXCollections.observableArrayList();
     private FileTranseferControllerImpl fileTranseferController;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -217,7 +219,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         anchorPaneNotification.getChildren().clear();
         anchorPaneNotification.getChildren().setAll(firendRequestPane);
     }
-
     //------------------------------------------------------------------------------
     //-----------------------------view section-------------------------------------
     //------------------------------------------------------------------------------
@@ -391,6 +392,9 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
      * @param status status to be updated
      */
     public void updateFriend(User user, User friend, FriendStatus status) {
+        if (status == FriendStatus.APPROVED) {
+//            homeController.c
+        }
         homeController.updateFriend(user.getId(), friend.getId(), status);
     }
 
