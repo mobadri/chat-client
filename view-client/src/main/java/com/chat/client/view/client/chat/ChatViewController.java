@@ -202,7 +202,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         File file = chooser.showSaveDialog(((ImageView) mouseEvent.getSource()).getParent().getScene().getWindow());
 
         if(file != null) {
-            messageController.saveMessages(currentChatGroup.getMessages(), file.getAbsolutePath());
+            messageController.saveMessages(currentUser, currentChatGroup.getMessages(), file.getAbsolutePath());
         }
     }
 

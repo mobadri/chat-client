@@ -3,6 +3,7 @@ package com.chat.client.service.client.user;
 import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
+import com.chat.server.model.user.UserFriend;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -107,7 +108,7 @@ public interface ClientUserService extends Remote {
      * @return the friend status number
      * @throws RemoteException
      */
-    FriendStatus statusFriend(int userID, int friendID) throws RemoteException;
+    UserFriend statusFriend(int userID, int friendID) throws RemoteException;
 
 
     /**

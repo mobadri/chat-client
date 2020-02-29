@@ -20,6 +20,7 @@ import com.chat.server.model.chat.NotificationType;
 import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
+import com.chat.server.model.user.UserFriend;
 import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -203,6 +204,14 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         ChatGroupAnchorPane.getChildren().add(groupsPane);
     }
 
+    @FXML
+    private void handleRequestsButton(ActionEvent actionEvent) {
+        anchorPaneNotification.setVisible(!isShowFriendRequestList);
+        isShowFriendRequestList = !isShowFriendRequestList;
+        anchorPaneNotification.getChildren().clear();
+        anchorPaneNotification.getChildren().setAll(firendRequestPane);
+    }
+
     //------------------------------------------------------------------------------
     //-----------------------------view section-------------------------------------
     //------------------------------------------------------------------------------
@@ -256,6 +265,22 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             loadChatGroup(chatGroup);
         }
     }
+
+    private void loadFriendRequestList() {
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/FriendRequest-list.fxml"));
+            firendRequestPane = loader.load();
+            friendRequestListViewController = loader.getController();
+            List<User> friendRequest = homeController.getFriendRequest(currentUser);
+            for (User user : friendRequest) {
+                friendRequestListViewController.addFriendRequestequest(user);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     //------------------------------------------------------------------------------
     //----------------------------Notification Section -----------------------------
     //------------------------------------------------------------------------------
@@ -270,7 +295,9 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             tray.setMessage(notification.getNotificationMessage());
             tray.setRectangleFill(Paint.valueOf("#2C3E50"));
             tray.setAnimationType(AnimationType.FADE);
-            tray.setImage(userImage);
+            if (userImage != null) {
+                tray.setImage(userImage);
+            }
             tray.showAndDismiss(Duration.seconds(5));
             tray.setNotificationType(NotificationType.MESSAGE_RECEIVED);
             addNotificationToList(notification);
@@ -303,6 +330,62 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             e.printStackTrace();
         }
 
+    }
+
+    //----------------------------------------------------------------------------
+    //------------------------operation section-----------------------------------
+    //----------------------------------------------------------------------------
+
+    /**
+     * search for user by phone
+     *
+     * @param phone user phone
+     * @return list of founded users
+     */
+    public List<User> findByPhone(String phone) {
+        return homeController.findByPhone(phone);
+    }
+
+    /**
+     * get user friend stauts
+     *
+     * @param user   current user
+     * @param friend friend on search list
+     * @return status for the friend
+     */
+    public UserFriend getFriendStatus(User user, User friend) {
+        return homeController.getSatatus(user.getId(), friend.getId());
+    }
+
+    /**
+     * remove friend from friend list
+     *
+     * @param user       current login user
+     * @param userFriend my friend on search list
+     */
+    public void removeFriend(User user, User userFriend) {
+        homeController.removeFriend(user, userFriend);
+    }
+
+    /**
+     * send or resend friend request
+     *
+     * @param user   current login user
+     * @param friend friend on search list
+     */
+    public void addFriend(User user, User friend) {
+        homeController.addFriend(user, friend);
+    }
+
+    /**
+     * update status of my friendship with friend
+     *
+     * @param user   current login user
+     * @param friend friend on search list
+     * @param status status to be updated
+     */
+    public void updateFriend(User user, User friend, FriendStatus status) {
+        homeController.updateFriend(user.getId(), friend.getId(), status);
     }
 
     //------------------------------------------------------------------------------
@@ -402,7 +485,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
 
     private void addfriendRequestToList(User user) {
-
         friendRequestListViewController.addFriendRequestequest(user);
     }
 
@@ -442,11 +524,4 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         homeController.removeFriend(user, userFriend);
     }
 
-    public void addFriend(User user, User friend) {
-        homeController.addFriend(user, friend);
-    }
-
-    public void updateFriend(User user, User friend, FriendStatus status) {
-        homeController.updateFriend(user.getId(), friend.getId(), status);
-    }
 }

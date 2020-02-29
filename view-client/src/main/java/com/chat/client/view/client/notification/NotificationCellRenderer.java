@@ -1,7 +1,5 @@
 package com.chat.client.view.client.notification;
 
-import com.chat.client.controller.client.fileTransfer.FileTranseferController;
-import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImpl;
 import com.chat.client.view.client.chat.render.RenderImage;
 import com.chat.server.model.chat.Notification;
 import com.jfoenix.controls.JFXButton;
@@ -22,12 +20,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
-import org.w3c.dom.ls.LSOutput;
-
-import java.rmi.RemoteException;
-import java.util.StringTokenizer;
 
 public class NotificationCellRenderer implements Callback<ListView<Notification>, ListCell<Notification>> {
 
@@ -68,10 +63,11 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                     notificationFrom.setFont(Font.font(12));
                     notificationFrom.setTextFill(Color.BLACK);
 
-                    Label notificationContent = new Label(notification.getNotificationMessage().substring(2));
-                    notificationContent.setTextFill(Color.WHITE);
+                    Text notificationContent = new Text(notification.getNotificationMessage().substring(2));
+//                    notificationContent.set(Color.WHITE);
+                    notificationContent.setWrappingWidth(100);
                     notificationContent.setFont(Font.font(11));
-                    notificationContent.setTextFill(Color.BLACK);
+//                    notificationContent.setTextFill(Color.BLACK);
 
 
                     view.setText(" View ");
@@ -114,6 +110,7 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
                     hBox.getChildren().addAll(stackPane, vBox);
                     hBox.setAlignment(Pos.CENTER_LEFT);
                     setPrefWidth(200);
+                    setPrefHeight(100);
                     hBox.setMaxWidth(220);
                     hBox.setMinWidth(220);
                     setGraphic(hBox);

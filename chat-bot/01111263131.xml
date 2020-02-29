@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<keys xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="chat_bot_keys.xsd">
+  
+ <key name="welcome">
+    
+  <values>
+      
+   <value weight="1">hi</value>
+     
+  </values>
+   
+ </key>
+ 
+ <key name="hala whhah">
+  <values>
+   <value weight="1">welcome</value>
+  </values>
+ </key>
+</keys>
