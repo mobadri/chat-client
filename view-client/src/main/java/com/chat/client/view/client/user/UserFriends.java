@@ -16,7 +16,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
@@ -59,7 +61,10 @@ public class UserFriends implements Initializable {
             controller.setCurrentUser(currentUser);
             controller.setHomeController(userViewHome);
             Stage friendStage = new Stage();
-            friendStage.setScene(new Scene(root));
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            friendStage.setScene(scene);
+            friendStage.initStyle(StageStyle.TRANSPARENT);
             friendStage.show();
 
         } catch (IOException e) {

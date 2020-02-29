@@ -16,8 +16,9 @@ import javax.xml.XMLConstants;
 import javax.xml.bind.*;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-import java.io.*;
-import java.math.BigInteger;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class ClientMessageServiceImpl implements ClientMessageService {
             JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
             // list of messages
             MessagesType messages = new MessagesType();
-            messages.setCurrentUser(BigInteger.valueOf(currentUser.getId()));
+            //messages.setCurrentUser(BigInteger.valueOf(currentUser.getId()));
 
             new Thread(() -> {
                 try {
@@ -74,7 +75,7 @@ public class ClientMessageServiceImpl implements ClientMessageService {
             Marshaller marsh = context.createMarshaller();
             marsh.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marsh.setProperty("com.sun.xml.bind.xmlHeaders",
-                    "<?xml-stylesheet type='text/xsl' href='"+ getXSLTFilePath() +" '?>");
+                    "<?xml-stylesheet type='text/xsl' href='" + getXSLTFilePath() + " '?>");
             // validate
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             File schemaFile = new File("messageSchema.xsd");
@@ -106,12 +107,12 @@ public class ClientMessageServiceImpl implements ClientMessageService {
 
     }
 
-    private void writeImage(byte [] imageBytes, String path, int userId, MessagesType messages) throws IOException {
+    private void writeImage(byte[] imageBytes, String path, int userId, MessagesType messages) throws IOException {
 
         path = path.substring(0, path.lastIndexOf('\\'));
-        messages.setImagePath(path + '\\' + userId + ".jpg");
+        //messages.setImagePath(path + '\\' + userId + ".jpg");
 
-        FileOutputStream outputStream = new FileOutputStream( path + "/" + userId + ".jpg");
+        FileOutputStream outputStream = new FileOutputStream(path + "/" + userId + ".jpg");
         outputStream.write(imageBytes);
         outputStream.flush();
         outputStream.close();

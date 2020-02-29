@@ -1,59 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.*?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1"
-            fx:controller="com.chat.client.view.client.user.UserProfileController">
+<AnchorPane prefHeight="552.0" prefWidth="587.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.user.UserProfileController">
     <children>
         <AnchorPane layoutX="-4.0" layoutY="-2.0" prefHeight="132.0" prefWidth="729.0" style="-fx-border-color: GRAY;"
-                    AnchorPane.bottomAnchor="425.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="1.0"
+                    AnchorPane.bottomAnchor="425.0" AnchorPane.leftAnchor="-4.0" AnchorPane.rightAnchor="0.0"
                     AnchorPane.topAnchor="-2.0">
             <children>
-                <Circle fx:id="circleImage" fill="WHITE" layoutX="646.0" layoutY="66.0"
-                        onMouseClicked="#chatImageHandelr" radius="57.0" stroke="BLACK" strokeType="INSIDE"
-                        AnchorPane.leftAnchor="588.0" AnchorPane.rightAnchor="26.0"/>
+                <Circle fx:id="circleImage" fill="WHITE" layoutX="696.0" layoutY="71.0"
+                        onMouseClicked="#chatImageHandelr" radius="56.0" stroke="BLACK" strokeType="INSIDE"
+                        AnchorPane.leftAnchor="640.0" AnchorPane.rightAnchor="14.0"/>
                 <Label fx:id="nameOfProfile" layoutX="9.0" layoutY="15.0" prefHeight="68.0" prefWidth="362.0"
-                       textFill="#867f7f" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="357.0">
+                       textFill="#354578" AnchorPane.leftAnchor="9.0" AnchorPane.rightAnchor="357.0">
                     <font>
                         <Font size="36.0"/>
                     </font>
                 </Label>
+                <ImageView fitHeight="15.0" fitWidth="37.0" layoutX="716.0" layoutY="103.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <image>
+                        <Image url="@../../static/images/plus.png"/>
+                    </image>
+                </ImageView>
             </children>
         </AnchorPane>
         <AnchorPane layoutX="-2.0" layoutY="130.0" prefHeight="179.0" prefWidth="649.0">
             <children>
-                <FontIcon iconColor="#8a8787" iconLiteral="eli-adult" iconSize="22" layoutX="35.0" layoutY="63.0"
+                <FontIcon iconColor="#354578" iconLiteral="eli-adult" iconSize="22" layoutX="35.0" layoutY="63.0"
                           wrappingWidth="20.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="668.0"/>
-                <Label layoutX="77.0" layoutY="36.0" prefHeight="35.0" prefWidth="58.0" text="Name :"
+                <Label layoutX="77.0" layoutY="36.0" prefHeight="35.0" prefWidth="58.0" text="Name :" textFill="#354578"
                        AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="588.0">
                     <font>
                         <Font name="System Bold" size="14.0"/>
                     </font>
                 </Label>
                 <Label fx:id="nameOfUser" layoutX="134.0" layoutY="36.0" prefHeight="35.0" prefWidth="438.0"
-                       textFill="#6b6464">
+                       textFill="#354578">
                     <font>
                         <Font name="System Bold" size="18.0"/>
                     </font>
                 </Label>
                 <Label layoutX="77.0" layoutY="88.0" prefHeight="22.0" prefWidth="51.0" text="about  :"
-                       textFill="#323030" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="588.0">
+                       textFill="#354578" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="588.0">
                     <font>
                         <Font name="System Bold" size="14.0"/>
                     </font>
                 </Label>
-                <FontIcon iconColor="#797676" iconLiteral="icm-notification" iconSize="22" layoutX="33.0"
+                <FontIcon iconColor="#354578" iconLiteral="icm-notification" iconSize="22" layoutX="33.0"
                           layoutY="109.0" text="" wrappingWidth="24.0" AnchorPane.leftAnchor="33.0"
                           AnchorPane.rightAnchor="670.0"/>
-                <FontIcon iconColor="#807f7f" iconLiteral="eli-phone" iconSize="22" layoutX="33.0" layoutY="158.0"
+                <FontIcon iconColor="#354578" iconLiteral="eli-phone" iconSize="22" layoutX="33.0" layoutY="158.0"
                           text="" wrappingWidth="24.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="670.0"/>
                 <Label layoutX="77.0" layoutY="120.0" prefHeight="35.0" prefWidth="51.0" text="Phone :"
-                       AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="599.0">
+                       textFill="#354578" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="599.0">
                     <font>
                         <Font name="System Bold" size="14.0"/>
                     </font>
@@ -68,7 +75,7 @@
                     </font>
                 </Label>
                 <Label fx:id="phoneOfUser" layoutX="145.0" layoutY="125.0" prefHeight="35.0" prefWidth="398.0"
-                       textFill="#6b6464">
+                       textFill="#354578">
                     <font>
                         <Font size="18.0"/>
                     </font>

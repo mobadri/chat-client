@@ -14,7 +14,7 @@
     <children>
         <AnchorPane fx:id="PROFILEPANE" prefHeight="768.0" prefWidth="260.0"
                     style="-fx-border-radius: 5; -fx-background-color: #fefefe;" AnchorPane.bottomAnchor="0.0"
-                    AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
             <effect>
                 <DropShadow blurType="ONE_PASS_BOX" color="#00000053" height="4.75" radius="1.9375" width="5.0"/>
             </effect>
