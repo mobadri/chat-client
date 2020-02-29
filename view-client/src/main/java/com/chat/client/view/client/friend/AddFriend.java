@@ -4,6 +4,7 @@ import com.chat.client.view.client.chat.render.ChatRendererwithbuttons;
 import com.chat.client.view.client.user.UserViewHome;
 import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.User;
+import com.chat.server.model.user.UserFriend;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -40,8 +41,7 @@ public class AddFriend implements Initializable {
         usersListView.setItems(allUsers);
         ChatRendererwithbuttons chatRendererwithbuttons = new ChatRendererwithbuttons();
         chatRendererwithbuttons.setCurrentUser(currentUser);
-        chatRendererwithbuttons.setFriends(currentUser.getFriends());
-        chatRendererwithbuttons.setAddFriend(this);
+        chatRendererwithbuttons.setAddFriendController(this);
         usersListView.setCellFactory(chatRendererwithbuttons);
 
     }
@@ -59,7 +59,7 @@ public class AddFriend implements Initializable {
     }
 
 
-    public FriendStatus getStatus(User currentUser, User friend) {
+    public UserFriend getStatus(User currentUser, User friend) {
         return homeController.getFriendStatus(currentUser, friend);
 
     }
