@@ -1,6 +1,7 @@
 package com.chat.client.view.client.user;
 
 import com.chat.client.controller.client.chatGroup.ChatGroupController;
+import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImpl;
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
@@ -41,6 +42,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -86,6 +88,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private List<ChatGroupController> chatGroupControllerList = new ArrayList<>();
 
     private ObservableList<ChatGroup> chatGroupObservableList = FXCollections.observableArrayList();
+    private FileTranseferControllerImpl fileTranseferController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -95,7 +98,11 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     }
 
     public UserViewHome() {
-
+        try {
+            fileTranseferController = new FileTranseferControllerImpl();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
     private void loadFriendsListView() {
@@ -104,7 +111,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             friendsPane = loader.load();
             userFriendsController = loader.getController();
             userFriendsController.setCurrentUser(currentUser);
-            userFriendsController.setUserViewHome(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -154,7 +160,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     @Override
     public ChatGroup addFriendToChatGroup(ChatGroup chatGroup, User user) {
-
         return userHomeInterface.addFriendToChatGroup(chatGroup, user);
     }
 
@@ -231,6 +236,10 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             Parent root = loader.load();
             //view controller
             ChatViewController chatViewController = loader.getController();
+
+            fileTranseferController.setCurrentUser(currentUser);
+            chatViewController.setFileTranseferController(fileTranseferController);
+
             chatViewController.setUser(currentUser);
             chatViewController.setChatGroup(chatGroup);
             //---------
@@ -242,7 +251,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
             chatGroupInterface.setChatGroup(chatGroup);
             chatGroupInterface.setCurrentUser(currentUser);
-
             chatGroupControllerList.add(chatGroupInterface);
             chatViewList.add(root);
         } catch (IOException e) {
@@ -389,7 +397,9 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     public void clientAcceptFile(String fileName, int chatGroupId, User userTo) {
         for (ChatGroup chatGroup : chatGroupObservableList) {
-
+            if(chatGroup.getId() == chatGroupId){
+                fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
+            }
         }
     }
 

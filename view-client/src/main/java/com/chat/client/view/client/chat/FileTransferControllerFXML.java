@@ -56,7 +56,7 @@ public class FileTransferControllerFXML implements Initializable {
                         (new FileInputStream(new File(pathOfFile.getText())));
                 System.out.println("handleSendFile pathOfFile is supposednot to be null : " + pathOfFile.getText());
                 istream = new SimpleRemoteInputStream(bufferedInputStream);
-                System.out.println(istream);
+                System.out.println("streeeeeeeeeeeeaaam " +istream);
                 System.out.println("handleSendFile istream is supposednot to be null : " + istream);
 
                 fileTranseferController.sendFile(nameOfFile, istream, currentChatGroup, currentUser);

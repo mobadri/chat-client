@@ -25,7 +25,7 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
 
         /*commented segments of code is connection security trail */
         try {
-            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber, SslClientSocketFactory.getInstance());
+            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber/*, SslClientSocketFactory.getInstance()*/);
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
 //            Registry registry = LocateRegistry.getRegistry(portNumber);

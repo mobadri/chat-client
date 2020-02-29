@@ -65,6 +65,9 @@ public class ClientMessageServiceImpl implements ClientMessageService {
             JAXBElement<MessagesType> listOfMessagesType = new ObjectFactory().createMessages(messages);
             Marshaller marsh = context.createMarshaller();
             marsh.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            marsh.setProperty("com.sun.xml.bind.xmlHeaders",
+                    "<?xml-stylesheet type='text/xsl' href=\"" +
+                             "messages.xsl" + "\" ?>");
             // validate
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             File schemaFile = new File("messageSchema.xsd");
