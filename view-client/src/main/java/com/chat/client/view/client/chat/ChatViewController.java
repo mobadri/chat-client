@@ -119,6 +119,7 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     private void sendMessageAction(MouseEvent actionEvent) {
         Message message = createMessage();
         sendMessage(message, isChatBotEnabled);
+        messageContent.clear();
     }
 
     private Message createMessage() {
