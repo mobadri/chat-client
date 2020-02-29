@@ -489,40 +489,4 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         friendRequestListViewController.addFriendRequestequest(user);
     }
 
-    @FXML
-    private void handleRequestsButton(ActionEvent actionEvent) {
-        System.out.println("isShowFriendRequestList");
-        anchorPaneNotification.setVisible(!isShowFriendRequestList);
-        isShowFriendRequestList = !isShowFriendRequestList;
-        anchorPaneNotification.getChildren().clear();
-        anchorPaneNotification.getChildren().setAll(firendRequestPane);
-    }
-
-    private void loadFriendRequestList() {
-        try {
-            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/notification/FriendRequest-list.fxml"));
-            firendRequestPane = loader.load();
-            friendRequestListViewController = loader.getController();
-            List<User> friendRequest = homeController.getFriendRequest(currentUser);
-            for (User user : friendRequest) {
-                friendRequestListViewController.addFriendRequestequest(user);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public List<User> findByPhone(String phone) {
-        return homeController.findByPhone(phone);
-    }
-
-    public FriendStatus getFriendStatus(User user, User friend) {
-        return homeController.getSatatus(user.getId(), friend.getId());
-    }
-
-    public void removeFriend(User user, User userFriend) {
-        homeController.removeFriend(user, userFriend);
-    }
-
 }

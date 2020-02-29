@@ -1,12 +1,9 @@
 package com.chat.client.view.client.notification;
 
-import com.chat.client.controller.client.fileTransfer.FileTranseferController;
-import com.chat.client.view.client.chat.UserHome;
 import com.chat.client.view.client.user.UserViewHome;
 import com.chat.server.model.chat.Notification;
 import com.chat.server.model.user.User;
 import javafx.beans.property.ListProperty;
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +23,7 @@ public class NotificationViewListController implements Initializable {
 
     private ObservableList<Notification> myNotificationList = FXCollections.observableArrayList();
 
-    private ListProperty<Notification> myNotificationProperty =new SimpleListProperty<>();
+    private ListProperty<Notification> myNotificationProperty = new SimpleListProperty<>();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -34,20 +31,21 @@ public class NotificationViewListController implements Initializable {
         notificationListView.itemsProperty().bindBidirectional(myNotificationProperty);
         notificationListView.setItems(myNotificationProperty);
         notificationListView.setCellFactory(cellRenderer);
+        notificationListView.scrollTo(notificationListView.getItems().size());
     }
 
 
     public NotificationViewListController() {
-         cellRenderer = new NotificationCellRenderer();
-         cellRenderer.setController(this);
+        cellRenderer = new NotificationCellRenderer();
+        cellRenderer.setController(this);
     }
 
-    public void addNotification(Notification notification){
+    public void addNotification(Notification notification) {
 
         myNotificationList.add(notification);
     }
 
-    public void removeNotificationFromUI(Notification notification){
+    public void removeNotificationFromUI(Notification notification) {
 
         myNotificationList.remove(notification);
     }

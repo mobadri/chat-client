@@ -52,7 +52,6 @@ public class AddFriend implements Initializable {
         chatRendererwithbuttons.setCurrentUser(currentUser);
         chatRendererwithbuttons.setAddFriendController(this);
         usersListView.setCellFactory(chatRendererwithbuttons);
-
     }
 
     @FXML
