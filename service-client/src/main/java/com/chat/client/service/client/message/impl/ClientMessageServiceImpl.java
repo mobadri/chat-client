@@ -1,6 +1,5 @@
 package com.chat.client.service.client.message.impl;
 
-import chatbot.factory.ChatBotFactory;
 import com.chat.client.network.client.chat.MessageHandler;
 import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.service.client.callback.MessageServiceCallBack;
@@ -10,15 +9,15 @@ import com.chat.server.model.chat.Message;
 import com.chat.server.model.chat.xmlmessage.MessageType;
 import com.chat.server.model.chat.xmlmessage.MessagesType;
 import com.chat.server.model.chat.xmlmessage.ObjectFactory;
+import com.chat.server.model.user.User;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.*;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,12 +50,21 @@ public class ClientMessageServiceImpl implements ClientMessageService {
     }
 
     @Override
-    public void saveXmlFile(List<Message> messageList, String path) {
+    public void saveXmlFile(User currentUser, List<Message> messageList, String path) {
         try {
             ModelAdapter modelAdapter = new ModelAdapter();
             JAXBContext context = JAXBContext.newInstance(ObjectFactory.class);
             // list of messages
             MessagesType messages = new MessagesType();
+            messages.setCurrentUser(BigInteger.valueOf(currentUser.getId()));
+
+            new Thread(() -> {
+                try {
+                    writeImage(currentUser.getImage(), path, currentUser.getId(), messages);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }).start();
 
             for (Message message : messageList) {
                 MessageType messageType = modelAdapter.generateMessageType(message);
@@ -66,15 +74,14 @@ public class ClientMessageServiceImpl implements ClientMessageService {
             Marshaller marsh = context.createMarshaller();
             marsh.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marsh.setProperty("com.sun.xml.bind.xmlHeaders",
-                    "<?xml-stylesheet type='text/xsl' href=\"" +
-                             "messages.xsl" + "\" ?>");
+                    "<?xml-stylesheet type='text/xsl' href='"+ getXSLTFilePath() +" '?>");
             // validate
             SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             File schemaFile = new File("messageSchema.xsd");
             Schema schema = schemaFactory.newSchema(schemaFile);
             marsh.setSchema(schema);
             marsh.marshal(listOfMessagesType, new FileOutputStream(path));
-        } catch (JAXBException | FileNotFoundException | SAXException e) {
+        } catch (JAXBException | SAXException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -97,6 +104,23 @@ public class ClientMessageServiceImpl implements ClientMessageService {
         }
         return messageList;
 
+    }
+
+    private void writeImage(byte [] imageBytes, String path, int userId, MessagesType messages) throws IOException {
+
+        path = path.substring(0, path.lastIndexOf('\\'));
+        messages.setImagePath(path + '\\' + userId + ".jpg");
+
+        FileOutputStream outputStream = new FileOutputStream( path + "/" + userId + ".jpg");
+        outputStream.write(imageBytes);
+        outputStream.flush();
+        outputStream.close();
+    }
+
+    private String getXSLTFilePath() throws IOException {
+
+        File file = new File("messages.xsl");
+        return file.getAbsolutePath();
     }
 
     public static synchronized ClientMessageServiceImpl createMessageGroupServiceInstance() {
