@@ -50,6 +50,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -80,12 +81,12 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     @FXML
     private AnchorPane statusPane;
 
-    @FXML
     FriendRequestListViewController friendRequestListViewController;
     private boolean isShowFriendRequestList = false;
     private boolean isShowModeList = false;
     private Parent firendRequestPane;
     private Parent notificationPane;
+
 
     //------------------------------data section-----------------------------
     private User currentUser;
@@ -183,7 +184,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     @Override
     public ChatGroup addFriendToChatGroup(ChatGroup chatGroup, User user) {
-
         return userHomeInterface.addFriendToChatGroup(chatGroup, user);
     }
 
@@ -290,7 +290,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
             chatGroupInterface.setChatGroup(chatGroup);
             chatGroupInterface.setCurrentUser(currentUser);
-
             chatGroupControllerList.add(chatGroupInterface);
             chatViewList.add(root);
         } catch (IOException e) {
@@ -338,6 +337,13 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
                 tray.setImage(userImage);
             }
             tray.showAndDismiss(Duration.seconds(5));
+            if (notification.getNotificationType() == NotificationType.SERVER_IS_CLOSED) {
+                try {
+                    closeClient();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             tray.setNotificationType(NotificationType.MESSAGE_RECEIVED);
             addNotificationToList(notification);
         });
@@ -369,6 +375,65 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             e.printStackTrace();
         }
 
+    }
+
+    //----------------------------------------------------------------------------
+    //------------------------operation section-----------------------------------
+    //----------------------------------------------------------------------------
+
+    /**
+     * search for user by phone
+     *
+     * @param phone user phone
+     * @return list of founded users
+     */
+    public List<User> findByPhone(String phone) {
+        return homeController.findByPhone(phone);
+    }
+
+    /**
+     * get user friend stauts
+     *
+     * @param user   current user
+     * @param friend friend on search list
+     * @return status for the friend
+     */
+    public UserFriend getFriendStatus(User user, User friend) {
+        return homeController.getSatatus(user.getId(), friend.getId());
+    }
+
+    /**
+     * remove friend from friend list
+     *
+     * @param user       current login user
+     * @param userFriend my friend on search list
+     */
+    public void removeFriend(User user, User userFriend) {
+        homeController.removeFriend(user, userFriend);
+    }
+
+    /**
+     * send or resend friend request
+     *
+     * @param user   current login user
+     * @param friend friend on search list
+     */
+    public void addFriend(User user, User friend) {
+        homeController.addFriend(user, friend);
+    }
+
+    /**
+     * update status of my friendship with friend
+     *
+     * @param user   current login user
+     * @param friend friend on search list
+     * @param status status to be updated
+     */
+    public void updateFriend(User user, User friend, FriendStatus status) {
+        if (status == FriendStatus.APPROVED) {
+//            homeController.c
+        }
+        homeController.updateFriend(user.getId(), friend.getId(), status);
     }
 
     //------------------------------------------------------------------------------
@@ -531,4 +596,15 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         return root;
     }
 
+    private void closeClient() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/templates/user/ServerDisconnectedView.fxml"));
+        Parent serverDisconnectedView = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(serverDisconnectedView));
+        stage.setTitle("Server Disconnected");
+        stage.showAndWait();
+        System.exit(0);
+    }
 }

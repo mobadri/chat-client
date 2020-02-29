@@ -97,8 +97,11 @@
             <artifactId>ikonli-javafx</artifactId>
             <version>11.3.5</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.kordamp.ikonli</groupId>
+            <artifactId>ikonli-fontawesome5-pack</artifactId>
+            <version>11.3.5</version>
+        </dependency>
         <dependency>
             <groupId>com.chat.client</groupId>
             <artifactId>network-client</artifactId>
