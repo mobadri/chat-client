@@ -43,6 +43,8 @@ public class SecondPageSignUpController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Image defaultImage = new Image("/static/images/Smile.png");
+        userImage.setFill(new ImagePattern(defaultImage));
     }
 
     public void setUserFromFirstPage(User user) {
