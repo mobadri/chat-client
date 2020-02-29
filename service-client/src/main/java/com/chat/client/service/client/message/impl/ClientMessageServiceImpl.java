@@ -131,5 +131,4 @@ public class ClientMessageServiceImpl implements ClientMessageService {
         }
         return instance;
     }
-
 }
