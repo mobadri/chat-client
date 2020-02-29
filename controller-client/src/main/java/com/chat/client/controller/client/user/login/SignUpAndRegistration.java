@@ -9,7 +9,7 @@ public interface SignUpAndRegistration {
 
     User login(String Phone, String Password);
 
-    User signUp(User user,String password);
+    User signUp(User user, String password);
 
     Map<String, Boolean> validate(User user) throws RemoteException;
 
@@ -22,13 +22,20 @@ public interface SignUpAndRegistration {
     boolean validatePhone(String phone);
 
     /**
-     * ckeck this phone is registered  or not
+     * ckeck this phone is registered  or not using in login
      *
      * @param phone user phone
      * @return user if found or null if notfound
      */
     User existedPhone(String phone);
 
+    /**
+     * ckeck this phone is registered  or not using in registration
+     *
+     * @param phone
+     * @return
+     */
+    User uniquePhone(String phone);
 
 
 }

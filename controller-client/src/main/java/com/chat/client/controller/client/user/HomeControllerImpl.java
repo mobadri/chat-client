@@ -1,12 +1,22 @@
 package com.chat.client.controller.client.user;
 
+import com.chat.client.controller.client.user.login.RegistrationController;
+import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.client.service.client.chat.ClientChatGroupService;
 import com.chat.client.service.client.factory.ServiceClientFactory;
 import com.chat.client.service.client.user.ClientUserService;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +34,9 @@ public class HomeControllerImpl implements UserHomeInterface {
     @Override
     public void logout(User currentUser) {
 
-
-
     }
+
+
 
     @Override
     public void changeMode(User currentUser, Mode mode) {

@@ -44,7 +44,7 @@ public class UserValidation {
 
     public boolean validCountry(String country) {
 
-        return !country.equals("");
+        return !country.equals("") && country != null;
     }
 
     public boolean validPassword(String password) {
@@ -87,7 +87,7 @@ public class UserValidation {
 
         validUser.put("InvalidFirstName", validName(user.getFirstName()));
         validUser.put("InvalidLastName", validName(user.getLastName()));
-        validUser.put("InvalidPhone", validPhone(user.getPhone()) && userPhone == null);
+        validUser.put("InvalidPhone", validPhone(user.getPhone()));
         validUser.put("InvalidPassword", validPassword(user.getPassword()));
         validUser.put("InvalidEmail", validMail(user.getEmail()));
         validUser.put("InvalidCountry", validCountry(user.getCountry()));

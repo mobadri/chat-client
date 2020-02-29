@@ -138,16 +138,7 @@ public class UserHome implements Initializable, PushNotificationInterface {
     }
 
     public void logOut(MouseEvent mouseEvent) {
-        File file = new File("userInfo.xml");
-        if (file.exists()) file.delete();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/login.fxml"));
-        try {
-            Parent root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        LoginViewController loginView = loader.getController();
-        loginView.setStageLogin(friendStage);
+
     }
 
     public void nav1(MouseEvent mouseEvent) {

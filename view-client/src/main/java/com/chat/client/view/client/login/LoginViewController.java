@@ -19,7 +19,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginViewController implements Initializable {
+public class
+
+LoginViewController implements Initializable {
     Stage stage;
 
     @FXML
@@ -46,6 +48,10 @@ public class LoginViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    public void setTxtFieldLoginPhone(String txtFieldLoginPhone) {
+        this.txtFieldLoginPhone.setText(txtFieldLoginPhone);
     }
 
     public void setStageLogin(Stage stage) {
@@ -80,10 +86,12 @@ public class LoginViewController implements Initializable {
 
     @FXML
     private void onLogin(ActionEvent actionEvent) {
+        txtFieldloginPassword.setEditable(true);
         clearAffectOfValidation();
-        if (validatePhone(txtFieldLoginPhone.getText().trim()) && existedPhone(txtFieldLoginPhone.getText().trim()) != null) {
+        if (txtFieldLoginPhone.getText() != null && validatePhone(txtFieldLoginPhone.getText().trim()) && existedPhone(txtFieldLoginPhone.getText().trim()) != null) {
 
-            User user = signUpAndRegistration.login(txtFieldLoginPhone.getText().trim(), txtFieldloginPassword.getText().trim());
+            String pass = txtFieldloginPassword.getText() == null ? "" : txtFieldloginPassword.getText().trim();
+            User user = signUpAndRegistration.login(txtFieldLoginPhone.getText().trim(), pass);
             System.out.println(user);
             if (user != null && user.getId() > 0) {
                 System.out.println("login successfully");

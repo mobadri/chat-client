@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -29,25 +30,23 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         File file = new File("userInfo.xml");
-      /*  if (file.exists()) {
+        if (file.exists()) {
             rememberMeHomePage(file, primaryStage);
         } else {
-*/
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
-        Parent root = loader.load();
-        com.chat.client.view.client.startpageController controller = loader.getController();
-        controller.setStage(primaryStage);
-        Scene scene = new Scene(root);
-        scene.setFill(Color.TRANSPARENT);
-        primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
-        // primaryStage.initStyle(StageStyle.TRANSPARENT);
-        primaryStage.show();
 
-
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
+            Parent root = loader.load();
+            com.chat.client.view.client.startpageController controller = loader.getController();
+            controller.setStage(primaryStage);
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            primaryStage.setResizable(false);
+            primaryStage.setScene(scene);
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
+            primaryStage.show();
 
             primaryStage.setOnCloseRequest((e) -> System.exit(0));
-            //  }
+        }
 
     }
 

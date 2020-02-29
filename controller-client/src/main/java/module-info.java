@@ -4,6 +4,9 @@ module controller.client {
     requires model.server;
     requires java.rmi;
     requires java.xml;
+    requires javafx.base;
+    requires javafx.controls;
+    requires javafx.fxml;
     requires rmiio;
     exports com.chat.client.controller.client.user;
     exports com.chat.client.controller.client.user.login;

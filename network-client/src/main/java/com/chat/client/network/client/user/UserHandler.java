@@ -97,4 +97,6 @@ public interface UserHandler {
      * @return list of friends on pending state
      */
     List<User> getAllFriendRequests(User currentUser);
+
+    User uniquePhone(String phone);
 }

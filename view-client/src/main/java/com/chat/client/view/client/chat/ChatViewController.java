@@ -3,6 +3,7 @@ package com.chat.client.view.client.chat;
 
 import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
 import com.chat.client.controller.client.fileTransfer.FileTranseferController;
+import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImpl;
 import com.chat.client.controller.client.message.MessageControllerImpl;
 import com.chat.client.view.client.chat.render.MessageCellRenderer;
 import com.chat.server.model.chat.ChatGroup;
@@ -37,6 +38,7 @@ import org.controlsfx.dialog.FontSelectorDialog;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;

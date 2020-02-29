@@ -136,6 +136,16 @@ public class UserHandlerImpl implements UserHandler {
     }
 
     @Override
+    public User uniquePhone(String phone) {
+        try {
+            return serverUserService.uniquePhone(phone);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
     public int updateFriend(int userId, int friendId, FriendStatus friendStatus) {
 //        try {
 

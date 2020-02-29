@@ -101,6 +101,11 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
         return userHandler.updateFriend(userId, friendId, friendStatus);
     }
 
+    @Override
+    public User uniquePhone(String phone) throws RemoteException {
+        return userHandler.uniquePhone(phone);
+    }
+
 
     @Override
     public List<User> getAllFriendRequests(User currentUser) throws RemoteException {
