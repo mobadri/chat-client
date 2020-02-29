@@ -13,8 +13,9 @@
                      prefHeight="495.0" prefWidth="272.0" style="-fx-border-image-width: 0;"
                      stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="55"
                      AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0"/>
-        <JFXButton fx:id="newGroupBtn" layoutX="11.0" layoutY="591.0" prefHeight="25.0" prefWidth="183.0"
-                   ripplerFill="#3b8ef4" text="Add New Chat Group" AnchorPane.bottomAnchor="17.0"
+        <JFXButton fx:id="newGroupBtn" layoutX="11.0" layoutY="499.0" prefHeight="25.0" prefWidth="183.0"
+                   ripplerFill="#3b8ef4" text="Add New Chat Group" AnchorPane.bottomAnchor="14.0"
+                   onAction="#viewAddNewChatGroup"
                    AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0">
             <font>
                 <Font size="16.0"/>

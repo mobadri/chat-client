@@ -35,17 +35,22 @@ public class AddFriend implements Initializable {
     private void setListView() {
 
         //all user for testing the list view
+        System.out.println("homeController" + homeController);
         List<User> users = homeController.findByPhone(phone);
+
+        System.out.println(users.size());
         boolean remove = users.removeIf(user -> user.getPhone().equals(currentUser.getPhone()));
         allUsers = FXCollections.observableList(users);
         usersListView.setItems(allUsers);
         ChatRendererwithbuttons chatRendererwithbuttons = new ChatRendererwithbuttons();
         chatRendererwithbuttons.setCurrentUser(currentUser);
+//        chatRendererwithbuttons.setFriends(currentUser.getFriends());
         chatRendererwithbuttons.setAddFriendController(this);
         usersListView.setCellFactory(chatRendererwithbuttons);
 
     }
 
+    @FXML
     private void search() {
         phoneNumberSearch.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if ((newValue.isEmpty() || newValue == null)) {
@@ -55,7 +60,6 @@ public class AddFriend implements Initializable {
                 setListView();
             }
         });
-
     }
 
 

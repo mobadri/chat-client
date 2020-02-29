@@ -11,10 +11,17 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,6 +36,8 @@ public class ChatGroupListViewController implements Initializable {
 
     @FXML
     private JFXListView<ChatGroup> chatGroupListView;
+
+    private Parent newChatGroupView;
 
     //----------------------------------------------------------------
     //----------------------------data section -----------------------
@@ -86,6 +95,7 @@ public class ChatGroupListViewController implements Initializable {
 
     /**
      * set user home view reference for current view
+     *
      * @param userHome current parent
      */
     public void setUserHome(UserViewHome userHome) {
@@ -107,6 +117,29 @@ public class ChatGroupListViewController implements Initializable {
                 int selectedIndex = chatGroupListView.getSelectionModel().getSelectedIndex();
                 userHome.setOnMainPane(userHome.getChatViewList().get(selectedIndex));
             }
+        }
+    }
+
+    @FXML
+    private void viewAddNewChatGroup(ActionEvent actionEvent) {
+        loadNewChatGroup();
+        Scene scene = new Scene(newChatGroupView);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.showAndWait();
+
+    }
+
+    private void loadNewChatGroup() {
+        try {
+            FXMLLoader loader =
+                    new FXMLLoader(this.getClass().getResource("/templates/chat/new-chat-group.fxml"));
+            newChatGroupView = loader.load();
+            NewChatGroup newChatGroup = loader.getController();
+            newChatGroup.setCurrentUser(currentUser);
+            newChatGroup.initModality(Modality.APPLICATION_MODAL);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

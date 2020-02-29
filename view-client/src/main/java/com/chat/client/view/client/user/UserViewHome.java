@@ -69,6 +69,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private Parent firendRequestPane;
     private Parent notificationPane;
 
+
     //------------------------------data section-----------------------------
     private User currentUser;
     private UserHomeInterface userHomeInterface;
@@ -91,6 +92,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private ObservableList<ChatGroup> chatGroupObservableList = FXCollections.observableArrayList();
     private FileTranseferControllerImpl fileTranseferController;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(this::loadNotificationList);
@@ -112,6 +114,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             friendsPane = loader.load();
             userFriendsController = loader.getController();
             userFriendsController.setCurrentUser(currentUser);
+            userFriendsController.setUserViewHome(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -211,7 +214,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         anchorPaneNotification.getChildren().clear();
         anchorPaneNotification.getChildren().setAll(firendRequestPane);
     }
-
     //------------------------------------------------------------------------------
     //-----------------------------view section-------------------------------------
     //------------------------------------------------------------------------------
@@ -385,6 +387,9 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
      * @param status status to be updated
      */
     public void updateFriend(User user, User friend, FriendStatus status) {
+        if (status == FriendStatus.APPROVED) {
+//            homeController.c
+        }
         homeController.updateFriend(user.getId(), friend.getId(), status);
     }
 
@@ -472,7 +477,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     public void clientAcceptFile(String fileName, int chatGroupId, User userTo) {
         for (ChatGroup chatGroup : chatGroupObservableList) {
-            if(chatGroup.getId() == chatGroupId){
+            if (chatGroup.getId() == chatGroupId) {
                 fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
             }
         }
