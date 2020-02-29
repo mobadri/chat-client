@@ -10,10 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -27,7 +24,7 @@ public class LoginViewController implements Initializable {
     @FXML
     CheckBox rememberMe;
     @FXML
-    Label lblloginSignuphere;
+    Hyperlink lblloginSignuphere;
     @FXML
     TextField txtFieldLoginPhone;
 

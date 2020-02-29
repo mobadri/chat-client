@@ -1,6 +1,7 @@
 package com.chat.client.network.client.user.impl;
 
 import com.chat.client.network.client.config.NetworkConfig;
+import com.chat.client.network.client.socket_factory.SslClientSocketFactory;
 import com.chat.client.network.client.user.FileTransferHandeler;
 import com.chat.client.service.client.callback.FileTransferServiceCallBack;
 import com.chat.server.model.chat.ChatGroup;
