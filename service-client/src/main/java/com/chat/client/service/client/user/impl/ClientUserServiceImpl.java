@@ -7,6 +7,7 @@ import com.chat.client.service.client.user.validation.UserValidation;
 import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
+import com.chat.server.model.user.UserFriend;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -86,7 +87,7 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
     }
 
     @Override
-    public FriendStatus statusFriend(int userID, int friendID) throws RemoteException {
+    public UserFriend statusFriend(int userID, int friendID) throws RemoteException {
         return userHandler.friendStatus(userID, friendID);
     }
 
