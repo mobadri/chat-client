@@ -41,7 +41,7 @@
                     </font>
                 </JFXCheckBox>
                 <Line endX="322.4928894042969" endY="1.565218008181546E-5" layoutX="421.0" layoutY="120.0" startX="-223.8000030517578" startY="6.17861733189784E-5" stroke="#afa3a3" strokeWidth="0.5" AnchorPane.leftAnchor="196.49288940429688" AnchorPane.rightAnchor="76.80001831054688" />
-                <ImageView fx:id="saveChat" fitHeight="40.0" fitWidth="40.0" layoutX="633.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="saveChat" onMouseClicked="#saveMessages" fitHeight="40.0" fitWidth="40.0" layoutX="633.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../static/images/save.png" />
                     </image>

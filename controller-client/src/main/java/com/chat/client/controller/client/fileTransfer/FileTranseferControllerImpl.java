@@ -32,7 +32,6 @@ public class FileTranseferControllerImpl extends UnicastRemoteObject implements 
         clientFileTransferService = ServiceClientFactory.createClientFileTransferService();
         try {
             clientFileTransferService.register(this);
-            System.out.println("i register +******************************");
         } catch (RemoteException e) {
             e.printStackTrace();
         }
@@ -97,7 +96,7 @@ public class FileTranseferControllerImpl extends UnicastRemoteObject implements 
             fileData = RemoteInputStreamClient.wrap(remoteInputStream);
 
             from = Channels.newChannel(fileData);
-            System.out.println(fileData);
+            System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa "+fileData.available());
             buffer = ByteBuffer.allocateDirect(fileData.available());
             String home = System.getProperty("user.home");
             to = FileChannel.open(Paths.get(home + "/Downloads/client/" + nameFile), StandardOpenOption.WRITE, StandardOpenOption.CREATE_NEW);

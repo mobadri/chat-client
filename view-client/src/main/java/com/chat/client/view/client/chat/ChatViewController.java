@@ -5,7 +5,9 @@ import com.chat.client.controller.client.chatGroup.ChatGroupInterface;
 import com.chat.client.controller.client.fileTransfer.FileTranseferController;
 import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImpl;
 import com.chat.client.controller.client.message.MessageControllerImpl;
+
 import com.chat.client.view.client.chat.render.MessageCellRenderer;
+import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.chat.Message;
 import com.chat.server.model.chat.Style;
@@ -193,7 +195,15 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     @FXML
     private void saveMessages(MouseEvent mouseEvent) {
-        messageController.saveMessages(currentChatGroup.getMessages(), "messages.xml");
+
+        FileChooser chooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("xml files (*.xml)", "*.xml");
+        chooser.getExtensionFilters().add(extFilter);
+        File file = chooser.showSaveDialog(((ImageView) mouseEvent.getSource()).getParent().getScene().getWindow());
+
+        if(file != null) {
+            messageController.saveMessages(currentChatGroup.getMessages(), file.getAbsolutePath());
+        }
     }
 
     @FXML
@@ -397,26 +407,23 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
 
     public void setUser(User user) {
         this.currentUser = user;
-        try {
-            fileTranseferController = new FileTranseferControllerImpl();
-
-            System.out.println("ChatViewController created");
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        fileTranseferController.setCurrentUser(user);
     }
 
     @Override
     public void setChatGroup(ChatGroup chatGroup) {
         this.currentChatGroup = chatGroup;
         chatGroupName.setText(currentChatGroup.getName());
+        System.out.println("teeeeeeeeeeeeeeeeeeeeesstt "+fileTranseferController);
         fileTranseferController.setChatGroup(currentChatGroup);
     }
 
 
     public void setChatGroupInterface(ChatGroupInterface chatGroupInterface) {
         this.chatGroupInterface = chatGroupInterface;
+    }
+
+    public void setFileTranseferController(FileTranseferController fileTranseferController) {
+        this.fileTranseferController = fileTranseferController;
     }
 
     public FileTranseferController getFileTranseferController() {
