@@ -28,7 +28,7 @@ public class UserHandlerImpl implements UserHandler {
 
             /*commented segments of code is connection security trail */
 //            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
-            Registry registry = LocateRegistry.getRegistry("192.168.43.110",
+            Registry registry = LocateRegistry.getRegistry("localhost",
                     11223/*, SslClientSocketFactory.getInstance()*/);
             /*, NetworkFactory.createSslClientSocketFactory()*/
             ;

@@ -566,7 +566,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     public void clientAcceptFile(String fileName, int chatGroupId, User userTo) {
         for (ChatGroup chatGroup : chatGroupObservableList) {
             if (chatGroup.getId() == chatGroupId) {
-                fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
+                //fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
             }
         }
     }
