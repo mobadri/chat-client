@@ -6,30 +6,28 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.net.URL;
 
-/**
- * JavaFX App
- */
 public class ChatViewTest extends Application {
 
-    private static Scene scene;
-
-    public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-    }
-    Stage stage;
+    private final String iconImageLoc = "https://img.icons8.com/flat_round/18/000000/chat.png";
+    private Stage stage;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("templates/user/startPage.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(ChatViewTest.class.getResource("/templates/user/startPage.fxml"));
+        Parent root = fxmlLoader.load();
+        com.chat.client.view.client.startpageController controller = fxmlLoader.getController();
+        controller.setStage(stage);
+
+        Scene scene = new Scene(root);
         this.stage = stage;
         stage.setScene(scene);
-        System.out.println("scene");
+
         stage.setMinWidth(700);
         stage.setMinHeight(590);
 
@@ -43,10 +41,6 @@ public class ChatViewTest extends Application {
         stage.show();
     }
 
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(ChatViewTest.class.getResource("/templates/user/startPage.fxml"));
-        return fxmlLoader.load();
-    }
     private void showStage() {
         if (stage != null) {
             stage.show();
@@ -54,8 +48,6 @@ public class ChatViewTest extends Application {
         }
     }
 
-    private static final String iconImageLoc =
-            "http://icons.iconarchive.com/icons/scafer31000/bubble-circle-3/16/GameCenter-icon.png";
     private void addAppToTray() {
 
         try {
@@ -70,9 +62,7 @@ public class ChatViewTest extends Application {
 
             // set up a system tray icon.
             java.awt.SystemTray tray = java.awt.SystemTray.getSystemTray();
-            URL imageLoc = new URL(
-                    iconImageLoc
-            );
+            URL imageLoc = new URL(iconImageLoc);
             java.awt.Image image = ImageIO.read(imageLoc);
             java.awt.TrayIcon trayIcon = new java.awt.TrayIcon(image);
 
@@ -84,7 +74,7 @@ public class ChatViewTest extends Application {
 
             // if the user selects the default menu item (which includes the app name),
             // show the main app stage.
-            java.awt.MenuItem openItem = new java.awt.MenuItem("Open Speak");
+            java.awt.MenuItem openItem = new java.awt.MenuItem("Open");
             openItem.addActionListener(event -> {
                 tray.remove(trayIcon);
                 Platform.runLater(this::showStage);
@@ -96,9 +86,7 @@ public class ChatViewTest extends Application {
             java.awt.Font boldFont = defaultFont.deriveFont(java.awt.Font.BOLD);
             openItem.setFont(boldFont);
 
-            // to really exit the application, the user must go to the system tray icon
-            // and select the exit option, this will shutdown JavaFX and remove the
-            // tray icon (removing the tray icon will also shut down AWT).
+            // to exit from application
             java.awt.MenuItem exitItem = new java.awt.MenuItem("Exit");
             exitItem.addActionListener(event -> {
                 Platform.exit();

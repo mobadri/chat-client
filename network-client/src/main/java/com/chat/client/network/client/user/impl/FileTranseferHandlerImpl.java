@@ -1,7 +1,6 @@
 package com.chat.client.network.client.user.impl;
 
 import com.chat.client.network.client.config.NetworkConfig;
-import com.chat.client.network.client.socket_factory.SslClientSocketFactory;
 import com.chat.client.network.client.user.FileTransferHandeler;
 import com.chat.client.service.client.callback.FileTransferServiceCallBack;
 import com.chat.server.model.chat.ChatGroup;
@@ -49,18 +48,18 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
 
     @Override
     public void send(String nameFile, ChatGroup currentChatGroup, User currentUser) {
-        try {
-            serverFileTranseferService.send( nameFile, currentChatGroup,  currentUser);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+//        try {
+////            serverFileTranseferService.send(nameFile, currentChatGroup, currentUser);
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
     public void register(FileTransferServiceCallBack fileTransferServiceCallBack) {
         try {
-            System.out.println("serverFileTranseferService "+serverFileTranseferService);
-            System.out.println("fileTransferServiceCallBack :"+fileTransferServiceCallBack);
+            System.out.println("serverFileTranseferService " + serverFileTranseferService);
+            System.out.println("fileTransferServiceCallBack :" + fileTransferServiceCallBack);
             serverFileTranseferService.register(fileTransferServiceCallBack);
 
         } catch (RemoteException e) {

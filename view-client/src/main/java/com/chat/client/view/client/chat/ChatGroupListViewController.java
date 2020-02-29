@@ -122,25 +122,41 @@ public class ChatGroupListViewController implements Initializable {
 
     @FXML
     private void viewAddNewChatGroup(ActionEvent actionEvent) {
-        loadNewChatGroup();
+        NewChatGroup newChatGroup = loadNewChatGroup();
         Scene scene = new Scene(newChatGroupView);
         Stage stage = new Stage();
+        newChatGroup.setStage(stage);
         stage.setScene(scene);
         stage.showAndWait();
 
     }
 
-    private void loadNewChatGroup() {
+    private NewChatGroup loadNewChatGroup() {
+        NewChatGroup newChatGroup = null;
         try {
             FXMLLoader loader =
                     new FXMLLoader(this.getClass().getResource("/templates/chat/new-chat-group.fxml"));
             newChatGroupView = loader.load();
-            NewChatGroup newChatGroup = loader.getController();
+            newChatGroup = loader.getController();
             newChatGroup.setCurrentUser(currentUser);
+            newChatGroup.setChatGroup(new ChatGroup());
+            newChatGroup.setChatGroupListViewController(this);
             newChatGroup.initModality(Modality.APPLICATION_MODAL);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return newChatGroup;
+    }
 
+    public void appendChatGroup(ChatGroup chatGroup) {
+        chatGroupProperty.add(chatGroup);
+    }
+
+    public ChatGroup appendUserToChatGroup(ChatGroup chatGroup, User user) {
+        return userHome.addFriendToChatGroup(chatGroup, user);
+    }
+
+    public ChatGroup insetNewChatGroup(ChatGroup chatGroup) {
+        return userHome.appendChatGroup(chatGroup);
     }
 }

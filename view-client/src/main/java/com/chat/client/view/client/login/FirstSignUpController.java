@@ -113,7 +113,7 @@ public class FirstSignUpController implements Initializable {
 
         Map<String, Boolean> validationMap = new HashMap<>();
         if (txtFieldSignUpPassword.getText().equals(txtFieldSignUpConfirmPassword.getText())) {
-            txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+            //txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
             User user = mapUserFromFields();
             try {
                 Map<String, Boolean> validateMap = signUpAndRegistration.validate(user);
@@ -143,54 +143,54 @@ public class FirstSignUpController implements Initializable {
             InvalidPassword.setText("* Invalid Password");
             txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
         }
+    }
+
+    private void clearValidation() {
+        InvalidFirstName.setText("");
+        InvalidLastName.setText("");
+        InvalidPhone.setText("");
+        InvalidPassword.setText("");
+        InvalidEmail.setText("");
+        InvalidCountry.setText("");
+        txtFieldSignUpFirstName.setStyle("-fx-border-color: gray; -fx-border-width: 1px ;");
+        txtFieldSignUpLastName.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        txtFieldSignUpEmail.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+        comboBoxSignUpCountry.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+    }
+
+    private void setError(String key, Boolean value) {
+        switch (key) {
+            case "InvalidFirstName":
+                InvalidFirstName.setText("* Invalid First Name");
+                txtFieldSignUpFirstName.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+                break;
+            case "InvalidLastName":
+                InvalidLastName.setText("* Invalid Last Name");
+                txtFieldSignUpLastName.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+                break;
+            case "InvalidPhone":
+                InvalidPhone.setText("*Invalid Phone");
+                txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+                break;
+            case "InvalidPassword":
+                InvalidPassword.setText("* Weak Password At least 8 letters");
+                txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+                break;
+            case "InvalidEmail":
+                InvalidEmail.setText("* Invalid Email");
+                txtFieldSignUpEmail.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+
+                break;
+            case "InvalidCountry":
+                InvalidCountry.setText("*Invalid Country");
+                comboBoxSignUpCountry.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+                break;
+
+        }
 
     }
-        private void clearValidation () {
-            InvalidFirstName.setText("");
-            InvalidLastName.setText("");
-            InvalidPhone.setText("");
-            InvalidPassword.setText("");
-            InvalidEmail.setText("");
-            InvalidCountry.setText("");
-            txtFieldSignUpFirstName.setStyle("-fx-border-color: gray; -fx-border-width: 1px ;");
-            txtFieldSignUpLastName.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
-            txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
-            txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
-            txtFieldSignUpEmail.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
-            comboBoxSignUpCountry.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
-        }
-
-        private void setError (String key, Boolean value){
-            switch (key) {
-                case "InvalidFirstName":
-                    InvalidFirstName.setText("* Invalid First Name");
-                    txtFieldSignUpFirstName.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
-                    break;
-                case "InvalidLastName":
-                    InvalidLastName.setText("* Invalid Last Name");
-                    txtFieldSignUpLastName.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
-                    break;
-                case "InvalidPhone":
-                    InvalidPhone.setText("*Invalid Phone");
-                    txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
-                    break;
-                case "InvalidPassword":
-                    InvalidPassword.setText("* Weak Password At least 8 letters");
-                    txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
-                    break;
-                case "InvalidEmail":
-                    InvalidEmail.setText("* Invalid Email");
-                    txtFieldSignUpEmail.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
-
-                    break;
-                case "InvalidCountry":
-                    InvalidCountry.setText("*Invalid Country");
-                    comboBoxSignUpCountry.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
-                    break;
-
-            }
-
-        }
 
         private User mapUserFromFields () {
             User user = new User();
@@ -224,50 +224,50 @@ public class FirstSignUpController implements Initializable {
             }
         }
 
-        public void setSignUpAndRegistration (SignUpAndRegistration signUpAndRegistration){
-            System.out.println("setSignUpAndRegistration");
-            this.signUpAndRegistration = signUpAndRegistration;
-        }
-
-        @FXML
-        private void setGender (ActionEvent actionEvent){
-            RadioButton radioButton = (RadioButton) actionEvent.getSource();
-            if (radioButton.isSelected()) {
-                if (radioButton.getText().equals("Male")) {
-                    gender = Gender.MALE;
-                } else {
-                    gender = Gender.FEMALE;
-                }
-                System.out.println(gender);
-            }
-        }
-
-        @FXML
-        public void exit (MouseEvent mouseEvent){
-            Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-            stage.close();
-        }
-
-        @FXML
-        public void minimize (MouseEvent mouseEvent){
-            Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-            stage.setIconified(true);
-        }
-
-        @FXML
-        public void maximize (MouseEvent mouseEvent){
-
-            Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-            stage.setFullScreenExitHint(" ");
-
-            if (!isMaximized) {
-                isMaximized = true;
-                stage.setMaximized(true);
-            } else {
-                isMaximized = false;
-                stage.setMaximized(false);
-            }
-        }
-
-
+    public void setSignUpAndRegistration(SignUpAndRegistration signUpAndRegistration) {
+        System.out.println("setSignUpAndRegistration");
+        this.signUpAndRegistration = signUpAndRegistration;
     }
+
+    @FXML
+    private void setGender(ActionEvent actionEvent) {
+        RadioButton radioButton = (RadioButton) actionEvent.getSource();
+        if (radioButton.isSelected()) {
+            if (radioButton.getText().equals("Male")) {
+                gender = Gender.MALE;
+            } else {
+                gender = Gender.FEMALE;
+            }
+            System.out.println(gender);
+        }
+    }
+
+    @FXML
+    public void exit(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    public void minimize(MouseEvent mouseEvent) {
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setIconified(true);
+    }
+
+    @FXML
+    public void maximize(MouseEvent mouseEvent) {
+
+        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
+        stage.setFullScreenExitHint(" ");
+
+        if (!isMaximized) {
+            isMaximized = true;
+            stage.setMaximized(true);
+        } else {
+            isMaximized = false;
+            stage.setMaximized(false);
+        }
+    }
+
+
+}

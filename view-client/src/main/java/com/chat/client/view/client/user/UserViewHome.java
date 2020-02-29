@@ -25,10 +25,6 @@ import com.chat.server.model.user.User;
 import com.chat.server.model.user.UserFriend;
 import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -89,12 +85,12 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     @FXML
     private AnchorPane statusPane;
 
-    @FXML
     FriendRequestListViewController friendRequestListViewController;
     private boolean isShowFriendRequestList = false;
     private boolean isShowModeList = false;
     private Parent firendRequestPane;
     private Parent notificationPane;
+
 
     //------------------------------data section-----------------------------
     private User currentUser;
@@ -202,15 +198,17 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         userHomeInterface.changeMode(currentUser, mode);
     }
 
-
     @Override
     public void appendFriend(User friend) {
         userHomeInterface.appendFriend(friend);
     }
 
     @Override
-    public void appendChatGroup(ChatGroup chatGroup) {
-        userHomeInterface.appendChatGroup(chatGroup);
+    public ChatGroup appendChatGroup(ChatGroup chatGroup) {
+        ChatGroup insertedChatGroup = userHomeInterface.appendChatGroup(chatGroup);
+        loadChatGroup(insertedChatGroup);
+        return insertedChatGroup;
+
     }
 
     @Override
@@ -225,7 +223,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     @Override
     public ChatGroup addFriendToChatGroup(ChatGroup chatGroup, User user) {
-
         return userHomeInterface.addFriendToChatGroup(chatGroup, user);
     }
 
@@ -332,7 +329,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
             chatGroupInterface.setChatGroup(chatGroup);
             chatGroupInterface.setCurrentUser(currentUser);
-
             chatGroupControllerList.add(chatGroupInterface);
             chatViewList.add(root);
         } catch (IOException e) {
@@ -564,7 +560,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     public void clientAcceptFile(String fileName, int chatGroupId, User userTo) {
         for (ChatGroup chatGroup : chatGroupObservableList) {
             if (chatGroup.getId() == chatGroupId) {
-                //fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
+                fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
             }
         }
     }
@@ -594,26 +590,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     }
 
-//    public List<User> findByPhone(String phone) {
-//        return homeController.findByPhone(phone);
-//    }
-//
-//    public UserFriend getFriendStatus(User user, User friend) {
-//        return homeController.getSatatus(user.getId(), friend.getId());
-//    }
-//
-//    public void removeFriend(User user, User userFriend) {
-//        homeController.removeFriend(user, userFriend);
-//    }
-//
-//    public void addFriend(User user, User friend) {
-//        homeController.addFriend(user, friend);
-//    }
-//
-//    public void updateFriend(User user, User friend, FriendStatus status) {
-//        homeController.updateFriend(user.getId(), friend.getId(), status);
-//    }
-//
+
 
 
     private ListView handleUserMode() {

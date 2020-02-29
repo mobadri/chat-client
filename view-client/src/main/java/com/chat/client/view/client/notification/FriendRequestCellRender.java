@@ -49,7 +49,7 @@ public class FriendRequestCellRender implements Callback<ListView<User>, ListCel
                     hBox.setStyle("-fx-background-color: white  ;" +
                             "-fx-padding: 10;" + "-fx-border-style: solid inside;"
                             + "-fx-border-width: 2;" + "-fx-border-insets: 5;"
-                            + "-fx-border-radius: 5;" + "-fx-border-color: gray;");
+                            + "-fx-border-radius: 5;");
 
                     Label userFrom = new Label(user.getFirstName() + " " + user.getLastName());
                     userFrom.setTextFill(Color.WHITE);
