@@ -28,7 +28,6 @@ public class ClientUserServiceImpl extends UnicastRemoteObject implements Client
 
     @Override
     public User login(String phone, String password) {
-
         return userHandler.login(phone, password);
     }
 

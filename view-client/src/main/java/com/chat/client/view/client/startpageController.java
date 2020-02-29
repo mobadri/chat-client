@@ -22,18 +22,8 @@ public class startpageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-            }
-        });
-        try {
-            Thread.sleep(2000);
-            thread.start();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @FXML

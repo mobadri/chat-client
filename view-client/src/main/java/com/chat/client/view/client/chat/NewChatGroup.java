@@ -1,6 +1,5 @@
 package com.chat.client.view.client.chat;
 
-import com.chat.client.controller.client.chatGroup.chatGroupDataContorller;
 import com.chat.client.view.client.chat.render.CellRenderer;
 import com.chat.server.model.chat.ChatGroup;
 import com.chat.server.model.user.User;
@@ -13,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Dialog;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ public class NewChatGroup extends Dialog implements Initializable {
     public JFXListView<User> chatGroupList;
     @FXML
     public JFXTextField chatGroupName;
-
+    private Stage stage;
     //--------------------------------------------
     //---------------data section-----------------
     //--------------------------------------------
@@ -34,8 +34,8 @@ public class NewChatGroup extends Dialog implements Initializable {
     private List<User> userFriendsList = new ArrayList<>();
     private ListProperty<User> friendsListProperty = new SimpleListProperty<>();
     private ListProperty<User> chatGroupUserListProperty = new SimpleListProperty<>();
-    private chatGroupDataContorller chatGroupDataContoller = new chatGroupDataContorller();
     private User currentUser;
+    private ChatGroupListViewController chatGroupListViewController;
 
 
     @Override
@@ -88,19 +88,25 @@ public class NewChatGroup extends Dialog implements Initializable {
     //----------------------------------------------------------------------
 
     @FXML
-    private ChatGroup createChatGroup() {
+    private void createChatGroup() {
         ChatGroup chatGroup = new ChatGroup();
         chatGroup.setName(chatGroupName.getText());
         if (!chatGroupUserListProperty.isEmpty()) {
-            chatGroup = chatGroupDataContoller.createNewChatGroup(chatGroup);
-            chatGroup = chatGroupDataContoller.addUserToChatGroup(chatGroup, currentUser);
-            for (User user : chatGroupUserListProperty) {
-                chatGroup = chatGroupDataContoller.addUserToChatGroup(chatGroup, user);
+            chatGroup = chatGroupListViewController.appendChatGroup(chatGroup);
+            if (chatGroup != null && chatGroup.getId() > 0) {
+                chatGroup = chatGroupListViewController.appendUserToChatGroup(chatGroup, currentUser);
+                chatGroup.getUsers().add(currentUser);
+                for (User user : chatGroupUserListProperty) {
+                    chatGroup = chatGroupListViewController.appendUserToChatGroup(chatGroup, user);
+                    chatGroup.getUsers().add(user);
+                }
+                chatGroupListViewController.appendChatGroup(chatGroup);
+                stage.close();
             }
         } else {
             System.out.println("can't insert");
         }
-        return chatGroup;
+
     }
 
     //----------------------------------------------------------------------
@@ -112,4 +118,11 @@ public class NewChatGroup extends Dialog implements Initializable {
         setFriendsListView(currentUser.getFriends());
     }
 
+    public void setChatGroupListViewController(ChatGroupListViewController chatGroupListViewController) {
+        this.chatGroupListViewController = chatGroupListViewController;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 }

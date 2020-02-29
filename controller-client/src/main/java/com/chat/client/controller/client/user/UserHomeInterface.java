@@ -30,7 +30,7 @@ public interface UserHomeInterface {
      *
      * @param chatGroup to be added
      */
-    void appendChatGroup(ChatGroup chatGroup);
+    ChatGroup appendChatGroup(ChatGroup chatGroup);
 
     /**
      * get all user's friends

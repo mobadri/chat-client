@@ -12,9 +12,11 @@ public interface FileTransferHandeler {
 
     void sendFile(String nameFile, RemoteInputStream remoteInputStream, ChatGroup currentChatGroup, User currentUser);
 
+    void send(String nameFile, ChatGroup currentChatGroup, User currentUser);
+
     void register(FileTransferServiceCallBack fileTransferServiceCallBack);
 
     void unregister(FileTransferServiceCallBack fileTransferServiceCallBack);
 
-    void clientAcceptFile(String fileName, int currentChatGroupId, User currentUser);
+    //void clientAcceptFile(String fileName, int currentChatGroupId, User currentUser);
 }

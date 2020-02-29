@@ -30,8 +30,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Orientation;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -40,6 +43,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -64,9 +69,14 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private ImageView defaultUserImage;
     @FXML
     public Label userName;
+    @FXML
+    public Circle modeColor;
+    @FXML
+    private AnchorPane statusPane;
 
     FriendRequestListViewController friendRequestListViewController;
     private boolean isShowFriendRequestList = false;
+    private boolean isShowModeList = false;
     private Parent firendRequestPane;
     private Parent notificationPane;
 
@@ -93,11 +103,13 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     private ObservableList<ChatGroup> chatGroupObservableList = FXCollections.observableArrayList();
     private FileTranseferControllerImpl fileTranseferController;
 
+    private ListViewStatusController ListViewStatusController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Platform.runLater(this::loadNotificationList);
         Platform.runLater(this::loadFriendRequestList);
+//        Platform.runLater(this::loadModeStatus);
         //loadFriendRequestList();
     }
 
@@ -149,8 +161,11 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     }
 
     @Override
-    public void appendChatGroup(ChatGroup chatGroup) {
-        userHomeInterface.appendChatGroup(chatGroup);
+    public ChatGroup appendChatGroup(ChatGroup chatGroup) {
+        ChatGroup insertedChatGroup = userHomeInterface.appendChatGroup(chatGroup);
+        loadChatGroup(insertedChatGroup);
+        return insertedChatGroup;
+
     }
 
     @Override
@@ -220,6 +235,22 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         anchorPaneNotification.getChildren().clear();
         anchorPaneNotification.getChildren().setAll(firendRequestPane);
     }
+
+    @FXML
+    private void oncircleModeeClicked(MouseEvent mouseEvent) {
+        statusPane.setVisible(!isShowModeList);
+        isShowModeList = !isShowModeList;
+        Parent parent = loadModeStatus();
+
+        if (parent != null) {
+            System.out.println("loaded");
+            statusPane.getChildren().add(parent);
+            System.out.println(parent);
+        } else {
+            System.out.println("not loaded");
+        }
+    }
+
     //------------------------------------------------------------------------------
     //-----------------------------view section-------------------------------------
     //------------------------------------------------------------------------------
@@ -289,7 +320,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         }
 
     }
-
     //------------------------------------------------------------------------------
     //----------------------------Notification Section -----------------------------
     //------------------------------------------------------------------------------
@@ -308,6 +338,13 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
                 tray.setImage(userImage);
             }
             tray.showAndDismiss(Duration.seconds(5));
+            if (notification.getNotificationType() == NotificationType.SERVER_IS_CLOSED) {
+                try {
+                    closeClient();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             tray.setNotificationType(NotificationType.MESSAGE_RECEIVED);
             addNotificationToList(notification);
         });
@@ -485,7 +522,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     public void clientAcceptFile(String fileName, int chatGroupId, User userTo) {
         for (ChatGroup chatGroup : chatGroupObservableList) {
             if (chatGroup.getId() == chatGroupId) {
-                fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
+                //   fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
             }
         }
     }
@@ -500,4 +537,39 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         friendRequestListViewController.addFriendRequestequest(user);
     }
 
+
+    private ListView handleUserMode() {
+        ObservableList<Mode> modeList = FXCollections.observableArrayList(Mode.AWAY, Mode.BUSY, Mode.AVAILABLE);
+        ListView<Mode> modes = new ListView<>(modeList);
+        modes.setStyle("-fx-background-color: white");
+        modes.setOrientation(Orientation.VERTICAL);
+        modes.setPrefSize(100, 120);
+        return modes;
+    }
+
+    private Parent loadModeStatus() {
+        Parent root = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/chat/ListViewStatus.fxml"));
+            root = loader.load();
+            ListViewStatusController = loader.getController();
+            ListViewStatusController.setCurrentUser(currentUser);
+            ListViewStatusController.setModeColor(modeColor);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return root;
+    }
+
+    private void closeClient() throws IOException {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/templates/user/ServerDisconnectedView.fxml"));
+        Parent serverDisconnectedView = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(new Scene(serverDisconnectedView));
+        stage.setTitle("Server Disconnected");
+        stage.showAndWait();
+        System.exit(0);
+    }
 }

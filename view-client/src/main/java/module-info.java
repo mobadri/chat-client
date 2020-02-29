@@ -1,9 +1,9 @@
 module view.client {
-
     requires model.server;
     requires javafx.controls;
     requires controller.client;
     requires javafx.fxml;
+
     requires javafx.base;
     requires javafx.graphics;
     requires javafx.web;
@@ -24,10 +24,6 @@ module view.client {
     opens com.chat.client.view.client.friend;
     opens com.chat.client.view.client.notification;
     opens com.chat.client.view.client.notification.traynotifications.notification;
-
-    exports com.chat.client.view.client;
-    exports com.chat.client.view.client.user;
-
     requires java.desktop;
     requires java.logging;
 }
