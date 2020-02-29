@@ -8,7 +8,7 @@
             xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.chat.client.view.client.friend.AddFriend">
     <children>
-        <JFXTextField fx:id="phoneNumberSearch" layoutX="59.0" layoutY="45.0" onAction="#search" prefHeight="25.0"
+        <JFXTextField fx:id="phoneNumberSearch" layoutX="59.0" layoutY="45.0" onKeyReleased="#search" prefHeight="25.0"
                       prefWidth="184.0" promptText="Phone Number" stylesheets="@../../static/css/loginandsignup.css"
                       unFocusColor="WHITE" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="32.0"/>
         <ListView fx:id="usersListView" layoutX="27.0" layoutY="70.0" prefHeight="200.0" prefWidth="299.0"

@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class AddFriend implements Initializable {
     private ObservableList<User> allUsers = FXCollections.observableArrayList();
-    String phone;
+    String phone = "";
     @FXML
     private TextField phoneNumberSearch;
     @FXML
@@ -94,6 +94,8 @@ public class AddFriend implements Initializable {
     //-------------------setter section ------------------------------------
     //----------------------------------------------------------------------
     public void setHomeController(UserViewHome homeController) {
+        System.out.println("I am here ");
+
         this.homeController = homeController;
     }
 

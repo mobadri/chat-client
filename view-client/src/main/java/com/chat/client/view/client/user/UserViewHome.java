@@ -112,6 +112,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             friendsPane = loader.load();
             userFriendsController = loader.getController();
             userFriendsController.setCurrentUser(currentUser);
+            userFriendsController.setUserViewHome(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -472,7 +473,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
     public void clientAcceptFile(String fileName, int chatGroupId, User userTo) {
         for (ChatGroup chatGroup : chatGroupObservableList) {
-            if(chatGroup.getId() == chatGroupId){
+            if (chatGroup.getId() == chatGroupId) {
                 fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
             }
         }
