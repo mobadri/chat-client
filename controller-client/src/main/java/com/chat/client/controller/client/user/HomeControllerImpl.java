@@ -81,4 +81,14 @@ public class HomeControllerImpl implements UserHomeInterface {
     public void setUserHomeInterface(UserHomeInterface userHomeInterface) {
         this.userHomeInterface = userHomeInterface;
     }
+
+    @Override
+    public User updateUser(User user) {
+        try {
+            return userService.updateUserData(user);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 }

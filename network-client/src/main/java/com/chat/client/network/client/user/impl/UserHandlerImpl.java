@@ -28,8 +28,8 @@ public class UserHandlerImpl implements UserHandler {
 
             /*commented segments of code is connection security trail */
 //            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
-            Registry registry = LocateRegistry.getRegistry(serverIP,
-                    portNumber/*, SslClientSocketFactory.getInstance()*/);
+            Registry registry = LocateRegistry.getRegistry("192.168.43.110",
+                    11223/*, SslClientSocketFactory.getInstance()*/);
             /*, NetworkFactory.createSslClientSocketFactory()*/
             ;
 //            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
@@ -37,8 +37,7 @@ public class UserHandlerImpl implements UserHandler {
             System.out.println(serverUserService);
 
         } catch (RemoteException | NotBoundException e) {
-            e.printStackTrace();
-            System.out.println("something incorrect happened!!");
+            System.out.println("connection has failed");
         }
     }
 

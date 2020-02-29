@@ -226,6 +226,11 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         return userHomeInterface.addFriendToChatGroup(chatGroup, user);
     }
 
+    @Override
+    public User updateUser(User user) {
+        return null;
+    }
+
     //todo show list of requests
     @FXML
     private void onRequestsClicked(MouseEvent mouseEvent) {
@@ -299,6 +304,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/User_profile.fxml"));
             Parent root = loader.load();
             UserProfileController userProfileController = loader.getController();
+            userProfileController.setHomeController( userHomeInterface);
             userProfileController.setUser(user);
             return root;
         } catch (IOException e) {
@@ -625,6 +631,9 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         stage.setScene(new Scene(serverDisconnectedView));
         stage.setTitle("Server Disconnected");
         stage.showAndWait();
+
+        pushNotificationController.unregisterService();
+        fileTranseferController.unregister();
         System.exit(0);
     }
 }
