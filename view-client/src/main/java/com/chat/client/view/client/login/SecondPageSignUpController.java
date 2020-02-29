@@ -2,6 +2,7 @@ package com.chat.client.view.client.login;
 
 import com.chat.client.controller.client.user.login.RegistrationController;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
+import com.chat.client.view.client.chat.render.RenderImage;
 import com.chat.client.view.client.user.UserViewHome;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
@@ -40,9 +41,14 @@ public class SecondPageSignUpController implements Initializable {
     private DatePicker dateOfBirth;
     private Stage stage;
     private User user;
+    private final String defulatImagePath = this.getClass().getResource("/static/images/Smile.png").toString();
+
+    RenderImage renderImage = new RenderImage();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Image defaultImage = new Image(defulatImagePath);
+        userImage.setFill(new ImagePattern(defaultImage));
     }
 
     public void setUserFromFirstPage(User user) {
@@ -114,7 +120,9 @@ public class SecondPageSignUpController implements Initializable {
         if (file != null) {
             Image image = new Image(file.toURI().toString());
             userImage.setFill(new ImagePattern(image));
-            user.setImage(readImage(file.getPath()));
+            user.setImage(renderImage.convertToByte(file.getPath()));
+        } else {
+            user.setImage(renderImage.convertToByte(defulatImagePath));
         }
     }
 

@@ -27,6 +27,7 @@ public class FriendRequestListViewController implements Initializable {
         friendRequestListView.itemsProperty().bindBidirectional(friendRequestProperty);
         friendRequestListView.setItems(friendRequestProperty);
         friendRequestListView.setCellFactory(cellRender);
+        friendRequestListView.scrollTo(friendRequestListView.getItems().size());
     }
 
     public FriendRequestListViewController() {
@@ -34,11 +35,11 @@ public class FriendRequestListViewController implements Initializable {
         cellRender.setController(this);
     }
 
-    public void addFriendRequestequest(User user){
+    public void addFriendRequestequest(User user) {
         friendRequestList.add(user);
     }
 
-    public void removeFriendRequestFromUI(User user){
+    public void removeFriendRequestFromUI(User user) {
         friendRequestList.remove(user);
     }
 }
