@@ -40,9 +40,9 @@ public class UserValidation {
     }
 
     public boolean validPhone(String phone) {
-
         if (phone != null) {
-            return phone.matches("^(?:\\+?2)?01[0125]{1}[0-9]{8}$");
+            System.err.println(phone);
+            return    phone.matches("^(?:\\+?2)?01[0125]{1}[0-9]{8}$");
         }
         return false;
     }
@@ -71,7 +71,6 @@ public class UserValidation {
     private Boolean validDateOfBirth(LocalDate dateOfBirth) {
         if (dateOfBirth != null) {
             return !dateOfBirth.equals("");
-
         }
         return false;
     }
@@ -92,10 +91,9 @@ public class UserValidation {
             e.printStackTrace();
         }
         Map<String, Boolean> validUser = new HashMap<>();
-
         validUser.put("InvalidFirstName", validName(user.getFirstName()));
         validUser.put("InvalidLastName", validName(user.getLastName()));
-        validUser.put("InvalidPhone", validPhone(user.getPhone()) && userPhone == null);
+        validUser.put("InvalidPhone", validPhone(user.getPhone()));
         validUser.put("InvalidPassword", validPassword(user.getPassword()));
         validUser.put("InvalidEmail", validMail(user.getEmail()));
         validUser.put("InvalidCountry", validCountry(user.getCountry()));

@@ -64,7 +64,7 @@
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <JFXButton fx:id="add" buttonType="RAISED" layoutX="563.0" layoutY="115.0" mnemonicParsing="false" onAction="#editProfileAction" prefHeight="54.0" prefWidth="128.0" ripplerFill="#354578" style="-fx-background-color: #354578;" text="edit" textFill="WHITE" />
+                <JFXButton fx:id="add" buttonType="RAISED" layoutX="563.0" layoutY="115.0" mnemonicParsing="false" onAction="#editUserAction" prefHeight="54.0" prefWidth="128.0" ripplerFill="#354578" style="-fx-background-color: #354578;" text="Edit Profile" textFill="WHITE" />
             </children>
         </AnchorPane>
     </children>

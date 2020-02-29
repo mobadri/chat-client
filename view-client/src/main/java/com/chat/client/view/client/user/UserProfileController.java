@@ -44,7 +44,7 @@ public class UserProfileController implements Initializable {
     private Label nameOfProfile;
     private User user;
 
-    private HomeControllerImpl homeController;
+    private UserHomeInterface homeController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -92,7 +92,9 @@ public class UserProfileController implements Initializable {
     }
 
 
-    public void editProfileAction(ActionEvent actionEvent) {
+
+    @FXML
+    public void editUserAction(ActionEvent actionEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/userdata-view-client.fxml"));
             Parent root = loader.load();
@@ -102,14 +104,16 @@ public class UserProfileController implements Initializable {
             stage.setTitle("Edit Profile");
             stage.setScene(new Scene(root));
             userDataViewController.setStage(stage);
-            userDataViewController.setUser(user);
             userDataViewController.setUserController(homeController);
+            userDataViewController.setUser(user);
             stage.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-
+    public void setHomeController(UserHomeInterface homeController) {
+        this.homeController = homeController;
     }
 }

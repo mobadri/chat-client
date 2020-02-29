@@ -1,6 +1,7 @@
 package com.chat.client.view.client.user;
 
 import com.chat.client.controller.client.user.HomeControllerImpl;
+import com.chat.client.controller.client.user.UserHomeInterface;
 import com.chat.client.controller.client.user.login.RegistrationController;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.server.model.user.Gender;
@@ -8,6 +9,7 @@ import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import com.jfoenix.controls.*;
 import com.jfoenix.validation.RequiredFieldValidator;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +18,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -71,11 +75,13 @@ public class UserDataViewController implements Initializable {
     public Label InvalidDateOfBirth;
     @FXML
     public Label title;
+    public AnchorPane updateProfilePane;
+    public JFXButton EditProfile;
 
     private User user;
     private Gender gender = Gender.MALE;
     private Stage stage;
-    private HomeControllerImpl homeController;
+    private UserHomeInterface homeController;
     private RequiredFieldValidator requiredFieldValidator = new RequiredFieldValidator();
 
 
@@ -183,6 +189,7 @@ public class UserDataViewController implements Initializable {
         user.setLastName(lastName.getText());
         user.setPassword(password.getText());
         user.setEmail(email.getText());
+        System.out.println(phone.getText());
         user.setPhone(phone.getText());
         System.out.println(country.getValue() + " country");
         user.setCountry(country.getValue() == null ? "Egypt" : country.getValue().toString());
@@ -271,7 +278,7 @@ public class UserDataViewController implements Initializable {
             if (user != null) {
                 Map<String, Boolean> validateMap = null;
                 try {
-                    validateMap = signUpAndRegistration.validate(user);
+                    validateMap = signUpAndRegistration.validate(setUserData);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -302,9 +309,9 @@ public class UserDataViewController implements Initializable {
         user = setUserData();
         User update = homeController.updateUser(user);
         if (update != null) {
-            showMessageDialog(Alert.AlertType.INFORMATION, "user has been updated successfully");
-            returnToParent();
-
+//            showMessageDialog(Alert.AlertType.INFORMATION, "user has been updated successfully");
+//            returnToParent();
+            System.out.println("bjhbhjhjbhjb");
         } else {
             showMessageDialog(Alert.AlertType.ERROR, "error on update user call us !");
         }
@@ -319,8 +326,12 @@ public class UserDataViewController implements Initializable {
         if (user != null && user.getId() > 0) {
             if (isValid) {
                 updateUser();
+//                User update = homeController.updateUser(setUserData());
+//                System.out.println("new user "+update);
             }
         }
+        Stage window = (Stage) EditProfile.getScene().getWindow();
+        window.close();
     }
 
 
@@ -335,7 +346,8 @@ public class UserDataViewController implements Initializable {
         this.stage = stage;
     }
 
-    public void setUserController(HomeControllerImpl homeController) {
+    public void setUserController(UserHomeInterface homeController) {
+
         this.homeController = homeController;
     }
 

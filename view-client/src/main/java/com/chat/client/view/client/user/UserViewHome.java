@@ -5,6 +5,7 @@ import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImp
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
+import com.chat.client.controller.client.user.HomeControllerImpl;
 import com.chat.client.controller.client.user.UserHomeInterface;
 import com.chat.client.view.client.chat.ChatGroupListViewController;
 import com.chat.client.view.client.chat.ChatViewController;
@@ -229,6 +230,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/User_profile.fxml"));
             Parent root = loader.load();
             UserProfileController userProfileController = loader.getController();
+            userProfileController.setHomeController( userHomeInterface);
             userProfileController.setUser(user);
             return root;
         } catch (IOException e) {

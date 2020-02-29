@@ -6,7 +6,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="pane" prefHeight="600.0" prefWidth="600.0" stylesheets="@../../static/css/loginandsignup.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.user.UserDataViewController">
+<AnchorPane id="pane" fx:id="updateProfilePane" prefHeight="600.0" prefWidth="600.0" stylesheets="@../../static/css/loginandsignup.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.user.UserDataViewController">
 
     <children>
         <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -105,6 +105,7 @@
                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                             </rowConstraints>
                             <children>
+
                                 <JFXButton fx:id="EditProfile" buttonType="RAISED" layoutX="300.0" layoutY="500.0" mnemonicParsing="false" onAction="#editProfileAction" prefHeight="54.0" prefWidth="128.0" ripplerFill="#354578" style="-fx-background-color: #354578;" text="Edit" textFill="WHITE" />
                             </children>
                         </GridPane>
