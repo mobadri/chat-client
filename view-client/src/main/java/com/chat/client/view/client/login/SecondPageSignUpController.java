@@ -1,5 +1,6 @@
 package com.chat.client.view.client.login;
 
+import com.chat.client.controller.client.user.HomeControllerImpl;
 import com.chat.client.controller.client.user.login.RegistrationController;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.client.view.client.chat.render.RenderImage;
@@ -97,6 +98,7 @@ public class SecondPageSignUpController implements Initializable {
                     new FXMLLoader(getClass().getResource("/templates/user/user-home-copy.fxml"));
             root = loader.load();
             UserViewHome userHomeController = loader.getController();
+            userHomeController.setUserHomeInterface(new HomeControllerImpl());
             userHomeController.setCurrentUser(user);
             stage.setScene(new Scene(root));
         } catch (IOException e) {

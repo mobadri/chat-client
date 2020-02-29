@@ -1,5 +1,8 @@
 package com.chat.client.view.client.notification;
 
+import com.chat.client.controller.client.fileTransfer.FileTranseferController;
+import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImpl;
+import com.chat.client.view.client.chat.FileTransferControllerFXML;
 import com.chat.client.view.client.chat.render.RenderImage;
 import com.chat.server.model.chat.Notification;
 import com.jfoenix.controls.JFXButton;
@@ -23,6 +26,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
+import org.w3c.dom.ls.LSOutput;
+
+import java.rmi.RemoteException;
+import java.util.StringTokenizer;
 
 public class NotificationCellRenderer implements Callback<ListView<Notification>, ListCell<Notification>> {
 
@@ -124,14 +131,18 @@ public class NotificationCellRenderer implements Callback<ListView<Notification>
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                FileTransferControllerFXML fileTransferControllerFXML = FileTransferControllerFXML.getFileTransferControllerFXML();
+                System.out.println("fileTransferControllerFXML : "+fileTransferControllerFXML);
                 System.out.println("\n mariam file \n");
                 System.out.println(notification.getUserFrom());
                 switch (notification.getNotificationType()) {
                     case FILE_TRANSFER_ACCEPT:
-                        String messegeContent = notification.getNotificationMessage();
-                        String fileName = messegeContent.substring(messegeContent.indexOf(":=") + 2);
-                        controller.clientAcceptFile(fileName, 1,
-                                notification.getUserTo());
+//                        String messegeContent = notification.getNotificationMessage();
+//                        String fileName = messegeContent.substring(messegeContent.indexOf(":=") + 2);
+//                        controller.clientAcceptFile(fileName, 1,
+//                                notification.getUserTo());-9
+                        fileTransferControllerFXML.recieve();
+                        break;
                 }
             }
         });

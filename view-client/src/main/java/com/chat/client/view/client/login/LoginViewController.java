@@ -1,5 +1,6 @@
 package com.chat.client.view.client.login;
 
+import com.chat.client.controller.client.user.HomeControllerImpl;
 import com.chat.client.controller.client.user.login.RememberMeController;
 import com.chat.client.controller.client.user.login.SignUpAndRegistration;
 import com.chat.client.view.client.user.UserViewHome;
@@ -120,6 +121,7 @@ public class LoginViewController implements Initializable {
             root = loader.load();
 //            UserHome userHome = loader.getController();
             UserViewHome userViewHome = loader.getController();
+            userViewHome.setUserHomeInterface(new HomeControllerImpl());
             userViewHome.setCurrentUser(user);
             stage.setMaximized(true);
             stage.setFullScreen(true);

@@ -36,8 +36,7 @@ public class App extends Application {
             rememberMeHomePage(file, primaryStage);
         } else {
 */
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/test.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
         Parent root = loader.load();
         root.setOnMouseClicked(mouseEvent -> {
             xOffset = mouseEvent.getSceneX();
@@ -52,7 +51,12 @@ public class App extends Application {
         controller.setStageLogin(primaryStage);
         controller.setSignUpAndRegistration(new RegistrationController());
         controller.setStageLogin(primaryStage);
+        LoginViewController controller = loader.getController();
+        controller.setSignUpAndRegistration(new RegistrationController());
+        controller.setStageLogin(primaryStage);
         Scene scene = new Scene(root);
+//        scene.setFill(Color.TRANSPARENT);
+//        primaryStage.setResizable(false);
         scene.setFill(Color.TRANSPARENT);
         //primaryStage.setResizable(false);
 
@@ -104,6 +108,4 @@ public class App extends Application {
         stage.show();
         startpageController.goToSignInPage(new ActionEvent());
     }
-
-
 }

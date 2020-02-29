@@ -265,7 +265,7 @@ public final class TrayNotification {
      */
     public void setTrayIcon(Image img) {
         stage.getIcons().clear();
-        stage.getIcons().add(img);
+        //stage.getIcons().add(img);
     }
 
     public String getTitle() {
@@ -301,7 +301,7 @@ public final class TrayNotification {
     public void setImage(Image img) {
         imageIcon.setImage(img);
 
-        setTrayIcon(img);
+       // setTrayIcon(img);
     }
 
     public Paint getRectangleFill() {

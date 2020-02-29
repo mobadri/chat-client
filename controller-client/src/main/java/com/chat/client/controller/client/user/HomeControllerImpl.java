@@ -24,6 +24,8 @@ public class HomeControllerImpl implements UserHomeInterface {
     @Override
     public void logout(User currentUser) {
 
+
+
     }
 
     @Override
@@ -41,9 +43,11 @@ public class HomeControllerImpl implements UserHomeInterface {
     }
 
     @Override
-    public void appendChatGroup(ChatGroup chatGroup) {
+    public ChatGroup appendChatGroup(ChatGroup chatGroup) {
         ChatGroup group = chatGroupService.createGroup(chatGroup);
-        groups.add(group);
+
+        groups.add(chatGroup);
+        return group;
     }
 
     @Override

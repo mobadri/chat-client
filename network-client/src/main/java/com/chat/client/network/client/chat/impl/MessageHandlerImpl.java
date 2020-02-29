@@ -2,10 +2,10 @@ package com.chat.client.network.client.chat.impl;
 
 import com.chat.client.network.client.chat.MessageHandler;
 import com.chat.client.network.client.config.NetworkConfig;
-import com.chat.client.network.client.factory.NetworkFactory;
 import com.chat.client.service.client.callback.MessageServiceCallBack;
 import com.chat.server.model.chat.Message;
 import com.chat.server.service.server.message.ServerMessageService;
+import com.chat.server.service.server.socket_factories.SslClientSocketFactory;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -28,7 +28,7 @@ public class MessageHandlerImpl implements MessageHandler {
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
             Registry registry = LocateRegistry.getRegistry(serverIP,
-                    portNumber/*, NetworkFactory.createSslClientSocketFactory()*/);
+                    portNumber, SslClientSocketFactory.getInstance());
 //            Registry registry = LocateRegistry.getRegistry(portNumber);
             serverMessageService = (ServerMessageService) registry.lookup("messageService");
 
