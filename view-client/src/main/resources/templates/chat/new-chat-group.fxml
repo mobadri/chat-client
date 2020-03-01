@@ -14,7 +14,7 @@
                 <AnchorPane id="title" prefHeight="59.0" prefWidth="600.0" style="-fx-background-color: white;"
                             BorderPane.alignment="CENTER">
                     <children>
-                        <Label layoutX="42.0" layoutY="22.0" prefHeight="30.0" prefWidth="258.0"
+                        <Label fx:id="tilte" layoutX="42.0" layoutY="22.0" prefHeight="30.0" prefWidth="258.0"
                                text="Add New Chat Group" AnchorPane.bottomAnchor="21.0" AnchorPane.leftAnchor="42.0"
                                AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="22.0">
                             <font>
@@ -47,12 +47,12 @@
                             </font>
                         </Label>
 
-                        <JFXListView fx:id="friendsList" layoutX="14.0" layoutY="71.0" prefHeight="329.0"
+                        <JFXListView fx:id="friendsList" layoutX="14.0" layoutY="71.0" prefHeight="309.0"
                                      prefWidth="251.0" stylesheets="@../../static/css/ListViewStyle.css"
-                                     AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="14.0"/>
-                        <JFXListView fx:id="chatGroupList" layoutX="291.0" layoutY="71.0" prefHeight="331.0"
+                                     AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="14.0"/>
+                        <JFXListView fx:id="chatGroupList" layoutX="291.0" layoutY="71.0" prefHeight="311.0"
                                      prefWidth="260.0" stylesheets="@../../static/css/ListViewStyle.css"
-                                     AnchorPane.bottomAnchor="0" AnchorPane.rightAnchor="14.0"/>
+                                     AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="14.0"/>
                         <JFXTextField fx:id="chatGroupName" layoutX="150.0" layoutY="25.0" prefHeight="36.0"
                                       prefWidth="375.0" promptText="Chat Group name">
                             <font>
@@ -96,6 +96,19 @@
                                 </JFXButton>
                             </children>
                         </GridPane>
+                        <Label layoutX="150.0" layoutY="63.0" prefHeight="16.0" prefWidth="151.0"/>
+                        <Label fx:id="error" layoutX="157.0" layoutY="69.0" prefHeight="0.0" prefWidth="173.0"
+                               textFill="RED">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                        </Label>
+                        <Label fx:id="errorlist" layoutX="426.0" layoutY="410.0" prefHeight="15.0" prefWidth="262.0"
+                               textFill="RED">
+                            <font>
+                                <Font size="12.0"/>
+                            </font>
+                        </Label>
                     </children>
                 </AnchorPane>
             </center>
@@ -107,9 +120,9 @@
                 <AnchorPane prefHeight="63.0" prefWidth="600.0" style="-fx-background-color: white;"
                             BorderPane.alignment="CENTER">
                     <children>
-                        <Button layoutX="54.0" layoutY="19.0" mnemonicParsing="false" onAction="#createChatGroup"
-                                text="Add Chat Group"/>
-                        <Button layoutX="223.0" layoutY="19.0" mnemonicParsing="false" text="Cancel"/>
+                        <Button fx:id="addOrUpdate" layoutX="54.0" layoutY="19.0" mnemonicParsing="false"
+                                onAction="#createChatGroup" text="Add Chat Group"/>
+                        <Button layoutX="223.0" layoutY="19.0" mnemonicParsing="false" onAction="#close" text="Cancel"/>
                     </children>
                 </AnchorPane>
             </bottom>

@@ -139,6 +139,7 @@ public class ChatGroupListViewController implements Initializable {
             newChatGroupView = loader.load();
             newChatGroup = loader.getController();
             newChatGroup.setCurrentUser(currentUser);
+            newChatGroup.setChatGroup(new ChatGroup());
             newChatGroup.setChatGroupListViewController(this);
             newChatGroup.initModality(Modality.APPLICATION_MODAL);
         } catch (IOException e) {
@@ -147,13 +148,15 @@ public class ChatGroupListViewController implements Initializable {
         return newChatGroup;
     }
 
-    public ChatGroup appendChatGroup(ChatGroup chatGroup) {
+    public void appendChatGroup(ChatGroup chatGroup) {
         chatGroupProperty.add(chatGroup);
-        return userHome.appendChatGroup(chatGroup);
-
     }
 
     public ChatGroup appendUserToChatGroup(ChatGroup chatGroup, User user) {
         return userHome.addFriendToChatGroup(chatGroup, user);
+    }
+
+    public ChatGroup insetNewChatGroup(ChatGroup chatGroup) {
+        return userHome.appendChatGroup(chatGroup);
     }
 }

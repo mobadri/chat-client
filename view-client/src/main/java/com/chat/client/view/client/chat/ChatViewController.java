@@ -31,6 +31,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.controlsfx.dialog.FontSelectorDialog;
@@ -99,7 +100,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         new Thread(() -> {
             Platform.runLater(() -> {
-//                loadFontFamily();
                 loadSize();
             });
         }).start();
@@ -238,18 +238,18 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
     public void addnewfriendAction(MouseEvent mouseEvent) {
         try {
             Stage stage = new Stage();
+
             FXMLLoader loader =
-                    new FXMLLoader(getClass().getResource("/templates/chat/addfriendstochat.fxml"));
+                    new FXMLLoader(this.getClass().getResource("/templates/chat/new-chat-group.fxml"));
             Parent root = loader.load();
-            AddFriendToChatGroup controller = loader.getController();
-            controller.setCurrentUser(currentUser);
-            System.err.println("Chat View controller current user " + currentUser.getFriends().size());
-            System.err.println("Chat View controller chat group user " + currentChatGroup.getUsers().size());
-            controller.setGroupChat(currentChatGroup);
-
+            NewChatGroup newChatGroup = loader.getController();
+            newChatGroup.setCurrentUser(currentUser);
+            newChatGroup.setChatGroup(currentChatGroup);
+            newChatGroup.setChatViewController(this);
+            newChatGroup.setStage(stage);
+            newChatGroup.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(new Scene(root));
-            stage.show();
-
+            stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -305,13 +305,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         sizeComboBox.setItems(FXCollections.observableList(sizes));
     }
 
-//    private void loadFontFamily() {
-//        List<String> fontFamilies = Font.getFamilies().parallelStream().sorted().
-//                collect(Collectors.toList());
-//        fontComboBox.setItems(FXCollections.observableList(fontFamilies));
-//    }
-
-
     public void onClickBoldBuuton(ActionEvent actionEvent) {
         defualtStyle.setBold(!defualtStyle.isBold());
         messageContent.setStyle(defualtStyle.toString());
@@ -328,12 +321,6 @@ public class ChatViewController implements Initializable, ChatGroupInterface {
         chatGroupInterface.unregisterService();
     }
 
-//
-//    public void onClickFontComboBox(ActionEvent actionEvent) {
-//        defualtStyle.setFontName(fontComboBox.getValue().toString());
-//        messageContent.setStyle(defualtStyle.toString());
-//        System.out.println(defualtStyle.getFontName());
-//    }
 
     public void onClickSizeComboBox(ActionEvent actionEvent) {
         defualtStyle.setFontSize(sizeComboBox.getValue());
