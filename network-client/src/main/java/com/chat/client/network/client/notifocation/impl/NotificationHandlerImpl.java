@@ -30,8 +30,7 @@ public class NotificationHandlerImpl implements NotificationHandler {
         String serverIP = networkConfig.getServerIp();
         try {
 //            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
-            Registry registry = LocateRegistry.getRegistry(serverIP,
-                    portNumber, SslClientSocketFactory.getInstance());
+            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
 
             /*commented segments of code is connection security trail */
            /* Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),

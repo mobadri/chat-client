@@ -106,38 +106,38 @@ public class FirstSignUpController implements Initializable {
     }
 
 
-        @FXML
-        void onNextAction(ActionEvent event) {
-            clearValidation();
+    @FXML
+    void onNextAction(ActionEvent event) {
+        clearValidation();
 
 
-            Map<String, Boolean> validationMap = new HashMap<>();
-            if (txtFieldSignUpPassword.getText().equals(txtFieldSignUpConfirmPassword.getText())) {
-                txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
-                User user = mapUserFromFields();
-                try {
-                    Map<String, Boolean> validateMap = signUpAndRegistration.validate(user);
-                    validateMap.forEach((key, valid) -> {
-                        if (!valid) {
-                            validationMap.put(key, valid);
-                        }
-                    });
-                    if (validationMap.size() > 0) {
-                        validationMap.forEach((key, value) -> {
-                            setError(key, value);
-                        });
-                    } else {
-                        loadNextView(user);
+        Map<String, Boolean> validationMap = new HashMap<>();
+        if (txtFieldSignUpPassword.getText().equals(txtFieldSignUpConfirmPassword.getText())) {
+            //txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+            User user = mapUserFromFields();
+            try {
+                Map<String, Boolean> validateMap = signUpAndRegistration.validate(user);
+                validateMap.forEach((key, valid) -> {
+                    if (!valid) {
+                        validationMap.put(key, valid);
                     }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
+                });
+                if (validationMap.size() > 0) {
+                    validationMap.forEach((key, value) -> {
+                        setError(key, value);
+                    });
+                } else {
+                    loadNextView(user);
                 }
-
-            } else {
-                InvalidPassword.setText("* Invalid Password");
-                txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
+
+        } else {
+            InvalidPassword.setText("* Invalid Password");
+            txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
         }
+    }
 
     private void clearValidation() {
         InvalidFirstName.setText("");
@@ -146,12 +146,12 @@ public class FirstSignUpController implements Initializable {
         InvalidPassword.setText("");
         InvalidEmail.setText("");
         InvalidCountry.setText("");
-        txtFieldSignUpFirstName.setStyle("-fx-border-color: gray; -fx-border-width: 1px ;");
-        txtFieldSignUpLastName.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
-        txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
-        txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
-        txtFieldSignUpEmail.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
-        comboBoxSignUpCountry.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+//        txtFieldSignUpFirstName.setStyle("-fx-border-color: gray; -fx-border-width: 1px ;");
+//        txtFieldSignUpLastName.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+//        txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+//        txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+//        txtFieldSignUpEmail.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+//        comboBoxSignUpCountry.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
     }
 
     private void setError(String key, Boolean value) {

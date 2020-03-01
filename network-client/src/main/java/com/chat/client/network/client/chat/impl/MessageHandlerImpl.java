@@ -27,8 +27,7 @@ public class MessageHandlerImpl implements MessageHandler {
 //            Registry registry = LocateRegistry.getRegistry(serverIP , portNumber);
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     PORT_NUMBER, new RMISSLClientSocketFactory());*/
-            Registry registry = LocateRegistry.getRegistry(serverIP,
-                    portNumber, SslClientSocketFactory.getInstance());
+            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
 //            Registry registry = LocateRegistry.getRegistry(portNumber);
             serverMessageService = (ServerMessageService) registry.lookup("messageService");
 
