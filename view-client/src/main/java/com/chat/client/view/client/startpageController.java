@@ -33,7 +33,6 @@ public class startpageController implements Initializable {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/testsignup.fxml"));
             root = loader.load();
-            System.out.println(stage);
             stage.setScene(new Scene(root));
             FirstSignUpController firstSignUpController = loader.getController();
             firstSignUpController.setStageSignUp(stage);
@@ -71,9 +70,6 @@ public class startpageController implements Initializable {
 
     public void setStage(Stage stage) {
         this.stage = stage;
-        stage.setOnCloseRequest((e) -> {
-            System.exit(0);
-        });
     }
 
     class SplashScreen extends Thread {

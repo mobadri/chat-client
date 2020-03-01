@@ -21,7 +21,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginViewController implements Initializable {
-    Stage stage;
+
+    private Stage stage;
 
     @FXML
     CheckBox rememberMe;
