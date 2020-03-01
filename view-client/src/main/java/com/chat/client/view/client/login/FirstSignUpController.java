@@ -113,7 +113,7 @@ public class FirstSignUpController implements Initializable {
 
         Map<String, Boolean> validationMap = new HashMap<>();
         if (txtFieldSignUpPassword.getText().equals(txtFieldSignUpConfirmPassword.getText())) {
-            //txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
+            txtFieldSignUpPassword.setStyle("-fx-border-color: gray ; -fx-border-width: 1px ;");
             User user = mapUserFromFields();
             try {
                 Map<String, Boolean> validateMap = signUpAndRegistration.validate(user);
@@ -126,15 +126,14 @@ public class FirstSignUpController implements Initializable {
                     validationMap.forEach((key, value) -> {
                         setError(key, value);
                     });
-                } else {
-                    if (signUpAndRegistration.uniquePhone(mapUserFromFields().getPhone()) != null) {
-                        InvalidPhone.setText("* registered phone");
-                        txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
-                    }
-                   else{
-                       loadNextView(user);
-                    }
                 }
+                if (signUpAndRegistration.uniquePhone(mapUserFromFields().getPhone()) != null) {
+                    InvalidPhone.setText("* registered phone");
+                    txtFieldSignUpPhoneNumber.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
+                } else {
+                    loadNextView(user);
+                }
+
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
@@ -143,6 +142,7 @@ public class FirstSignUpController implements Initializable {
             InvalidPassword.setText("* Invalid Password");
             txtFieldSignUpPassword.setStyle("-fx-border-color: red ; -fx-border-width: 1px ;");
         }
+
     }
 
     private void clearValidation() {
@@ -192,37 +192,37 @@ public class FirstSignUpController implements Initializable {
 
     }
 
-        private User mapUserFromFields () {
-            User user = new User();
-            user.setPassword(txtFieldSignUpPassword.getText().trim());
-            user.setFirstName(txtFieldSignUpFirstName.getText().trim());
-            user.setLastName(txtFieldSignUpLastName.getText().trim());
-            user.setPhone(txtFieldSignUpPhoneNumber.getText().trim());
-            user.setEmail(txtFieldSignUpEmail.getText().trim());
-            user.setCountry(comboBoxSignUpCountry.getValue() == null ? "Eygpt" : comboBoxSignUpCountry.getSelectionModel().getSelectedItem());
-            user.setGender(gender);
-            return user;
+    private User mapUserFromFields() {
+        User user = new User();
+        user.setPassword(txtFieldSignUpPassword.getText().trim());
+        user.setFirstName(txtFieldSignUpFirstName.getText().trim());
+        user.setLastName(txtFieldSignUpLastName.getText().trim());
+        user.setPhone(txtFieldSignUpPhoneNumber.getText().trim());
+        user.setEmail(txtFieldSignUpEmail.getText().trim());
+        user.setCountry(comboBoxSignUpCountry.getValue() == null ? "Eygpt" : comboBoxSignUpCountry.getSelectionModel().getSelectedItem());
+        user.setGender(gender);
+        return user;
+    }
+
+    private void loadNextView(User user) {
+        Parent root;
+        try {
+
+            FXMLLoader loader =
+                    new FXMLLoader(getClass().getResource("/templates/login/secondpagesignup2.fxml"));
+            root = loader.load();
+            System.out.println(stage);
+            SecondPageSignUpController secondpagesignupController = loader.getController();
+            System.out.println(user);
+            System.out.println(secondpagesignupController);
+            secondpagesignupController.setUserFromFirstPage(user);
+            secondpagesignupController.setStage(stage);
+
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        private void loadNextView (User user){
-            Parent root;
-            try {
-
-                FXMLLoader loader =
-                        new FXMLLoader(getClass().getResource("/templates/login/secondpagesignup2.fxml"));
-                root = loader.load();
-                System.out.println(stage);
-                SecondPageSignUpController secondpagesignupController = loader.getController();
-                System.out.println(user);
-                System.out.println(secondpagesignupController);
-                secondpagesignupController.setUserFromFirstPage(user);
-                secondpagesignupController.setStage(stage);
-
-                stage.setScene(new Scene(root));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    }
 
     public void setSignUpAndRegistration(SignUpAndRegistration signUpAndRegistration) {
         System.out.println("setSignUpAndRegistration");

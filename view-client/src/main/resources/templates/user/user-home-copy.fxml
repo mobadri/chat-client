@@ -5,8 +5,7 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.Circle?>
-<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefWidth="1200.0" stylesheets="@../../static/css/user-home.css"
             xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
@@ -84,13 +83,15 @@
 
                 <JFXButton fx:id="SHOWNOTIFICATIONS" layoutX="172.0" layoutY="149.0" onAction="#showNotificationList"
                            prefHeight="25.0" prefWidth="25.0" text=" "/>
-                <JFXButton fx:id="lOGOUT" layoutX="206.0" layoutY="149.0" onMouseClicked="#logoOut" prefHeight="25.0"
-                           prefWidth="25.0" text=" "/>
+                <JFXButton fx:id="lOGOUT" layoutX="206.0" layoutY="149.0" onAction="#logoOut" onMouseClicked="#logoOut"
+                           prefHeight="25.0" prefWidth="25.0" text=" "/>
                 <AnchorPane fx:id="anchorPaneNotification" layoutX="6.0" layoutY="350.0" prefHeight="200.0"
                             prefWidth="250.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0"
                             AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="350.0"/>
-                <Circle fx:id="modeColor" fill="WHITE" layoutX="152.0" layoutY="86.0" onMouseClicked="#oncircleModeeClicked" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
-                <AnchorPane fx:id="statusPane" layoutX="180.0" layoutY="8.0" prefHeight="80.0" prefWidth="110.0" AnchorPane.topAnchor="8.0" />
+                <Circle fx:id="modeColor" fill="WHITE" layoutX="152.0" layoutY="86.0"
+                        onMouseClicked="#oncircleModeeClicked" radius="6.0" stroke="BLACK" strokeType="INSIDE"/>
+                <AnchorPane fx:id="statusPane" layoutX="180.0" layoutY="8.0" prefHeight="80.0" prefWidth="110.0"
+                            AnchorPane.topAnchor="8.0"/>
 
             </children>
         </AnchorPane>

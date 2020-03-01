@@ -5,8 +5,8 @@ import com.chat.client.controller.client.fileTransfer.FileTranseferControllerImp
 import com.chat.client.controller.client.pushNotifications.PushNotificationController;
 import com.chat.client.controller.client.pushNotifications.PushNotificationInterface;
 import com.chat.client.controller.client.user.HomeController;
-import com.chat.client.controller.client.user.HomeControllerImpl;
 import com.chat.client.controller.client.user.UserHomeInterface;
+import com.chat.client.controller.client.user.login.RegistrationController;
 import com.chat.client.view.client.chat.ChatGroupListViewController;
 import com.chat.client.view.client.chat.ChatViewController;
 import com.chat.client.view.client.chat.render.ChatGroupCellRenderer;
@@ -23,6 +23,7 @@ import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
 import com.chat.server.model.user.User;
 import com.chat.server.model.user.UserFriend;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -36,13 +37,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
@@ -84,6 +82,8 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     public Circle modeColor;
     @FXML
     private AnchorPane statusPane;
+    @FXML
+    private JFXButton lOGOUT;
 
     FriendRequestListViewController friendRequestListViewController;
     private boolean isShowFriendRequestList = false;
@@ -181,6 +181,10 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
 
                 loginViewController.setTxtFieldLoginPhone(phone);
                 loginViewController.setStageLogin(stage);
+                loginViewController.setSignUpAndRegistration(new RegistrationController());
+                Stage window = (Stage) lOGOUT.getScene().getWindow();
+                window.close();
+                file.delete();
             } catch (ParserConfigurationException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -192,6 +196,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         }
         //userHomeInterface.logout(currentUser);
     }
+
 
     @Override
     public void changeMode(User currentUser, Mode mode) {
@@ -255,7 +260,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     }
 
     @FXML
-    private void logoOut(MouseEvent mouseEvent) {
+    private void logoOut() {
         logout(currentUser);
     }
 
@@ -304,7 +309,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/templates/user/User_profile.fxml"));
             Parent root = loader.load();
             UserProfileController userProfileController = loader.getController();
-            userProfileController.setHomeController( userHomeInterface);
+            userProfileController.setHomeController(userHomeInterface);
             userProfileController.setUser(user);
             return root;
         } catch (IOException e) {
@@ -566,7 +571,7 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
     public void clientAcceptFile(String fileName, int chatGroupId, User userTo) {
         for (ChatGroup chatGroup : chatGroupObservableList) {
             if (chatGroup.getId() == chatGroupId) {
-                //fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
+                // fileTranseferController.clientAcceptFile(fileName, chatGroupId, userTo);
             }
         }
     }
@@ -595,8 +600,6 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         }
 
     }
-
-
 
 
     private ListView handleUserMode() {

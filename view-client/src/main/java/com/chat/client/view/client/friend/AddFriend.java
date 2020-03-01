@@ -1,6 +1,7 @@
 package com.chat.client.view.client.friend;
 
 import com.chat.client.view.client.chat.render.ChatRendererwithbuttons;
+import com.chat.client.view.client.user.UserFriends;
 import com.chat.client.view.client.user.UserViewHome;
 import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.User;
@@ -33,6 +34,7 @@ public class AddFriend implements Initializable {
     private User currentUser;
     private UserViewHome homeController;
     boolean isMaximized = false;
+    private UserFriends userFriends;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -89,6 +91,9 @@ public class AddFriend implements Initializable {
 
     public void updateFriend(User currentUser, User friend, FriendStatus status) {
         homeController.updateFriend(currentUser, friend, status);
+        if (status == FriendStatus.APPROVED) {
+            userFriends.addUserTolist(friend);
+        }
         setListView();
     }
 
@@ -130,5 +135,9 @@ public class AddFriend implements Initializable {
             isMaximized = false;
             stage.setMaximized(false);
         }
+    }
+
+    public void setUserFriends(UserFriends userFriends) {
+        this.userFriends = userFriends;
     }
 }

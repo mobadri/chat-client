@@ -5,6 +5,8 @@ import com.chat.client.view.client.friend.AddFriend;
 import com.chat.server.model.user.User;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -33,11 +35,13 @@ public class UserFriends implements Initializable {
     private JFXTextField searchForFriends;
 
     private ObservableList<User> friendsObservableList = FXCollections.observableArrayList();
+    private ListProperty<User> friendsProp = new SimpleListProperty<>();
     private User currentUser;
     private UserViewHome userViewHome;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setSearchForFriends();
     }
 
     @FXML
@@ -60,6 +64,7 @@ public class UserFriends implements Initializable {
             AddFriend controller = loader.getController();
             controller.setCurrentUser(currentUser);
             controller.setHomeController(userViewHome);
+            controller.setUserFriends(this);
             Stage friendStage = new Stage();
             Scene scene = new Scene(root);
             scene.setFill(Color.TRANSPARENT);
@@ -73,10 +78,12 @@ public class UserFriends implements Initializable {
     }
 
     private void setFriendsListView(List<User> users) {
-
         friendsObservableList = FXCollections.observableList(users);
-        userList.setItems(friendsObservableList);
+        friendsProp.setValue(friendsObservableList);
+        userList.itemsProperty().bindBidirectional(friendsProp);
+        userList.setItems(friendsProp);
         userList.setCellFactory(new CellRenderer());
+
     }
 
     public void setCurrentUser(User currentUser) {
@@ -119,10 +126,14 @@ public class UserFriends implements Initializable {
                 }));
     }
 
-    void setSearchForFriends() {
+    private void setSearchForFriends() {
         FilteredList<User> filteredData = new FilteredList<>(friendsObservableList, p -> true);
         searchTextListener(filteredData);
         SortedList<User> sortedData = new SortedList<>(filteredData);
         userList.setItems(sortedData);
+    }
+
+    public void addUserTolist(User user) {
+        friendsProp.add(user);
     }
 }

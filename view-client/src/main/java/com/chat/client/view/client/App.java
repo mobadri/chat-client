@@ -12,7 +12,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -40,42 +39,43 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         File file = new File("userInfo.xml");
-      /*  if (file.exists()) {
+        if (file.exists()) {
             rememberMeHomePage(file, primaryStage);
         } else {
-*/
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/test.fxml"));
-        Parent root = loader.load();
-        root.setOnMouseClicked(mouseEvent -> {
-            xOffset = mouseEvent.getSceneX();
-            yOffset = mouseEvent.getSceneY();
 
-        });
-        root.setOnMouseDragged(mouseEvent -> {
-            primaryStage.setX(mouseEvent.getScreenX() - xOffset);
-            primaryStage.setY(mouseEvent.getScreenY() - yOffset);
-        });
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/test.fxml"));
+            Parent root = loader.load();
+            root.setOnMouseClicked(mouseEvent -> {
+                xOffset = mouseEvent.getSceneX();
+                yOffset = mouseEvent.getSceneY();
 
-        controller = loader.getController();
-        controller.setStageLogin(primaryStage);
-        controller.setSignUpAndRegistration(new RegistrationController());
-        controller.setStageLogin(primaryStage);
+            });
+            root.setOnMouseDragged(mouseEvent -> {
+                primaryStage.setX(mouseEvent.getScreenX() - xOffset);
+                primaryStage.setY(mouseEvent.getScreenY() - yOffset);
+            });
 
-        Scene scene = new Scene(root);
-        scene.setFill(Color.TRANSPARENT);
-        primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+            controller = loader.getController();
+            controller.setStageLogin(primaryStage);
+            controller.setSignUpAndRegistration(new RegistrationController());
+            controller.setStageLogin(primaryStage);
 
-        stage = primaryStage;
-        stage.setOnCloseRequest(event -> {
-            // instructs the javafx system not to exit implicitly when the last application window is shut.
-            Platform.setImplicitExit(false);
-            // sets up the tray icon (using awt code run on the swing thread).
-            javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
-        });
-        // out stage will be translucent, so give it a transparent style.
-        stage.show();
+            Scene scene = new Scene(root);
+            scene.setFill(Color.TRANSPARENT);
+            primaryStage.setResizable(false);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+
+            stage = primaryStage;
+            stage.setOnCloseRequest(event -> {
+                // instructs the javafx system not to exit implicitly when the last application window is shut.
+                Platform.setImplicitExit(false);
+                // sets up the tray icon (using awt code run on the swing thread).
+                javax.swing.SwingUtilities.invokeLater(this::addAppToTray);
+            });
+            // out stage will be translucent, so give it a transparent style.
+            stage.show();
+        }
     }
 
     private void showStage() {

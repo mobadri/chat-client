@@ -1,87 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
-
-<AnchorPane prefHeight="549.0" prefWidth="599.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.chat.ChatViewController">
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="549.0" prefWidth="599.0"
+            style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            fx:controller="com.chat.client.view.client.chat.ChatViewController">
     <children>
-        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="135.0" prefWidth="600.0" styleClass="parent" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+                    prefHeight="135.0" prefWidth="600.0" styleClass="parent" AnchorPane.leftAnchor="0.0"
+                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <ImageView fx:id="ProfilePic" fitHeight="89.0" fitWidth="97.0" layoutX="55.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="55.0" AnchorPane.topAnchor="19.0">
+                <ImageView fx:id="ProfilePic" fitHeight="89.0" fitWidth="97.0" layoutX="55.0" layoutY="19.0"
+                           pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="55.0"
+                           AnchorPane.topAnchor="19.0">
                     <image>
-                        <Image url="@../../static/images/DefaultProfile.png" />
+                        <Image url="@../../static/images/DefaultProfile.png"/>
                     </image>
                 </ImageView>
-                <Label fx:id="chatGroupName" layoutX="153.0" layoutY="26.0" prefHeight="30.0" prefWidth="215.0" text="My Name" AnchorPane.leftAnchor="153.0" AnchorPane.topAnchor="26.0">
+                <Label fx:id="chatGroupName" layoutX="153.0" layoutY="26.0" prefHeight="30.0" prefWidth="215.0"
+                       text="My Name" AnchorPane.leftAnchor="153.0" AnchorPane.topAnchor="26.0">
                     <font>
-                        <Font name="Berlin Sans FB" size="16.0" />
+                        <Font name="Berlin Sans FB" size="16.0"/>
                     </font>
                 </Label>
-                <Label layoutX="224.0" layoutY="34.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 100;" styleClass="parent" />
-                <ImageView fx:id="GroupPic" fitHeight="40.0" fitWidth="40.0" layoutX="575.0" layoutY="36.0" onMouseClicked="#addnewfriendAction" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="36.0">
+                <Label layoutX="224.0" layoutY="34.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                       minWidth="-Infinity" prefHeight="15.0" prefWidth="15.0" style="-fx-background-radius: 100;"
+                       styleClass="parent"/>
+                <ImageView fx:id="GroupPic" fitHeight="40.0" fitWidth="40.0" layoutX="575.0" layoutY="36.0"
+                           onMouseClicked="#addnewfriendAction" pickOnBounds="true" preserveRatio="true"
+                           AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="36.0">
                     <image>
-                        <Image url="@../../static/images/addfriend.png" />
+                        <Image url="@../../static/images/addfriend.png"/>
                     </image>
                 </ImageView>
-                <ImageView fx:id="SettingPic" fitHeight="40.0" fitWidth="40.0" layoutX="536.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="24.0" AnchorPane.topAnchor="36.0">
+                <ImageView fx:id="SettingPic" fitHeight="40.0" fitWidth="40.0" layoutX="536.0" layoutY="36.0"
+                           pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="24.0"
+                           AnchorPane.topAnchor="36.0">
                     <image>
-                        <Image url="@../../static/images/info.png" />
+                        <Image url="@../../static/images/info.png"/>
                     </image>
                 </ImageView>
-                <JFXCheckBox fx:id="chatBot" layoutX="639.0" layoutY="100.0" mnemonicParsing="false" onAction="#enableChatBot" text="enable chat bot" AnchorPane.rightAnchor="20.0">
+                <JFXCheckBox fx:id="chatBot" layoutX="639.0" layoutY="100.0" mnemonicParsing="false"
+                             onAction="#enableChatBot" text="enable chat bot" AnchorPane.rightAnchor="20.0">
                     <font>
-                        <Font size="14.0" />
+                        <Font size="14.0"/>
                     </font>
                 </JFXCheckBox>
-                <ImageView fx:id="saveChat" fitHeight="40.0" fitWidth="40.0" layoutX="633.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="82.0">
+                <ImageView fx:id="saveChat" fitHeight="40.0" fitWidth="40.0" layoutX="633.0" layoutY="36.0"
+                           onMouseClicked="#saveMessages" pickOnBounds="true" preserveRatio="true"
+                           AnchorPane.rightAnchor="82.0">
                     <image>
-                        <Image url="@../../static/images/save.png" />
+                        <Image url="@../../static/images/save.png"/>
                     </image>
                 </ImageView>
             </children>
         </AnchorPane>
-        <AnchorPane layoutY="424.0" prefHeight="215.0" prefWidth="755.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <AnchorPane layoutY="424.0" prefHeight="215.0" prefWidth="755.0" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
             <children>
-                <AnchorPane layoutX="14.0" layoutY="28.0" prefHeight="186.0" prefWidth="526.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                <AnchorPane layoutX="14.0" layoutY="28.0" prefHeight="186.0" prefWidth="526.0"
+                            AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                            AnchorPane.topAnchor="5.0">
                     <children>
-                        <JFXTextArea fx:id="messageContent" layoutX="32.0" layoutY="62.0" prefHeight="106.0" prefWidth="566.0" style="-fx-border-radius: 10;" />
-                        <HBox layoutX="610.0" layoutY="130.0" prefHeight="52.0" prefWidth="111.0" spacing="10.0" AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="0.39999999999997726" AnchorPane.topAnchor="130.0">
+                        <JFXTextArea fx:id="messageContent" layoutX="31.0" layoutY="89.0" prefHeight="106.0"
+                                     prefWidth="566.0" style="-fx-border-radius: 10;"/>
+                        <HBox layoutX="610.0" layoutY="130.0" prefHeight="52.0" prefWidth="111.0" spacing="10.0"
+                              AnchorPane.bottomAnchor="23.0" AnchorPane.rightAnchor="0.39999999999997726"
+                              AnchorPane.topAnchor="130.0">
                             <children>
-                                <ImageView fx:id="SendPic" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#sendMessageAction" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="SendPic" fitHeight="30.0" fitWidth="30.0"
+                                           onMouseClicked="#sendMessageAction" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../static/images/Send.png" />
+                                        <Image url="@../../static/images/Send.png"/>
                                     </image>
                                 </ImageView>
-                                <ImageView fx:id="SendFile" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#handleSendingFile" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="SendFile" fitHeight="30.0" fitWidth="30.0"
+                                           onMouseClicked="#handleSendingFile" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@../../static/images/attach.png" />
+                                        <Image url="@../../static/images/attach.png"/>
                                     </image>
                                 </ImageView>
-                                <ImageView fx:id="AudioImag" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="AudioImag" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true"
+                                           preserveRatio="true">
                                     <image>
-                                        <Image url="@../../static/images/mic.png" />
+                                        <Image url="@../../static/images/mic.png"/>
                                     </image>
                                 </ImageView>
                             </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" layoutY="49.0" prefHeight="40.0" prefWidth="722.0" spacing="6.0">
                             <children>
-                                <JFXButton id="italicButton" fx:id="chooseFontBtn" ellipsisString="" graphicTextGap="0.0" layoutX="271.0" layoutY="10.0" onAction="#onFontChooser" prefHeight="40.0" prefWidth="119.0" text="Sample" textAlignment="CENTER" />
-                                <JFXComboBox fx:id="sizeComboBox" onAction="#onClickSizeComboBox" prefHeight="12.0" prefWidth="74.0" visibleRowCount="5" HBox.hgrow="ALWAYS" />
-                                <JFXButton id="boldBuuton" fx:id="boldButon" ellipsisString="" graphicTextGap="0.0" onAction="#onClickBoldBuuton" prefHeight="49.0" prefWidth="54.0" text="B" textAlignment="CENTER" />
-                                <JFXButton id="italicButton" fx:id="italicButton" ellipsisString="" graphicTextGap="0.0" onAction="#onClickItalicButton" prefHeight="49.0" prefWidth="54.0" text="I" textAlignment="CENTER" />
-                                <JFXColorPicker id="fontColorPicker" fx:id="fontColorPicker" onAction="#onClickFontColorPicker" prefHeight="26.0" prefWidth="90.0" promptText="choose font color ..." style="-fx-color-label-visible: false;" HBox.hgrow="ALWAYS">
+                                <JFXButton id="italicButton" fx:id="chooseFontBtn" ellipsisString=""
+                                           graphicTextGap="0.0" layoutX="271.0" layoutY="10.0" onAction="#onFontChooser"
+                                           prefHeight="40.0" prefWidth="119.0" text="Sample" textAlignment="CENTER"/>
+                                <JFXComboBox fx:id="sizeComboBox" onAction="#onClickSizeComboBox" prefHeight="12.0"
+                                             prefWidth="74.0" visibleRowCount="5" HBox.hgrow="ALWAYS"/>
+                                <JFXButton id="boldBuuton" fx:id="boldButon" ellipsisString="" graphicTextGap="0.0"
+                                           onAction="#onClickBoldBuuton" prefHeight="49.0" prefWidth="54.0" text="B"
+                                           textAlignment="CENTER"/>
+                                <JFXButton id="italicButton" fx:id="italicButton" ellipsisString="" graphicTextGap="0.0"
+                                           onAction="#onClickItalicButton" prefHeight="49.0" prefWidth="54.0" text="I"
+                                           textAlignment="CENTER"/>
+                                <JFXColorPicker id="fontColorPicker" fx:id="fontColorPicker"
+                                                onAction="#onClickFontColorPicker" prefHeight="26.0" prefWidth="90.0"
+                                                promptText="choose font color ..."
+                                                style="-fx-color-label-visible: false;" HBox.hgrow="ALWAYS">
                                     <value>
-                                        <Color red="0.20000000298023224" green="0.25882354378700256" blue="0.4470588266849518" />
+                                        <Color red="0.20000000298023224" green="0.25882354378700256"
+                                               blue="0.4470588266849518"/>
                                     </value>
                                 </JFXColorPicker>
-                                <JFXColorPicker id="backgroundColorPicker" fx:id="backgroundColorPicker" onAction="#onClickBackgroundColorPicker" prefHeight="26.0" prefWidth="90.0" promptText="choose font color ..." style="-fx-color-label-visible: false;" HBox.hgrow="ALWAYS">
+                                <JFXColorPicker id="backgroundColorPicker" fx:id="backgroundColorPicker"
+                                                onAction="#onClickBackgroundColorPicker" prefHeight="26.0"
+                                                prefWidth="90.0" promptText="choose font color ..."
+                                                style="-fx-color-label-visible: false;" HBox.hgrow="ALWAYS">
                                     <value>
-                                        <Color red="0.20000000298023224" green="0.25882354378700256" blue="0.4470588266849518" />
+                                        <Color red="0.20000000298023224" green="0.25882354378700256"
+                                               blue="0.4470588266849518"/>
                                     </value>
                                 </JFXColorPicker>
                             </children>
@@ -90,11 +129,15 @@
                 </AnchorPane>
             </children>
         </AnchorPane>
-        <StackPane layoutY="127.0" prefHeight="215.0" prefWidth="816.0" AnchorPane.bottomAnchor="210.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
+        <StackPane layoutY="127.0" prefHeight="215.0" prefWidth="816.0" AnchorPane.bottomAnchor="210.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
             <children>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                     <children>
-                        <JFXListView fx:id="messageListView" prefHeight="255.0" prefWidth="722.0" stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="-41.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <JFXListView fx:id="messageListView" prefHeight="255.0" prefWidth="722.0"
+                                     stylesheets="@../../static/css/ListViewStyle.css" AnchorPane.bottomAnchor="-41.0"
+                                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                     AnchorPane.topAnchor="0.0"/>
                     </children>
                 </AnchorPane>
             </children>

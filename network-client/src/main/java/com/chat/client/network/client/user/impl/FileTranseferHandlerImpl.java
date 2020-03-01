@@ -57,14 +57,14 @@ public class FileTranseferHandlerImpl implements FileTransferHandeler {
 
     @Override
     public void register(FileTransferServiceCallBack fileTransferServiceCallBack) {
-        try {
-            System.out.println("serverFileTranseferService " + serverFileTranseferService);
-            System.out.println("fileTransferServiceCallBack :" + fileTransferServiceCallBack);
-            serverFileTranseferService.register(fileTransferServiceCallBack);
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            System.out.println("serverFileTranseferService " + serverFileTranseferService);
+//            System.out.println("fileTransferServiceCallBack :" + fileTransferServiceCallBack);
+////            serverFileTranseferService.register(fileTransferServiceCallBack);
+//
+//        } catch (RemoteException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
