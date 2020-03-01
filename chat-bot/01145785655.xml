@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<keys xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="chat_bot_keys.xsd">
+          
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <key name="hello">
+                    
+  
+  
+  
+  
+  
+  
+  
+  
+  <values>
+                              
+   
+   
+   
+   
+   
+   
+   
+   
+   <value weight="1">hi</value>
+                             
+  
+  
+  
+  
+  
+  
+  
+  
+  </values>
+                   
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ </key>
+         
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <key name="hiiiiiiiiiiiiiiiiiiiii">
+                  
+  
+  
+  
+  
+  
+  
+  
+  <values>
+                           
+   
+   
+   
+   
+   
+   
+   
+   <value weight="3">hellllllllllllllllllllo</value>
+                          
+  
+  
+  
+  
+  
+  
+  
+  </values>
+                 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ </key>
+        
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ <key name="heeeeeeeee">
+                
+  
+  
+  
+  
+  
+  
+  <values>
+                        
+   
+   
+   
+   
+   
+   
+   <value weight="1">helllo</value>
+                       
+  
+  
+  
+  
+  
+  
+  </values>
+               
+ 
+ 
+ 
+ 
+ 
+ 
+ </key>
+       
+ 
+ 
+ 
+ 
+ 
+ 
+ <key name="sdjnijrg">
+              
+  
+  
+  
+  
+  
+  <values>
+                     
+   
+   
+   
+   
+   
+   <value weight="1">fdfrnrtbsba</value>
+                    
+  
+  
+  
+  
+  
+  </values>
+             
+ 
+ 
+ 
+ 
+ 
+ </key>
+      
+ 
+ 
+ 
+ 
+ 
+ <key name="fbsrbwjirvi">
+            
+  
+  
+  
+  
+  <values>
+                  
+   
+   
+   
+   
+   <value weight="1">dfhrhbs</value>
+                 
+  
+  
+  
+  
+  </values>
+           
+ 
+ 
+ 
+ 
+ </key>
+      
+ 
+ 
+ 
+ 
+ <key name="fbsrbwjirvidsfwrtsgbfhwrtb">
+            
+  
+  
+  
+  
+  <values>
+                  
+   
+   
+   
+   
+   <value weight="1">dfhrhbsrgrwefvrwe</value>
+                 
+  
+  
+  
+  
+  </values>
+           
+ 
+ 
+ 
+ 
+ </key>
+     
+ 
+ 
+ 
+ 
+ <key name="bwqdfbeyfu&#9;ff">
+          
+  
+  
+  
+  <values>
+               
+   
+   
+   
+   <value weight="1">bfhlfqeblc	wbeciube
+sdfjkwbhc
+wef hwehf</value>
+              
+  
+  
+  
+  </values>
+         
+ 
+ 
+ 
+ </key>
+    
+ 
+ 
+ 
+ <key name="kvefvherv">
+        
+  
+  
+  <values>
+            
+   
+   
+   <value weight="1">fabfsbgrl s</value>
+           
+  
+  
+  </values>
+       
+ 
+ 
+ </key>
+   
+ 
+ 
+ <key name="dk vkjqer v">
+      
+  
+  <values>
+         
+   
+   <value weight="1">dkjv jefb</value>
+        
+  
+  </values>
+     
+ 
+ </key>
+   
+ 
+ <key name="dk vkjqer v&#10;dvjevkjer">
+      
+  
+  <values>
+         
+   
+   <value weight="1">dkjv jefb fvbfb kr
+jd vjd evj ef
+vke f</value>
+        
+  
+  </values>
+     
+ 
+ </key>
+  
+ 
+ <key name="jhdsbvhje vhqerqyv &#10;qevhehrqv&#10;eqrfqeweiyfqe">
+    
+  <values>
+      
+   <value weight="1">hbvjhwdbvbewg jfv
+avkvjbegr
+ergherh
+gukberv
+erg;uq34n</value>
+     
+  </values>
+   
+ </key>
+ 
+ <key name="vfbvehfvijfdbfrg&#10;brtbr&#10;tebet]n&#10;ten&#10;tye&#10;netye&#10;n">
+  <values>
+   <value weight="1">dslfk blmrlmt bklrt</value>
+  </values>
+ </key>
+</keys>
