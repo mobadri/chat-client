@@ -29,8 +29,7 @@ public class ChatGroupHandlerImpl implements ChatGroupHandler {
 //            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
             /*Registry registry = LocateRegistry.getRegistry(InetAddress.getLocalHost().getHostName(),
                     portNumber, new RMISSLClientSocketFactory());*/
-            Registry registry = LocateRegistry.getRegistry(serverIP,
-                    portNumber, SslClientSocketFactory.getInstance());
+            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
 
             //Registry registry = LocateRegistry.getRegistry(portNumber);
             serverChatGroupService = (ServerChatGroupService) registry.lookup("chatGroupService");

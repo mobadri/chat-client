@@ -40,14 +40,24 @@ public class ChatBot implements ChatBotInterface {
     private ChatBot(String userPhone) throws ParserConfigurationException, SAXException, IOException, TransformerException {
 
         xmlFile = new File( "chat-bot/"+ userPhone + ".xml");
+        new Thread(() -> {
+
         if(xmlFile.exists()){
-            readXml(xmlFile);
+            try {
+                readXml(xmlFile);
+            } catch (IOException | SAXException | ParserConfigurationException e) {
+                e.printStackTrace();
+            }
         }
         else {
-            xmlFile.createNewFile();
-            createNewDocument();
-            writeToXmlFile(document);
-        }
+            try {
+                xmlFile.createNewFile();
+                createNewDocument();
+                writeToXmlFile(document);
+            } catch (IOException | TransformerException | ParserConfigurationException e) {
+                e.printStackTrace();
+            }
+        }}).start();
     }
 
     private void createNewDocument() throws ParserConfigurationException, TransformerException {
@@ -57,7 +67,14 @@ public class ChatBot implements ChatBotInterface {
         root.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance",
                 "xsi:noNamespaceSchemaLocation", "chat_bot_keys.xsd");
         document.appendChild(root);
-        writeToXmlFile(document);
+
+        new Thread(() -> {
+            try {
+                writeToXmlFile(document);
+            } catch (TransformerException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     public void readXml(File xmlFile) throws IOException, SAXException, ParserConfigurationException {
@@ -135,7 +152,14 @@ public class ChatBot implements ChatBotInterface {
                 addNewKey(keyName, valueTag);
             }
         }
-        writeToXmlFile(document);
+
+        new Thread(() -> {
+            try {
+                writeToXmlFile(document);
+            } catch (TransformerException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     private void addNewValueTag(String keyName, XmlValueTag valueTag, Node keyValues) {
@@ -177,7 +201,14 @@ public class ChatBot implements ChatBotInterface {
         Element newElement = createNewKey(keyName, document, childElement);
 
         rootNode.appendChild(newElement);
-        writeToXmlFile(document);
+
+        new Thread(() -> {
+            try {
+                writeToXmlFile(document);
+            } catch (TransformerException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
 
     private Element createNewKey(String keyName, Document document, Element childElement) {

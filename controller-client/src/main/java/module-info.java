@@ -1,7 +1,7 @@
 module controller.client {
     requires service.client;
-    requires serviceclientcallback;
     requires model.server;
+    requires serviceclientcallback;
     requires java.rmi;
     requires java.xml;
     requires rmiio;

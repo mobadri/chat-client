@@ -26,8 +26,11 @@ import java.io.IOException;
 import java.net.URL;
 
 public class App extends Application {
+
+    private final String iconImageLoc = "https://img.icons8.com/office/16/000000/chat.png";
     private double xOffset;
     private double yOffset;
+    private Stage stage;
 
     public static void main(String[] args) {
         launch(args);
@@ -40,7 +43,7 @@ public class App extends Application {
             rememberMeHomePage(file, primaryStage);
         } else {
 */
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/user/startPage.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/templates/login/test.fxml"));
         Parent root = loader.load();
         root.setOnMouseClicked(mouseEvent -> {
             xOffset = mouseEvent.getSceneX();
@@ -51,18 +54,16 @@ public class App extends Application {
             primaryStage.setX(mouseEvent.getScreenX() - xOffset);
             primaryStage.setY(mouseEvent.getScreenY() - yOffset);
         });
+
         LoginViewController controller = loader.getController();
         controller.setStageLogin(primaryStage);
         controller.setSignUpAndRegistration(new RegistrationController());
         controller.setStageLogin(primaryStage);
-        LoginViewController controller = loader.getController();
-        controller.setSignUpAndRegistration(new RegistrationController());
-        controller.setStageLogin(primaryStage);
+
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
 
         stage = primaryStage;
@@ -165,9 +166,6 @@ public class App extends Application {
             SignUpAndRegistration signUpAndRegistration = new RegistrationController();
             User user = signUpAndRegistration.login(phone, password);
             if (user != null) {
-                System.out.println("PHONE : " + phone);
-                System.out.println("PASSWORD " + password);
-
                 loginViewController.setStageLogin(primaryStage);
                 primaryStage.show();
                 loginViewController.goToHomePage(user);

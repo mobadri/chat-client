@@ -1,7 +1,6 @@
 package com.chat.client.network.client.user.impl;
 
 import com.chat.client.network.client.config.NetworkConfig;
-import com.chat.client.network.client.socket_factory.SslClientSocketFactory;
 import com.chat.client.network.client.user.UserHandler;
 import com.chat.server.model.user.FriendStatus;
 import com.chat.server.model.user.Mode;
@@ -30,7 +29,7 @@ public class UserHandlerImpl implements UserHandler {
             /*commented segments of code is connection security trail */
 //            Registry registry = LocateRegistry.getRegistry("10.145.7.174", PORT_NUMBER);
             Registry registry = LocateRegistry.getRegistry(serverIP,
-                    portNumber, SslClientSocketFactory.getInstance());
+                    portNumber/*, SslClientSocketFactory.getInstance()*/);
             /*, NetworkFactory.createSslClientSocketFactory()*/
             ;
 //            Registry registry = LocateRegistry.getRegistry(serverIP, portNumber);
