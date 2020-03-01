@@ -570,6 +570,9 @@ public class UserViewHome implements Initializable, UserHomeInterface, PushNotif
         stage.setScene(new Scene(serverDisconnectedView));
         stage.setTitle("Server Disconnected");
         stage.showAndWait();
+
+        pushNotificationController.unregisterService();
+        fileTranseferController.unregister();
         System.exit(0);
     }
 }

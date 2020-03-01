@@ -1,48 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="400.0"
-            xmlns="http://javafx.com/javafx/11.0.1"
-            fx:controller="com.chat.client.view.client.user.ServerDisconnectedViewController">
+<?import org.kordamp.ikonli.javafx.*?>
+
+<BorderPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.chat.client.view.client.user.ServerDisconnectedViewController">
    <bottom>
       <HBox BorderPane.alignment="CENTER">
          <BorderPane.margin>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </BorderPane.margin>
          <children>
-            <Label text="Copyrights 2020 - JETS" textFill="#bfbfbf"/>
-            <Region HBox.hgrow="ALWAYS"/>
-            <JFXButton fx:id="goodbyeBtn" onAction="#handleGoodbyeBtn" text="Goodbye"/>
+            <Label text="Copyrights 2020 - JETS" textFill="#748fe1" />
+            <Region HBox.hgrow="ALWAYS" />
+            <JFXButton fx:id="goodbyeBtn" buttonType="RAISED" onAction="#handleGoodbyeBtn" text="Goodbye" textFill="#354578" />
          </children>
       </HBox>
    </bottom>
    <center>
-      <FontIcon iconColor="#bfbfbf" iconLiteral="fab-whatsapp" iconSize="200" BorderPane.alignment="CENTER">
+      <FontIcon iconColor="#354578" iconLiteral="fab-whatsapp" iconSize="200" BorderPane.alignment="CENTER">
          <font>
-            <Font size="1.0"/>
+            <Font size="1.0" />
          </font>
          <BorderPane.margin>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </BorderPane.margin>
       </FontIcon>
    </center>
    <top>
       <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Text fill="#616161" strokeType="OUTSIDE" strokeWidth="0.0" text="Server Disconnected">
+            <Text fill="#354578" strokeType="OUTSIDE" strokeWidth="0.0" text="Server Disconnected">
                <font>
-                  <Font size="24.0"/>
+                  <Font size="24.0" />
                </font>
             </Text>
-            <Text fill="#797979" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                  text="We will be up and running soon">
+            <Text fill="#748fe1" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We will be up and running soon">
                <font>
-                  <Font size="18.0"/>
+                  <Font size="18.0" />
                </font>
             </Text>
          </children>
