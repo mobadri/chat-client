@@ -14,10 +14,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -49,6 +46,8 @@ public class UserDataViewController implements Initializable {
     @FXML
     public JFXDatePicker dateOfBirthh;
     @FXML
+    public JFXDatePicker dateFX;
+    @FXML
     public JFXTextField bio;
     @FXML
     public JFXRadioButton female;
@@ -77,6 +76,8 @@ public class UserDataViewController implements Initializable {
     public Label title;
     public AnchorPane updateProfilePane;
     public JFXButton EditProfile;
+    public DatePicker dateFXx;
+
 
     private User user;
     private Gender gender = Gender.MALE;
@@ -110,7 +111,6 @@ public class UserDataViewController implements Initializable {
                 .sorted()
                 .collect(Collectors.toList());
         country.setItems(FXCollections.observableList(collect));
-
     }
 
     private void checkAllField() {
@@ -164,12 +164,12 @@ public class UserDataViewController implements Initializable {
             }
         });
 
-        dateOfBirthh.getValidators().add(requiredFieldValidator);
-        dateOfBirthh.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
-            if (!t1) {
-                dateOfBirthh.validate();
-            }
-        });
+//        dateOfBirthh.getValidators().add(requiredFieldValidator);
+//        dateOfBirthh.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
+//            if (!t1) {
+//                dateOfBirthh.validate();
+//            }
+//        });
 
         bio.getValidators().add(requiredFieldValidator);
         bio.focusedProperty().addListener((observableValue, aBoolean, t1) -> {
@@ -193,7 +193,7 @@ public class UserDataViewController implements Initializable {
         user.setPhone(phone.getText());
         System.out.println(country.getValue() + " country");
         user.setCountry(country.getValue() == null ? "Egypt" : country.getValue().toString());
-        user.setDateOfBirth(dateOfBirthh.getValue());
+//        user.setDateOfBirth(dateOfBirthh.getValue());
         user.setBIO(bio.getText());
         if (male.isSelected()) {
             user.setGender(Gender.MALE);
@@ -217,7 +217,7 @@ public class UserDataViewController implements Initializable {
             phone.setEditable(false);
         }
         country.setValue(user.getCountry());
-        dateOfBirthh.setValue(user.getDateOfBirth());
+//        dateOfBirthh.setValue(user.getDateOfBirth());
         bio.setText(user.getBIO());
     }
 

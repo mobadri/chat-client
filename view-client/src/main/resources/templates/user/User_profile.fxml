@@ -28,8 +28,8 @@
         </AnchorPane>
         <AnchorPane layoutX="-2.0" layoutY="130.0" prefHeight="179.0" prefWidth="649.0">
             <children>
-                <FontIcon iconColor="#354578" iconLiteral="eli-adult" iconSize="22" layoutX="35.0" layoutY="63.0" wrappingWidth="20.0" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="668.0" />
-                <Label layoutX="77.0" layoutY="36.0" prefHeight="35.0" prefWidth="58.0" text="Name :" textFill="#354578" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="588.0">
+                <FontIcon iconColor="#354578" iconLiteral="eli-adult" iconSize="22" layoutX="35.0" layoutY="63.0" wrappingWidth="20.0" AnchorPane.rightAnchor="668.0" />
+                <Label layoutX="77.0" layoutY="36.0" prefHeight="35.0" prefWidth="58.0" text="Name :" textFill="#354578" AnchorPane.rightAnchor="588.0">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -39,14 +39,14 @@
                         <Font name="System Bold" size="18.0" />
                     </font>
                 </Label>
-                <Label layoutX="77.0" layoutY="88.0" prefHeight="22.0" prefWidth="51.0" text="about  :" textFill="#354578" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="588.0">
+                <Label layoutX="77.0" layoutY="88.0" prefHeight="22.0" prefWidth="69.0" text="about  :" textFill="#354578" AnchorPane.rightAnchor="581.0">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
                 </Label>
-                <FontIcon iconColor="#354578" iconLiteral="icm-notification" iconSize="22" layoutX="33.0" layoutY="109.0" text="" wrappingWidth="24.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="670.0" />
-                <FontIcon iconColor="#354578" iconLiteral="eli-phone" iconSize="22" layoutX="33.0" layoutY="152.0" text="" wrappingWidth="24.0" AnchorPane.leftAnchor="33.0" AnchorPane.rightAnchor="670.2" />
-                <Label layoutX="77.0" layoutY="120.0" prefHeight="35.0" prefWidth="51.0" text="Phone :" textFill="#354578" AnchorPane.leftAnchor="77.0" AnchorPane.rightAnchor="599.0">
+                <FontIcon iconColor="#354578" iconLiteral="icm-notification" iconSize="22" layoutX="33.0" layoutY="109.0" text="" wrappingWidth="24.0" AnchorPane.rightAnchor="670.0" />
+                <FontIcon iconColor="#354578" iconLiteral="eli-phone" iconSize="22" layoutX="33.0" layoutY="152.0" text="" wrappingWidth="24.0" AnchorPane.rightAnchor="670.2" />
+                <Label layoutX="45.0" layoutY="120.0" prefHeight="35.0" prefWidth="50.0" text="Phone :" textFill="#354578" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="599.0">
                     <font>
                         <Font name="System Bold" size="14.0" />
                     </font>
@@ -64,7 +64,7 @@
                         <Font size="18.0" />
                     </font>
                 </Label>
-                <JFXButton fx:id="add" buttonType="RAISED" layoutX="563.0" layoutY="115.0" mnemonicParsing="false" onAction="#editUserAction" prefHeight="54.0" prefWidth="128.0" ripplerFill="#354578" style="-fx-background-color: #354578;" text="Edit Profile" textFill="WHITE" />
+                <JFXButton fx:id="add" buttonType="RAISED" layoutX="563.0" layoutY="115.0" mnemonicParsing="false" onAction="#editUserAction" prefHeight="54.0" prefWidth="128.0" ripplerFill="#354578" style="-fx-background-color: #354578;" text="Edit Profile" textFill="WHITE" AnchorPane.rightAnchor="3.3999999999999773" />
             </children>
         </AnchorPane>
     </children>
