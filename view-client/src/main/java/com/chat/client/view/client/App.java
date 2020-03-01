@@ -31,6 +31,7 @@ public class App extends Application {
     private double xOffset;
     private double yOffset;
     private Stage stage;
+    private LoginViewController controller;
 
     public static void main(String[] args) {
         launch(args);
@@ -55,7 +56,7 @@ public class App extends Application {
             primaryStage.setY(mouseEvent.getScreenY() - yOffset);
         });
 
-        LoginViewController controller = loader.getController();
+        controller = loader.getController();
         controller.setStageLogin(primaryStage);
         controller.setSignUpAndRegistration(new RegistrationController());
         controller.setStageLogin(primaryStage);
@@ -64,6 +65,7 @@ public class App extends Application {
         scene.setFill(Color.TRANSPARENT);
         primaryStage.setResizable(false);
         primaryStage.setScene(scene);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
 
         stage = primaryStage;
@@ -92,7 +94,6 @@ public class App extends Application {
 
             // app requires system tray support, just exit if there is no support.
             if (!java.awt.SystemTray.isSupported()) {
-                System.out.println("No system tray support, application exiting.");
                 Platform.exit();
             }
 
@@ -127,6 +128,7 @@ public class App extends Application {
             exitItem.addActionListener(event -> {
                 Platform.exit();
                 tray.remove(trayIcon);
+                //controller.unRegister();
                 System.exit(0);
             });
 
@@ -149,7 +151,7 @@ public class App extends Application {
 
     public void rememberMeHomePage(File file, Stage primaryStage) {
 
-        LoginViewController loginViewController = new LoginViewController();
+        controller = new LoginViewController();
         DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = null;
         try {
@@ -166,9 +168,9 @@ public class App extends Application {
             SignUpAndRegistration signUpAndRegistration = new RegistrationController();
             User user = signUpAndRegistration.login(phone, password);
             if (user != null) {
-                loginViewController.setStageLogin(primaryStage);
+                controller.setStageLogin(primaryStage);
                 primaryStage.show();
-                loginViewController.goToHomePage(user);
+                controller.goToHomePage(user);
             } else {
                 loadLoginPage(primaryStage);
             }
